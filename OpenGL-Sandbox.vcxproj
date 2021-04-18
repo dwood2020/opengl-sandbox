@@ -159,12 +159,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\IupWindow.cpp" />
     <ClCompile Include="src\glad\glad.c" />
     <ClCompile Include="src\WindowBase.cpp" />
     <ClCompile Include="src\windowTest1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\IupWindow.h" />
     <ClInclude Include="src\glad\glad.h" />
     <ClInclude Include="src\glad\khrplatform.h" />

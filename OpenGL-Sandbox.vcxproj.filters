@@ -27,6 +27,9 @@
     <ClCompile Include="src\windowTest1.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\Shader.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -39,6 +42,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\WindowBase.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
