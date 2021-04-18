@@ -1,4 +1,5 @@
 #include "IupWindow.h"
+#include <string>
 
 
 IupWindow::IupWindow(int width, int height, const std::string& title):
@@ -28,7 +29,8 @@ void IupWindow::Init(int argc, char** argv) {
 	IUP_CLASS_SETCALLBACK(canvas, "RESIZE_CB", CanvasResizeCb);
 
 	Ihandle* dlg = IupDialog(IupVbox(IupHbox(label1, labelGlVersion, NULL), canvas, NULL));
-	IupSetAttribute(dlg, "SIZE", "HALFxHALF");	//TODO: set actual size attribs
+	std::string size = std::to_string(this->width) + 'X' + std::to_string(this->height);
+	IupSetAttribute(dlg, "RASTERSIZE", size.c_str());
 	IupSetAttribute(dlg, "TITLE", this->title.c_str());
 
 	IUP_CLASS_INITCALLBACK(dlg, IupWindow);
