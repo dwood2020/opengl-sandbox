@@ -3,7 +3,6 @@
 #include "glad/glad.h"
 
 
-
 class Shader {
 public:
 	unsigned int id;
@@ -16,5 +15,9 @@ public:
 
 	bool CheckCompilationStatus(void);
 
+private:
+	Shader() = default;
+
 };
+
 

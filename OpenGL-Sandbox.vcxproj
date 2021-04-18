@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ShaderProgram.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\IupWindow.cpp" />
     <ClCompile Include="src\glad\glad.c" />
@@ -166,6 +167,7 @@
     <ClCompile Include="src\windowTest1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ShaderProgram.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\IupWindow.h" />
     <ClInclude Include="src\glad\glad.h" />
