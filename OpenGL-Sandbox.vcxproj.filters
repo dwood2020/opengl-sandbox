@@ -18,10 +18,10 @@
     <ClCompile Include="src\glad\glad.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\IupWindow.cpp">
+    <ClCompile Include="src\window\IupWindow.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\WindowBase.cpp">
+    <ClCompile Include="src\window\WindowBase.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\windowTest1.cpp">
@@ -41,10 +41,10 @@
     <ClInclude Include="src\glad\khrplatform.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\IupWindow.h">
+    <ClInclude Include="src\window\IupWindow.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\WindowBase.h">
+    <ClInclude Include="src\window\WindowBase.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\Shader.h">

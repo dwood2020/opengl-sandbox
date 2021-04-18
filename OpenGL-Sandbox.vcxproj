@@ -161,18 +161,18 @@
   <ItemGroup>
     <ClCompile Include="src\ShaderProgram.cpp" />
     <ClCompile Include="src\Shader.cpp" />
-    <ClCompile Include="src\IupWindow.cpp" />
+    <ClCompile Include="src\window\IupWindow.cpp" />
     <ClCompile Include="src\glad\glad.c" />
-    <ClCompile Include="src\WindowBase.cpp" />
+    <ClCompile Include="src\window\WindowBase.cpp" />
     <ClCompile Include="src\windowTest1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ShaderProgram.h" />
     <ClInclude Include="src\Shader.h" />
-    <ClInclude Include="src\IupWindow.h" />
+    <ClInclude Include="src\window\IupWindow.h" />
     <ClInclude Include="src\glad\glad.h" />
     <ClInclude Include="src\glad\khrplatform.h" />
-    <ClInclude Include="src\WindowBase.h" />
+    <ClInclude Include="src\window\WindowBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

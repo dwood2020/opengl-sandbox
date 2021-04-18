@@ -1,6 +1,6 @@
 #include <iostream>
 #include "glad/glad.h"
-#include "IupWindow.h"
+#include "window/IupWindow.h"
 #include "Shader.h"
 #include "ShaderProgram.h"
 
