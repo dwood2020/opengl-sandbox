@@ -14,21 +14,13 @@ void CanvasSwapBuffers(Ihandle* canvas) {
 
 // I do not really need this callback, as I decide manually when to redraw the canvas anyway.
 int CanvasActionCb(Ihandle* canvas) {
-
 	if (!glReady) {
 		return IUP_DEFAULT;
 	}
 
-	/*int width, height;
-	IupGetIntInt(canvas, "DRAWSIZE", &width, &height);
-	glViewport(0, 0, width, height);*/
-
-	//glClearColor(0.075f, 0.196f, 0.325f, 1.0f);
-
 	glClear(GL_COLOR_BUFFER_BIT);
 	CanvasSwapBuffers(canvas);
 	std::cout << "CanvasActionCb CALLED!" << std::endl;
-
 	
 	return IUP_DEFAULT;
 }

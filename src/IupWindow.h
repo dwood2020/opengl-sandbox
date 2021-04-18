@@ -18,6 +18,8 @@ public:
 	virtual void Init(int argc, char** argv);
 	void MakeContextCurrent(void) override;
 	void SwapBuffers(void) override;
+	void DoFrame(void) override;
+	void GetWindowRect(int& width, int& height) override;
 
 protected:
 	// callbacks

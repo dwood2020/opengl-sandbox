@@ -1,7 +1,6 @@
 #include "IupWindow.h"
 
 
-
 IupWindow::IupWindow(int width, int height, const std::string& title):
 	WindowBase(width, height, title), canvas(nullptr), dlg(nullptr) {
 	
@@ -9,7 +8,9 @@ IupWindow::IupWindow(int width, int height, const std::string& title):
 }
 
 
-IupWindow::~IupWindow() { }
+IupWindow::~IupWindow() { 
+	IupClose();
+}
 
 
 void IupWindow::Init(int argc, char** argv) {
@@ -39,6 +40,21 @@ void IupWindow::Init(int argc, char** argv) {
 
 void IupWindow::MakeContextCurrent(void) {
 	IupGLMakeCurrent(canvas);
+}
+
+
+void IupWindow::SwapBuffers(void) {
+	IupGLSwapBuffers(canvas);
+}
+
+
+void IupWindow::DoFrame(void) {
+	IupLoopStep();
+}
+
+
+void IupWindow::GetWindowRect(int& width, int& height) {
+	IupGetIntInt(canvas, "DRAWSIZE", &width, &height);
 }
 
 
