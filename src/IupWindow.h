@@ -11,6 +11,9 @@ protected:
 	Ihandle* canvas;
 	Ihandle* dlg;	
 
+	// custom attribute, not needed in IupWindow base class
+	Ihandle* labelGlVersion;	
+
 public:
 	IupWindow(int width, int height, const std::string& title);
 	virtual ~IupWindow();
@@ -20,6 +23,9 @@ public:
 	void SwapBuffers(void) override;
 	void DoFrame(void) override;
 	void GetWindowRect(int& width, int& height) override;
+
+	//custom method, not needed in IupWindow base class
+	void SetGLVersionLabel(const std::string& glVersion);
 
 protected:
 	// callbacks

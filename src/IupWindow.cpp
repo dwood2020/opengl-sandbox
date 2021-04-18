@@ -3,10 +3,7 @@
 
 
 IupWindow::IupWindow(int width, int height, const std::string& title):
-	WindowBase(width, height, title), canvas(nullptr), dlg(nullptr) {
-	
-	//IUP_CLASS_INITCALLBACK(dlg, IupWindow);
-}
+	WindowBase(width, height, title), canvas(nullptr), dlg(nullptr) { }
 
 
 IupWindow::~IupWindow() { 
@@ -19,7 +16,7 @@ void IupWindow::Init(int argc, char** argv) {
 	IupGLCanvasOpen();
 
 	Ihandle* label1 = IupLabel("This is a simple IUP Dialog. Running on OpenGL Version ");
-	Ihandle* labelGlVersion = IupLabel(" xx");
+	labelGlVersion = IupLabel(" xx");
 
 	canvas = IupGLCanvas(NULL);
 	IupSetAttribute(canvas, "BUFFER", "DOUBLE");	//NOTE: this makes the rendering MUCH faster
@@ -77,4 +74,11 @@ int IupWindow::DialogCloseCb(Ihandle* self) {
 		onClose();
 	}
 	return IUP_DEFAULT;
+}
+
+
+
+// custom function which will not be needed in IupWindowBase class
+void IupWindow::SetGLVersionLabel(const std::string& glVersion) {
+	IupSetAttribute(labelGlVersion, "TITLE", glVersion.c_str());
 }

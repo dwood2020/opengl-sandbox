@@ -32,9 +32,10 @@ int main(int argc, char* argv[]) {
 	window.SetOnResize(OnWindowResize);
 
 	glClearColor(0.075f, 0.196f, 0.325f, 1.0f);	
-
-	auto glVersionStr = glGetString(GL_VERSION);
-	std::cout << "OpenGL Version: " << (const char*)glVersionStr << std::endl;
+	
+	std::string glVersionStr = (const char*)glGetString(GL_VERSION);
+	std::cout << "OpenGL Version: " << glVersionStr << std::endl;
+	window.SetGLVersionLabel(glVersionStr);
 
 	while (!window.GetWindowShouldClose()) {
 		glClear(GL_COLOR_BUFFER_BIT);
