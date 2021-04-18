@@ -45,10 +45,16 @@ void IupWindow::MakeContextCurrent(void) {
 // callbacks
 
 int IupWindow::CanvasResizeCb(Ihandle* self, int width, int height) {
+	if (onResize) {
+		onResize(width, height);
+	}
 	return IUP_DEFAULT;
 }
 
 int IupWindow::DialogCloseCb(Ihandle* self) {
 	this->windowShouldClose = true;
+	if (onClose) {
+		onClose();
+	}
 	return IUP_DEFAULT;
 }

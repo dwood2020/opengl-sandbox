@@ -16,7 +16,8 @@ public:
 	virtual ~IupWindow();
 
 	virtual void Init(int argc, char** argv);
-	void MakeContextCurrent(void);
+	void MakeContextCurrent(void) override;
+	void SwapBuffers(void) override;
 
 protected:
 	// callbacks

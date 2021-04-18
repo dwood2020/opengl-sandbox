@@ -7,8 +7,7 @@
 bool windowShouldClose = false;
 bool glReady = false;
 
-void CanvasDrawFrame(Ihandle* canvas) {
-	glClear(GL_COLOR_BUFFER_BIT);
+void CanvasSwapBuffers(Ihandle* canvas) {	
 	IupGLSwapBuffers(canvas);
 }
 
@@ -26,7 +25,8 @@ int CanvasActionCb(Ihandle* canvas) {
 
 	//glClearColor(0.075f, 0.196f, 0.325f, 1.0f);
 
-	CanvasDrawFrame(canvas);
+	glClear(GL_COLOR_BUFFER_BIT);
+	CanvasSwapBuffers(canvas);
 	std::cout << "CanvasActionCb CALLED!" << std::endl;
 
 	
@@ -113,7 +113,8 @@ int main(int argc, char** argv) {
 		if (k > n) {
 			k = 0;
 			//CanvasActionCb(canvas);
-			CanvasDrawFrame(canvas);
+			glClear(GL_COLOR_BUFFER_BIT);
+			CanvasSwapBuffers(canvas);
 		}
 
 		IupLoopStep();
