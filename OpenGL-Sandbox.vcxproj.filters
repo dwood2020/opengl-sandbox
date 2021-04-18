@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\glad\glad.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -25,6 +22,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\WindowBase.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windowTest1.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

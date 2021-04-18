@@ -28,8 +28,8 @@ void IupWindow::Init(int argc, char** argv) {
 	IUP_CLASS_SETCALLBACK(canvas, "RESIZE_CB", CanvasResizeCb);
 
 	Ihandle* dlg = IupDialog(IupVbox(IupHbox(label1, labelGlVersion, NULL), canvas, NULL));
-	IupSetAttribute(dlg, "SIZE", "HALFxHALF");
-	IupSetAttribute(dlg, "TITLE", "OpenGL Sandbox - Window");
+	IupSetAttribute(dlg, "SIZE", "HALFxHALF");	//TODO: set actual size attribs
+	IupSetAttribute(dlg, "TITLE", this->title.c_str());
 
 	IUP_CLASS_INITCALLBACK(dlg, IupWindow);
 	IUP_CLASS_SETCALLBACK(dlg, "CLOSE_CB", DialogCloseCb);
@@ -58,7 +58,8 @@ void IupWindow::GetWindowRect(int& width, int& height) {
 }
 
 
-// callbacks
+// IUP callbacks
+// -------------
 
 int IupWindow::CanvasResizeCb(Ihandle* self, int width, int height) {
 	if (onResize) {
@@ -66,6 +67,7 @@ int IupWindow::CanvasResizeCb(Ihandle* self, int width, int height) {
 	}
 	return IUP_DEFAULT;
 }
+
 
 int IupWindow::DialogCloseCb(Ihandle* self) {
 	this->windowShouldClose = true;

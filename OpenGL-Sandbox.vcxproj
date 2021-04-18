@@ -161,8 +161,8 @@
   <ItemGroup>
     <ClCompile Include="src\IupWindow.cpp" />
     <ClCompile Include="src\glad\glad.c" />
-    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\WindowBase.cpp" />
+    <ClCompile Include="src\windowTest1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\IupWindow.h" />
