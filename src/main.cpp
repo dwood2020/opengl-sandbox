@@ -7,24 +7,44 @@
 bool windowShouldClose = false;
 bool glReady = false;
 
+void CanvasDrawFrame(Ihandle* canvas) {
+	glClear(GL_COLOR_BUFFER_BIT);
+	IupGLSwapBuffers(canvas);
+}
 
+
+// I do not really need this callback, as I decide manually when to redraw the canvas anyway.
 int CanvasActionCb(Ihandle* canvas) {
-	//OpenGL code here
 
 	if (!glReady) {
 		return IUP_DEFAULT;
 	}
 
-	int width, height;
+	/*int width, height;
 	IupGetIntInt(canvas, "DRAWSIZE", &width, &height);
+	glViewport(0, 0, width, height);*/
 
+	//glClearColor(0.075f, 0.196f, 0.325f, 1.0f);
+
+	CanvasDrawFrame(canvas);
+	std::cout << "CanvasActionCb CALLED!" << std::endl;
+
+	
+	return IUP_DEFAULT;
+}
+
+
+int CanvasResizeCb(Ihandle* canvas, int width, int height) {
+	if (!glReady) {
+		return IUP_DEFAULT;
+	}
+
+	std::cout << "CanvasResizeCb CALLED!" << std::endl;
+
+	/*int width, height;
+	IupGetIntInt(canvas, "DRAWSIZE", &width, &height);*/
 
 	glViewport(0, 0, width, height);
-	glClearColor(0.075f, 0.196f, 0.325f, 1.0f);
-
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	IupGLSwapBuffers(canvas);
 
 	return IUP_DEFAULT;
 }
@@ -49,6 +69,7 @@ int main(int argc, char** argv) {
 	IupSetAttribute(canvas, "BUFFER", "DOUBLE");	//NOTE: this makes the rendering MUCH faster
 	IupSetAttribute(canvas, "DIRTY", "NO");
 	IupSetCallback(canvas, "ACTION", (Icallback)CanvasActionCb);
+	IupSetCallback(canvas, "RESIZE_CB", (Icallback)CanvasResizeCb);
 
 
 	Ihandle* dlg = IupDialog(IupVbox(IupHbox(label1, labelGlVersion, NULL), canvas, NULL));
@@ -68,6 +89,13 @@ int main(int argc, char** argv) {
 		return IUP_ERROR;
 	}
 	glReady = true;
+
+	int width, height;
+	IupGetIntInt(canvas, "DRAWSIZE", &width, &height);
+	glViewport(0, 0, width, height);
+
+	glClearColor(0.075f, 0.196f, 0.325f, 1.0f);
+
 	auto glVersionStr = glGetString(GL_VERSION);
 	std::cout << "OpenGL Version: " << (const char*)glVersionStr << std::endl;
 
@@ -80,14 +108,12 @@ int main(int argc, char** argv) {
 
 	while (!windowShouldClose) {
 
-		// this makes the canvas get drawn every frame
-		//CanvasActionCb(canvas);
-
 		// this makes the canvas get drawn every n-th frame
 		k += 1;
 		if (k > n) {
 			k = 0;
-			CanvasActionCb(canvas);
+			//CanvasActionCb(canvas);
+			CanvasDrawFrame(canvas);
 		}
 
 		IupLoopStep();
