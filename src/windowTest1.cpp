@@ -97,7 +97,7 @@ int main(int argc, char* argv[]) {
 		//===========================
 
 		window.SwapBuffers();
-		window.DoFrame();
+		window.DoFrame();		
 	}
 
 	return 0;
