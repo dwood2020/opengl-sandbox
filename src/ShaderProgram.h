@@ -12,6 +12,9 @@ public:
 
 	bool CheckLinkStatus(void);
 	void Use(void);
+
+	void SetUniformInt(const std::string& name, int value);
+	void SetUniformFloat(const std::string& name, float value);
 };
 
 

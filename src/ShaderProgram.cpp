@@ -41,3 +41,15 @@ bool ShaderProgram::CheckLinkStatus(void) {
 void ShaderProgram::Use(void) {
 	glUseProgram(id);
 }
+
+
+void ShaderProgram::SetUniformInt(const std::string& name, int value) {
+	int uniformLoc = glGetUniformLocation(id, name.c_str());
+	glUniform1i(uniformLoc, value);
+}
+
+
+void ShaderProgram::SetUniformFloat(const std::string& name, float value) {
+	int uniformLoc = glGetUniformLocation(id, name.c_str());
+	glUniform1f(uniformLoc, value);
+}

@@ -36,6 +36,9 @@ bool Shader::CheckCompilationStatus(void) {
 }
 
 
+
+
+
 std::string Shader::ReadSourceFromFile(const std::string& filepath) {
 	std::ifstream fin;
 	std::stringstream ss;

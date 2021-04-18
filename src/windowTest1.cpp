@@ -4,6 +4,8 @@
 #include "Shader.h"
 #include "ShaderProgram.h"
 
+#include <ctime>
+#include <cmath>
 
 
 void OnWindowResize(int w, int h) {
@@ -82,10 +84,14 @@ int main(int argc, char* argv[]) {
 
 	while (!window.GetWindowShouldClose()) {
 		glClear(GL_COLOR_BUFFER_BIT);
+		
+		// Uniform test
+		float alpha = abs(sin(std::time(0)));		
+		shaderProgram.SetUniformFloat("uniformAlpha", alpha);
+
+		shaderProgram.Use();
 
 		//===========================
-		//glUseProgram(shaderProgramId);
-		shaderProgram.Use();
 		glBindVertexArray(vaoId);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		//===========================
