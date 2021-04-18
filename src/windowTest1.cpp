@@ -1,22 +1,13 @@
 #include <iostream>
 #include "glad/glad.h"
 #include "IupWindow.h"
+#include "Shader.h"
+#include "ShaderProgram.h"
 
 
 
 void OnWindowResize(int w, int h) {
 	glViewport(0, 0, w, h);
-}
-
-
-void CheckShaderCompilationStatus(unsigned int shaderId) {
-	int success;
-	glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
-	if (!success) {
-		char infoLog[100];
-		glGetShaderInfoLog(shaderId, 100, NULL, infoLog);
-		std::cout << "ERROR::SHADER::COMPILATION_FAILED:\n" << infoLog << std::endl;
-	}
 }
 
 
@@ -74,14 +65,6 @@ int main(int argc, char* argv[]) {
 		"	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 		"}\0";
 
-	unsigned int vertexShaderId;
-	vertexShaderId = glCreateShader(GL_VERTEX_SHADER);	//creates empty shader obj. Shader obj needs a shader source code attached.
-	glShaderSource(vertexShaderId, 1, &vertexShaderSource, NULL);	//shader source is now copied to shader obj
-	glCompileShader(vertexShaderId);	//(attempts to) compile the shader
-
-	//receive info about compilation status:
-	CheckShaderCompilationStatus(vertexShaderId);
-
 	// create a fragment shader, same procedure as vertex shader:
 	const char* fragmentShaderSource =
 		"#version 400 core\n"
@@ -90,34 +73,16 @@ int main(int argc, char* argv[]) {
 		"	FragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);\n"
 		"}\0";
 
-	unsigned int fragmentShaderId;
-	fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShaderId, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShaderId);
-	CheckShaderCompilationStatus(fragmentShaderId);
 
-	// finally, create a shader program:
-	// (shader program is the final object of multiple shaders linked together)
-	unsigned int shaderProgramId;
-	shaderProgramId = glCreateProgram();	//creates program obj
-	//now, link vertex and frag shaders:
-	glAttachShader(shaderProgramId, vertexShaderId);
-	glAttachShader(shaderProgramId, fragmentShaderId);
-	glLinkProgram(shaderProgramId);
+	Shader vertexShader(vertexShaderSource, GL_VERTEX_SHADER);
+	Shader fragmentShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
+	vertexShader.CheckCompilationStatus();
+	fragmentShader.CheckCompilationStatus();
 
-	//receive info about linking status:
-	int success;
-	glGetProgramiv(shaderProgramId, GL_LINK_STATUS, &success);
-	if (!success) {
-		char infoLog[100];
-		glGetProgramInfoLog(shaderProgramId, 100, NULL, infoLog);
-		std::cout << "ERROR::SHADER::LINKING_FAILED:\n" << infoLog << std::endl;
-	}
+	ShaderProgram shaderProgram(vertexShader, fragmentShader);
+	shaderProgram.CheckLinkStatus();
 
-	glUseProgram(shaderProgramId);	//installs program obj as part of current rendering state
-
-	glDeleteShader(vertexShaderId);
-	glDeleteShader(fragmentShaderId);
+	shaderProgram.Use();
 
 	// shader program on the graphics card is now installed.
 	// Next, Vertex data needs to be sent to the created buffer on the card
@@ -135,7 +100,8 @@ int main(int argc, char* argv[]) {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//===========================
-		glUseProgram(shaderProgramId);
+		//glUseProgram(shaderProgramId);
+		shaderProgram.Use();
 		glBindVertexArray(vaoId);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		//===========================

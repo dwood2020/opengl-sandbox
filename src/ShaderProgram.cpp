@@ -16,6 +16,7 @@ ShaderProgram::ShaderProgram(Shader vertexShader, Shader fragmentShader) {
 
 
 ShaderProgram::~ShaderProgram() {
+	//installs program obj as part of current rendering state
 	glDeleteProgram(id);
 }
 
