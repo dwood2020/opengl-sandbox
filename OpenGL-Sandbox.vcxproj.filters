@@ -54,4 +54,7 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\fragment.glsl" />
+  </ItemGroup>
 </Project>

@@ -58,24 +58,8 @@ int main(int argc, char* argv[]) {
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);	//creates&inits buffer obj data storage
 	//try with glNamedBufferData(vbo, ...)
 
-	// next, create a vertex shader:
-	const char* vertexShaderSource = "#version 400 core\n"
-		"layout (location = 0) in vec3 aPos;\n"
-		"void main(){\n"
-		"	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-		"}\0";
-
-	// create a fragment shader, same procedure as vertex shader:
-	const char* fragmentShaderSource =
-		"#version 400 core\n"
-		"out vec4 FragColor;\n"
-		"void main(){\n"
-		"	FragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);\n"
-		"}\0";
-
-
-	Shader vertexShader(vertexShaderSource, GL_VERTEX_SHADER);
-	Shader fragmentShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
+	Shader vertexShader(Shader::ReadSourceFromFile("res/vertex.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragmentShader(Shader::ReadSourceFromFile("res/fragment.glsl").c_str(), GL_FRAGMENT_SHADER);
 	vertexShader.CheckCompilationStatus();
 	fragmentShader.CheckCompilationStatus();
 
