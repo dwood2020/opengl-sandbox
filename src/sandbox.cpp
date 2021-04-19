@@ -46,33 +46,18 @@ int main(int argc, char* argv[]) {
 	std::vector<glm::vec3> vertices = {
 		{-0.5f, -0.5f, 0.0f},
 		{0.5f, -0.5f, 0.0f},
-		{0.0f, 0.5f, 0.0f}
+		{-0.5f, 0.5f, 0.0f},
+		{0.5f, 0.5f, 0.0f}
 	};
 
-	Mesh mesh(vertices);
+	std::vector<unsigned int> indices = {
+		0, 1, 2,
+		2, 3, 1
+	};
+
+	Mesh mesh(vertices, indices);
 	mesh.Prepare();
-	mesh.SetMode(GL_TRIANGLE_STRIP);
-
-	//==========================================================================
-	// FROM OLD PROJECT
-
-	////vertices in NDC for 1 triangle
-	//float vertices[] = {
-	//	-0.5f, -0.5f, 0.0f,
-	//	0.5f, -0.5f, 0.0f,
-	//	0.0f,  0.5f, 0.0f
-	//};
-
-	//unsigned int vaoId;
-	//glGenVertexArrays(1, &vaoId);
-	//glBindVertexArray(vaoId);
-
-	//// create a fitting buffer for the vertex data on the graphics card:
-	//unsigned int vboId;		//buffer name
-	//glGenBuffers(1, &vboId);	//generate a buffer
-	//glBindBuffer(GL_ARRAY_BUFFER, vboId);	//specifies target to which buffer obj is bound => the current array_buffer is now "vbo"
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);	//creates&inits buffer obj data storage
-	////try with glNamedBufferData(vbo, ...)
+	mesh.SetMode(GL_TRIANGLES);	
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vertex.glsl").c_str(), GL_VERTEX_SHADER);
 	Shader fragmentShader(Shader::ReadSourceFromFile("res/fragment.glsl").c_str(), GL_FRAGMENT_SHADER);
@@ -82,19 +67,9 @@ int main(int argc, char* argv[]) {
 	ShaderProgram shaderProgram(vertexShader, fragmentShader);
 	shaderProgram.CheckLinkStatus();
 
-	shaderProgram.Use();
+	shaderProgram.Use();	
 
-	//// shader program on the graphics card is now installed.
-	//// Next, Vertex data needs to be sent to the created buffer on the card
-	//// OpenGL needs to be told how to interpret the vertex data inside the buffer
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	//glEnableVertexAttribArray(0);
-
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);	//TODO check why this is possible
-	//glBindVertexArray(0);
-
-	//==========================================================================
-
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	while (!window.GetWindowShouldClose()) {
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -104,11 +79,7 @@ int main(int argc, char* argv[]) {
 		shaderProgram.SetUniformFloat("uniformAlpha", alpha);
 
 		shaderProgram.Use();
-		mesh.Draw();
-		//===========================
-		/*glBindVertexArray(vaoId);
-		glDrawArrays(GL_TRIANGLES, 0, 3);*/
-		//===========================
+		mesh.Draw();		
 
 		window.SwapBuffers();
 		window.DoFrame();		
