@@ -1,8 +1,11 @@
 #include <iostream>
+#include <vector>
 #include "glad/glad.h"
+#include <glm/glm.hpp>
 #include "window/IupWindow.h"
 #include "Shader.h"
 #include "ShaderProgram.h"
+#include "Mesh.h"
 
 #include <ctime>
 #include <cmath>
@@ -39,26 +42,37 @@ int main(int argc, char* argv[]) {
 	window.SetGLVersionLabel(glVersionStr);
 
 
+	// test of new mesh class
+	std::vector<glm::vec3> vertices = {
+		{-0.5f, -0.5f, 0.0f},
+		{0.5f, -0.5f, 0.0f},
+		{0.0f, 0.5f, 0.0f}
+	};
+
+	Mesh mesh(vertices);
+	mesh.Prepare();
+	mesh.SetMode(GL_TRIANGLE_STRIP);
+
 	//==========================================================================
 	// FROM OLD PROJECT
 
-	//vertices in NDC for 1 triangle
-	float vertices[] = {
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.0f,  0.5f, 0.0f
-	};
+	////vertices in NDC for 1 triangle
+	//float vertices[] = {
+	//	-0.5f, -0.5f, 0.0f,
+	//	0.5f, -0.5f, 0.0f,
+	//	0.0f,  0.5f, 0.0f
+	//};
 
-	unsigned int vaoId;
-	glGenVertexArrays(1, &vaoId);
-	glBindVertexArray(vaoId);
+	//unsigned int vaoId;
+	//glGenVertexArrays(1, &vaoId);
+	//glBindVertexArray(vaoId);
 
-	// create a fitting buffer for the vertex data on the graphics card:
-	unsigned int vboId;		//buffer name
-	glGenBuffers(1, &vboId);	//generate a buffer
-	glBindBuffer(GL_ARRAY_BUFFER, vboId);	//specifies target to which buffer obj is bound => the current array_buffer is now "vbo"
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);	//creates&inits buffer obj data storage
-	//try with glNamedBufferData(vbo, ...)
+	//// create a fitting buffer for the vertex data on the graphics card:
+	//unsigned int vboId;		//buffer name
+	//glGenBuffers(1, &vboId);	//generate a buffer
+	//glBindBuffer(GL_ARRAY_BUFFER, vboId);	//specifies target to which buffer obj is bound => the current array_buffer is now "vbo"
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);	//creates&inits buffer obj data storage
+	////try with glNamedBufferData(vbo, ...)
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vertex.glsl").c_str(), GL_VERTEX_SHADER);
 	Shader fragmentShader(Shader::ReadSourceFromFile("res/fragment.glsl").c_str(), GL_FRAGMENT_SHADER);
@@ -70,14 +84,14 @@ int main(int argc, char* argv[]) {
 
 	shaderProgram.Use();
 
-	// shader program on the graphics card is now installed.
-	// Next, Vertex data needs to be sent to the created buffer on the card
-	// OpenGL needs to be told how to interpret the vertex data inside the buffer
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
+	//// shader program on the graphics card is now installed.
+	//// Next, Vertex data needs to be sent to the created buffer on the card
+	//// OpenGL needs to be told how to interpret the vertex data inside the buffer
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	//glEnableVertexAttribArray(0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);	//TODO check why this is possible
-	glBindVertexArray(0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);	//TODO check why this is possible
+	//glBindVertexArray(0);
 
 	//==========================================================================
 
@@ -90,10 +104,10 @@ int main(int argc, char* argv[]) {
 		shaderProgram.SetUniformFloat("uniformAlpha", alpha);
 
 		shaderProgram.Use();
-
+		mesh.Draw();
 		//===========================
-		glBindVertexArray(vaoId);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		/*glBindVertexArray(vaoId);
+		glDrawArrays(GL_TRIANGLES, 0, 3);*/
 		//===========================
 
 		window.SwapBuffers();

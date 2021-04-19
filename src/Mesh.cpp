@@ -2,17 +2,28 @@
 #include <cstddef>
 
 
+Mesh::Mesh(std::vector<glm::vec3>& vertices) : Mesh() {
+	verticesPosition = vertices;
+}
+
+
 Mesh::Mesh(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices):
 	Mesh() { 
 		
 	verticesPosition = vertices;	
+	this->indices = indices;
 }
 
 
-Mesh::Mesh() : vao(0), vbo(0), ebo(0), glMode(0) { }
+Mesh::Mesh() : vao(0), vbo(0), ebo(0), glMode(GL_POINTS), nrElements(0) { }
 
 
 Mesh::~Mesh() { }
+
+
+void Mesh::SetMode(GLenum glMode) {
+	this->glMode = glMode;
+}
 
 
 void Mesh::Prepare(void) {
@@ -20,6 +31,14 @@ void Mesh::Prepare(void) {
 	
 	std::vector<float> data;
 	data.reserve(dataSize);
+
+	if (!indices.empty()) {
+		nrElements = (GLsizei)indices.size();
+	}
+	else {
+		nrElements = (GLsizei)verticesPosition.size();
+	}
+	
 
 	for (unsigned int i = 0; i < verticesPosition.size(); i++) {
 		data.push_back(verticesPosition[i].x);
@@ -36,6 +55,12 @@ void Mesh::Prepare(void) {
 			data.push_back(verticesNormal[i].y);
 			data.push_back(verticesNormal[i].z);
 		}
+	}
+
+	glGenVertexArrays(1, &vao);
+	glGenBuffers(1, &vbo);
+	if (!indices.empty()) {
+		glGenBuffers(1, &ebo);
 	}
 
 	glBindVertexArray(vao);
@@ -80,9 +105,21 @@ void Mesh::Prepare(void) {
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+	verticesPosition.clear();
+	verticesTexCoord.clear();
+	verticesNormal.clear();
+	indices.clear();
 }
 
 
 void Mesh::Draw(void) {
-
+	glBindVertexArray(vao);
+	if (ebo == 0) {
+		glDrawArrays(glMode, 0, nrElements);
+	}
+	else {
+		glDrawElements(glMode, nrElements, GL_UNSIGNED_INT, 0);
+	}
+	glBindVertexArray(0);
 }
