@@ -165,7 +165,7 @@
     <ClCompile Include="src\window\IupWindow.cpp" />
     <ClCompile Include="src\glad\glad.c" />
     <ClCompile Include="src\window\WindowBase.cpp" />
-    <ClCompile Include="src\windowTest1.cpp" />
+    <ClCompile Include="src\sandbox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Mesh.h" />

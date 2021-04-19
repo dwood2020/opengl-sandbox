@@ -24,7 +24,7 @@
     <ClCompile Include="src\window\WindowBase.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\windowTest1.cpp">
+    <ClCompile Include="src\sandbox.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\Shader.cpp">
