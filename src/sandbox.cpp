@@ -71,6 +71,7 @@ int main(int argc, char* argv[]) {
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+
 	while (!window.GetWindowShouldClose()) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		
