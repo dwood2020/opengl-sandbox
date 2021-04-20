@@ -1,10 +1,10 @@
 #include "Event.h"
 
 
-Event::Event(): type(eventtype::NONE) { }
-
-
 Event::Event(eventtype::EventType type): type(type) { }
+
+
+Event::Event(): Event(eventtype::NONE) { }
 
 
 Event::~Event() { }

@@ -19,15 +19,16 @@ namespace eventtype {
 
 
 class Event {
+protected:
+	eventtype::EventType type;
+
+	Event(eventtype::EventType type);
+
 public:
 	Event();
-	Event(eventtype::EventType type);
 	virtual ~Event();
 
 	eventtype::EventType GetType(void) const;
-
-protected:
-	eventtype::EventType type;
 
 };
 
