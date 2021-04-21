@@ -1,5 +1,5 @@
 #pragma once
-#include <cctype>
+
 
 namespace eventtype {
 	enum EventType : unsigned int {
@@ -14,8 +14,6 @@ namespace eventtype {
 		MOUSE_SCROLL = (1 << 7)
 	};
 }
-
-
 
 
 class Event {
