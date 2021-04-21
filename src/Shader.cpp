@@ -27,6 +27,7 @@ bool Shader::CheckCompilationStatus(void) {
 		GLint infologLen;
 		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &infologLen);
 
+		//TODO: Check max vector length
 		std::vector<GLchar> infolog(infologLen);
 		glGetShaderInfoLog(id, infologLen, &infologLen, &infolog[0]);
 
