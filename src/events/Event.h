@@ -11,7 +11,8 @@ namespace eventtype {
 		KEY_PRESS = (1 << 4),		// = 0b...1'0000 = 16u
 		KEY_RELEASE = (1 << 5),
 		MOUSE_CLICK = (1 << 6),
-		MOUSE_SCROLL = (1 << 7)
+		MOUSE_SCROLL = (1 << 7),
+		ALL = 0b1111'1111			//TODO: Make this nicer, try to avoid binary notation
 	};
 }
 
