@@ -1,16 +1,24 @@
 #pragma once
+#include <vector>
 #include "Event.h"
 
 
 class EventManager {
+private:
+	std::vector<Event> eventQueue;
+
 public:
+	~EventManager();
+	
 	static EventManager& GetInstance(void);
 
-	EventManager(EventManager& const) = delete;
-	void operator=(EventManager& const) = delete;
+	EventManager(EventManager&) = delete;
+	void operator=(EventManager&) = delete;
+
+
 
 private:
-	EventManager() = default;
+	EventManager();
 
 
 	// subscribe to (flags | flags | ...)
