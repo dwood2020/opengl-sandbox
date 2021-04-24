@@ -11,6 +11,8 @@
 #include <ctime>
 #include <cmath>
 
+bool g_exitProgram = false;
+
 
 void OnWindowResize(Event& e) {
 	std::cout << "OnWindowResize called!" << std::endl;
@@ -18,8 +20,10 @@ void OnWindowResize(Event& e) {
 }
 
 
+// this is now a proof of concept
 void OnWindowClose(Event& e) {
 	std::cout << "Window Close event received!" << std::endl;
+	g_exitProgram = true;
 }
 
 
@@ -85,7 +89,8 @@ int main(int argc, char* argv[]) {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 
-	while (!window.GetWindowShouldClose()) {
+	while (!g_exitProgram) {		
+
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		// Uniform test
