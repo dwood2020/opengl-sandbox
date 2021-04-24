@@ -29,16 +29,22 @@ void EventBus::Unsubscribe(const EventListener* self) {
 }
 
 
+void EventBus::SendEvent(Event* e) {
+	eventQueue.push_back(e);
+}
+
+
 void EventBus::Poll(void) {	
 	for (unsigned int i = 0; i < eventQueue.size(); i++) {
+
 		for (auto it = listeners.begin(); it != listeners.end(); ++it) {
-			if (it->second.typeFlags & eventQueue[i].GetType()) {
-				it->second.callback(eventQueue[i]);
+
+			if (it->second.typeFlags & eventQueue[i]->GetType()) {
+				it->second.callback(*eventQueue[i]);
+				delete eventQueue[i];
 			}
 		}
-	}
-	
-	eventQueue.clear();
+	}	
 }
 
 

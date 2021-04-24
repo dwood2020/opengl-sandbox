@@ -15,7 +15,7 @@ private:
 		std::function<void(const Event&)> callback;
 	};
 
-	std::vector<Event> eventQueue;
+	std::vector<Event*> eventQueue;
 	std::multimap<unsigned int, ListenerRef, std::less<unsigned int>> listeners;
 	
 
@@ -25,6 +25,8 @@ public:
 
 	void Subscribe(EventListener* self, std::function<void(const Event&)> callback, EventType typeFlags);
 	void Unsubscribe(const EventListener* self);
+
+	void SendEvent(Event* e);
 
 	void Poll(void);
 
