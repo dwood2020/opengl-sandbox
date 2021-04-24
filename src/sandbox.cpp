@@ -17,9 +17,7 @@ void OnWindowResize(int w, int h) {
 }
 
 
-int main(int argc, char* argv[]) {
-
-	EventBus eventBus;
+int main(int argc, char* argv[]) {	
 
 	IupWindow window(800, 600, "IupWindow class - Test 1");		
 	window.Init(argc, argv);
