@@ -36,3 +36,12 @@ public:
 
 
 
+class WindowCloseEvent : public Event {
+public:
+	// no additional parameters
+
+public:
+	WindowCloseEvent() : Event(EventType::WINDOW_CLOSE) { }
+
+};
+

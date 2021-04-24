@@ -7,8 +7,9 @@ private:
 	EventBus* bus;
 
 public:
-	EventEmitter(const EventBus* bus);
+	EventEmitter(EventBus* const bus);
 	virtual ~EventEmitter();
 
+	void EmitEvent(Event* e);
 
 };
