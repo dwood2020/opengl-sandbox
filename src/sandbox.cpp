@@ -12,14 +12,9 @@
 #include <cmath>
 
 
-void OnWindowResize(int w, int h) {
+void OnWindowResize(Event& e) {
 	std::cout << "OnWindowResize called!" << std::endl;
-	glViewport(0, 0, w, h);
-}
-
-
-void WindowResizeEventListener(Event& e) {
-	OnWindowResize(e.w, e.h);
+	glViewport(0, 0, e.w, e.h);
 }
 
 
@@ -49,7 +44,7 @@ int main(int argc, char* argv[]) {
 	window.GetWindowRect(w, h);
 	glViewport(0, 0, w, h);
 
-	eventBus.AddListener(EventType::WindowResize, WindowResizeEventListener);
+	eventBus.AddListener(EventType::WindowResize, OnWindowResize);
 	eventBus.AddListener(EventType::WindowClose, OnWindowClose);
 
 
