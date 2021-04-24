@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\events\EventBus.cpp" />
     <ClCompile Include="src\events\Event.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\ShaderProgram.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="src\sandbox.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\events\EventBus.h" />
     <ClInclude Include="src\events\Event.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\ShaderProgram.h" />
