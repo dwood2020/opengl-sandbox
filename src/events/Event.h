@@ -21,4 +21,6 @@ public:
 	Event(EventType type);
 	virtual ~Event();
 
+	const EventType& GetType(void) const;
+
 };

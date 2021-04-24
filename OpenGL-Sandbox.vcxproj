@@ -170,6 +170,7 @@
     <ClCompile Include="src\sandbox.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\events\EventEmitter.hpp" />
     <ClInclude Include="src\events\EventBus.h" />
     <ClInclude Include="src\events\Event.h" />
     <ClInclude Include="src\Mesh.h" />

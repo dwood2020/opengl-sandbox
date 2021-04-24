@@ -23,3 +23,22 @@ void EventBus::AddListener(EventType type, std::function<void(Event&)> callback)
 
 
 }
+
+
+void EventBus::SendEvent(Event& e) {
+	eventQueue.push_back(e);
+}
+
+
+void EventBus::Poll(void) {	
+
+	for (Event& e : eventQueue) {
+		auto it = listeners.find(e.GetType());
+		
+		if (it != listeners.end()) {
+			for (std::function<void(Event&)> callback : it->second) {
+				callback(e);
+			}
+		}
+	}
+}
