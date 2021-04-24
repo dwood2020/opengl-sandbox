@@ -26,6 +26,10 @@ void OnWindowClose(Event& e) {
 }
 
 
+void OnMouseButtonClick(Event& e) {
+	std::cout << "Mouse button " << ((e.press) ? "clicked" : "released") << ": " << (int)e.mbCode << std::endl;	
+}
+
 
 int main(int argc, char* argv[]) {
 
@@ -49,6 +53,7 @@ int main(int argc, char* argv[]) {
 
 	eventBus.AddListener(EventType::WindowResize, OnWindowResize);
 	eventBus.AddListener(EventType::WindowClose, OnWindowClose);
+	eventBus.AddListener(EventType::MouseButton, OnMouseButtonClick);
 
 
 	glClearColor(0.075f, 0.196f, 0.325f, 1.0f);	

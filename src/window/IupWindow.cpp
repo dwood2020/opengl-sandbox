@@ -24,6 +24,7 @@ void IupWindow::Init(int argc, char** argv) {
 	
 	IUP_CLASS_INITCALLBACK(canvas, IupWindow);
 	IUP_CLASS_SETCALLBACK(canvas, "RESIZE_CB", CanvasResizeCb);
+	IUP_CLASS_SETCALLBACK(canvas, "BUTTON_CB", CanvasButtonCb);
 
 	Ihandle* dlg = IupDialog(IupVbox(IupHbox(label1, labelGlVersion, NULL), canvas, NULL));
 	std::string size = std::to_string(this->width) + 'X' + std::to_string(this->height);
@@ -78,6 +79,26 @@ int IupWindow::DialogCloseCb(Ihandle* self) {
 	return IUP_DEFAULT;
 }
 
+
+int IupWindow::CanvasButtonCb(Ihandle* self, int button, int pressed, int x, int y, char* status) {
+
+	//TODO: Move this into a central lookup table/function (maybe namespace in keycodes?)
+	MouseButtonCode mbCode;
+	switch (button) {
+	case IUP_BUTTON1:
+		mbCode = MouseButtonCode::Left; break;
+	case IUP_BUTTON2:
+		mbCode = MouseButtonCode::Middle; break;
+	case IUP_BUTTON3:
+		mbCode = MouseButtonCode::Right; break;
+	default:
+		mbCode = MouseButtonCode::None;
+	}
+
+	MouseButtonEvent e(mbCode, (bool)pressed);
+	OnEvent(e);
+	return IUP_DEFAULT;
+}
 
 
 // custom function which will not be needed in IupWindowBase class

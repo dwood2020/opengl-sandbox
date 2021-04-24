@@ -1,15 +1,14 @@
 #pragma once
+#include "../Keycodes.hpp"
 
 
 enum class EventType {
 	None = 0,
 	WindowClose,
 	WindowResize,
-	KeyPress,
-	KeyRelease,
+	Key,	
 	MouseMove,
-	MouseClick,
-	MouseScroll,
+	MouseButton,	
 };
 
 
@@ -38,6 +37,11 @@ public:
 			int w;
 			int h;
 		};
+
+		struct {
+			MouseButtonCode mbCode;
+			bool press;
+		};
 	};
 
 };
@@ -60,4 +64,13 @@ public:
 	}
 
 	virtual ~WindowResizeEvent() { }
+};
+
+
+class MouseButtonEvent final : public Event {
+public:
+	MouseButtonEvent(MouseButtonCode mbCode, bool press) : Event(EventType::MouseButton) {
+		this->mbCode = mbCode;
+		this->press = press;
+	}	
 };
