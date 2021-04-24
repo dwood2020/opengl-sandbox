@@ -12,7 +12,7 @@ class EventBus final {
 private:
 	struct ListenerRef {
 		EventType typeFlags = EventType::NONE;
-		std::function<void(Event&)> callback;
+		std::function<void(const Event&)> callback;
 	};
 
 	std::vector<Event> eventQueue;
@@ -23,10 +23,10 @@ public:
 	EventBus();
 	~EventBus();
 
-	void Subscribe(EventListener& self, std::function<void(Event&)> callback, EventType typeFlags);
+	void Subscribe(EventListener* self, std::function<void(const Event&)> callback, EventType typeFlags);
 	void Unsubscribe(const EventListener* self);
 
-	void Poll(void) const;
+	void Poll(void);
 
 private:
 	unsigned int GetListenerId(void);

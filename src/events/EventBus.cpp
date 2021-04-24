@@ -10,17 +10,17 @@ EventBus::EventBus() {
 EventBus::~EventBus() { }
 
 
-void EventBus::Subscribe(EventListener& self, std::function<void(Event&)> callback, EventType typeFlags) {
-	if (self.listenerId == 0) {
+void EventBus::Subscribe(EventListener* self, std::function<void(const Event&)> callback, EventType typeFlags) {
+	if (self->listenerId == 0) {
 		// generate new id
-		self.listenerId = GetListenerId();
+		self->listenerId = GetListenerId();
 	}
 
 	ListenerRef ref;
 	ref.typeFlags = typeFlags;
 	ref.callback = callback;
 
-	listeners.insert(std::pair<unsigned int, ListenerRef>(self.listenerId, ref));
+	listeners.insert(std::pair<unsigned int, ListenerRef>(self->listenerId, ref));
 }
 
 
@@ -29,16 +29,16 @@ void EventBus::Unsubscribe(const EventListener* self) {
 }
 
 
-void EventBus::Poll(void) const {
-	for (auto eventIt = eventQueue.begin(); eventIt != eventQueue.end(); ++eventIt) {
-
-		for (auto listenerIt = listeners.begin(); listenerIt != listeners.end(); ++listenerIt) {
-			if (listenerIt->second.typeFlags & eventIt->GetType()) {
-
+void EventBus::Poll(void) {	
+	for (unsigned int i = 0; i < eventQueue.size(); i++) {
+		for (auto it = listeners.begin(); it != listeners.end(); ++it) {
+			if (it->second.typeFlags & eventQueue[i].GetType()) {
+				it->second.callback(eventQueue[i]);
 			}
 		}
-
 	}
+	
+	eventQueue.clear();
 }
 
 

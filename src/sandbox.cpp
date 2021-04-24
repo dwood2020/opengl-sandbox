@@ -2,6 +2,7 @@
 #include <vector>
 #include "glad/glad.h"
 #include <glm/glm.hpp>
+#include "events/EventBus.h"
 #include "window/IupWindow.h"
 #include "Shader.h"
 #include "ShaderProgram.h"
@@ -17,6 +18,8 @@ void OnWindowResize(int w, int h) {
 
 
 int main(int argc, char* argv[]) {
+
+	EventBus eventBus;
 
 	IupWindow window(800, 600, "IupWindow class - Test 1");		
 	window.Init(argc, argv);
