@@ -39,7 +39,10 @@
     <ClCompile Include="src\events\Event.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\events\EventManager.cpp">
+    <ClCompile Include="src\events\EventBus.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\events\EventListener.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,7 +71,10 @@
     <ClInclude Include="src\events\Event.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\events\EventManager.h">
+    <ClInclude Include="src\events\EventBus.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\events\EventListener.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

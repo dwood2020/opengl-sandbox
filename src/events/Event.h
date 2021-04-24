@@ -17,17 +17,20 @@ namespace eventtype {
 }
 
 
+using eventtype::EventType;
+
+
 class Event {
 protected:
-	eventtype::EventType type;
+	EventType type;
 
-	Event(eventtype::EventType type);
+	Event(EventType type);
 
 public:
 	Event();
 	virtual ~Event();
 
-	eventtype::EventType GetType(void) const;
+	EventType GetType(void) const;
 
 };
 
