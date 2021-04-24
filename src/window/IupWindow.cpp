@@ -2,8 +2,8 @@
 #include <string>
 
 
-IupWindow::IupWindow(int width, int height, const std::string& title):
-	WindowBase(width, height, title), canvas(nullptr), dlg(nullptr) { }
+IupWindow::IupWindow(EventBus* eventBus, int width, int height, const std::string& title):
+	WindowBase(eventBus, width, height, title), labelGlVersion(nullptr), canvas(nullptr), dlg(nullptr) { }
 
 
 IupWindow::~IupWindow() { 
@@ -61,18 +61,26 @@ void IupWindow::GetWindowRect(int& width, int& height) {
 // -------------
 
 int IupWindow::CanvasResizeCb(Ihandle* self, int width, int height) {
-	if (onResize) {
+	/*if (onResize) {
 		onResize(width, height);
-	}
+	}*/
+
+	WindowResizeEvent e(width, height);
+	OnEvent(e);
+
 	return IUP_DEFAULT;
 }
 
 
 int IupWindow::DialogCloseCb(Ihandle* self) {
 	this->windowShouldClose = true;
-	if (onClose) {
+	/*if (onClose) {
 		onClose();
-	}
+	}*/
+
+	WindowCloseEvent e;
+	OnEvent(e);
+
 	return IUP_DEFAULT;
 }
 

@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
-#include "WindowBase.h"
 #include <iup/iup.h>
 #include <iup/iupgl.h>
 #include <iup/iup_class_cbs.hpp>
+#include "WindowBase.h"
+#include "../events/EventBus.h"
 
 
 class IupWindow : public WindowBase {
@@ -15,7 +16,7 @@ protected:
 	Ihandle* labelGlVersion;	
 
 public:
-	IupWindow(int width, int height, const std::string& title);
+	IupWindow(EventBus* eventBus, int width, int height, const std::string& title);
 	virtual ~IupWindow();
 
 	virtual void Init(int argc, char** argv);

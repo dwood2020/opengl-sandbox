@@ -13,13 +13,23 @@
 
 
 void OnWindowResize(int w, int h) {
+	std::cout << "OnWindowResize called!" << std::endl;
 	glViewport(0, 0, w, h);
 }
 
 
-int main(int argc, char* argv[]) {	
+void WindowResizeEventListener(Event& e) {
+	OnWindowResize(e.w, e.h);
+}
 
-	IupWindow window(800, 600, "IupWindow class - Test 1");		
+
+
+int main(int argc, char* argv[]) {
+
+	EventBus eventBus;
+
+
+	IupWindow window(&eventBus, 800, 600, "IupWindow class - Test 1");		
 	window.Init(argc, argv);
 
 	window.MakeContextCurrent();
@@ -34,7 +44,8 @@ int main(int argc, char* argv[]) {
 	window.GetWindowRect(w, h);
 	glViewport(0, 0, w, h);
 
-	window.SetOnResize(OnWindowResize);
+	//window.SetOnResize(OnWindowResize);
+	eventBus.AddListener(EventType::WindowResize, WindowResizeEventListener);
 
 	glClearColor(0.075f, 0.196f, 0.325f, 1.0f);	
 	
@@ -84,7 +95,9 @@ int main(int argc, char* argv[]) {
 		mesh.Draw();		
 
 		window.SwapBuffers();
-		window.DoFrame();		
+		window.DoFrame();
+
+		eventBus.Poll();
 	}
 
 	return 0;
