@@ -36,9 +36,6 @@
     <ClCompile Include="src\Mesh.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\events\Event.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\events\EventBus.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -65,7 +62,7 @@
     <ClInclude Include="src\Mesh.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\events\Event.h">
+    <ClInclude Include="src\events\Event.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\events\EventBus.h">

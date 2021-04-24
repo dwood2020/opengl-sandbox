@@ -61,9 +61,6 @@ void IupWindow::GetWindowRect(int& width, int& height) {
 // -------------
 
 int IupWindow::CanvasResizeCb(Ihandle* self, int width, int height) {
-	/*if (onResize) {
-		onResize(width, height);
-	}*/
 
 	WindowResizeEvent e(width, height);
 	OnEvent(e);
@@ -74,9 +71,6 @@ int IupWindow::CanvasResizeCb(Ihandle* self, int width, int height) {
 
 int IupWindow::DialogCloseCb(Ihandle* self) {
 	this->windowShouldClose = true;
-	/*if (onClose) {
-		onClose();
-	}*/
 
 	WindowCloseEvent e;
 	OnEvent(e);

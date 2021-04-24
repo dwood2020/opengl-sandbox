@@ -23,6 +23,11 @@ void WindowResizeEventListener(Event& e) {
 }
 
 
+void OnWindowClose(Event& e) {
+	std::cout << "Window Close event received!" << std::endl;
+}
+
+
 
 int main(int argc, char* argv[]) {
 
@@ -44,8 +49,9 @@ int main(int argc, char* argv[]) {
 	window.GetWindowRect(w, h);
 	glViewport(0, 0, w, h);
 
-	//window.SetOnResize(OnWindowResize);
 	eventBus.AddListener(EventType::WindowResize, WindowResizeEventListener);
+	eventBus.AddListener(EventType::WindowClose, OnWindowClose);
+
 
 	glClearColor(0.075f, 0.196f, 0.325f, 1.0f);	
 	
@@ -88,7 +94,7 @@ int main(int argc, char* argv[]) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		// Uniform test
-		float alpha = abs(sin(std::time(0)));		
+		float alpha = (float)abs(sin(std::time(0)));		
 		shaderProgram.SetUniformFloat("uniformAlpha", alpha);
 
 		shaderProgram.Use();

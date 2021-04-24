@@ -13,21 +13,24 @@ enum class EventType {
 };
 
 
-
 class Event {
 protected:
 	EventType type;
 
 public:
-	Event(EventType type);
-	virtual ~Event();
+	Event(EventType type): type(type), x(0), y(0) { }
+	virtual ~Event() { }
 
-	const EventType& GetType(void) const;
+	const EventType& GetType(void) const {
+		return type;
+	}
 
+	// payload data
+	// this is really the easiest way possible: no subclass members which can be sliced away.
 	union {
 		struct {
-			float x_float;
-			float y_float;
+			float x;
+			float y;
 		};
 
 		struct {
@@ -40,7 +43,6 @@ public:
 
 
 // subclassed events
-//TODO: think about where to put these
 
 class WindowCloseEvent : public Event {
 public:

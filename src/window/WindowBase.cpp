@@ -13,12 +13,3 @@ bool WindowBase::GetWindowShouldClose(void) const {
 	return this->windowShouldClose;
 }
 
-
-void WindowBase::SetOnResize(std::function<void(int, int)> f) {
-	onResize = f;
-}
-
-
-void WindowBase::SetOnClose(std::function<void(void)> f) {
-	onClose = f;
-}

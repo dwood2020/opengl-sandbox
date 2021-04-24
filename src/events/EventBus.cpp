@@ -42,5 +42,5 @@ void EventBus::Poll(void) {
 		}
 	}
 
-	eventQueue.clear();	//TODO: dont delete events which are not processed?
+	eventQueue.clear();	//TODO: don't delete events which are not processed?
 }

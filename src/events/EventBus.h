@@ -2,7 +2,7 @@
 #include <map>
 #include <vector>
 #include <functional>
-#include "Event.h"
+#include "Event.hpp"
 
 
 class EventBus final {
