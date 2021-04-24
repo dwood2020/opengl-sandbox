@@ -8,8 +8,6 @@
 #include "ShaderProgram.h"
 #include "Mesh.h"
 
-#include <ctime>
-#include <cmath>
 
 
 bool g_exitProgram = false;
@@ -95,7 +93,7 @@ int main(int argc, char* argv[]) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		// Uniform test
-		float alpha = (float)abs(sin(std::time(0)));		
+		float alpha = 0.25f;
 		shaderProgram.SetUniformFloat("uniformAlpha", alpha);
 
 		shaderProgram.Use();
