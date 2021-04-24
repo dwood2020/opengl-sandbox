@@ -1,4 +1,5 @@
 #include "EventBus.h"
+#include "EventEmitter.hpp"
 
 
 EventBus::EventBus() { }

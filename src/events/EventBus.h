@@ -5,6 +5,9 @@
 #include "Event.hpp"
 
 
+class EventEmitter;
+
+
 class EventBus final {
 private:
 	std::vector<Event> eventQueue;
@@ -15,9 +18,10 @@ public:
 	~EventBus();
 
 	void AddListener(EventType type, std::function<void(Event&)> callback);
-
-	void SendEvent(Event& e);
-
 	void Poll(void);
 
+private:
+	void SendEvent(Event& e);
+
+	friend class EventEmitter;
 };
