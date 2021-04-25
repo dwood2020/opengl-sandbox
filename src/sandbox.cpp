@@ -118,10 +118,7 @@ int main(int argc, char* argv[]) {
 	while (!g_exitProgram) {		
 
 		glClear(GL_COLOR_BUFFER_BIT);
-		
-		// Uniform test
-		float alpha = 0.25f;
-		shaderProgram.SetUniformFloat("uniformAlpha", alpha);
+				
 
 		shaderProgram.Use();
 		mesh.Draw();		

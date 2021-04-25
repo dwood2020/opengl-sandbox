@@ -2,12 +2,20 @@
 
 out vec4 fragColor;
 
-in vec3 coordsTest;
+in float zPos;
 
-uniform float uniformAlpha;
+const vec3 defaultColor = vec3(0.494, 0.486, 0.455);
+const vec3 redColor = vec3(1.0f, 0.0f, 0.0f);
 
 
 void main(void) {
-	fragColor = vec4(1.0f*coordsTest.x, 1.0f*coordsTest.y, 1.0f*uniformAlpha, 1.0f*uniformAlpha);
+
+	vec3 color = defaultColor;
+
+	if (zPos > 1.0f) {
+		color = redColor;
+	}
+
+	fragColor = vec4(color, 1.0f);
 }
 
