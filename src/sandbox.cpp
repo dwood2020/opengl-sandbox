@@ -9,6 +9,7 @@
 #include "ShaderProgram.h"
 #include "Mesh.h"
 
+#include <chrono>
 
 
 bool g_exitProgram = false;
@@ -29,6 +30,13 @@ void OnWindowClose(Event& e) {
 
 void OnMouseButtonClick(Event& e) {
 	std::cout << "Mouse button " << ((e.press) ? "clicked" : "released") << ": " << (int)e.mbCode << std::endl;	
+}
+
+
+// tiny utility function for sandbox tests
+unsigned int GetUnixTimestamp(void) {
+	auto t = std::chrono::system_clock::now();
+	return std::chrono::duration_cast<std::chrono::seconds>(t.time_since_epoch()).count();
 }
 
 
@@ -114,11 +122,15 @@ int main(int argc, char* argv[]) {
 
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glEnable(GL_DEPTH_TEST);
 
 	while (!g_exitProgram) {		
 
-		glClear(GL_COLOR_BUFFER_BIT);
-				
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			
+		// let plane rotate
+		M = glm::rotate(M, 0.01f, glm::vec3(1.0f, 0.0f, 0.0f));
+		shaderProgram.SetUniformMat4("M", M);
 
 		shaderProgram.Use();
 		mesh.Draw();		
