@@ -87,11 +87,14 @@ int main(int argc, char* argv[]) {
 
 	ShaderProgram shaderProgram(vertexShader, fragmentShader);
 	shaderProgram.CheckLinkStatus();
-
 	shaderProgram.Use();	
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	// Part Going 3D
+	// -------------
+	glm::mat4 M = glm::mat4(1.0f);
 
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	while (!g_exitProgram) {		
 

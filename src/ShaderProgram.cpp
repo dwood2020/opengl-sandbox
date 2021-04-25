@@ -2,6 +2,7 @@
 #include "glad/glad.h"
 #include <vector>
 #include <iostream>
+#include <glm/gtc/matrix_transform.hpp>
 
 
 ShaderProgram::ShaderProgram(Shader vertexShader, Shader fragmentShader) {
@@ -52,4 +53,10 @@ void ShaderProgram::SetUniformInt(const std::string& name, int value) {
 void ShaderProgram::SetUniformFloat(const std::string& name, float value) {
 	int uniformLoc = glGetUniformLocation(id, name.c_str());
 	glUniform1f(uniformLoc, value);
+}
+
+
+void ShaderProgram::SetUniformMat4(const std::string& name, glm::mat4& value) {
+	int uniformLoc = glGetUniformLocation(id, name.c_str());
+	glUniformMatrix4fv(uniformLoc, 1, GL_FALSE, &value[0][0]);
 }

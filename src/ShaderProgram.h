@@ -1,5 +1,6 @@
 #pragma once
 #include "Shader.h"
+#include <glm/glm.hpp>
 
 
 class ShaderProgram {
@@ -15,6 +16,7 @@ public:
 
 	void SetUniformInt(const std::string& name, int value);
 	void SetUniformFloat(const std::string& name, float value);
+	void SetUniformMat4(const std::string& name, glm::mat4& value);
 };
 
 
