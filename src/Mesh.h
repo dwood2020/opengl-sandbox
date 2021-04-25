@@ -25,6 +25,7 @@ public:
 
 	void SetPositionVertices(std::vector<glm::vec3>& vertices);
 	void SetTextureCoordVertices(std::vector<glm::vec2>& texCoords);
+	void SetNormalVertices(std::vector<glm::vec3>& normals);
 	void SetIndices(std::vector<unsigned int>& indices);
 	void SetMode(GLenum glMode);
 

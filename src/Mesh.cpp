@@ -18,6 +18,11 @@ void Mesh::SetTextureCoordVertices(std::vector<glm::vec2>& texCoords) {
 }
 
 
+void Mesh::SetNormalVertices(std::vector<glm::vec3>& normals) {
+	verticesNormal = normals;
+}
+
+
 void Mesh::SetIndices(std::vector<unsigned int>& indices) {
 	this->indices = indices;
 }
