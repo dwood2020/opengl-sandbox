@@ -10,5 +10,9 @@ enum class MouseButtonCode {
 
 
 enum class KeyCode {
-
+	None = 0,
+	A = 1,
+	D = 4,
+	S = 19,
+	W = 23
 };
