@@ -85,7 +85,9 @@ int main(int argc, char* argv[]) {
 		2, 3, 1
 	};
 
-	Mesh mesh(vertices, indices);
+	Mesh mesh;
+	mesh.SetPositionVertices(vertices);
+	mesh.SetIndices(indices);
 	mesh.Prepare();
 	mesh.SetMode(GL_TRIANGLES);	
 

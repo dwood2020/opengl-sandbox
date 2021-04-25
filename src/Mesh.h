@@ -20,19 +20,17 @@ protected:
 	std::vector<unsigned int> indices;
 
 public:
-	Mesh(std::vector<glm::vec3>& vertices);
-	Mesh(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices);
-	//TODO: Further overloaded ctors for normals & texture coords
+	Mesh();
 	virtual ~Mesh();
 
+	void SetPositionVertices(std::vector<glm::vec3>& vertices);
+	void SetTextureCoordVertices(std::vector<glm::vec2>& texCoords);
+	void SetIndices(std::vector<unsigned int>& indices);
 	void SetMode(GLenum glMode);
 
 	void Prepare(void);
 	void Draw(void);
 
-protected:
-	Mesh();
-	
 };
 
 

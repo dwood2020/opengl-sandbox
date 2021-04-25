@@ -2,23 +2,25 @@
 #include <cstddef>
 
 
-Mesh::Mesh(std::vector<glm::vec3>& vertices) : Mesh() {
-	verticesPosition = vertices;
-}
-
-
-Mesh::Mesh(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices):
-	Mesh() { 
-		
-	verticesPosition = vertices;	
-	this->indices = indices;
-}
-
-
 Mesh::Mesh() : vao(0), vbo(0), ebo(0), glMode(GL_POINTS), nrElements(0) { }
 
 
 Mesh::~Mesh() { }
+
+
+void Mesh::SetPositionVertices(std::vector<glm::vec3>& vertices) {
+	verticesPosition = vertices;
+}
+
+
+void Mesh::SetTextureCoordVertices(std::vector<glm::vec2>& texCoords) {
+	verticesTexCoord = texCoords;
+}
+
+
+void Mesh::SetIndices(std::vector<unsigned int>& indices) {
+	this->indices = indices;
+}
 
 
 void Mesh::SetMode(GLenum glMode) {
