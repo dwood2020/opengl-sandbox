@@ -70,8 +70,7 @@ int IupWindow::CanvasResizeCb(Ihandle* self, int width, int height) {
 }
 
 
-int IupWindow::DialogCloseCb(Ihandle* self) {
-	this->windowShouldClose = true;
+int IupWindow::DialogCloseCb(Ihandle* self) {	
 
 	WindowCloseEvent e;
 	OnEvent(e);
