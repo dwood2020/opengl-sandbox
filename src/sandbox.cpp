@@ -14,10 +14,21 @@
 
 
 bool g_exitProgram = false;
+glm::mat4 g_P = glm::mat4(1.0f);
+bool g_P_isDirty = false;
+
+// Temporary: Re-calc projection matrix after screen resizing
+// this may be job of a "camera" in the future?
+void CalcProjectionMatrix(int windowW, int windowH) {
+	std::cout << "CalcProjectionMatrix called!" << std::endl;
+	g_P = glm::perspective(glm::radians(45.0f), (float)windowW / (float)windowH, 1.0f, 100.0f);
+	g_P_isDirty = true;
+}
 
 
 void OnWindowResize(Event& e) {
 	std::cout << "OnWindowResize called!" << std::endl;
+	CalcProjectionMatrix(e.w, e.h);
 	glViewport(0, 0, e.w, e.h);
 }
 
@@ -110,7 +121,7 @@ int main(int argc, char* argv[]) {
 	// -------------
 	glm::mat4 M = glm::mat4(1.0f);
 	glm::mat4 V = glm::mat4(1.0f);
-	glm::mat4 P = glm::mat4(1.0f);
+	//glm::mat4 P = glm::mat4(1.0f);
 
 	// transform local coordinates to world coordinates
 	M = glm::rotate(M, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -121,12 +132,12 @@ int main(int argc, char* argv[]) {
 	// last, define projection (here: perspective projection)
 	int scrWidth, scrHeight;
 	window.GetWindowRect(scrWidth, scrHeight);
-	P = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 1.0f, 100.0f);
+	g_P = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 1.0f, 100.0f);
 
 	// send all matrices to shaders
 	shaderProgram.SetUniformMat4("M", M);
 	shaderProgram.SetUniformMat4("V", V);
-	shaderProgram.SetUniformMat4("P", P);
+	shaderProgram.SetUniformMat4("P", g_P);
 
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -136,9 +147,14 @@ int main(int argc, char* argv[]) {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
-		// let plane rotate
+		// let object rotate
 		M = glm::rotate(M, 0.01f, glm::vec3(1.0f, 0.0f, 0.0f));
 		shaderProgram.SetUniformMat4("M", M);
+
+		if (g_P_isDirty) {
+			shaderProgram.SetUniformMat4("P", g_P);
+			g_P_isDirty = false;
+		}
 
 		shaderProgram.Use();
 		mesh.Draw();		
