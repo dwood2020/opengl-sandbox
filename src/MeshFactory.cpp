@@ -17,6 +17,15 @@ Mesh MeshFactory::MakeRectangle(float w, float h, float z) const {
 	float wHalf = w / 2.0f;
 	float hHalf = h / 2.0f;
 
+	/*
+	* Construction:
+	* 
+	* 4 +--------+ 3
+	*   |   +0,0 | h
+	* 1 +--------+ 2
+	*        w
+	*/
+
 	std::vector<glm::vec3> vertices = {
 		{-wHalf, -hHalf, z},
 		{wHalf, -hHalf, z},
@@ -31,15 +40,57 @@ Mesh MeshFactory::MakeRectangle(float w, float h, float z) const {
 
 	mesh.SetPositionVertices(vertices);
 	mesh.SetIndices(indices);
-	mesh.SetMode(GL_TRIANGLES);
+	mesh.SetGlMode(GL_TRIANGLES);
 	mesh.Prepare();
 
 	return mesh;
 }
 
 
-Mesh MeshFactory::MakeCube(int l) const {
-	return Mesh();
+Mesh MeshFactory::MakeCube(float l) const {
+
+	Mesh mesh;
+
+	float lh = l / 2.0f;
+
+	std::vector<glm::vec3> vertices = {
+		{-lh, -lh, lh},
+		{lh, -lh, lh},
+		{lh, lh, lh},
+		{-lh, lh, lh},	// front plane
+
+		{-lh, -lh, -lh},
+		{lh, -lh, -lh},
+		{lh, lh, -lh},
+		{-lh, lh, -lh}	// rear plane
+	};
+
+	std::vector<unsigned int> indices = {
+		0, 1, 2,
+		0, 2, 3,	// front plane
+
+		1, 5, 6,
+		1, 6, 2,	// right plane
+
+		5, 4, 7,
+		5, 7, 6,	// rear plane
+
+		4, 0, 3,
+		4, 3, 7,	// left plane
+
+		3, 2, 6,
+		3, 6, 7,	// top plane
+
+		4, 5, 1,
+		4, 1, 0,	// bottom plane
+	};
+
+	mesh.SetPositionVertices(vertices);
+	mesh.SetIndices(indices);
+	mesh.SetGlMode(GL_TRIANGLES);
+	mesh.Prepare();
+
+	return mesh;
 }
 
 

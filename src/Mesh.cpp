@@ -31,7 +31,7 @@ void Mesh::SetIndices(std::vector<unsigned int>& indices) {
 }
 
 
-void Mesh::SetMode(GLenum glMode) {
+void Mesh::SetGlMode(GLenum glMode) {
 	this->glMode = glMode;
 }
 
