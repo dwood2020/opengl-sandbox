@@ -14,6 +14,7 @@ protected:
 
 	// these arrays serve for building the vertex data
 	// and are cleared after calling Prepare()
+	// TODO: convert these to pointers
 	std::vector<glm::vec3> verticesPosition;
 	std::vector<glm::vec2> verticesTexCoord;
 	std::vector<glm::vec3> verticesNormal;
@@ -31,6 +32,9 @@ public:
 
 	void Prepare(void);
 	void Draw(void);
+
+protected:
+	bool CheckDataConsistency(void) const;
 
 };
 

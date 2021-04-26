@@ -1,5 +1,8 @@
 #include "Mesh.h"
 #include <cstddef>
+#include <algorithm>
+
+#include <iostream>
 
 
 Mesh::Mesh() : vao(0), vbo(0), ebo(0), glMode(GL_POINTS), nrElements(0) { }
@@ -34,6 +37,11 @@ void Mesh::SetMode(GLenum glMode) {
 
 
 void Mesh::Prepare(void) {
+
+	if (!CheckDataConsistency()) {
+		return;
+	}
+
 	size_t dataSize = verticesPosition.size() * 3 + verticesTexCoord.size() * 2 + verticesNormal.size() * 3;
 	
 	std::vector<float> data;
@@ -129,4 +137,24 @@ void Mesh::Draw(void) {
 		glDrawElements(glMode, nrElements, GL_UNSIGNED_INT, 0);
 	}
 	glBindVertexArray(0);
+}
+
+
+bool Mesh::CheckDataConsistency(void) const {
+
+	unsigned int vertexCount = verticesPosition.size();
+
+	if (!indices.empty()) {
+		auto it = std::max_element(indices.begin(), indices.end());
+
+		if (*it > vertexCount - 1) {
+			//TODO: LOG ERROR!
+			std::cout << "ERROR::MESH: DATA INCONSISTENT" << std::endl;
+			return false;
+		}
+
+		//TODO: Amend this by normals & tex coord checks!
+	}
+
+	return true;
 }

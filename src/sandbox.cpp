@@ -8,6 +8,7 @@
 #include "Shader.h"
 #include "ShaderProgram.h"
 #include "Mesh.h"
+#include "MeshFactory.h"
 
 #include <chrono>
 
@@ -36,13 +37,14 @@ void OnMouseButtonClick(Event& e) {
 // tiny utility function for sandbox tests
 unsigned int GetUnixTimestamp(void) {
 	auto t = std::chrono::system_clock::now();
-	return std::chrono::duration_cast<std::chrono::seconds>(t.time_since_epoch()).count();
+	return (unsigned int)std::chrono::duration_cast<std::chrono::seconds>(t.time_since_epoch()).count();
 }
 
 
 int main(int argc, char* argv[]) {
 
 	EventBus eventBus;
+	MeshFactory meshFactory;
 
 
 	IupWindow window(&eventBus, 800, 600, "IupWindow class - Test 1");		
@@ -73,7 +75,7 @@ int main(int argc, char* argv[]) {
 
 
 	// test of new mesh class
-	std::vector<glm::vec3> vertices = {
+	/*std::vector<glm::vec3> vertices = {
 		{-0.5f, -0.5f, 0.0f},
 		{0.5f, -0.5f, 0.0f},
 		{-0.5f, 0.5f, 0.0f},
@@ -89,7 +91,10 @@ int main(int argc, char* argv[]) {
 	mesh.SetPositionVertices(vertices);
 	mesh.SetIndices(indices);
 	mesh.Prepare();
-	mesh.SetMode(GL_TRIANGLES);	
+	mesh.SetMode(GL_TRIANGLES);*/
+
+	Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
+
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vertex.glsl").c_str(), GL_VERTEX_SHADER);
 	Shader fragmentShader(Shader::ReadSourceFromFile("res/fragment.glsl").c_str(), GL_FRAGMENT_SHADER);
