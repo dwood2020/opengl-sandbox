@@ -93,7 +93,8 @@ int main(int argc, char* argv[]) {
 	mesh.Prepare();
 	mesh.SetMode(GL_TRIANGLES);*/
 
-	Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
+	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
+	Mesh mesh = meshFactory.MakeCube(1.0f);
 
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vertex.glsl").c_str(), GL_VERTEX_SHADER);
