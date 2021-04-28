@@ -9,6 +9,7 @@
 #include "ShaderProgram.h"
 #include "Mesh.h"
 #include "MeshFactory.h"
+#include "Keycodes.hpp"
 
 #include <chrono>
 
@@ -19,7 +20,9 @@ bool g_P_isDirty = false;
 
 
 void OnKeyEvent(Event& e) {
-	std::cout << "Key " << (int)e.keyCode << ((e.keypress) ? " pressed" : " released") << std::endl;
+	if (e.keyCode != KeyCode::None) {
+		std::cout << "Key " << (int)e.keyCode << ((e.isKeydown) ? " pressed" : " released") << std::endl;
+	}	
 }
 
 
@@ -47,7 +50,7 @@ void OnWindowClose(Event& e) {
 
 
 void OnMouseButtonClick(Event& e) {
-	std::cout << "Mouse button " << ((e.press) ? "clicked" : "released") << ": " << (int)e.mbCode << std::endl;	
+	std::cout << "Mouse button " << ((e.isPressed) ? "clicked" : "released") << ": " << (int)e.mbCode << std::endl;	
 }
 
 

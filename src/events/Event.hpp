@@ -40,12 +40,12 @@ public:
 
 		struct {
 			MouseButtonCode mbCode;
-			bool press;
+			bool isPressed;
 		};
 
 		struct {
 			KeyCode keyCode;
-			bool keypress;	//TODO: check this with iup callback
+			bool isKeydown;
 		};
 	};
 
@@ -74,17 +74,17 @@ public:
 
 class MouseButtonEvent final : public Event {
 public:
-	MouseButtonEvent(MouseButtonCode mbCode, bool press) : Event(EventType::MouseButton) {
+	MouseButtonEvent(MouseButtonCode mbCode, bool isPressed) : Event(EventType::MouseButton) {
 		this->mbCode = mbCode;
-		this->press = press;
+		this->isPressed = isPressed;
 	}	
 };
 
 
 class KeyEvent final : public Event {
 public:
-	KeyEvent(KeyCode keycode, bool keypress) : Event(EventType::Key) {
+	KeyEvent(KeyCode keycode, bool isKeydown) : Event(EventType::Key) {
 		this->keyCode = keycode;
-		this->keypress = keypress;
+		this->isKeydown = isKeydown;
 	}
 };
