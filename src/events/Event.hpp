@@ -42,6 +42,11 @@ public:
 			MouseButtonCode mbCode;
 			bool press;
 		};
+
+		struct {
+			KeyCode keyCode;
+			bool keypress;	//TODO: check this with iup callback
+		};
 	};
 
 };
@@ -73,4 +78,13 @@ public:
 		this->mbCode = mbCode;
 		this->press = press;
 	}	
+};
+
+
+class KeyEvent final : public Event {
+public:
+	KeyEvent(KeyCode keycode, bool keypress) : Event(EventType::Key) {
+		this->keyCode = keyCode;
+		this->keypress = keypress;
+	}
 };

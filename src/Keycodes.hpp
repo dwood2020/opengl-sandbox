@@ -14,5 +14,7 @@ enum class KeyCode {
 	A = 1,
 	D = 4,
 	S = 19,
-	W = 23
+	W = 23,
+	Esc,
+	Space
 };

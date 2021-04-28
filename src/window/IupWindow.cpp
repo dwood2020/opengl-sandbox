@@ -25,6 +25,7 @@ void IupWindow::Init(int argc, char** argv) {
 	IUP_CLASS_INITCALLBACK(canvas, IupWindow);
 	IUP_CLASS_SETCALLBACK(canvas, "RESIZE_CB", CanvasResizeCb);
 	IUP_CLASS_SETCALLBACK(canvas, "BUTTON_CB", CanvasButtonCb);
+	IUP_CLASS_SETCALLBACK(canvas, "KEYPRESS_CB", CanvasKeyCb);
 
 	Ihandle* dlg = IupDialog(IupVbox(IupHbox(label1, labelGlVersion, NULL), canvas, NULL));
 	std::string size = std::to_string(this->width) + 'X' + std::to_string(this->height);
@@ -96,6 +97,33 @@ int IupWindow::CanvasButtonCb(Ihandle* self, int button, int pressed, int x, int
 
 	MouseButtonEvent e(mbCode, (bool)pressed);
 	OnEvent(e);
+	return IUP_DEFAULT;
+}
+
+
+int IupWindow::CanvasKeyCb(Ihandle* self, int c, int press) {
+	KeyCode keycode;
+	
+	switch (c) {
+	case K_A:
+		keycode = KeyCode::A; break;
+	case K_D:
+		keycode = KeyCode::D; break;
+	case K_S:
+		keycode = KeyCode::S; break;
+	case K_W:
+		keycode = KeyCode::W; break;
+	case K_ESC:
+		keycode = KeyCode::Esc; break;
+	case K_SP:
+		keycode = KeyCode::Space; break;
+	default:
+		keycode = KeyCode::None;
+	}
+
+	KeyEvent e(keycode, (bool)press);
+	OnEvent(e);
+
 	return IUP_DEFAULT;
 }
 
