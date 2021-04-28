@@ -1,5 +1,6 @@
 #include "IupWindow.h"
 #include <string>
+#include <iup/iupkey.h>
 
 
 IupWindow::IupWindow(EventBus* eventBus, int width, int height, const std::string& title):
@@ -106,19 +107,23 @@ int IupWindow::CanvasKeyCb(Ihandle* self, int c, int press) {
 	
 	switch (c) {
 	case K_A:
+	case K_a:
 		keycode = KeyCode::A; break;
 	case K_D:
+	case K_d:
 		keycode = KeyCode::D; break;
 	case K_S:
+	case K_s:
 		keycode = KeyCode::S; break;
 	case K_W:
+	case K_w:
 		keycode = KeyCode::W; break;
 	case K_ESC:
 		keycode = KeyCode::Esc; break;
 	case K_SP:
 		keycode = KeyCode::Space; break;
 	default:
-		keycode = KeyCode::None;
+		keycode = KeyCode::None; break;
 	}
 
 	KeyEvent e(keycode, (bool)press);

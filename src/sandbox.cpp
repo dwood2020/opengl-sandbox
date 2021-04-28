@@ -17,6 +17,12 @@ bool g_exitProgram = false;
 glm::mat4 g_P = glm::mat4(1.0f);
 bool g_P_isDirty = false;
 
+
+void OnKeyEvent(Event& e) {
+	std::cout << "Key " << (int)e.keyCode << " received" << std::endl;
+}
+
+
 // Temporary: Re-calc projection matrix after screen resizing
 // this may be job of a "camera" in the future?
 void CalcProjectionMatrix(int windowW, int windowH) {
@@ -76,6 +82,7 @@ int main(int argc, char* argv[]) {
 	eventBus.AddListener(EventType::WindowResize, OnWindowResize);
 	eventBus.AddListener(EventType::WindowClose, OnWindowClose);
 	eventBus.AddListener(EventType::MouseButton, OnMouseButtonClick);
+	eventBus.AddListener(EventType::Key, OnKeyEvent);
 
 
 	glClearColor(0.075f, 0.196f, 0.325f, 1.0f);	

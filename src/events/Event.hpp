@@ -84,7 +84,7 @@ public:
 class KeyEvent final : public Event {
 public:
 	KeyEvent(KeyCode keycode, bool keypress) : Event(EventType::Key) {
-		this->keyCode = keyCode;
+		this->keyCode = keycode;
 		this->keypress = keypress;
 	}
 };
