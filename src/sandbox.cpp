@@ -19,7 +19,7 @@ bool g_P_isDirty = false;
 
 
 void OnKeyEvent(Event& e) {
-	std::cout << "Key " << (int)e.keyCode << " received" << std::endl;
+	std::cout << "Key " << (int)e.keyCode << ((e.keypress) ? " pressed" : " released") << std::endl;
 }
 
 
