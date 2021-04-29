@@ -18,6 +18,7 @@ protected:
 
 public:
 	Event(EventType type): type(type), x(0), y(0) { }
+
 	virtual ~Event() { }
 
 	const EventType& GetType(void) const {
@@ -75,9 +76,6 @@ public:
 	}
 
 	virtual ~WindowResizeEvent() { }
-
-	int GetWidth(void) const { return w; }
-	int GetHeight(void) const { return h; }
 };
 
 
@@ -88,8 +86,6 @@ public:
 		this->isPressed = isPressed;
 	}	
 
-	MouseButtonCode GetMbCode(void) const { return mbCode; }
-	bool GetIsPressed(void) const { return isPressed; }
 };
 
 
@@ -100,6 +96,4 @@ public:
 		this->isKeydown = isKeydown;
 	}
 
-	KeyCode GetKeyCode(void) const { return keyCode; }
-	bool GetIsKeydown(void) const { return isKeydown; }
 };
