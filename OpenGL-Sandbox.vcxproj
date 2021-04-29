@@ -168,6 +168,7 @@
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\ShaderProgram.cpp" />
     <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\stb\stb_image.cpp" />
     <ClCompile Include="src\window\IupWindow.cpp" />
     <ClCompile Include="src\glad\glad.c" />
     <ClCompile Include="src\window\WindowBase.cpp" />
