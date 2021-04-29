@@ -172,6 +172,7 @@
     <ClCompile Include="src\glad\glad.c" />
     <ClCompile Include="src\window\WindowBase.cpp" />
     <ClCompile Include="src\sandbox.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MeshFactory.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="src\glad\glad.h" />
     <ClInclude Include="src\glad\khrplatform.h" />
     <ClInclude Include="src\window\WindowBase.h" />
+    <ClInclude Include="src\Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -23,6 +23,9 @@ void OnKeyEvent(Event& e) {
 	if (e.keyCode != KeyCode::None) {
 		std::cout << "Key " << (int)e.keyCode << ((e.isKeydown) ? " pressed" : " released") << std::endl;
 	}	
+	if (e.keyCode == KeyCode::Esc) {
+		g_exitProgram = true;
+	}
 }
 
 
