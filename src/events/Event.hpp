@@ -24,6 +24,7 @@ public:
 		return type;
 	}
 
+public:
 	// payload data
 	// this is really the easiest (but not the best) way possible: no subclass members which can be sliced away.
 	// & there is no need to allocate event instances on the heap (to avoid obj slicing in the queue) this way - event base types can be directly used.
@@ -47,6 +48,11 @@ public:
 			KeyCode keyCode;
 			bool isKeydown;
 		};
+
+		struct {
+			int xScreen;
+			int yScreen;	//TODO: Think about this. Its a double definition of two ints
+		};
 	};
 
 };
@@ -69,6 +75,9 @@ public:
 	}
 
 	virtual ~WindowResizeEvent() { }
+
+	int GetWidth(void) const { return w; }
+	int GetHeight(void) const { return h; }
 };
 
 
@@ -78,6 +87,9 @@ public:
 		this->mbCode = mbCode;
 		this->isPressed = isPressed;
 	}	
+
+	MouseButtonCode GetMbCode(void) const { return mbCode; }
+	bool GetIsPressed(void) const { return isPressed; }
 };
 
 
@@ -87,4 +99,7 @@ public:
 		this->keyCode = keycode;
 		this->isKeydown = isKeydown;
 	}
+
+	KeyCode GetKeyCode(void) const { return keyCode; }
+	bool GetIsKeydown(void) const { return isKeydown; }
 };
