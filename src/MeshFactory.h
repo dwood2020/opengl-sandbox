@@ -10,7 +10,7 @@ public:
 
 	Mesh MakeRectangle(float w, float h, float z = 0.0f) const;
 
-	Mesh MakeCube(float l) const;
+	Mesh MakeCube(float l, bool isTextured = false) const;
 
 };
 

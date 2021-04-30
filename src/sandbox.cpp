@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 	MeshFactory meshFactory;
 
 
-	IupWindow window(&eventBus, 800, 600, "IupWindow class - Test 1");		
+	IupWindow window(&eventBus, 800, 600, "OpenGL Sandbox - IUP Window");		
 	window.Init(argc, argv);
 
 	window.MakeContextCurrent();
@@ -119,8 +119,8 @@ int main(int argc, char* argv[]) {
 	mesh.Prepare();
 	mesh.SetMode(GL_TRIANGLES);*/
 
-	Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
-	//Mesh mesh = meshFactory.MakeCube(1.0f);	
+	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
+	Mesh mesh = meshFactory.MakeCube(1.0f, true);	
 
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
