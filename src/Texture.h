@@ -7,20 +7,17 @@ class Texture final {
 public:
 	GLuint id;
 
-protected:
-	GLuint w;
-	GLuint h;
-	GLenum format;
-
 public:	
 	Texture();
 	~Texture();
 
-	void Generate(unsigned char* data);
+	void Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data);
 
-	static unsigned char* LoadData(const std::string& filepath);
+	void Bind(void) const;
+	
+	static Texture GenerateFromFile(const std::string& filepath);
 
-private:
+private:	
 	static GLenum GetImageFormat(const std::string& filepath);
 
 };
