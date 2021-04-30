@@ -16,30 +16,35 @@ void Texture::Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data)
 		return;
 	}
 
+	//TODO: Fix this: Crash when set to GL_RGBA
+	//format = GL_RGB;
+
 	const GLint level = 0;
-
-	glGenTextures(1, &id);
-
-	glBindTexture(GL_TEXTURE_2D, id);
-	glTexImage2D(id, level, (GLint)format, w, h, 0, format, GL_UNSIGNED_BYTE, data);
 
 	const GLint paramWrap = GL_REPEAT;		// applied as wrapping in s and t direction
 	const GLint paramFilter = GL_LINEAR;	// applied as min and max filter setting
 	//NOTE: try GL_NEAREST as filter setting for minecraft style?
+
+	glGenTextures(1, &id);
+
+	glBindTexture(GL_TEXTURE_2D, id);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, paramWrap);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, paramWrap);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, paramFilter);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, paramFilter);
 
+	glTexImage2D(GL_TEXTURE_2D, level, (GLint)format, w, h, 0, format, GL_UNSIGNED_BYTE, data);
+
 	glGenerateMipmap(GL_TEXTURE_2D);
+
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 
 void Texture::Bind(void) const {
-	glActiveTexture(GL_TEXTURE0);	//TODO: move this when more than 1 texture is used
+	//glActiveTexture(GL_TEXTURE0);	//TODO: move this when more than 1 texture is used
 	glBindTexture(GL_TEXTURE_2D, id);
 }
 
@@ -55,9 +60,17 @@ Texture Texture::GenerateFromFile(const std::string& filepath) {
 	int nrChannels;
 	const int desiredChannels = 0;
 
+	stbi_set_flip_vertically_on_load(true);
 	unsigned char* data = stbi_load(filepath.c_str(), &w, &h, &nrChannels, desiredChannels);
 
-	GLenum imageFormat = GetImageFormat(filepath);
+	//GLenum imageFormat = GetImageFormat(filepath);
+	GLenum imageFormat;
+	if(nrChannels == 4) {
+		imageFormat = GL_RGBA;
+	}
+	else {
+		imageFormat = GL_RGB;
+	}
 
 	Texture obj;
 	obj.Generate(w, h, imageFormat, data);
@@ -79,7 +92,7 @@ GLenum Texture::GetImageFormat(const std::string& filepath) {
 	//TODO: catch exceptions here! (in case string is no ascii string etc...)
 
 	if (ending.compare("png") == 0) {
-		return GL_RGBA;
+		return GL_RGBA;		
 	}
 	else if (ending.compare("jpg") == 0 || ending.compare("jpeg") == 0) {
 		return GL_RGB;

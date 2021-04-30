@@ -20,6 +20,6 @@ void main(void) {
 	pos = P * V * M * pos;	
 	gl_Position = pos;
 
-	texCoord = aTexCoord;
+	texCoord = vec2(aTexCoord.x, aTexCoord.y);
 }
 

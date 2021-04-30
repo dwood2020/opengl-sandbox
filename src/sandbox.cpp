@@ -13,6 +13,7 @@
 #include "Texture.h"
 
 #include <chrono>
+#include <stb/stb_image.h>
 
 
 bool g_exitProgram = false;
@@ -122,8 +123,8 @@ int main(int argc, char* argv[]) {
 	//Mesh mesh = meshFactory.MakeCube(1.0f);	
 
 
-	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_simple.glsl").c_str(), GL_VERTEX_SHADER);
-	Shader fragmentShader(Shader::ReadSourceFromFile("res/frag_simple.glsl").c_str(), GL_FRAGMENT_SHADER);
+	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragmentShader(Shader::ReadSourceFromFile("res/frag_texture.glsl").c_str(), GL_FRAGMENT_SHADER);
 	vertexShader.CheckCompilationStatus();
 	fragmentShader.CheckCompilationStatus();
 
@@ -133,7 +134,7 @@ int main(int argc, char* argv[]) {
 
 	// Textures
 	// --------
-	Texture texBox = Texture::GenerateFromFile("res/texture/box.png");
+	Texture texBox = Texture::GenerateFromFile("res/texture/alpha_test.png");
 
 
 	// Part Going 3D
@@ -167,13 +168,12 @@ int main(int argc, char* argv[]) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
 		texBox.Bind();
-		shaderProgram.SetUniformInt("tex", 0);
+		//shaderProgram.SetUniformInt("tex", 0);
+
 
 		// let object rotate
 		M = glm::rotate(M, 0.01f, glm::vec3(1.0f, 0.0f, 0.0f));
 		shaderProgram.SetUniformMat4("M", M);
-		
-
 		
 
 		if (g_P_isDirty) {
