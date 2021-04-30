@@ -78,7 +78,7 @@ GLenum Texture::GetImageFormat(const std::string& filepath) {
 	}
 	//TODO: catch exceptions here! (in case string is no ascii string etc...)
 
-	if (ending.compare("png")) {
+	if (ending.compare("png") == 0) {
 		return GL_RGBA;
 	}
 	else if (ending.compare("jpg") == 0 || ending.compare("jpeg") == 0) {

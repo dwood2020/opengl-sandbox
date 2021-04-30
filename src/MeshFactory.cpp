@@ -33,12 +33,20 @@ Mesh MeshFactory::MakeRectangle(float w, float h, float z) const {
 		{-wHalf, hHalf, z}
 	};
 
+	std::vector<glm::vec2> texCoord = {
+		{0.0f, 0.0f},
+		{1.0f, 0.0f},
+		{1.0f, 1.0f},
+		{0.0f, 1.0f},
+	};
+
 	std::vector<unsigned int> indices = {
 		0, 1, 2,
 		0, 2, 3
 	};
 
 	mesh.SetPositionVertices(vertices);
+	mesh.SetTextureCoordVertices(texCoord);
 	mesh.SetIndices(indices);
 	mesh.SetGlMode(GL_TRIANGLES);
 	mesh.Prepare();
@@ -98,7 +106,7 @@ Mesh MeshFactory::MakeCube(float l) const {
 	};
 
 	mesh.SetPositionVertices(vertices);
-	//mesh.SetTextureCoordVertices(texVertices);
+	mesh.SetTextureCoordVertices(texVertices);
 	mesh.SetIndices(indices);
 	mesh.SetGlMode(GL_TRIANGLES);
 	mesh.Prepare();
