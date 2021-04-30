@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
 
 	// Textures
 	// --------
-	Texture texBox = Texture::GenerateFromFile("res/texture/alpha_test.png");
+	Texture texBox = Texture::GenerateFromFile("res/texture/box.png");
 
 
 	// Part Going 3D

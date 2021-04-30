@@ -16,9 +16,6 @@ void Texture::Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data)
 		return;
 	}
 
-	//TODO: Fix this: Crash when set to GL_RGBA
-	//format = GL_RGB;
-
 	const GLint level = 0;
 
 	const GLint paramWrap = GL_REPEAT;		// applied as wrapping in s and t direction
@@ -47,9 +44,6 @@ void Texture::Bind(void) const {
 	//glActiveTexture(GL_TEXTURE0);	//TODO: move this when more than 1 texture is used
 	glBindTexture(GL_TEXTURE_2D, id);
 }
-
-
-
 
 
 
