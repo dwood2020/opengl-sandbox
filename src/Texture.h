@@ -17,7 +17,4 @@ public:
 	
 	static Texture GenerateFromFile(const std::string& filepath);
 
-private:	
-	static GLenum GetImageFormat(const std::string& filepath);
-
 };

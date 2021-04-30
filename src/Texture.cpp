@@ -57,7 +57,6 @@ Texture Texture::GenerateFromFile(const std::string& filepath) {
 	stbi_set_flip_vertically_on_load(true);
 	unsigned char* data = stbi_load(filepath.c_str(), &w, &h, &nrChannels, desiredChannels);
 
-	//GLenum imageFormat = GetImageFormat(filepath);
 	GLenum imageFormat;
 	if(nrChannels == 4) {
 		imageFormat = GL_RGBA;
@@ -74,27 +73,3 @@ Texture Texture::GenerateFromFile(const std::string& filepath) {
 	return obj;
 }
 
-
-
-GLenum Texture::GetImageFormat(const std::string& filepath) {
-	size_t posEnding = filepath.find_last_of('.');
-
-	std::string ending = filepath.substr(posEnding + 1u);
-	for (size_t i = 0; i < ending.size(); ++i) {
-		ending[i] = std::tolower(ending[i]);
-	}
-	//TODO: catch exceptions here! (in case string is no ascii string etc...)
-
-	if (ending.compare("png") == 0) {
-		return GL_RGBA;		
-	}
-	else if (ending.compare("jpg") == 0 || ending.compare("jpeg") == 0) {
-		return GL_RGB;
-	}	
-	else {
-		// assume no alphas by default
-		//TODO: different image formats
-		return GL_RGB;
-	}
-
-}
