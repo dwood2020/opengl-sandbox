@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
 
 	// Textures
 	// --------
-	Texture texBox = Texture::GenerateFromFile("res/texture/box.png");
+	Texture tex1 = Texture::GenerateFromFile("res/texture/mc/diamond_ore.png", GL_NEAREST);
 
 
 	// Part Going 3D
@@ -167,8 +167,8 @@ int main(int argc, char* argv[]) {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
-		texBox.Bind();
-		//shaderProgram.SetUniformInt("tex", 0);
+		tex1.Bind();
+		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
 
 
 		// let object rotate

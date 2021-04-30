@@ -10,7 +10,7 @@ Texture::Texture(): id(0) { }
 Texture::~Texture() { }
 
 
-void Texture::Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data) {
+void Texture::Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data, GLint glTexFilterParam) {
 	if (data == nullptr) {
 		std::cout << "TEXTURE::GENERATE: Data array is null" << std::endl;
 		return;
@@ -18,9 +18,9 @@ void Texture::Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data)
 
 	const GLint level = 0;
 
-	const GLint paramWrap = GL_REPEAT;		// applied as wrapping in s and t direction
-	const GLint paramFilter = GL_LINEAR;	// applied as min and max filter setting
-	//NOTE: try GL_NEAREST as filter setting for minecraft style?
+	const GLint paramWrap = GL_REPEAT;		// applied as wrapping in s and t direction	
+	//NOTE: glTexFilterParam applied as min and max filter setting
+	//NOTE: use GL_NEAREST as filter setting for minecraft style
 
 	glGenTextures(1, &id);
 
@@ -28,8 +28,8 @@ void Texture::Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data)
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, paramWrap);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, paramWrap);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, paramFilter);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, paramFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, glTexFilterParam);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glTexFilterParam);
 
 	glTexImage2D(GL_TEXTURE_2D, level, (GLint)format, w, h, 0, format, GL_UNSIGNED_BYTE, data);
 
@@ -47,7 +47,7 @@ void Texture::Bind(void) const {
 
 
 
-Texture Texture::GenerateFromFile(const std::string& filepath) {
+Texture Texture::GenerateFromFile(const std::string& filepath, GLint glTexFilterParam) {
 
 	int w;
 	int h;
@@ -66,7 +66,7 @@ Texture Texture::GenerateFromFile(const std::string& filepath) {
 	}
 
 	Texture obj;
-	obj.Generate(w, h, imageFormat, data);
+	obj.Generate(w, h, imageFormat, data, glTexFilterParam);
 
 	stbi_image_free(data);
 

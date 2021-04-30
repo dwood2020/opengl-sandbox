@@ -362,3 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+
+# =======================================================
+# preventing some textures in res folder, for which
+# copyrights may otherwise be infringed
+res/texture/mc/*

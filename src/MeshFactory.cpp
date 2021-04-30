@@ -14,8 +14,10 @@ Mesh MeshFactory::MakeRectangle(float w, float h, float z) const {
 
 	Mesh mesh;
 
-	float wHalf = w / 2.0f;
-	float hHalf = h / 2.0f;
+	const float wHalf = w / 2.0f;
+	const float hHalf = h / 2.0f;
+
+	float rep = 5.0f;
 
 	/*
 	* Construction:
@@ -39,6 +41,14 @@ Mesh MeshFactory::MakeRectangle(float w, float h, float z) const {
 		{1.0f, 1.0f},
 		{0.0f, 1.0f},
 	};
+
+	//this somehow doesnt work as expected
+	if (rep != 1.0f) {
+		for (glm::vec2 v : texCoord) {
+			v.x *= rep;
+			v.y *= rep;
+		}
+	}
 
 	std::vector<unsigned int> indices = {
 		0, 1, 2,
@@ -74,18 +84,6 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 			{-lh, lh, -lh}	// rear plane
 		};
 
-		/*std::vector<glm::vec2> texVertices = {
-			{0.0f, 0.0f},
-			{1.0f, 0.0f},
-			{1.0f, 1.0f},
-			{0.0f, 1.0f},
-
-			{0.0f, 0.0f},
-			{1.0f, 0.0f},
-			{1.0f, 1.0f},
-			{0.0f, 1.0f},
-		};*/
-
 		std::vector<unsigned int> indices = {
 			0, 1, 2,
 			0, 2, 3,	// front plane
@@ -107,7 +105,6 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 		};
 
 		mesh.SetPositionVertices(vertices);
-		//mesh.SetTextureCoordVertices(texVertices);
 		mesh.SetIndices(indices);
 		mesh.SetGlMode(GL_TRIANGLES);
 		mesh.Prepare();
