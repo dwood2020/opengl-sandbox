@@ -16,9 +16,6 @@ void main(void) {
 	if (zPos > 1.0f) {
 		color = yellowColor;
 	}
-//	else if (zPos < 0.6f) {
-//		color = redColor;
-//	}
 
 	fragColor = vec4(color, 1.0f);
 }

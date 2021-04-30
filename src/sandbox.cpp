@@ -10,6 +10,7 @@
 #include "Mesh.h"
 #include "MeshFactory.h"
 #include "Keycodes.hpp"
+#include "Texture.h"
 
 #include <chrono>
 
@@ -118,17 +119,22 @@ int main(int argc, char* argv[]) {
 	mesh.SetMode(GL_TRIANGLES);*/
 
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
-	Mesh mesh = meshFactory.MakeCube(1.0f);
+	Mesh mesh = meshFactory.MakeCube(1.0f);	
 
 
-	Shader vertexShader(Shader::ReadSourceFromFile("res/vertex.glsl").c_str(), GL_VERTEX_SHADER);
-	Shader fragmentShader(Shader::ReadSourceFromFile("res/fragment.glsl").c_str(), GL_FRAGMENT_SHADER);
+	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragmentShader(Shader::ReadSourceFromFile("res/frag_texture.glsl").c_str(), GL_FRAGMENT_SHADER);
 	vertexShader.CheckCompilationStatus();
 	fragmentShader.CheckCompilationStatus();
 
 	ShaderProgram shaderProgram(vertexShader, fragmentShader);
 	shaderProgram.CheckLinkStatus();
 	shaderProgram.Use();	
+
+	// Textures
+	// --------
+	Texture texBox = Texture::GenerateFromFile("res/texture/box.png");
+
 
 	// Part Going 3D
 	// -------------
@@ -163,6 +169,9 @@ int main(int argc, char* argv[]) {
 		// let object rotate
 		M = glm::rotate(M, 0.01f, glm::vec3(1.0f, 0.0f, 0.0f));
 		shaderProgram.SetUniformMat4("M", M);
+		shaderProgram.SetUniformInt("tex", 0);
+
+		texBox.Bind();
 
 		if (g_P_isDirty) {
 			shaderProgram.SetUniformMat4("P", g_P);

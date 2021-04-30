@@ -2,6 +2,7 @@
 #include <stb/stb_image.h>
 #include "glad/glad.h"
 
+#include <iostream>
 
 Texture::Texture(): id(0) { }
 
@@ -10,6 +11,11 @@ Texture::~Texture() { }
 
 
 void Texture::Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data) {
+	if (data == nullptr) {
+		std::cout << "TEXTURE::GENERATE: Data array is null" << std::endl;
+		return;
+	}
+
 	const GLint level = 0;
 
 	glGenTextures(1, &id);
@@ -33,6 +39,7 @@ void Texture::Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data)
 
 
 void Texture::Bind(void) const {
+	glActiveTexture(GL_TEXTURE0);	//TODO: move this when more than 1 texture is used
 	glBindTexture(GL_TEXTURE_2D, id);
 }
 
@@ -54,6 +61,8 @@ Texture Texture::GenerateFromFile(const std::string& filepath) {
 
 	Texture obj;
 	obj.Generate(w, h, imageFormat, data);
+
+	stbi_image_free(data);
 
 	return obj;
 }

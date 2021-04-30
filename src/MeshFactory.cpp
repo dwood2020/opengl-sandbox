@@ -65,6 +65,18 @@ Mesh MeshFactory::MakeCube(float l) const {
 		{-lh, lh, -lh}	// rear plane
 	};
 
+	std::vector<glm::vec2> texVertices = {
+		{0.0f, 0.0f},
+		{1.0f, 0.0f},
+		{1.0f, 1.0f},
+		{0.0f, 1.0f},
+
+		{0.0f, 0.0f},
+		{1.0f, 0.0f},
+		{1.0f, 1.0f},
+		{0.0f, 1.0f},
+	};
+
 	std::vector<unsigned int> indices = {
 		0, 1, 2,
 		0, 2, 3,	// front plane
@@ -86,6 +98,7 @@ Mesh MeshFactory::MakeCube(float l) const {
 	};
 
 	mesh.SetPositionVertices(vertices);
+	//mesh.SetTextureCoordVertices(texVertices);
 	mesh.SetIndices(indices);
 	mesh.SetGlMode(GL_TRIANGLES);
 	mesh.Prepare();
