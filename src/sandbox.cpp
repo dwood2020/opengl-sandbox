@@ -11,13 +11,14 @@
 #include "MeshFactory.h"
 #include "Keycodes.hpp"
 #include "Texture.h"
+#include "Camera.h"
 
 #include <chrono>
 
 
 bool g_exitProgram = false;
-glm::mat4 g_P = glm::mat4(1.0f);
-bool g_P_isDirty = false;
+//glm::mat4 g_P = glm::mat4(1.0f);
+//bool g_P_isDirty = false;
 
 
 void OnKeyEvent(Event& e) {
@@ -32,26 +33,26 @@ void OnKeyEvent(Event& e) {
 
 // Temporary: Re-calc projection matrix after screen resizing
 // this may be job of a "camera" in the future?
-void CalcProjectionMatrix(int windowW, int windowH) {
-	
-	float w = (float)windowW;
-	float h = (float)windowH;
-
-	// perspective projection
-	g_P = glm::perspective(glm::radians(45.0f), w / h, 1.0f, 100.0f);
-	
-	// orthographic projection
-	/*w = w / 100.0f;
-	h = h / 100.0f;
-	g_P = glm::ortho(-w/2.0f, w/2.0f, -h/2.0f, h/2.0f, 1.0f, 100.0f);*/
-
-	g_P_isDirty = true;
-}
+//void CalcProjectionMatrix(int windowW, int windowH) {
+//	
+//	float w = (float)windowW;
+//	float h = (float)windowH;
+//
+//	// perspective projection
+//	g_P = glm::perspective(glm::radians(45.0f), w / h, 1.0f, 100.0f);
+//	
+//	// orthographic projection
+//	/*w = w / 100.0f;
+//	h = h / 100.0f;
+//	g_P = glm::ortho(-w/2.0f, w/2.0f, -h/2.0f, h/2.0f, 1.0f, 100.0f);*/
+//
+//	g_P_isDirty = true;
+//}
 
 
 void OnWindowResize(Event& e) {
 	std::cout << "OnWindowResize called!" << std::endl;
-	CalcProjectionMatrix(e.w, e.h);
+	/*CalcProjectionMatrix(e.w, e.h);*/
 	glViewport(0, 0, e.w, e.h);
 }
 
@@ -149,25 +150,32 @@ int main(int argc, char* argv[]) {
 	// Part Going 3D
 	// -------------
 	glm::mat4 M = glm::mat4(1.0f);
-	glm::mat4 V = glm::mat4(1.0f);
+	//glm::mat4 V = glm::mat4(1.0f);
 	//glm::mat4 P = glm::mat4(1.0f);
 
 	// transform local coordinates to world coordinates
 	M = glm::rotate(M, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
-	V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
+	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
+
+	// V and P now via Camera class
+	Camera camera(eventBus);
+	camera.SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
+
 
 	// last, define projection (here: perspective projection)
 	int scrWidth, scrHeight;
 	window.GetWindowRect(scrWidth, scrHeight);
 	//g_P = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 1.0f, 100.0f);
-	CalcProjectionMatrix(800, 600);
+	//CalcProjectionMatrix(800, 600);
 
 	// send all matrices to shaders
 	shaderProgram.SetUniformMat4("M", M);
-	shaderProgram.SetUniformMat4("V", V);
-	shaderProgram.SetUniformMat4("P", g_P);
+	//shaderProgram.SetUniformMat4("V", V);
+	shaderProgram.SetUniformMat4("V", camera.V);
+	//shaderProgram.SetUniformMat4("P", g_P);
+	shaderProgram.SetUniformMat4("P", camera.P);
 
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -186,10 +194,15 @@ int main(int argc, char* argv[]) {
 		shaderProgram.SetUniformMat4("M", M);
 		
 
-		if (g_P_isDirty) {
+		/*if (g_P_isDirty) {
 			shaderProgram.SetUniformMat4("P", g_P);
 			g_P_isDirty = false;
+		}*/
+		if (camera.PIsDirty) {
+			shaderProgram.SetUniformMat4("P", camera.P);
+			camera.PIsDirty = false;
 		}
+
 
 		shaderProgram.Use();
 		mesh.Draw();		
