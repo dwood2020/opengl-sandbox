@@ -97,3 +97,12 @@ public:
 	}
 
 };
+
+
+class MouseMoveEvent final : public Event {
+public:
+	MouseMoveEvent(int x, int y) : Event(EventType::MouseMove) {
+		this->xScreen = x;
+		this->yScreen = y;
+	}
+};

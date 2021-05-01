@@ -19,7 +19,16 @@ public:
 	bool VIsDirty;
 
 protected:
-	glm::vec3 position;
+	glm::vec3 positionCartesian;
+
+	// position in sphere coordinates:
+	float rho;
+	float theta;
+	float phi;
+
+	bool lmbIsDown = false;
+	float lastMousePosX = 0.0f;
+	float lastMousePosY = 0.0f;
 
 	Camera();
 
@@ -35,6 +44,9 @@ public:
 protected:
 	void CalcProjectionMatrix(int wScreen, int hScreen);
 	void CalcViewMatrix(void);
+
+	void ProcessMouseButtonInput(MouseButtonCode mbCode, bool isPressed);
+	void ProcessMouseMoveInput(int x, int y);
 
 };
 

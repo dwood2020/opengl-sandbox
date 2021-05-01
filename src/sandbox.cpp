@@ -180,7 +180,7 @@ int main(int argc, char* argv[]) {
 
 	// V and P now via Camera class
 	Camera camera(eventBus);
-	camera.SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
+	camera.SetPosition(glm::vec3(0.0f, 5.0f, 5.0f));
 
 
 	// last, define projection (here: perspective projection)

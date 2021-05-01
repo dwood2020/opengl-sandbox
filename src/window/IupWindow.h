@@ -34,5 +34,6 @@ protected:
 	IUP_CLASS_DECLARECALLBACK_IFn(IupWindow, DialogCloseCb);
 	IUP_CLASS_DECLARECALLBACK_IFniiiis(IupWindow, CanvasButtonCb);
 	IUP_CLASS_DECLARECALLBACK_IFnii(IupWindow, CanvasKeyCb);
+	IUP_CLASS_DECLARECALLBACK_IFniis(IupWindow, CanvasMouseMoveCb);
 
 };

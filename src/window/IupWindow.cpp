@@ -98,6 +98,7 @@ int IupWindow::CanvasButtonCb(Ihandle* self, int button, int pressed, int x, int
 
 	MouseButtonEvent e(mbCode, (bool)pressed);
 	OnEvent(e);
+
 	return IUP_DEFAULT;
 }
 
@@ -131,6 +132,16 @@ int IupWindow::CanvasKeyCb(Ihandle* self, int c, int press) {
 
 	return IUP_DEFAULT;
 }
+
+
+int IupWindow::CanvasMouseMoveCb(Ihandle* self, int x, int y, char* status) {
+	
+	MouseMoveEvent e(x, y);
+	OnEvent(e);
+
+	return IUP_DEFAULT;
+}
+
 
 
 // custom function which will not be needed in IupWindowBase class
