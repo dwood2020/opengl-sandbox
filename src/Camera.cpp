@@ -1,6 +1,8 @@
 #include "Camera.h"
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <iostream>
+
 
 Camera::Camera(): 
 	position(glm::vec3(0.0f)), target(glm::vec3(0.0f)), V(glm::mat4(1.0f)), 
@@ -21,6 +23,17 @@ Camera::Camera(EventBus& eventBus): Camera() {
 Camera::~Camera() { }
 
 
+void Camera::SetPosition(glm::vec3 pos) {
+	this->position = pos;
+	CalcViewMatrix();
+}
+
+
+const glm::vec3& Camera::GetPosition(void) const {
+	return position;
+}
+
+
 void Camera::OnWindowResize(Event& e) {
 	if (e.GetType() == EventType::WindowResize) {
 		CalcProjectionMatrix(e.w, e.h);
@@ -30,6 +43,9 @@ void Camera::OnWindowResize(Event& e) {
 
 
 void Camera::CalcProjectionMatrix(int wScreen, int hScreen) {
+	//DEBUG
+	std::cout << "Camera::CalcProjectionMatrix is called!" << std::endl;
+
 	float w = (float)wScreen;
 	float h = (float)hScreen;
 
@@ -47,6 +63,15 @@ void Camera::CalcProjectionMatrix(int wScreen, int hScreen) {
 	}
 
 	PIsDirty = true;
+}
+
+
+void Camera::CalcViewMatrix(void) {
+	// currently only supports translation
+	// direction is inverted here, camera position is set in "intentional" coordinates
+	// (e.g. (0,0,3) to move camera backwards by 3, see OpenGL coordinate system)
+	// to "actually move the scene", the position vector is inverted here
+	V = glm::translate(glm::mat4(1.0f), position * -1.0f);
 }
 
 

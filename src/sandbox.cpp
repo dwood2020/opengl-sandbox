@@ -156,7 +156,7 @@ int main(int argc, char* argv[]) {
 	M = glm::rotate(M, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
-	V = glm::translate(V, glm::vec3(0.0f, 0.0f, -5.0f));
+	V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
 
 	// last, define projection (here: perspective projection)
 	int scrWidth, scrHeight;
@@ -170,7 +170,7 @@ int main(int argc, char* argv[]) {
 	shaderProgram.SetUniformMat4("P", g_P);
 
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glEnable(GL_DEPTH_TEST);
 
 	while (!g_exitProgram) {		
