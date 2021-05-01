@@ -17,7 +17,7 @@ Mesh MeshFactory::MakeRectangle(float w, float h, float z) const {
 	const float wHalf = w / 2.0f;
 	const float hHalf = h / 2.0f;
 
-	float rep = 5.0f;
+	float rep = 1.0f;
 
 	/*
 	* Construction:

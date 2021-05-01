@@ -13,7 +13,6 @@
 #include "Texture.h"
 
 #include <chrono>
-#include <stb/stb_image.h>
 
 
 bool g_exitProgram = false;
@@ -34,8 +33,18 @@ void OnKeyEvent(Event& e) {
 // Temporary: Re-calc projection matrix after screen resizing
 // this may be job of a "camera" in the future?
 void CalcProjectionMatrix(int windowW, int windowH) {
-	std::cout << "CalcProjectionMatrix called!" << std::endl;
-	g_P = glm::perspective(glm::radians(45.0f), (float)windowW / (float)windowH, 1.0f, 100.0f);
+	
+	float w = (float)windowW;
+	float h = (float)windowH;
+
+	// perspective projection
+	g_P = glm::perspective(glm::radians(45.0f), w / h, 1.0f, 100.0f);
+	
+	// orthographic projection
+	/*w = w / 100.0f;
+	h = h / 100.0f;
+	g_P = glm::ortho(-w/2.0f, w/2.0f, -h/2.0f, h/2.0f, 1.0f, 100.0f);*/
+
 	g_P_isDirty = true;
 }
 
@@ -147,12 +156,13 @@ int main(int argc, char* argv[]) {
 	M = glm::rotate(M, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
-	V = glm::translate(V, glm::vec3(0.0f, 0.0f, -3.0f));
+	V = glm::translate(V, glm::vec3(0.0f, 0.0f, -5.0f));
 
 	// last, define projection (here: perspective projection)
 	int scrWidth, scrHeight;
 	window.GetWindowRect(scrWidth, scrHeight);
-	g_P = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 1.0f, 100.0f);
+	//g_P = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 1.0f, 100.0f);
+	CalcProjectionMatrix(800, 600);
 
 	// send all matrices to shaders
 	shaderProgram.SetUniformMat4("M", M);
