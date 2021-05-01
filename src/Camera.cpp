@@ -12,11 +12,13 @@ Camera::Camera():
 Camera::Camera(EventBus& eventBus): Camera() {
 
 	//TODO: change this when event system features class-type listeners
-	std::function<void(Event&)> lOnWndResize = [=](Event& e) {
+	/*std::function<void(Event&)> lOnWndResize = [=](Event& e) {
 		this->OnWindowResize(e);
 	};
 
-	eventBus.AddListener(EventType::WindowResize, lOnWndResize);
+	eventBus.AddListener(EventType::WindowResize, lOnWndResize);*/
+
+	eventBus.AddListener(EventType::WindowResize, this);
 }
 
 
@@ -34,7 +36,14 @@ const glm::vec3& Camera::GetPosition(void) const {
 }
 
 
-void Camera::OnWindowResize(Event& e) {
+//void Camera::OnWindowResize(Event& e) {
+//	if (e.GetType() == EventType::WindowResize) {
+//		CalcProjectionMatrix(e.w, e.h);
+//	}
+//}
+
+
+void Camera::OnEvent(Event& e) { 
 	if (e.GetType() == EventType::WindowResize) {
 		CalcProjectionMatrix(e.w, e.h);
 	}

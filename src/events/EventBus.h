@@ -14,13 +14,15 @@ class EventListener;
 class EventBus final {
 private:
 	std::vector<Event> eventQueue;
-	std::map<EventType, std::vector<std::function<void(Event&)>>, std::less<EventType>> listeners;
+	//std::map<EventType, std::vector<std::function<void(Event&)>>, std::less<EventType>> listeners;
+	std::map<EventType, std::vector<EventListener*>, std::less<EventType>> listeners;
 
 public:
 	EventBus();
 	~EventBus();
 
-	void AddListener(EventType type, std::function<void(Event&)> callback);
+	//void AddListener(EventType type, std::function<void(Event&)> callback);
+	void AddListener(EventType type, EventListener* listener);
 
 	//TODO: Add class-type listeners!!
 

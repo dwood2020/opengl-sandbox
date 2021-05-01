@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "events/EventBus.h"
+#include "events/EventListener.hpp"
 #include "window/IupWindow.h"
 #include "Shader.h"
 #include "ShaderProgram.h"
@@ -69,6 +70,21 @@ void OnMouseButtonClick(Event& e) {
 }
 
 
+// utility listener class for sandbox testing
+class SandboxListener : public EventListener {
+public:
+	void OnEvent(Event& e) override {
+		if (e.GetType() == EventType::WindowClose) {
+			OnWindowClose(e);
+		}
+		else if (e.GetType() == EventType::WindowResize) {
+			OnWindowResize(e);
+		}
+		// key and mousebutton event handlers not yet added
+	}
+};
+
+
 // tiny utility function for sandbox tests
 unsigned int GetUnixTimestamp(void) {
 	auto t = std::chrono::system_clock::now();
@@ -77,6 +93,9 @@ unsigned int GetUnixTimestamp(void) {
 
 
 int main(int argc, char* argv[]) {
+
+	// utility listener for sandbox
+	SandboxListener sandboxListener;
 
 	EventBus eventBus;
 	MeshFactory meshFactory;
@@ -97,10 +116,10 @@ int main(int argc, char* argv[]) {
 	window.GetWindowRect(w, h);
 	glViewport(0, 0, w, h);
 
-	eventBus.AddListener(EventType::WindowResize, OnWindowResize);
-	eventBus.AddListener(EventType::WindowClose, OnWindowClose);
-	eventBus.AddListener(EventType::MouseButton, OnMouseButtonClick);
-	eventBus.AddListener(EventType::Key, OnKeyEvent);
+	eventBus.AddListener(EventType::WindowResize, &sandboxListener);
+	eventBus.AddListener(EventType::WindowClose, &sandboxListener);
+	eventBus.AddListener(EventType::MouseButton, &sandboxListener);
+	eventBus.AddListener(EventType::Key, &sandboxListener);
 
 
 	glClearColor(0.075f, 0.196f, 0.325f, 1.0f);	

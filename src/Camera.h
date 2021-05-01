@@ -2,12 +2,13 @@
 #include <glm/glm.hpp>
 #include "events/Event.hpp"
 #include "events/EventBus.h"
+#include "events/EventListener.hpp"
 
 
 //TODO: Make different camera subclasses, derived from one abstract base class
 // which defines everything a camera must have for rendering a scene
 
-class Camera {
+class Camera : public EventListener {
 public:	
 	glm::vec3 target;
 
@@ -29,7 +30,9 @@ public:
 
 	// event listener methods:
 	// these will disappear when event system is updated
-	void OnWindowResize(Event& e);
+	/*void OnWindowResize(Event& e);*/
+
+	void OnEvent(Event& e) override;
 
 protected:
 	void CalcProjectionMatrix(int wScreen, int hScreen);

@@ -5,11 +5,11 @@
 
 class EventListener {
 public:
-	EventListener() = default;
+	EventListener() { };
 	virtual ~EventListener() { }
 
 protected:
-	virtual void OnEvent(Event& e) = 0;
+	virtual void OnEvent(Event& e) { };
 
 	friend class EventBus;
 

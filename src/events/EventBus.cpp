@@ -9,20 +9,35 @@ EventBus::EventBus() { }
 EventBus::~EventBus() { }
 
 
-void EventBus::AddListener(EventType type, std::function<void(Event&)> callback) {
+//void EventBus::AddListener(EventType type, std::function<void(Event&)> callback) {
+//
+//	auto it = listeners.find(type);
+//
+//	if (it == listeners.end()) {		
+//		std::vector<std::function<void(Event&)>> vec;
+//		vec.push_back(callback);
+//
+//		listeners.insert(std::pair<EventType, std::vector<std::function<void(Event&)>>>(type, vec));
+//	}
+//	else {
+//		it->second.push_back(callback);
+//	}
+//}
+
+
+void EventBus::AddListener(EventType type, EventListener* listener) {
 
 	auto it = listeners.find(type);
 
-	if (it == listeners.end()) {		
-		std::vector<std::function<void(Event&)>> vec;
-		vec.push_back(callback);
+	if (it == listeners.end()) {
+		std::vector<EventListener*> vec;
+		vec.push_back(listener);
 
-		listeners.insert(std::pair<EventType, std::vector<std::function<void(Event&)>>>(type, vec));
+		listeners.insert(std::pair<EventType, std::vector<EventListener*>>(type, vec));
 	}
 	else {
-		it->second.push_back(callback);
+		it->second.push_back(listener);
 	}
-
 
 }
 
@@ -34,12 +49,22 @@ void EventBus::SendEvent(Event& e) {
 
 void EventBus::Poll(void) {	
 
-	for (Event& e : eventQueue) {
+	/*for (Event& e : eventQueue) {
 		auto it = listeners.find(e.GetType());
 		
 		if (it != listeners.end()) {
 			for (std::function<void(Event&)> callback : it->second) {
 				callback(e);
+			}
+		}
+	}*/
+
+	for (Event& e : eventQueue) {
+		auto it = listeners.find(e.GetType());
+
+		if (it != listeners.end()) {
+			for (EventListener* listener : it->second) {
+				listener->OnEvent(e);
 			}
 		}
 	}
