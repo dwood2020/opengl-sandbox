@@ -6,17 +6,10 @@
 
 Camera::Camera(): 
 	position(glm::vec3(0.0f)), target(glm::vec3(0.0f)), V(glm::mat4(1.0f)), 
-	P(glm::mat4(1.0f)), PIsDirty(false) { }
+	P(glm::mat4(1.0f)), PIsDirty(false), VIsDirty(false) { }
 
 
 Camera::Camera(EventBus& eventBus): Camera() {
-
-	//TODO: change this when event system features class-type listeners
-	/*std::function<void(Event&)> lOnWndResize = [=](Event& e) {
-		this->OnWindowResize(e);
-	};
-
-	eventBus.AddListener(EventType::WindowResize, lOnWndResize);*/
 
 	eventBus.AddListener(EventType::WindowResize, this);
 }
@@ -26,7 +19,21 @@ Camera::~Camera() { }
 
 
 void Camera::SetPosition(glm::vec3 pos) {
-	this->position = pos;
+
+	// keep a minimum distance from target
+	glm::vec3 toTarget = glm::abs(target - pos);
+	float distToTarget = glm::length(toTarget);
+
+	const float minDistToTarget = 1.0f;
+
+	if (distToTarget < minDistToTarget) {
+		//TODO this:
+		// calc intersection with distance sphere and set intersect pos as position
+	}
+	else {
+		this->position = pos;
+	}
+	
 	CalcViewMatrix();
 }
 
@@ -34,13 +41,6 @@ void Camera::SetPosition(glm::vec3 pos) {
 const glm::vec3& Camera::GetPosition(void) const {
 	return position;
 }
-
-
-//void Camera::OnWindowResize(Event& e) {
-//	if (e.GetType() == EventType::WindowResize) {
-//		CalcProjectionMatrix(e.w, e.h);
-//	}
-//}
 
 
 void Camera::OnEvent(Event& e) { 
@@ -81,6 +81,7 @@ void Camera::CalcViewMatrix(void) {
 	// (e.g. (0,0,3) to move camera backwards by 3, see OpenGL coordinate system)
 	// to "actually move the scene", the position vector is inverted here
 	V = glm::translate(glm::mat4(1.0f), position * -1.0f);
+	VIsDirty = true;
 }
 
 

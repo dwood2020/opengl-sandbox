@@ -16,21 +16,19 @@ public:
 	glm::mat4 P;
 
 	bool PIsDirty;
+	bool VIsDirty;
 
 protected:
 	glm::vec3 position;
 
-public:
-	Camera();	//TODO: Think about making this private
+	Camera();
+
+public:	
 	Camera(EventBus& eventBus);
 	virtual ~Camera();
 
 	void SetPosition(glm::vec3 pos);
 	const glm::vec3& GetPosition(void) const;
-
-	// event listener methods:
-	// these will disappear when event system is updated
-	/*void OnWindowResize(Event& e);*/
 
 	void OnEvent(Event& e) override;
 
