@@ -7,6 +7,8 @@
 
 class EventEmitter;
 
+//TODO: BUild OOP EventListener class!!
+// see comment below
 
 class EventBus final {
 private:
@@ -18,6 +20,9 @@ public:
 	~EventBus();
 
 	void AddListener(EventType type, std::function<void(Event&)> callback);
+
+	//TODO: Add class-type listeners!!
+
 	void Poll(void);
 
 private:
