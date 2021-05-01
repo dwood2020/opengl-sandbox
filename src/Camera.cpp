@@ -80,7 +80,13 @@ void Camera::CalcViewMatrix(void) {
 	// direction is inverted here, camera position is set in "intentional" coordinates
 	// (e.g. (0,0,3) to move camera backwards by 3, see OpenGL coordinate system)
 	// to "actually move the scene", the position vector is inverted here
-	V = glm::translate(glm::mat4(1.0f), position * -1.0f);
+	//V = glm::translate(glm::mat4(1.0f), position * -1.0f);
+
+	// calc V with lookAt function
+	const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+
+	V = glm::lookAt(position * -1.0f, target, up);
+
 	VIsDirty = true;
 }
 
