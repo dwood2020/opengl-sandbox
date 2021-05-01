@@ -178,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\events\EventListener.hpp" />
     <ClInclude Include="src\MeshFactory.h" />
     <ClInclude Include="src\events\EventEmitter.hpp" />
     <ClInclude Include="src\events\EventBus.h" />

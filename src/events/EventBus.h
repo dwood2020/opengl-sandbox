@@ -6,6 +6,7 @@
 
 
 class EventEmitter;
+class EventListener;
 
 //TODO: BUild OOP EventListener class!!
 // see comment below
