@@ -7,7 +7,7 @@
 
 
 Camera::Camera(): 
-	position(glm::vec3(0.0f)),
+	position(glm::vec3(0.0f)), up(glm::vec3(0.0f, 1.0f, 0.0f)),
 	target(glm::vec3(0.0f)), V(glm::mat4(1.0f)), 
 	P(glm::mat4(1.0f)), PIsDirty(false), VIsDirty(false) { }
 
@@ -92,14 +92,10 @@ void Camera::CalcViewMatrix(void) {
 	// direction is inverted here, camera position is set in "intentional" coordinates
 	// (e.g. (0,0,3) to move camera backwards by 3, see OpenGL coordinate system)
 	// to "actually move the scene", the position vector is inverted here
-	
-	//V = glm::translate(glm::mat4(1.0f), position * -1.0f);
 
 	// calc V with lookAt function
-	const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	V = glm::lookAt(position * -1.0f, target, up);
-
 	VIsDirty = true;
 }
 
@@ -138,7 +134,7 @@ void Camera::ProcessMouseMoveInput(int x, int y) {
 
 	// calculate a rotation matrix and apply it to position
 
-	const float scaler = 1.0f;
+	const float scaler = 0.8f;
 	const glm::vec3 xAxis = glm::vec3(1.0f, 0.0f, 0.0f);
 	const glm::vec3 yAxis = glm::vec3(0.0f, 1.0f, 0.0f);
 	
@@ -152,7 +148,11 @@ void Camera::ProcessMouseMoveInput(int x, int y) {
 	R1 = glm::rotate(R1, glm::radians(scaler * dx), yAxis);	
 	
 	//PROBLEM: cannot rotate around x-Axis when looking from all directions
-	R2 = glm::rotate(R2, glm::radians(scaler * dy * -1.0f), xAxis);
+	// => calculate a right-vector in camera coordinates
+	glm::vec3 dir = glm::normalize(target - position);
+	glm::vec3 right = glm::normalize(glm::cross(up, dir));
+
+	R2 = glm::rotate(R2, glm::radians(scaler * dy * 1.0f), right);
 
 
 	pos4 = pos4 * R1;
@@ -163,6 +163,7 @@ void Camera::ProcessMouseMoveInput(int x, int y) {
 	std::cout << " theta: " << theta << std::endl;
 
 	pos4 = pos4 * R2;
+
 
 	// convert position back from homogenous to real coordinates
 	position.x = pos4.x / pos4.w;

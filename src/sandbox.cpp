@@ -153,7 +153,7 @@ int main(int argc, char* argv[]) {
 
 	// Textures
 	// --------
-	Texture tex1 = Texture::GenerateFromFile("res/texture/mc/dirt.png", GL_NEAREST);
+	Texture tex1 = Texture::GenerateFromFile("res/texture/mc/cobblestone.png", GL_NEAREST);
 
 
 	// Part Going 3D
@@ -198,41 +198,31 @@ int main(int argc, char* argv[]) {
 		
 		// all steps for cube
 		shaderProgram.Use();
-		shaderProgram.SetUniformMat4("P", camera.P);
-		shaderProgram.SetUniformMat4("V", camera.V);
-
+		if (camera.PIsDirty) {
+			shaderProgram.SetUniformMat4("P", camera.P);
+		}
+		if (camera.VIsDirty) {
+			shaderProgram.SetUniformMat4("V", camera.V);
+		}
+				
 		tex1.Bind();
+		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
 		mesh.Draw();
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		// now all steps for coordsystem
-		shaderProgramCS.Use();
-		shaderProgramCS.SetUniformMat4("P", camera.P);
-		shaderProgramCS.SetUniformMat4("V", camera.V);
-		csMesh.Draw();
-
-
-		/*if (camera.PIsDirty) {
-			shaderProgram.SetUniformMat4("P", camera.P);
+		shaderProgramCS.Use();		
+		if (camera.PIsDirty) {
 			shaderProgramCS.SetUniformMat4("P", camera.P);
 			camera.PIsDirty = false;
 		}
 		if (camera.VIsDirty) {
-			shaderProgram.SetUniformMat4("V", camera.V);
 			shaderProgramCS.SetUniformMat4("V", camera.V);
 			camera.VIsDirty = false;
-		}*/
-		
-		//tex1.Bind();
-		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
+		}
+		csMesh.Draw();
 
-		/*shaderProgram.Use();
-		mesh.Draw();*/
-		
-
-		/*shaderProgramCS.Use();
-		csMesh.Draw();*/
 
 
 		window.SwapBuffers();

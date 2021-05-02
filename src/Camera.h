@@ -24,6 +24,8 @@ protected:
 	bool lmbIsDown = false;
 	float lastMouseX = 0.0f;
 	float lastMouseY = 0.0f;
+
+	const glm::vec3 up;
 	
 
 	Camera();
