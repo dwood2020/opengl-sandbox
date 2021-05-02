@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/vector_angle.hpp>
 #include <cmath>
 
 #include <iostream>
@@ -135,9 +136,7 @@ void Camera::ProcessMouseMoveInput(int x, int y) {
 	}
 	if (std::abs(dy) > dlimit) {
 		dy = dlimit * (dy / std::abs(dy));
-	}	
-
-	//std::cout << "dx: " << dx << "  dy: " << dy << std::endl;
+	}		
 
 	// calculate a rotation matrix and apply it to position
 
@@ -147,14 +146,43 @@ void Camera::ProcessMouseMoveInput(int x, int y) {
 	
 	glm::mat4 R = glm::mat4(1.0f);
 	R = glm::rotate(R, glm::radians(scaler * dx), yAxis);
+	//R = glm::rotate(R, glm::radians(scaler * dy), xAxis);
+
+	glm::mat4 R2 = glm::mat4(1.0f);
+	R2 = glm::rotate(R2, glm::radians(scaler * dy * -1.0f), xAxis);
+
+	//NOTE: check: 2 R-matrices or can 1 be used?
+
 
 	glm::vec4 pos4 = glm::vec4(position, 1.0f);
 
-	std::cout << "pos4: " << pos4.x << " " << pos4.y << " " << pos4.z << std::endl;
+	/*std::cout << "pos4: " << pos4.x << " " << pos4.y << " " << pos4.z << std::endl;*/
 
 	pos4 = glm::vec4(position, 1.0f) * R;
 
-	std::cout << "pos4: " << pos4.x << " " << pos4.y << " " << pos4.z << std::endl;
+	const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+	float angle = glm::angle(glm::vec3(pos4.x, pos4.y, pos4.z), up);	
+
+	angle = glm::degrees(angle);	
+
+	float rho = glm::length(glm::vec3(pos4.x, pos4.y, pos4.z));
+	float theta = std::asinf(pos4.y / rho);
+	theta = glm::degrees(theta);
+
+	std::cout << "angle: " << angle << "  theta: " << theta << std::endl;
+
+
+	/*if (angle > 1.0f || angle < 179.0f) {
+		pos4 = pos4 * R2;
+	}	*/
+
+	/*if (theta > -80.0f || theta < 80.0f) {
+		pos4 = pos4 * R2;
+	}*/
+
+	pos4 = pos4 * R2;
+
+	/*std::cout << "pos4: " << pos4.x << " " << pos4.y << " " << pos4.z << std::endl;*/
 
 	position.x = pos4.x;
 	position.y = pos4.y;

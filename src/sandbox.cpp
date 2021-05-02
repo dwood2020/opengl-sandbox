@@ -163,7 +163,7 @@ int main(int argc, char* argv[]) {
 
 	// Textures
 	// --------
-	Texture tex1 = Texture::GenerateFromFile("res/texture/mc/cobblestone.png", GL_NEAREST);
+	Texture tex1 = Texture::GenerateFromFile("res/texture/test2.png", GL_NEAREST);
 
 
 	// Part Going 3D
@@ -173,7 +173,7 @@ int main(int argc, char* argv[]) {
 	//glm::mat4 P = glm::mat4(1.0f);
 
 	// transform local coordinates to world coordinates
-	M = glm::rotate(M, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	//M = glm::rotate(M, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
@@ -209,8 +209,8 @@ int main(int argc, char* argv[]) {
 
 
 		// let object rotate
-		M = glm::rotate(M, 0.01f, glm::vec3(1.0f, 0.0f, 0.0f));
-		shaderProgram.SetUniformMat4("M", M);
+		/*M = glm::rotate(M, 0.01f, glm::vec3(1.0f, 0.0f, 0.0f));
+		shaderProgram.SetUniformMat4("M", M);*/
 		
 
 		/*if (g_P_isDirty) {
