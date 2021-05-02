@@ -66,9 +66,7 @@ void Camera::OnEvent(Event& e) {
 
 
 
-void Camera::CalcProjectionMatrix(int wScreen, int hScreen) {
-	//DEBUG
-	std::cout << "Camera::CalcProjectionMatrix is called!" << std::endl;
+void Camera::CalcProjectionMatrix(int wScreen, int hScreen) {	
 
 	float w = (float)wScreen;
 	float h = (float)hScreen;

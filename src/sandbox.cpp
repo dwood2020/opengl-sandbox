@@ -18,8 +18,6 @@
 
 
 bool g_exitProgram = false;
-//glm::mat4 g_P = glm::mat4(1.0f);
-//bool g_P_isDirty = false;
 
 
 void OnKeyEvent(Event& e) {
@@ -32,28 +30,8 @@ void OnKeyEvent(Event& e) {
 }
 
 
-// Temporary: Re-calc projection matrix after screen resizing
-// this may be job of a "camera" in the future?
-//void CalcProjectionMatrix(int windowW, int windowH) {
-//	
-//	float w = (float)windowW;
-//	float h = (float)windowH;
-//
-//	// perspective projection
-//	g_P = glm::perspective(glm::radians(45.0f), w / h, 1.0f, 100.0f);
-//	
-//	// orthographic projection
-//	/*w = w / 100.0f;
-//	h = h / 100.0f;
-//	g_P = glm::ortho(-w/2.0f, w/2.0f, -h/2.0f, h/2.0f, 1.0f, 100.0f);*/
-//
-//	g_P_isDirty = true;
-//}
-
-
 void OnWindowResize(Event& e) {
 	std::cout << "OnWindowResize called!" << std::endl;
-	/*CalcProjectionMatrix(e.w, e.h);*/
 	glViewport(0, 0, e.w, e.h);
 }
 
@@ -163,7 +141,7 @@ int main(int argc, char* argv[]) {
 
 	// Textures
 	// --------
-	Texture tex1 = Texture::GenerateFromFile("res/texture/test2.png", GL_NEAREST);
+	Texture tex1 = Texture::GenerateFromFile("res/texture/mc/cobblestone.png", GL_NEAREST);
 
 
 	// Part Going 3D
@@ -190,10 +168,8 @@ int main(int argc, char* argv[]) {
 	//CalcProjectionMatrix(800, 600);
 
 	// send all matrices to shaders
-	shaderProgram.SetUniformMat4("M", M);
-	//shaderProgram.SetUniformMat4("V", V);
+	shaderProgram.SetUniformMat4("M", M);	
 	shaderProgram.SetUniformMat4("V", camera.V);
-	//shaderProgram.SetUniformMat4("P", g_P);
 	shaderProgram.SetUniformMat4("P", camera.P);
 
 
@@ -213,10 +189,6 @@ int main(int argc, char* argv[]) {
 		shaderProgram.SetUniformMat4("M", M);*/
 		
 
-		/*if (g_P_isDirty) {
-			shaderProgram.SetUniformMat4("P", g_P);
-			g_P_isDirty = false;
-		}*/
 		if (camera.PIsDirty) {
 			shaderProgram.SetUniformMat4("P", camera.P);
 			camera.PIsDirty = false;
