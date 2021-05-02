@@ -126,14 +126,17 @@ void Camera::ProcessMouseMoveInput(int x, int y) {
 	float dx = (float)x - lastMouseX;
 	float dy = (float)y - lastMouseY;
 
+	lastMouseX = (float)x;
+	lastMouseY = (float)y;
+
 	// delta-limiter 
-	const float dlimit = 100.0f;
-	if (dx > dlimit) {
-		dx = dlimit;
+	const float dlimit = 10.0f;
+	if (std::abs(dx) > dlimit) {
+		dx = dlimit * (dx / std::abs(dx));
 	}
-	if (dy > dlimit) {
-		dy = dlimit;
-	}
+	if (std::abs(dy) > dlimit) {
+		dy = dlimit * (dy / std::abs(dy));
+	}	
 
 	std::cout << "dx: " << dx << "  dy: " << dy << std::endl;
 
@@ -148,7 +151,7 @@ void Camera::ProcessMouseMoveInput(int x, int y) {
 
 	glm::vec4 pos4 = glm::vec4(position, 1.0f);
 
-	pos4 = R * glm::vec4(position, 1.0f);
+	pos4 = glm::vec4(position, 1.0f) * R;
 
 	position.x = pos4.x;
 	position.y = pos4.y;
