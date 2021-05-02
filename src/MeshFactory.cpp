@@ -121,7 +121,7 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 			{lh, -lh, lh},
 			{lh, -lh, -lh},
 			{lh, lh, -lh},
-			{lh, -lh, lh},	// right plane
+			{lh, lh, lh},	// right plane
 
 			{-lh, -lh, -lh},
 			{lh, -lh, -lh},
@@ -181,6 +181,7 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 			0, 2, 3,
 		};
 
+		//TODO: Bug: last triangle is missing
 		for (unsigned int i = 1; i < 6; i++) {
 			for (unsigned int j = 0; j < 6; j++) {
 				indices.push_back(indices[j] + 4 * i);
