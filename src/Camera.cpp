@@ -153,6 +153,7 @@ void Camera::ProcessMouseMoveInput(int x, int y) {
 
 	R1 = glm::rotate(R1, glm::radians(scaler * dx), yAxis);	
 	
+	//PROBLEM: cannot rotate around x-Axis when looking from all directions
 	R2 = glm::rotate(R2, glm::radians(scaler * dy * -1.0f), xAxis);
 
 
