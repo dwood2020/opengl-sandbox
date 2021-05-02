@@ -221,6 +221,10 @@ int main(int argc, char* argv[]) {
 			shaderProgram.SetUniformMat4("P", camera.P);
 			camera.PIsDirty = false;
 		}
+		if (camera.VIsDirty) {
+			shaderProgram.SetUniformMat4("V", camera.V);
+			camera.VIsDirty = false;
+		}
 
 
 		shaderProgram.Use();

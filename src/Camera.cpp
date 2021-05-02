@@ -89,8 +89,7 @@ void Camera::CalcProjectionMatrix(int wScreen, int hScreen) {
 }
 
 
-void Camera::CalcViewMatrix(void) {
-	// currently only supports translation
+void Camera::CalcViewMatrix(void) {	
 	// direction is inverted here, camera position is set in "intentional" coordinates
 	// (e.g. (0,0,3) to move camera backwards by 3, see OpenGL coordinate system)
 	// to "actually move the scene", the position vector is inverted here
@@ -138,7 +137,7 @@ void Camera::ProcessMouseMoveInput(int x, int y) {
 		dy = dlimit * (dy / std::abs(dy));
 	}	
 
-	std::cout << "dx: " << dx << "  dy: " << dy << std::endl;
+	//std::cout << "dx: " << dx << "  dy: " << dy << std::endl;
 
 	// calculate a rotation matrix and apply it to position
 
@@ -151,7 +150,11 @@ void Camera::ProcessMouseMoveInput(int x, int y) {
 
 	glm::vec4 pos4 = glm::vec4(position, 1.0f);
 
+	std::cout << "pos4: " << pos4.x << " " << pos4.y << " " << pos4.z << std::endl;
+
 	pos4 = glm::vec4(position, 1.0f) * R;
+
+	std::cout << "pos4: " << pos4.x << " " << pos4.y << " " << pos4.z << std::endl;
 
 	position.x = pos4.x;
 	position.y = pos4.y;
