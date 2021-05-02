@@ -136,7 +136,7 @@ void Mesh::Draw(void) {
 	else {
 		glDrawElements(glMode, nrElements, GL_UNSIGNED_INT, 0);
 	}
-	//glBindVertexArray(0);
+	glBindVertexArray(0);
 }
 
 

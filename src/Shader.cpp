@@ -8,10 +8,10 @@
 Shader::Shader(const char* src, GLenum glShaderType) {	
 
 	//creates empty shader obj. Shader obj needs a shader source code attached.
-	this->id = glCreateShader(glShaderType);
+	id = glCreateShader(glShaderType);
 	
-	glShaderSource(this->id, 1, &src, NULL);	//shader source is now copied to shader obj
-	glCompileShader(this->id);	//(attempts to) compile the shader
+	glShaderSource(id, 1, &src, NULL);	//shader source is now copied to shader obj
+	glCompileShader(id);	//(attempts to) compile the shader
 }
 
 

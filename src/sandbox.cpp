@@ -127,18 +127,29 @@ int main(int argc, char* argv[]) {
 	mesh.SetMode(GL_TRIANGLES);*/
 
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
-	//Mesh mesh = meshFactory.MakeCube(1.0f, true);	
-	Mesh mesh = meshFactory.MakeCoordinateSystem();
+	Mesh mesh = meshFactory.MakeCube(1.0f, true);	
+	Mesh csMesh = meshFactory.MakeCoordinateSystem(2.0f);
 
 
-	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_simple.glsl").c_str(), GL_VERTEX_SHADER);
-	Shader fragmentShader(Shader::ReadSourceFromFile("res/frag_simple.glsl").c_str(), GL_FRAGMENT_SHADER);
+	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragmentShader(Shader::ReadSourceFromFile("res/frag_texture.glsl").c_str(), GL_FRAGMENT_SHADER);
 	vertexShader.CheckCompilationStatus();
 	fragmentShader.CheckCompilationStatus();
 
 	ShaderProgram shaderProgram(vertexShader, fragmentShader);
 	shaderProgram.CheckLinkStatus();
-	shaderProgram.Use();	
+	//shaderProgram.Use();	
+
+	// second shader program for coordinate system
+	Shader vertexShaderCS(Shader::ReadSourceFromFile("res/coordSystem_vert.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragmentShaderCS(Shader::ReadSourceFromFile("res/coordSystem_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
+	vertexShaderCS.CheckCompilationStatus();
+	fragmentShaderCS.CheckCompilationStatus();
+
+	ShaderProgram shaderProgramCS(vertexShaderCS, fragmentShaderCS);
+	shaderProgramCS.CheckLinkStatus();
+	//shaderProgramCS.Use();
+	
 
 	// Textures
 	// --------
@@ -167,9 +178,14 @@ int main(int argc, char* argv[]) {
 	//CalcProjectionMatrix(800, 600);
 
 	// send all matrices to shaders
+	shaderProgram.Use();
 	shaderProgram.SetUniformMat4("M", M);	
 	shaderProgram.SetUniformMat4("V", camera.V);
 	shaderProgram.SetUniformMat4("P", camera.P);
+
+	/*shaderProgramCS.SetUniformMat4("M", M);
+	shaderProgramCS.SetUniformMat4("V", camera.V);
+	shaderProgramCS.SetUniformMat4("P", camera.P);*/
 
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -178,28 +194,45 @@ int main(int argc, char* argv[]) {
 	while (!g_exitProgram) {		
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
-		tex1.Bind();
-		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
-
-
-		// let object rotate
-		/*M = glm::rotate(M, 0.01f, glm::vec3(1.0f, 0.0f, 0.0f));
-		shaderProgram.SetUniformMat4("M", M);*/
 		
+		// all steps for cube
+		shaderProgram.Use();
+		shaderProgram.SetUniformMat4("P", camera.P);
+		shaderProgram.SetUniformMat4("V", camera.V);
 
-		if (camera.PIsDirty) {
+		tex1.Bind();
+		mesh.Draw();
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		// now all steps for coordsystem
+		/*shaderProgramCS.Use();
+		shaderProgramCS.SetUniformMat4("P", camera.P);
+		shaderProgramCS.SetUniformMat4("V", camera.V);*/
+		csMesh.Draw();
+
+
+		/*if (camera.PIsDirty) {
 			shaderProgram.SetUniformMat4("P", camera.P);
+			shaderProgramCS.SetUniformMat4("P", camera.P);
 			camera.PIsDirty = false;
 		}
 		if (camera.VIsDirty) {
 			shaderProgram.SetUniformMat4("V", camera.V);
+			shaderProgramCS.SetUniformMat4("V", camera.V);
 			camera.VIsDirty = false;
-		}
+		}*/
+		
+		//tex1.Bind();
+		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
 
+		/*shaderProgram.Use();
+		mesh.Draw();*/
+		
 
-		shaderProgram.Use();
-		mesh.Draw();		
+		/*shaderProgramCS.Use();
+		csMesh.Draw();*/
+
 
 		window.SwapBuffers();
 		window.DoFrame();
