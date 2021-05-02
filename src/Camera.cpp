@@ -6,7 +6,7 @@
 
 
 Camera::Camera(): 
-	positionCartesian(glm::vec3(0.0f)), rho(0.0f), theta(0.0f), phi(0.0f),
+	position(glm::vec3(0.0f)),
 	target(glm::vec3(0.0f)), V(glm::mat4(1.0f)), 
 	P(glm::mat4(1.0f)), PIsDirty(false), VIsDirty(false) { }
 
@@ -14,6 +14,7 @@ Camera::Camera():
 Camera::Camera(EventBus& eventBus): Camera() {
 
 	eventBus.AddListener(EventType::WindowResize, this);
+	eventBus.AddListener(EventType::MouseButton, this);
 	eventBus.AddListener(EventType::MouseMove, this);
 }
 
@@ -37,28 +38,16 @@ void Camera::SetPosition(glm::vec3 pos) {
 	//	this->positionCartesian = pos;
 	//}
 	
-	//TODO: clean this up & use std namespace?
+	
 
-	positionCartesian = pos;
-
-	rho = glm::length(glm::abs(target - pos));
-
-	float rhoXZ = sqrt(pos.x * pos.x + pos.z * pos.z);
-
-	float phi1 = asin(pos.x / rhoXZ);	//cannot divide by rho, must be the projected part on the x-z-plane
-	float phi2 = acosf(pos.z / rhoXZ);
-	phi = (phi1 + phi2) / 2.0f;
-
-	theta = asin(pos.y / rho);
-	std::cout << "x: " << pos.x << "  y: " << pos.y << "  z: " << pos.z << std::endl;
-	std::cout << "rho: " << rho << "  phi: " << phi << "  theta: " << theta << std::endl;
+	position = pos;	
 
 	CalcViewMatrix();
 }
 
 
 const glm::vec3& Camera::GetPosition(void) const {
-	return positionCartesian;
+	return position;
 }
 
 
@@ -111,7 +100,7 @@ void Camera::CalcViewMatrix(void) {
 	// calc V with lookAt function
 	const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
-	V = glm::lookAt(positionCartesian * -1.0f, target, up);
+	V = glm::lookAt(position * -1.0f, target, up);
 
 	VIsDirty = true;
 }
@@ -134,22 +123,7 @@ void Camera::ProcessMouseMoveInput(int x, int y) {
 		return;
 	}
 
-	float xf = (float)x;
-	float yf = (float)y;
-
-	float dx = lastMousePosX - xf;
-	float dy = lastMousePosY - yf;
-
-	//definitions: dx = dphi, dy = dtheta (approx.) * factor
-	const float xFactor = 0.1f;
-	const float yFactor = 0.1f;
-
-	float dphi = asinf(dx / rho);
-	float dtheta = asinf(dy / rho);
-
-	theta += dtheta;
-	phi += dphi;
-
+	std::cout << "DEBUG: Mouse move input is now valid" << std::endl;
 
 
 }

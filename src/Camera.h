@@ -19,16 +19,10 @@ public:
 	bool VIsDirty;
 
 protected:
-	glm::vec3 positionCartesian;
-
-	// position in sphere coordinates:
-	float rho;
-	float theta;
-	float phi;
+	glm::vec3 position;	
 
 	bool lmbIsDown = false;
-	float lastMousePosX = 0.0f;
-	float lastMousePosY = 0.0f;
+	
 
 	Camera();
 
