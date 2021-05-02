@@ -180,8 +180,7 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 			0, 1, 2,
 			0, 2, 3,
 		};
-
-		//TODO: Bug: last triangle is missing
+		
 		for (unsigned int i = 1; i < 6; i++) {
 			for (unsigned int j = 0; j < 6; j++) {
 				indices.push_back(indices[j] + 4 * i);
@@ -195,7 +194,27 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 		mesh.Prepare();
 	}
 
+	return mesh;
+}
+
+
+Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 	
+	std::vector<glm::vec3> vertices = {
+		{0.0f, 0.0f, 0.0f},
+		{l, 0.0f, 0.0f},
+
+		{0.0f, 0.0f, 0.0f},
+		{0.0f, l, 0.0f},
+
+		{0.0f, 0.0f, 0.0f},
+		{0.0f, 0.0f, l}
+	};
+
+	Mesh mesh;
+	mesh.SetPositionVertices(vertices);
+	mesh.SetGlMode(GL_LINES);
+	mesh.Prepare();
 
 	return mesh;
 }

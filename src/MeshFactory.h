@@ -12,5 +12,7 @@ public:
 
 	Mesh MakeCube(float l, bool isTextured = false) const;
 
+	Mesh MakeCoordinateSystem(float l = 1.0f) const;
+
 };
 

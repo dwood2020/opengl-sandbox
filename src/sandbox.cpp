@@ -127,11 +127,12 @@ int main(int argc, char* argv[]) {
 	mesh.SetMode(GL_TRIANGLES);*/
 
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
-	Mesh mesh = meshFactory.MakeCube(1.0f, true);	
+	//Mesh mesh = meshFactory.MakeCube(1.0f, true);	
+	Mesh mesh = meshFactory.MakeCoordinateSystem();
 
 
-	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
-	Shader fragmentShader(Shader::ReadSourceFromFile("res/frag_texture.glsl").c_str(), GL_FRAGMENT_SHADER);
+	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_simple.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragmentShader(Shader::ReadSourceFromFile("res/frag_simple.glsl").c_str(), GL_FRAGMENT_SHADER);
 	vertexShader.CheckCompilationStatus();
 	fragmentShader.CheckCompilationStatus();
 
@@ -141,7 +142,7 @@ int main(int argc, char* argv[]) {
 
 	// Textures
 	// --------
-	Texture tex1 = Texture::GenerateFromFile("res/texture/mc/cobblestone.png", GL_NEAREST);
+	Texture tex1 = Texture::GenerateFromFile("res/texture/mc/dirt.png", GL_NEAREST);
 
 
 	// Part Going 3D
@@ -161,9 +162,7 @@ int main(int argc, char* argv[]) {
 	camera.SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
 
 
-	// last, define projection (here: perspective projection)
-	int scrWidth, scrHeight;
-	window.GetWindowRect(scrWidth, scrHeight);
+	// last, define projection (here: perspective projection)	
 	//g_P = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 1.0f, 100.0f);
 	//CalcProjectionMatrix(800, 600);
 
