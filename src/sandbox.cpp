@@ -183,9 +183,10 @@ int main(int argc, char* argv[]) {
 	shaderProgram.SetUniformMat4("V", camera.V);
 	shaderProgram.SetUniformMat4("P", camera.P);
 
-	/*shaderProgramCS.SetUniformMat4("M", M);
+	shaderProgramCS.Use();
+	shaderProgramCS.SetUniformMat4("M", M);
 	shaderProgramCS.SetUniformMat4("V", camera.V);
-	shaderProgramCS.SetUniformMat4("P", camera.P);*/
+	shaderProgramCS.SetUniformMat4("P", camera.P);
 
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -206,9 +207,9 @@ int main(int argc, char* argv[]) {
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		// now all steps for coordsystem
-		/*shaderProgramCS.Use();
+		shaderProgramCS.Use();
 		shaderProgramCS.SetUniformMat4("P", camera.P);
-		shaderProgramCS.SetUniformMat4("V", camera.V);*/
+		shaderProgramCS.SetUniformMat4("V", camera.V);
 		csMesh.Draw();
 
 
