@@ -121,11 +121,40 @@ void Camera::ProcessMouseButtonInput(MouseButtonCode mbCode, bool isPressed) {
 void Camera::ProcessMouseMoveInput(int x, int y) {
 	if (!lmbIsDown) {
 		return;
+	}	
+
+	float dx = (float)x - lastMouseX;
+	float dy = (float)y - lastMouseY;
+
+	// delta-limiter 
+	const float dlimit = 100.0f;
+	if (dx > dlimit) {
+		dx = dlimit;
+	}
+	if (dy > dlimit) {
+		dy = dlimit;
 	}
 
-	std::cout << "DEBUG: Mouse move input is now valid" << std::endl;
+	std::cout << "dx: " << dx << "  dy: " << dy << std::endl;
 
+	// calculate a rotation matrix and apply it to position
 
+	const float scaler = 1.0f;
+	const glm::vec3 xAxis = glm::vec3(1.0f, 0.0f, 0.0f);
+	const glm::vec3 yAxis = glm::vec3(0.0f, 1.0f, 0.0f);
+	
+	glm::mat4 R = glm::mat4(1.0f);
+	R = glm::rotate(R, glm::radians(scaler * dx), yAxis);
+
+	glm::vec4 pos4 = glm::vec4(position, 1.0f);
+
+	pos4 = R * glm::vec4(position, 1.0f);
+
+	position.x = pos4.x;
+	position.y = pos4.y;
+	position.z = pos4.z;
+
+	CalcViewMatrix();
 }
 
 
