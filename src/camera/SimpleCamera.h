@@ -9,17 +9,7 @@
 // which defines everything a camera must have for rendering a scene
 
 class SimpleCamera : public CameraBase {
-public:
-	/*glm::mat4 V;
-	glm::mat4 P;
-
-	bool PIsDirty;
-	bool VIsDirty;*/
-
 protected:
-	/*glm::vec3 position;
-	glm::vec3 target;*/
-
 	bool lmbIsDown = false;
 	float lastMouseX = 0.0f;
 	float lastMouseY = 0.0f;
