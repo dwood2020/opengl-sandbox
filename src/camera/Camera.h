@@ -10,8 +10,6 @@
 
 class Camera : public EventListener {
 public:	
-	glm::vec3 target;
-
 	glm::mat4 V;
 	glm::mat4 P;
 
@@ -20,6 +18,7 @@ public:
 
 protected:
 	glm::vec3 position;	
+	glm::vec3 target;
 
 	bool lmbIsDown = false;
 	float lastMouseX = 0.0f;
