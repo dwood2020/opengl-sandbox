@@ -8,13 +8,3 @@ CameraBase::CameraBase():
 
 CameraBase::~CameraBase() { }
 
-
-void CameraBase::SetPosition(glm::vec3 pos) {
-	position = pos;
-	CalcViewMatrix();
-}
-
-
-const glm::vec3& CameraBase::GetPosition(void) const {
-	return position;
-}

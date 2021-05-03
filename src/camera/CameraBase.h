@@ -22,14 +22,10 @@ public:
 	CameraBase();
 	virtual ~CameraBase();
 
-	void SetPosition(glm::vec3 pos);
-	const glm::vec3& GetPosition(void) const;
+	virtual void SetPosition(glm::vec3 pos) = 0;
+	virtual const glm::vec3& GetPosition(void) const = 0;
 
 	virtual void OnEvent(Event& e) override = 0;
-
-protected:
-	virtual void CalcViewMatrix(void) = 0;
-	virtual void CalcProjectionMatrix(int wScreen, int hScreen) = 0;
 
 };
 

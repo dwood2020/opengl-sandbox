@@ -3,11 +3,20 @@
 #include <glm/gtx/vector_angle.hpp>
 #include <cmath>
 
+#include <iostream>
 
-SimpleCamera::SimpleCamera(): CameraBase(), up(glm::vec3(0.0f, 1.0f, 0.0f)) { }
+
+//SimpleCamera::SimpleCamera() :
+//	position(glm::vec3(0.0f)), up(glm::vec3(0.0f, 1.0f, 0.0f)),
+//	target(glm::vec3(0.0f)), V(glm::mat4(1.0f)),
+//	P(glm::mat4(1.0f)), PIsDirty(false), VIsDirty(false) { }
 
 
-SimpleCamera::SimpleCamera(EventBus eventBus): SimpleCamera() { 
+SimpleCamera::SimpleCamera() : CameraBase(), up(glm::vec3(0.0f, 1.0f, 0.0f)) { }
+
+
+SimpleCamera::SimpleCamera(EventBus& eventBus) : SimpleCamera() {
+
 	eventBus.AddListener(EventType::WindowResize, this);
 	eventBus.AddListener(EventType::MouseButton, this);
 	eventBus.AddListener(EventType::MouseMove, this);
@@ -15,6 +24,17 @@ SimpleCamera::SimpleCamera(EventBus eventBus): SimpleCamera() {
 
 
 SimpleCamera::~SimpleCamera() { }
+
+
+void SimpleCamera::SetPosition(glm::vec3 pos) {
+	position = pos;
+	CalcViewMatrix();
+}
+
+
+const glm::vec3& SimpleCamera::GetPosition(void) const {
+	return position;
+}
 
 
 void SimpleCamera::OnEvent(Event& e) {
@@ -30,19 +50,9 @@ void SimpleCamera::OnEvent(Event& e) {
 }
 
 
-void SimpleCamera::CalcViewMatrix(void) {
-	// direction is inverted here, camera position is set in "intentional" coordinates
-	// (e.g. (0,0,3) to move camera backwards by 3, see OpenGL coordinate system)
-	// to "actually move the scene", the position vector is inverted here
-
-	// calc V with lookAt function
-
-	V = glm::lookAt(position * -1.0f, target, up);
-	VIsDirty = true;
-}
-
 
 void SimpleCamera::CalcProjectionMatrix(int wScreen, int hScreen) {
+
 	float w = (float)wScreen;
 	float h = (float)hScreen;
 
@@ -60,6 +70,18 @@ void SimpleCamera::CalcProjectionMatrix(int wScreen, int hScreen) {
 	}
 
 	PIsDirty = true;
+}
+
+
+void SimpleCamera::CalcViewMatrix(void) {
+	// direction is inverted here, camera position is set in "intentional" coordinates
+	// (e.g. (0,0,3) to move camera backwards by 3, see OpenGL coordinate system)
+	// to "actually move the scene", the position vector is inverted here
+
+	// calc V with lookAt function
+
+	V = glm::lookAt(position * -1.0f, target, up);
+	VIsDirty = true;
 }
 
 
@@ -127,7 +149,6 @@ void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
 
 	pos4 = pos4 * R2;
 
-
 	// convert position back from homogenous to real coordinates
 	position.x = pos4.x / pos4.w;
 	position.y = pos4.y / pos4.w;
@@ -135,5 +156,7 @@ void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
 
 	CalcViewMatrix();
 }
+
+
 
 
