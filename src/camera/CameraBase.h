@@ -19,7 +19,7 @@ protected:
 	glm::vec3 target;
 
 public:
-	CameraBase(EventBus& eventBus);
+	CameraBase();
 	virtual ~CameraBase();
 
 	void SetPosition(glm::vec3 pos);
