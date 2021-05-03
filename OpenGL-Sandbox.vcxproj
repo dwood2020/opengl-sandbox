@@ -163,7 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\camera\Camera.cpp" />
     <ClCompile Include="src\MeshFactory.cpp" />
     <ClCompile Include="src\events\EventBus.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
@@ -177,7 +177,7 @@
     <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\camera\Camera.h" />
     <ClInclude Include="src\events\EventListener.hpp" />
     <ClInclude Include="src\MeshFactory.h" />
     <ClInclude Include="src\events\EventEmitter.hpp" />

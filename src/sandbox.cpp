@@ -12,7 +12,7 @@
 #include "MeshFactory.h"
 #include "Keycodes.hpp"
 #include "Texture.h"
-#include "Camera.h"
+#include "camera/Camera.h"
 
 #include <chrono>
 

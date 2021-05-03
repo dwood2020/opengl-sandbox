@@ -1,8 +1,8 @@
 #pragma once
 #include <glm/glm.hpp>
-#include "events/Event.hpp"
-#include "events/EventBus.h"
-#include "events/EventListener.hpp"
+#include "../events/Event.hpp"
+#include "../events/EventBus.h"
+#include "../events/EventListener.hpp"
 
 
 //TODO: Make different camera subclasses, derived from one abstract base class
