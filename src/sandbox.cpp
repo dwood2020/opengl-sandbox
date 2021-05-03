@@ -12,7 +12,6 @@
 #include "MeshFactory.h"
 #include "Keycodes.hpp"
 #include "Texture.h"
-#include "camera/Camera.h"
 #include "camera/SimpleCamera.h"
 
 #include <chrono>
