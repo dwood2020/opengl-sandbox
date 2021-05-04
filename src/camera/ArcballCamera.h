@@ -14,8 +14,8 @@ private:
 	float yScrLast = 0.0f;
 	bool arcballOn = false;
 
-	const int wScreen;
-	const int hScreen;
+	int wScreen;
+	int hScreen;
 
 public:
 	ArcballCamera(EventBus& eventBus, int xScreen, int yScreen);
