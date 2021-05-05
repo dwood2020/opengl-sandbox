@@ -16,6 +16,7 @@
 #include "Texture.h"
 #include "camera/SimpleCamera.h"
 #include "camera/ArcballCamera.h"
+#include "camera/ArcballCamera2.h"
 
 #include <chrono>
 
@@ -174,10 +175,11 @@ int main(int argc, char* argv[]) {
 	// V and P now via Camera class
 	int xScreen, yScreen;
 	window.GetWindowRect(xScreen, yScreen);
+	glm::vec3 initialCameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
 	//ArcballCamera camera(eventBus, xScreen, yScreen);
-	SimpleCamera camera(eventBus);
-	camera.SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
-
+	//SimpleCamera camera(eventBus);
+	//camera.SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
+	ArcballCamera2 camera(eventBus, xScreen, yScreen, initialCameraPos);
 
 	// last, define projection (here: perspective projection)	
 	//g_P = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 1.0f, 100.0f);
