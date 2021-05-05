@@ -51,6 +51,7 @@ void ArcballCamera::OnMouseButton(MouseButtonCode mbCode, bool isPressed) {
 		}
 		else {
 			arcballOn = false;
+			isFirstFrame = true;
 		}
 	}	
 }
@@ -71,6 +72,8 @@ void ArcballCamera::CalcArcball(int xInp, int yInp) {
 
 	//TODO: move float conversion outside, dont convert on every calculation but only when screen is resized
 
+	
+
 	// transform coordinates
 	float w = (float)wScreen;
 	float h = (float)hScreen;
@@ -89,9 +92,16 @@ void ArcballCamera::CalcArcball(int xInp, int yInp) {
 		z = 0.0f;
 	}
 
-	//std::cout << "z: " << z << std::endl;
-	// ... working
+	// prevent "hopping" of view when releasing mouse and clicking in another position
+	if (isFirstFrame) {
+		isFirstFrame = false;
+		xLast = x;
+		yLast = y;
+		zLast = z;
+		return;
+	}
 
+	
 	// calculate start and end vectors p1 and p2
 	const glm::vec3 ballCenter = glm::vec3(0.0f, 0.0f, 0.0f);
 
@@ -124,7 +134,7 @@ void ArcballCamera::CalcArcball(int xInp, int yInp) {
 
 	std::cout << "position x: " << position.x << "  y: " << position.y << " z: " << position.z << std::endl;
 
-	V = glm::lookAt(position, target, glm::vec3(0.0f, 1.0f, 0.0f));;
+	V = glm::lookAt(position, target, glm::vec3(0.0f, 1.0f, 0.0f));
 
 	VIsDirty = true;
 

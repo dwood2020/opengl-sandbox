@@ -10,9 +10,10 @@ private:
 	float xLast = 0.0f;
 	float yLast = 0.0f;
 	float zLast = 1.0f;
-	float xScrLast = 0.0f;
-	float yScrLast = 0.0f;
+	/*float xScrLast = 0.0f;
+	float yScrLast = 0.0f;*/
 	bool arcballOn = false;
+	bool isFirstFrame = false;
 
 	int wScreen;
 	int hScreen;
