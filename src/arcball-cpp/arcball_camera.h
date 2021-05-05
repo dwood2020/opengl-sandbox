@@ -8,7 +8,7 @@
  * where the top-left of the screen corresponds to [-1, 1], and the bottom
  * right is [1, -1].
  */
-class ArcballCamera {
+class TwinklebearArcballCamera {
     // We store the unmodified look at matrix along with
     // decomposed translation and rotation components
     glm::mat4 center_translation, translation;
@@ -22,7 +22,7 @@ public:
     /* Create an arcball camera focused on some center point
      * screen: [win_width, win_height]
      */
-    ArcballCamera(const glm::vec3 &eye, const glm::vec3 &center, const glm::vec3 &up);
+    TwinklebearArcballCamera(const glm::vec3 &eye, const glm::vec3 &center, const glm::vec3 &up);
 
     /* Rotate the camera from the previous mouse position to the current
      * one. Mouse positions should be in normalized device coordinates

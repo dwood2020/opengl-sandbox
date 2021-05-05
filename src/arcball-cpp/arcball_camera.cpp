@@ -7,7 +7,7 @@
 // Project the point in [-1, 1] screen space onto the arcball sphere
 static glm::quat screen_to_arcball(const glm::vec2 &p);
 
-ArcballCamera::ArcballCamera(const glm::vec3 &eye, const glm::vec3 &center, const glm::vec3 &up)
+TwinklebearArcballCamera::TwinklebearArcballCamera(const glm::vec3 &eye, const glm::vec3 &center, const glm::vec3 &up)
 {
     const glm::vec3 dir = center - eye;
     glm::vec3 z_axis = glm::normalize(dir);
@@ -22,7 +22,7 @@ ArcballCamera::ArcballCamera(const glm::vec3 &eye, const glm::vec3 &center, cons
     update_camera();
 }
 
-void ArcballCamera::rotate(glm::vec2 prev_mouse, glm::vec2 cur_mouse)
+void TwinklebearArcballCamera::rotate(glm::vec2 prev_mouse, glm::vec2 cur_mouse)
 {
     // Clamp mouse positions to stay in NDC
     cur_mouse = glm::clamp(cur_mouse, glm::vec2{-1, -1}, glm::vec2{1, 1});
@@ -35,7 +35,7 @@ void ArcballCamera::rotate(glm::vec2 prev_mouse, glm::vec2 cur_mouse)
     update_camera();
 }
 
-void ArcballCamera::pan(glm::vec2 mouse_delta)
+void TwinklebearArcballCamera::pan(glm::vec2 mouse_delta)
 {
     const float zoom_amount = std::abs(translation[3][2]);
     glm::vec4 motion(mouse_delta.x * zoom_amount, mouse_delta.y * zoom_amount, 0.f, 0.f);
@@ -46,7 +46,7 @@ void ArcballCamera::pan(glm::vec2 mouse_delta)
     update_camera();
 }
 
-void ArcballCamera::zoom(const float zoom_amount)
+void TwinklebearArcballCamera::zoom(const float zoom_amount)
 {
     const glm::vec3 motion(0.f, 0.f, zoom_amount);
 
@@ -54,32 +54,32 @@ void ArcballCamera::zoom(const float zoom_amount)
     update_camera();
 }
 
-const glm::mat4 &ArcballCamera::transform() const
+const glm::mat4 &TwinklebearArcballCamera::transform() const
 {
     return camera;
 }
 
-const glm::mat4 &ArcballCamera::inv_transform() const
+const glm::mat4 &TwinklebearArcballCamera::inv_transform() const
 {
     return inv_camera;
 }
 
-glm::vec3 ArcballCamera::eye() const
+glm::vec3 TwinklebearArcballCamera::eye() const
 {
     return glm::vec3{inv_camera * glm::vec4{0, 0, 0, 1}};
 }
 
-glm::vec3 ArcballCamera::dir() const
+glm::vec3 TwinklebearArcballCamera::dir() const
 {
     return glm::normalize(glm::vec3{inv_camera * glm::vec4{0, 0, -1, 0}});
 }
 
-glm::vec3 ArcballCamera::up() const
+glm::vec3 TwinklebearArcballCamera::up() const
 {
     return glm::normalize(glm::vec3{inv_camera * glm::vec4{0, 1, 0, 0}});
 }
 
-void ArcballCamera::update_camera()
+void TwinklebearArcballCamera::update_camera()
 {
     camera = translation * glm::mat4_cast(rotation) * center_translation;
     inv_camera = glm::inverse(camera);
