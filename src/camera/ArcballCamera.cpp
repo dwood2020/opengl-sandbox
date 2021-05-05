@@ -111,7 +111,7 @@ void ArcballCamera::CalcArcball(int xInp, int yInp) {
 	// calculate angle theta between p1, p2 and cross product of p1,p2
 	// cross product u is the rotation axis
 	//float theta = std::acosf(std::min(glm::dot(p1, p2), 1.0f) / (glm::length(p2) * glm::length(p1)));
-	float theta = glm::angle((p1), (p2));	
+	float theta = glm::angle(glm::normalize(p1), glm::normalize(p2));	
 	glm::vec3 u = glm::normalize(glm::cross(p1, p2));
 	
 
@@ -136,7 +136,13 @@ void ArcballCamera::CalcArcball(int xInp, int yInp) {
 
 	std::cout << "position x: " << position.x << "  y: " << position.y << " z: " << position.z << std::endl;
 
-	V = glm::lookAt(position, target, glm::vec3(0.0f, 1.0f, 0.0f));
+	// try: calc a different up vector
+	glm::vec3 dir = target - position;
+	glm::vec3 right = glm::normalize(glm::cross(dir, glm::vec3(0.0f, 1.0f, 0.0f)));
+	glm::vec3 up = glm::normalize(glm::cross(right, dir));
+
+	V = glm::lookAt(position, target, up);
+	
 
 	VIsDirty = true;
 
