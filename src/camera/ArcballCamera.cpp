@@ -115,10 +115,12 @@ void ArcballCamera::CalcArcball(int xInp, int yInp) {
 	glm::vec3 u = glm::normalize(glm::cross(p1, p2));
 	
 
-	//try with lookat function
-	glm::mat4 R = glm::rotate(glm::mat4(1.0f), theta * -1.0f, u);
+	// use glm lookat function:
+	// therefore transformation into homogenous coordinates (R4) is needed
+	const float factor = 1.5f;
+	glm::mat4 R = glm::rotate(glm::mat4(1.0f), theta * -1.0f * factor, u);
 
-	glm::vec4 pos4 = glm::vec4(position.x, position.y, position.z, 1.0f);
+	glm::vec4 pos4 = glm::vec4(position.x, position.y, position.z, 1.0f);	
 	pos4 = R * pos4;
 
 	// perform an isnan check as quick fix
@@ -169,7 +171,6 @@ void ArcballCamera::CalcProjectionMatrix(int wScreen, int hScreen) {
 
 
 void ArcballCamera::CalcViewMatrix(void) {
-	// FOR NOW this is identical to SimpleCamera calculation
 
 	// calc V with lookAt function
 	const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
