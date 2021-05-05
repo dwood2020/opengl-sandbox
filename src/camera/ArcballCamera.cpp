@@ -32,6 +32,8 @@ const glm::vec3& ArcballCamera::GetPosition(void) const {
 void ArcballCamera::OnEvent(Event& e) { 
 	if (e.GetType() == EventType::WindowResize) {
 		CalcProjectionMatrix(e.w, e.h);
+		wScreen = e.w;
+		hScreen = e.h;
 	}
 	else if (e.GetType() == EventType::MouseButton) {
 		OnMouseButton(e.mbCode, e.isPressed);
@@ -59,97 +61,13 @@ void ArcballCamera::OnMouseMove(int x, int y) {
 }
 
 
-//void ArcballCamera::CalcArcball(int xInp, int yInp) {
-//		
-//	// see here:
-//	// https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/
-//	//
-//
-//	/*float dx = xInp - xScrLast;
-//	float dy = yInp - yScrLast;
-//	float delta = std::sqrtf(dx * dx + dy * dy);
-//
-//	xScrLast = xInp;
-//	yScrLast = yInp;*/
-//
-//	// map screen coords to normalized coords (-1, 1)
-//	float x = ((float)xInp * 2.0f) / (float)wScreen - 1.0f;
-//	float y = ((float)yInp * 2.0f) / (float)hScreen - 1.0f;
-//
-//	//NOTE: The sphere is currently distorted!
-//	// do a different transformation by using max(w,h) as r!
-//
-//	// sample to a sphere
-//	float r = 1.0f;		// this is 1 because screen coords are already transformed
-//	float rho = std::sqrtf(x * x + y * y);
-//
-//	// sphere formula:
-//	//		x^2 + y^2 + z^2 = r^2 = 1
-//	// <=>	sqrt(r^2 - x^2 -y^2) = abs(z)
-//
-//	float z;
-//	if (rho < r) {
-//		z = std::sqrtf(r * r - x * x - y * y);
-//	}
-//	else {
-//		z = 0.0f;
-//	}
-//
-//	// define start vector 
-//	glm::vec3 p1 = glm::vec3(xLast, yLast, zLast);
-//
-//	// define end vector
-//	glm::vec3 p2 = glm::vec3(x, y, z);
-//
-//	// compute angle theta between start and end vector
-//	//float theta = std::acosf(glm::dot(p1, p2) / (glm::length(p2) * glm::length(p1)));
-//	float theta = glm::angle(p1, p2);
-//	std::cout << "theta: " << theta << std::endl;
-//
-//	// compute rotation axis u
-//	glm::vec3 u = glm::normalize(glm::cross(p1, p2));
-//
-//	// calculate unsigned delta (in transformed system!)
-//	/*float dx = x - xLast;
-//	float dy = y - yLast;	
-//	float delta = std::sqrtf(dx * dx + dy * dy);*/
-//	float delta = glm::length(p2 - p1);
-//
-//	const float factor = 1.0f;
-//
-//	// define rotation matrix
-//	glm::mat4 R = glm::mat4(1.0f);
-//	R = glm::rotate(R, delta * factor, u);
-//
-//	// go into homogenous coordinates (to make multiplication with matrix possible)
-//	glm::vec4 pos4 = glm::vec4(position.x, position.y, position.z, 1.0f);
-//	pos4 = pos4 * R;
-//
-//	// u is camera right vector
-//	glm::vec3 dir = target - position;
-//	glm::vec3 up = glm::normalize(glm::cross(u, dir));
-//
-//	// apply new position to vec3 position attribute
-//	position.x = pos4.x / pos4.w;
-//	position.y = pos4.y / pos4.w;
-//	position.z = pos4.z / pos4.w;
-//
-//	std::cout << "position: " << position.x << "  " << position.y << "  " << position.z << std::endl;
-//
-//	xLast = x;
-//	yLast = y;
-//	zLast = z;
-//
-//	// apply to View Matrix
-//	V = glm::lookAt(position * -1.0f, target, up);
-//	VIsDirty = true;
-//}
-
-
 void ArcballCamera::CalcArcball(int xInp, int yInp) {
 
+	// see here:
+	// https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/
+	
+
 	//TODO: move float conversion outside, dont convert on every calculation but only when screen is resized
-	//TODO: Subscribe to & handle screenresize event!
 
 	// transform coordinates
 	float w = (float)wScreen;
@@ -159,22 +77,61 @@ void ArcballCamera::CalcArcball(int xInp, int yInp) {
 	float x = ((float)xInp - w / 2.0f) / r;
 	float y = (((float)yInp - h / 2.0f) / r) * -1.0f;	
 
-	//std::cout << "r: " << r << "  x: " << x << "   y: " << y << std::endl;
-	// ... transformation now working
-
-
-
-}
-
-
-float ArcballCamera::ZCoord(float r, float rho, float x, float y) const {
-	if (rho < r) {
-		return std::sqrtf(r * r - x * x - y * y);
+	// calculate z-coordinate on ball
+	float z;
+	float rho = std::sqrtf(x * x + y * y);
+	if (rho < 1.0f) {
+		z = std::sqrtf(1.0f - x * x - y * y);
 	}
 	else {
-		return 0.0f;
+		z = 0.0f;
 	}
+
+	//std::cout << "z: " << z << std::endl;
+	// ... working
+
+	// calculate start and end vectors p1 and p2
+	const glm::vec3 ballCenter = glm::vec3(0.0f, 0.0f, 0.0f);
+
+	glm::vec3 p1 = glm::vec3(xLast, yLast, zLast) - ballCenter;
+	glm::vec3 p2 = glm::vec3(x, y, z) - ballCenter;
+
+	// calculate angle theta between p1, p2 and cross product of p1,p2
+	// cross product u is the rotation axis
+	//float theta = std::acosf(std::min(glm::dot(p1, p2), 1.0f) / (glm::length(p2) * glm::length(p1)));
+	float theta = glm::angle((p1), (p2));	
+	glm::vec3 u = glm::normalize(glm::cross(p1, p2));
+	
+
+	//try with lookat function
+	glm::mat4 R = glm::rotate(glm::mat4(1.0f), theta * -1.0f, u);
+
+	glm::vec4 pos4 = glm::vec4(position.x, position.y, position.z, 1.0f);
+	pos4 = R * pos4;
+
+	// perform an isnan check as quick fix
+	// (possible with C++11)
+	if (std::isnan(pos4.x) || std::isnan(pos4.y) || std::isnan(pos4.z)) {
+		std::cout << "ERROR::ARCBALLCAMERA::CALCARCBALL: calculated pos isnan" << std::endl;
+		return;
+	}
+
+	position.x = pos4.x;
+	position.y = pos4.y;
+	position.z = pos4.z;
+
+	std::cout << "position x: " << position.x << "  y: " << position.y << " z: " << position.z << std::endl;
+
+	V = glm::lookAt(position, target, glm::vec3(0.0f, 1.0f, 0.0f));;
+
+	VIsDirty = true;
+
+
+	xLast = x;
+	yLast = y;
+	zLast = z;
 }
+
 
 
 void ArcballCamera::CalcProjectionMatrix(int wScreen, int hScreen) {

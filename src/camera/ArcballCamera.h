@@ -31,7 +31,6 @@ private:
 	void OnMouseMove(int x, int y);
 
 	void CalcArcball(int x, int y);
-	float ZCoord(float r, float rho, float x, float y) const;
 
 	void CalcProjectionMatrix(int wScreen, int hScreen);
 	void CalcViewMatrix(void);
