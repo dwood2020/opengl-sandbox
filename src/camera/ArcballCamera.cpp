@@ -45,12 +45,14 @@ void ArcballCamera::OnEvent(Event& e) {
 
 
 void ArcballCamera::OnMouseButton(MouseButtonCode mbCode, bool isPressed) {
-	if (mbCode == MouseButtonCode::Left && isPressed == true) {
-		arcballOn = true;
-	}
-	else {
-		arcballOn = false;
-	}
+	if (mbCode == MouseButtonCode::Left) {
+		if (isPressed) {
+			arcballOn = true;
+		}
+		else {
+			arcballOn = false;
+		}
+	}	
 }
 
 
