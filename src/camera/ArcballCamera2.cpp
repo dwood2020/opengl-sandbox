@@ -10,7 +10,8 @@ ArcballCamera2::ArcballCamera2(EventBus& eventBus, int wScreen, int hScreen, glm
 	screenRect.x = (float)wScreen;
 	screenRect.y = (float)hScreen;
 
-	CalcProjectionMatrix(screenRect.x, screenRect.y);
+	CalcProjectionMatrix();
+	V = glm::lookAt(pos, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	eventBus.AddListener(EventType::WindowResize, this);
 	eventBus.AddListener(EventType::MouseButton, this);
@@ -30,7 +31,8 @@ const glm::vec3& ArcballCamera2::GetPosition(void) const {
 
 
 const glm::mat4& ArcballCamera2::GetViewMatrix(void) const {
-	return twinklebearInst.transform();
+	//return twinklebearInst.transform();
+	return V;
 }
 
 
@@ -41,9 +43,9 @@ const glm::mat4& ArcballCamera2::GetProjectionMatrix(void) const {
 
 void ArcballCamera2::OnEvent(Event& e) {
 	if (e.GetType() == EventType::WindowResize) {
-		CalcProjectionMatrix(e.w, e.h);
-		screenRect.x = e.w;
-		screenRect.y = e.h;
+		screenRect.x = (float)e.w;
+		screenRect.y = (float)e.h;
+		CalcProjectionMatrix();		
 	}
 	else if (e.GetType() == EventType::MouseButton) {
 		OnMouseButton(e.mbCode, e.isPressed);
@@ -76,17 +78,17 @@ void ArcballCamera2::OnMouseMove(int x, int y) {
 		twinklebearInst.rotate(lastMousePosNDC, mousePosNDC);
 
 		lastMousePosNDC = mousePosNDC;
+
+		V = glm::lookAt(twinklebearInst.eye(), glm::vec3(0.0f), twinklebearInst.up());
 	}
 }
 
 
-void ArcballCamera2::CalcProjectionMatrix(int wScreen, int hScreen) {
-	float w = (float)wScreen;
-	float h = (float)hScreen;
+void ArcballCamera2::CalcProjectionMatrix(void) {
+	float w = screenRect.x;
+	float h = screenRect.y;
 
 	//TODO: revise this method
-	screenRect.x = w;
-	screenRect.y = h;
 
 	const bool isOrthographic = false;
 
@@ -105,13 +107,15 @@ void ArcballCamera2::CalcProjectionMatrix(int wScreen, int hScreen) {
 }
 
 
-glm::vec2& ArcballCamera2::ScreenToNDC(glm::vec2& mousePos) const {
+glm::vec2 ArcballCamera2::ScreenToNDC(glm::vec2& mousePos) const {
 	glm::vec2 ndc = glm::vec2(0.0f);
 
 	ndc.x = (2 * mousePos.x) / screenRect.x - 1.0f;
 	ndc.y = 1.0f - (2 * mousePos.y) / screenRect.y;
 	//ndc.y = ((2 * mousePos.y) / screenRect.y - 1.0f) * -1.0f;
 
+	std::cout << "ndc: x: " << ndc.x << "  y: " << ndc.y << std::endl;
+	
 	return ndc;
 }
 

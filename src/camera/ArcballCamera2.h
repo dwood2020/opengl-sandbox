@@ -14,6 +14,9 @@ private:
 
 	TwinklebearArcballCamera twinklebearInst;
 
+	//TEST
+	glm::mat4 V = glm::mat4(1.0f);
+
 public:
 	ArcballCamera2(EventBus& eventBus, int wScreen, int hScreen, glm::vec3& pos);
 	~ArcballCamera2();
@@ -30,8 +33,8 @@ private:
 	void OnMouseButton(MouseButtonCode mbCode, bool isPressed);
 	void OnMouseMove(int x, int y);
 
-	void CalcProjectionMatrix(int wScreen, int hScreen);
-	glm::vec2& ScreenToNDC(glm::vec2& mousePos) const;
+	void CalcProjectionMatrix(void);
+	glm::vec2 ScreenToNDC(glm::vec2& mousePos) const;
 };
 
 
