@@ -6,17 +6,16 @@
 
 
 class CameraBase : public EventListener {
-public:
-	glm::mat4 V;
-	glm::mat4 P;
-
+public:	
 	//TODO: Come up with better way of doing this
 	bool PIsDirty = false;
 	bool VIsDirty = false;
 
+	virtual const glm::mat4& GetViewMatrix(void) const = 0;
+	virtual const glm::mat4& GetProjectionMatrix(void) const = 0;
+
 protected:
-	glm::vec3 position;
-	glm::vec3 target;
+	
 
 public:
 	CameraBase();

@@ -14,9 +14,9 @@ public:
 	bool CheckLinkStatus(void);
 	void Use(void);
 
-	void SetUniformInt(const std::string& name, int value);
-	void SetUniformFloat(const std::string& name, float value);
-	void SetUniformMat4(const std::string& name, glm::mat4& value);
+	void SetUniformInt(const std::string& name, const int value);
+	void SetUniformFloat(const std::string& name, const float value);
+	void SetUniformMat4(const std::string& name, const glm::mat4& value);
 };
 
 

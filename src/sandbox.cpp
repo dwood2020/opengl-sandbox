@@ -174,8 +174,8 @@ int main(int argc, char* argv[]) {
 	// V and P now via Camera class
 	int xScreen, yScreen;
 	window.GetWindowRect(xScreen, yScreen);
-	ArcballCamera camera(eventBus, xScreen, yScreen);
-	//SimpleCamera camera(eventBus);
+	//ArcballCamera camera(eventBus, xScreen, yScreen);
+	SimpleCamera camera(eventBus);
 	camera.SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
 
 
@@ -186,13 +186,13 @@ int main(int argc, char* argv[]) {
 	// send all matrices to shaders
 	shaderProgram.Use();
 	shaderProgram.SetUniformMat4("M", M);	
-	shaderProgram.SetUniformMat4("V", camera.V);
-	shaderProgram.SetUniformMat4("P", camera.P);
+	shaderProgram.SetUniformMat4("V", camera.GetViewMatrix());
+	shaderProgram.SetUniformMat4("P", camera.GetProjectionMatrix());
 
 	shaderProgramCS.Use();
 	shaderProgramCS.SetUniformMat4("M", M);
-	shaderProgramCS.SetUniformMat4("V", camera.V);
-	shaderProgramCS.SetUniformMat4("P", camera.P);
+	shaderProgramCS.SetUniformMat4("V", camera.GetViewMatrix());
+	shaderProgramCS.SetUniformMat4("P", camera.GetProjectionMatrix());
 
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -205,10 +205,10 @@ int main(int argc, char* argv[]) {
 		// all steps for cube
 		shaderProgram.Use();
 		if (camera.PIsDirty) {
-			shaderProgram.SetUniformMat4("P", camera.P);
+			shaderProgram.SetUniformMat4("P", camera.GetProjectionMatrix());
 		}
 		if (camera.VIsDirty) {
-			shaderProgram.SetUniformMat4("V", camera.V);
+			shaderProgram.SetUniformMat4("V", camera.GetViewMatrix());
 		}
 				
 		tex1.Bind();
@@ -220,11 +220,11 @@ int main(int argc, char* argv[]) {
 		// now all steps for coordsystem
 		shaderProgramCS.Use();		
 		if (camera.PIsDirty) {
-			shaderProgramCS.SetUniformMat4("P", camera.P);
+			shaderProgramCS.SetUniformMat4("P", camera.GetProjectionMatrix());
 			camera.PIsDirty = false;
 		}
 		if (camera.VIsDirty) {
-			shaderProgramCS.SetUniformMat4("V", camera.V);
+			shaderProgramCS.SetUniformMat4("V", camera.GetViewMatrix());
 			camera.VIsDirty = false;
 		}
 		csMesh.Draw();

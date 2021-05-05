@@ -6,6 +6,12 @@
 
 class ArcballCamera final : public CameraBase {
 private:
+	glm::mat4 V;
+	glm::mat4 P;
+
+	glm::vec3 position;
+	glm::vec3 target;
+
 	// last positions in transformed arcball coordinates
 	float xLast = 0.0f;
 	float yLast = 0.0f;
@@ -23,6 +29,9 @@ public:
 
 	void SetPosition(glm::vec3 pos) override;
 	const glm::vec3& GetPosition(void) const override;
+
+	const glm::mat4& GetViewMatrix(void) const override;
+	const glm::mat4& GetProjectionMatrix(void) const override;
 
 	void OnEvent(Event& e) override;
 

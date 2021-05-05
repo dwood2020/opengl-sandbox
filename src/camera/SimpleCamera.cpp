@@ -6,13 +6,10 @@
 #include <iostream>
 
 
-//SimpleCamera::SimpleCamera() :
-//	position(glm::vec3(0.0f)), up(glm::vec3(0.0f, 1.0f, 0.0f)),
-//	target(glm::vec3(0.0f)), V(glm::mat4(1.0f)),
-//	P(glm::mat4(1.0f)), PIsDirty(false), VIsDirty(false) { }
-
-
-SimpleCamera::SimpleCamera() : CameraBase(), up(glm::vec3(0.0f, 1.0f, 0.0f)) { }
+SimpleCamera::SimpleCamera() : CameraBase(), 
+	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)),
+	position(glm::vec3(0.0f)), target(glm::vec3(0.0f)),
+	up(glm::vec3(0.0f, 1.0f, 0.0f)), lastMousePos(glm::vec2(0.0f, 0.0f)) { }
 
 
 SimpleCamera::SimpleCamera(EventBus& eventBus) : SimpleCamera() {
@@ -34,6 +31,15 @@ void SimpleCamera::SetPosition(glm::vec3 pos) {
 
 const glm::vec3& SimpleCamera::GetPosition(void) const {
 	return position;
+}
+
+
+const glm::mat4& SimpleCamera::GetViewMatrix(void) const {
+	return V;
+}
+
+const glm::mat4& SimpleCamera::GetProjectionMatrix(void) const {
+	return P;
 }
 
 
@@ -102,11 +108,11 @@ void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
 		return;
 	}
 
-	float dx = (float)x - lastMouseX;
-	float dy = (float)y - lastMouseY;
+	float dx = (float)x - lastMousePos.x;
+	float dy = (float)y - lastMousePos.y;
 
-	lastMouseX = (float)x;
-	lastMouseY = (float)y;
+	lastMousePos.x = (float)x;
+	lastMousePos.y = (float)y;
 
 	// delta-limiter 
 	const float dlimit = 10.0f;

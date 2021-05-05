@@ -7,6 +7,8 @@
 #include <iostream>
 
 ArcballCamera::ArcballCamera(EventBus& eventBus, int wScreen, int hScreen): CameraBase(),
+	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)),
+	position(glm::vec3(0.0f)), target(glm::vec3(0.0f)),
 	wScreen(wScreen), hScreen(hScreen) {
 
 	eventBus.AddListener(EventType::WindowResize, this);
@@ -26,6 +28,15 @@ void ArcballCamera::SetPosition(glm::vec3 pos) {
 
 const glm::vec3& ArcballCamera::GetPosition(void) const {
 	return position;
+}
+
+
+const glm::mat4& ArcballCamera::GetViewMatrix(void) const {
+	return V;
+}
+
+const glm::mat4& ArcballCamera::GetProjectionMatrix(void) const {
+	return P;
 }
 
 
@@ -184,6 +195,8 @@ void ArcballCamera::CalcViewMatrix(void) {
 	V = glm::lookAt(position * -1.0f, target, up);
 	VIsDirty = true;
 }
+
+
 
 
 
