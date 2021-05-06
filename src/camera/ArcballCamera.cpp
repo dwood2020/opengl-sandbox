@@ -6,10 +6,18 @@
 
 #include <iostream>
 
-ArcballCamera::ArcballCamera(EventBus& eventBus, int wScreen, int hScreen): CameraBase(),
+ArcballCamera::ArcballCamera(EventBus& eventBus, int wScreen, int hScreen, glm::vec3& pos): CameraBase(),
 	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)),
-	position(glm::vec3(0.0f)), target(glm::vec3(0.0f)),
+	position(pos), target(glm::vec3(0.0f)),
 	wScreen(wScreen), hScreen(hScreen) {
+
+	//calc initial right and up vector
+	// this should be done outside and passed into ctor (future?)
+	up = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 dir = target - position;
+	right = glm::normalize(glm::cross(dir, up));
+	CalcViewMatrix();
+
 
 	eventBus.AddListener(EventType::WindowResize, this);
 	eventBus.AddListener(EventType::MouseButton, this);
@@ -21,8 +29,8 @@ ArcballCamera::~ArcballCamera() { }
 
 
 void ArcballCamera::SetPosition(glm::vec3 pos) {
-	position = pos;
-	CalcViewMatrix();
+	/*position = pos;
+	CalcViewMatrix();*/
 }
 
 
@@ -132,12 +140,18 @@ void ArcballCamera::CalcArcball(int xInp, int yInp) {
 	glm::mat4 R = glm::rotate(glm::mat4(1.0f), theta * -1.0f * factor, u);
 
 	glm::vec4 pos4 = glm::vec4(position.x, position.y, position.z, 1.0f);	
+	glm::vec4 up4 = glm::vec4(up.x, up.y, up.z, 1.0f);
 	pos4 = R * pos4;
+	up4 = R * up4;
 
 	// perform an isnan check as quick fix
 	// (possible with C++11)
 	if (std::isnan(pos4.x) || std::isnan(pos4.y) || std::isnan(pos4.z)) {
-		std::cout << "ERROR::ARCBALLCAMERA::CALCARCBALL: calculated pos isnan" << std::endl;
+		std::cout << "ERROR::ARCBALLCAMERA::CALCARCBALL: calculated pos4 isnan" << std::endl;
+		return;
+	}
+	if (std::isnan(up4.x) || std::isnan(up4.y) || std::isnan(up4.z)) {
+		std::cout << "ERROR::ARCBALLCAMERA::CALCARCBALL: calculated up4 is nan" << std::endl;
 		return;
 	}
 
@@ -145,18 +159,21 @@ void ArcballCamera::CalcArcball(int xInp, int yInp) {
 	position.y = pos4.y;
 	position.z = pos4.z;
 
+	up.x = up4.x;
+	up.y = up4.y;
+	up.z = up4.z;
+
 	std::cout << "position x: " << position.x << "  y: " << position.y << " z: " << position.z << std::endl;
 
 	// try: calc a different up vector
-	glm::vec3 dir = target - position;
+	/*glm::vec3 dir = target - position;
 	glm::vec3 right = glm::normalize(glm::cross(dir, glm::vec3(0.0f, 1.0f, 0.0f)));
-	glm::vec3 up = glm::normalize(glm::cross(right, dir));
+	glm::vec3 up = glm::normalize(glm::cross(right, dir));*/
 
-	V = glm::lookAt(position, target, up);
-	
+	//V = glm::lookAt(position, target, up);
+	//VIsDirty = true;
 
-	VIsDirty = true;
-
+	CalcViewMatrix();
 
 	xLast = x;
 	yLast = y;
@@ -189,8 +206,7 @@ void ArcballCamera::CalcProjectionMatrix(int wScreen, int hScreen) {
 
 void ArcballCamera::CalcViewMatrix(void) {
 
-	// calc V with lookAt function
-	const glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+	// calc V with lookAt function	
 
 	V = glm::lookAt(position * -1.0f, target, up);
 	VIsDirty = true;

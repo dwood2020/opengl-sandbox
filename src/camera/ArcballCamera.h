@@ -11,6 +11,8 @@ private:
 
 	glm::vec3 position;
 	glm::vec3 target;
+	glm::vec3 up;
+	glm::vec3 right;
 
 	// last positions in transformed arcball coordinates
 	float xLast = 0.0f;
@@ -24,7 +26,7 @@ private:
 	int hScreen;
 
 public:
-	ArcballCamera(EventBus& eventBus, int xScreen, int yScreen);
+	ArcballCamera(EventBus& eventBus, int xScreen, int yScreen, glm::vec3& pos);
 	~ArcballCamera();
 
 	void SetPosition(glm::vec3 pos) override;
@@ -42,7 +44,7 @@ private:
 	void CalcArcball(int x, int y);
 
 	void CalcProjectionMatrix(int wScreen, int hScreen);
-	void CalcViewMatrix(void);
+	void CalcViewMatrix(void);	
 
 };
 

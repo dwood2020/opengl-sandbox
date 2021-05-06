@@ -157,7 +157,7 @@ int main(int argc, char* argv[]) {
 
 	// Textures
 	// --------
-	Texture tex1 = Texture::GenerateFromFile("res/texture/mc/cobblestone.png", GL_NEAREST);
+	Texture tex1 = Texture::GenerateFromFile("res/texture/box.png", GL_NEAREST);
 
 
 	// Part Going 3D
@@ -176,10 +176,10 @@ int main(int argc, char* argv[]) {
 	int xScreen, yScreen;
 	window.GetWindowRect(xScreen, yScreen);
 	glm::vec3 initialCameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
-	//ArcballCamera camera(eventBus, xScreen, yScreen);
+	ArcballCamera camera(eventBus, xScreen, yScreen, initialCameraPos);
 	//SimpleCamera camera(eventBus);
-	//camera.SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
-	ArcballCamera2 camera(eventBus, xScreen, yScreen, initialCameraPos);
+	camera.SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
+	//ArcballCamera2 camera(eventBus, xScreen, yScreen, initialCameraPos);
 
 	// last, define projection (here: perspective projection)	
 	//g_P = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 1.0f, 100.0f);
