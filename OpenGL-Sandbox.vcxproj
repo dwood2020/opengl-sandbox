@@ -163,8 +163,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\camera\ArcballCamera2.cpp" />
-    <ClCompile Include="src\arcball-cpp\arcball_camera.cpp" />
     <ClCompile Include="src\camera\ArcballCamera.cpp" />
     <ClCompile Include="src\camera\SimpleCamera.cpp" />
     <ClCompile Include="src\camera\CameraBase.cpp" />
@@ -181,8 +179,6 @@
     <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\camera\ArcballCamera2.h" />
-    <ClInclude Include="src\arcball-cpp\arcball_camera.h" />
     <ClInclude Include="src\camera\ArcballCamera.h" />
     <ClInclude Include="src\camera\SimpleCamera.h" />
     <ClInclude Include="src\camera\CameraBase.h" />
