@@ -93,7 +93,6 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	int w, h;
 	glm::vec2 windowRect = window.GetWindowRect();
 	glViewport(0, 0, (GLsizei)windowRect.x, (GLsizei)windowRect.y);
 
