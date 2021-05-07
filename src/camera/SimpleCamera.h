@@ -66,10 +66,17 @@ private:
 	void ProcessMouseButtonInput(MouseButtonCode mbCode, bool isPressed);
 
 	/// <summary>
-	/// Processes the received mouse moved events if the corresponding boolean members are set,	
+	/// Processes the received mouse moved events depending on boolean members' values
 	/// </summary>
 	void ProcessMouseMoveInput(int x, int y);
 	
+	/// <summary>
+	/// Performs a rotation according to mouse input
+	/// </summary>
+	/// <param name="x">Mouse x position [screen coordinates]</param>
+	/// <param name="y">Mouse y position [screen coordinates]</param>
+	void PerformRotation(float x, float y);
+
 	/// <summary>
 	/// Calculates the camera projection matrix as orthographic or perspective projection.
 	/// </summary>

@@ -79,9 +79,15 @@ void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
 		return;
 	}
 
-	glm::vec2 posMouse = ScreenToNDC(glm::vec2((float)x, (float)y));
+	PerformRotation((float)x, (float)y);
+}
+
+
+void SimpleCamera::PerformRotation(float x, float y) {
+
+	glm::vec2 posMouse = ScreenToNDC(glm::vec2(x, y));
 	glm::vec2 delta = DeltaNDC(posMouse);
-	
+
 	lastMousePosNDC = posMouse;
 
 	if (isFirstFrame) {
@@ -98,7 +104,7 @@ void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
 
 	// refer to this for calculations:
 	// https://stackoverflow.com/questions/40195569/arcball-camera-inverting-at-90-deg-azimuth
-	
+
 	const float xInputInv = -1.0f;
 	const float yInputInv = 1.0f;
 
@@ -106,18 +112,18 @@ void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
 	V = glm::mat4(1.0f);
 	V = glm::rotate(V, glm::radians(phi) * xInputInv, glm::vec3(0.0f, 1.0f, 0.0f));
 	V = glm::rotate(V, glm::radians(theta) * yInputInv, glm::vec3(1.0f, 0.0f, 0.0f));
-	
+
 	V = glm::translate(V, glm::vec3(0.0f, 0.0f, rho));
-	
+
 	// update position before inverting the matrix, because
 	// position is the position in world coordinates
 	position = glm::column(V, 3);
 	std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
-	
+
 	// V is actually V^-1, as the View matrix is defined to be the transformation world->camera
 	V = glm::inverse(V);
 
-	VIsDirty = true;	
+	VIsDirty = true;
 }
 
 
