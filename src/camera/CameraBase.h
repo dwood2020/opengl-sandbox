@@ -14,14 +14,11 @@ public:
 	virtual const glm::mat4& GetViewMatrix(void) const = 0;
 	virtual const glm::mat4& GetProjectionMatrix(void) const = 0;
 
-protected:
-	
 
 public:
 	CameraBase();
 	virtual ~CameraBase();
-
-	virtual void SetPosition(glm::vec3 pos) = 0;
+	
 	virtual const glm::vec3& GetPosition(void) const = 0;
 
 	virtual void OnEvent(Event& e) override = 0;
