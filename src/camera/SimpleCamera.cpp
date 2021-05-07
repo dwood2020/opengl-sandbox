@@ -8,8 +8,8 @@
 
 
 SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, const glm::vec3& pos):
-	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)), windowRect(glm::vec2(0.0f)),
-	lmbIsDown(false), lastMousePosNDC(glm::vec2(0.0f)),
+	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)), windowRect(windowRect),
+	lmbIsDown(false), isFirstFrame(true), lastMousePosNDC(glm::vec2(0.0f)),
 	target(glm::vec3(0.0f)) {
 	
 	rho = glm::length(target - pos);
@@ -18,6 +18,9 @@ SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, cons
 
 	V = glm::translate(V, glm::vec3(0.0f, 0.0f, rho));
 	V = glm::inverse(V);
+
+	position = glm::column(V, 3);
+	//std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
 
 	eventBus.AddListener(EventType::WindowResize, this);
 	eventBus.AddListener(EventType::MouseButton, this);
@@ -39,7 +42,7 @@ const glm::mat4& SimpleCamera::GetProjectionMatrix(void) const {
 
 
 const glm::vec3& SimpleCamera::GetPosition(void) const {
-	return glm::column(V, 3);
+	return position;
 }
 
 
@@ -65,6 +68,7 @@ void SimpleCamera::ProcessMouseButtonInput(MouseButtonCode mbCode, bool isPresse
 		}
 		else {
 			lmbIsDown = false;
+			isFirstFrame = true;
 		}
 	}
 }
@@ -77,8 +81,15 @@ void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
 
 	glm::vec2 posMouse = ScreenToNDC(glm::vec2((float)x, (float)y));
 	glm::vec2 delta = DeltaNDC(posMouse);
+	
+	lastMousePosNDC = posMouse;
 
-	const float factor = 100.0f;
+	if (isFirstFrame) {
+		isFirstFrame = false;
+		return;
+	}
+
+	float factor = ((windowRect.x + windowRect.y) / 2.0f) / 7.0f;
 	delta *= factor;
 
 	theta = std::clamp(theta + delta.y, -90.0f, 90.0f);
@@ -87,26 +98,35 @@ void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
 
 	// refer to this for calculations:
 	// https://stackoverflow.com/questions/40195569/arcball-camera-inverting-at-90-deg-azimuth
+	
+	const float xInputInv = -1.0f;
+	const float yInputInv = 1.0f;
 
+	// these steps calculate the transformation matrix camera->world
 	V = glm::mat4(1.0f);
-	V = glm::rotate(V, glm::radians(theta + 90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	V = glm::rotate(V, glm::radians(phi), glm::vec3(0.0f, 1.0f, 0.0f));
+	V = glm::rotate(V, glm::radians(phi) * xInputInv, glm::vec3(0.0f, 1.0f, 0.0f));
+	V = glm::rotate(V, glm::radians(theta) * yInputInv, glm::vec3(1.0f, 0.0f, 0.0f));
+	
 	V = glm::translate(V, glm::vec3(0.0f, 0.0f, rho));
+	
+	// update position before inverting the matrix, because
+	// position is the position in world coordinates
+	position = glm::column(V, 3);
+	std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
+	
+	// V is actually V^-1, as the View matrix is defined to be the transformation world->camera
 	V = glm::inverse(V);
-	VIsDirty = true;
 
-	lastMousePosNDC = posMouse;
+	VIsDirty = true;	
 }
 
 
-void SimpleCamera::CalcProjectionMatrix(void) {
+void SimpleCamera::CalcProjectionMatrix(bool asOrthographic) {
 	
 	float w = windowRect.x;
-	float h = windowRect.y;
+	float h = windowRect.y;	
 
-	const bool isOrthographic = false;
-
-	if (isOrthographic) {
+	if (asOrthographic) {
 		// orthographic projection
 		w = w / 100.0f;
 		h = h / 100.0f;
@@ -125,7 +145,7 @@ glm::vec2 SimpleCamera::ScreenToNDC(const glm::vec2& posScreen) const {
 	
 	// this could be done in homogenous coordinates or with a 
 	// matrix/vector transformation, or simply in the linearised form	
-
+	// here, a matrix/vector transformation is used.
 	glm::mat2 A = {
 		{2.0f / windowRect.x, 0.0f},
 		{0.0f, -2.0f / windowRect.y}
@@ -142,6 +162,8 @@ glm::vec2 SimpleCamera::ScreenToNDC(const glm::vec2& posScreen) const {
 
 glm::vec2 SimpleCamera::DeltaNDC(const glm::vec2& posNDC) const {
 	
+	// zero crossing problems are avoided by a simple transformation (pure translation)
+
 	const glm::vec2 b = glm::vec2(1.0f, 1.0f);
 
 	glm::vec2 posShifted = posNDC + b;
