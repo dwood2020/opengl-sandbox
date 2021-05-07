@@ -176,7 +176,7 @@ int main(int argc, char* argv[]) {
 	int xScreen, yScreen;
 	window.GetWindowRect(xScreen, yScreen);
 	glm::vec3 initialCameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
-	ArcballCamera camera(eventBus, xScreen, yScreen, initialCameraPos);
+	//ArcballCamera camera(eventBus, xScreen, yScreen, initialCameraPos);
 	//SimpleCamera camera(eventBus);
 	//camera.SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
 	//ArcballCamera2 camera(eventBus, xScreen, yScreen, initialCameraPos);

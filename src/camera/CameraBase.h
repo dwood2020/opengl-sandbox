@@ -32,12 +32,28 @@ public:
 	/// </summary>
 	void ResetDirtyState(void);
 
+	/// <summary>
+	/// Get the View Matrix	
+	/// </summary>
+	/// <returns>V</returns>
 	virtual const glm::mat4& GetViewMatrix(void) const = 0;
 
+	/// <summary>
+	/// Get the Projection Matrix
+	/// </summary>
+	/// <returns>V</returns>
 	virtual const glm::mat4& GetProjectionMatrix(void) const = 0;
 
+	/// <summary>
+	/// Get the camera position (the "eye" position)
+	/// </summary>
+	/// <returns>eye position</returns>
 	virtual const glm::vec3& GetPosition(void) const = 0;
 
+	/// <summary>
+	/// Every camera subclass needs to implement this event handler method.
+	/// (As every camera is an EventListener)
+	/// </summary>
 	virtual void OnEvent(Event& e) override = 0;
 
 };
