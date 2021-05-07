@@ -56,8 +56,16 @@ void IupWindow::DoFrame(void) {
 }
 
 
-void IupWindow::GetWindowRect(int& width, int& height) {
-	IupGetIntInt(canvas, "DRAWSIZE", &width, &height);
+const glm::vec2 IupWindow::GetWindowRect(void) {
+
+	int w, h;
+	IupGetIntInt(canvas, "DRAWSIZE", &w, &h);
+
+	glm::vec2 rect = {
+		(float)w, (float)h
+	};
+
+	return rect;
 }
 
 

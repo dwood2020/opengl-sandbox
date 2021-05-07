@@ -5,6 +5,7 @@
 #include <iup/iup_class_cbs.hpp>
 #include "WindowBase.h"
 #include "../events/EventBus.h"
+#include <glm/glm.hpp>
 
 
 class IupWindow : public WindowBase {
@@ -23,7 +24,7 @@ public:
 	void MakeContextCurrent(void) override;
 	void SwapBuffers(void) override;
 	void DoFrame(void) override;
-	void GetWindowRect(int& width, int& height) override;
+	const glm::vec2 GetWindowRect(void) override;
 
 	//custom method, not needed in IupWindow base class
 	void SetGLVersionLabel(const std::string& glVersion);

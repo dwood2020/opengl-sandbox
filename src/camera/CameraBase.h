@@ -29,8 +29,8 @@ public:
 	/// <summary>
 	/// This shall be called once after V and P updates are passed everywhere needed
 	/// (all shader uniforms are set, ...)
-	/// </summary>
-	void ResetDirtyState(void);
+	/// </summary>		
+	void ResetDirtyState(void);	//TODO: change this in 2 separates or change everything into VP-Matrix usage
 
 	/// <summary>
 	/// Get the View Matrix	

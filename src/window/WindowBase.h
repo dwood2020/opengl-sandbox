@@ -3,6 +3,7 @@
 #include <functional>
 #include "../events/EventEmitter.hpp";
 #include "../events/EventBus.h"
+#include <glm/glm.hpp>
 
 
 class WindowBase : public EventEmitter {
@@ -18,6 +19,6 @@ public:
 	virtual void SwapBuffers(void) = 0;
 	virtual void DoFrame(void) = 0;
 	virtual void MakeContextCurrent(void) = 0;
-	virtual void GetWindowRect(int& width, int& height) = 0;	
+	virtual const glm::vec2 GetWindowRect() = 0;	
 
 };

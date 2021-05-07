@@ -15,8 +15,7 @@
 #include "MeshFactory.h"
 #include "Texture.h"
 #include "camera/SimpleCamera.h"
-#include "camera/ArcballCamera.h"
-#include "camera/ArcballCamera2.h"
+
 
 #include <chrono>
 
@@ -95,8 +94,8 @@ int main(int argc, char* argv[]) {
 	}
 
 	int w, h;
-	window.GetWindowRect(w, h);
-	glViewport(0, 0, w, h);
+	glm::vec2 windowRect = window.GetWindowRect();
+	glViewport(0, 0, (GLsizei)windowRect.x, (GLsizei)windowRect.y);
 
 	eventBus.AddListener(EventType::WindowResize, &sandboxListener);
 	eventBus.AddListener(EventType::WindowClose, &sandboxListener);
@@ -173,11 +172,9 @@ int main(int argc, char* argv[]) {
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
 
 	// V and P now via Camera class
-	int xScreen, yScreen;
-	window.GetWindowRect(xScreen, yScreen);
 	glm::vec3 initialCameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
 	//ArcballCamera camera(eventBus, xScreen, yScreen, initialCameraPos);
-	//SimpleCamera camera(eventBus);
+	SimpleCamera camera(eventBus, window.GetWindowRect(), initialCameraPos);
 	//camera.SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
 	//ArcballCamera2 camera(eventBus, xScreen, yScreen, initialCameraPos);
 
@@ -206,10 +203,10 @@ int main(int argc, char* argv[]) {
 		
 		// all steps for cube
 		shaderProgram.Use();
-		if (camera.PIsDirty) {
+		if (camera.GetProjectionMatrixIsDirty()) {
 			shaderProgram.SetUniformMat4("P", camera.GetProjectionMatrix());
 		}
-		if (camera.VIsDirty) {
+		if (camera.GetViewMatrixIsDirty()) {
 			shaderProgram.SetUniformMat4("V", camera.GetViewMatrix());
 		}
 				
@@ -221,13 +218,13 @@ int main(int argc, char* argv[]) {
 
 		// now all steps for coordsystem
 		shaderProgramCS.Use();		
-		if (camera.PIsDirty) {
-			shaderProgramCS.SetUniformMat4("P", camera.GetProjectionMatrix());
-			camera.PIsDirty = false;
+		if (camera.GetProjectionMatrixIsDirty()) {
+			shaderProgramCS.SetUniformMat4("P", camera.GetProjectionMatrix());			
+			camera.ResetDirtyState();
 		}
-		if (camera.VIsDirty) {
+		if (camera.GetViewMatrixIsDirty()) {
 			shaderProgramCS.SetUniformMat4("V", camera.GetViewMatrix());
-			camera.VIsDirty = false;
+			camera.ResetDirtyState();
 		}
 		csMesh.Draw();
 

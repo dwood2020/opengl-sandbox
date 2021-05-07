@@ -16,3 +16,8 @@ bool CameraBase::GetProjectionMatrixIsDirty(void) const {
 	return PIsDirty;
 }
 
+
+void CameraBase::ResetDirtyState(void) {
+	VIsDirty = false;
+	PIsDirty = false;
+}
