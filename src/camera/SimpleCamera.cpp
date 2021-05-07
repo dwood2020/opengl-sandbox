@@ -9,17 +9,18 @@
 
 SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, const glm::vec3& pos):
 	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)), windowRect(windowRect),
-	lmbIsDown(false), isFirstFrame(true), lastMousePosNDC(glm::vec2(0.0f)),
+	lmbIsDown(false), mmbIsDown(false), isFirstFrame(true), lastMousePosNDC(glm::vec2(0.0f)),
 	target(glm::vec3(0.0f)) {
 	
 	rho = glm::length(target - pos);
 	phi = 0.0f;
 	theta = 0.0f;
 
-	V = glm::translate(V, glm::vec3(0.0f, 0.0f, rho));
-	V = glm::inverse(V);
-
+	/*V = glm::translate(V, glm::vec3(0.0f, 0.0f, rho));
 	position = glm::column(V, 3);
+	V = glm::inverse(V);*/
+	
+	UpdateViewMatrixAndPosition();
 	//std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
 
 	eventBus.AddListener(EventType::WindowResize, this);
@@ -71,15 +72,25 @@ void SimpleCamera::ProcessMouseButtonInput(MouseButtonCode mbCode, bool isPresse
 			isFirstFrame = true;
 		}
 	}
+	else if (mbCode == MouseButtonCode::Middle) {
+		if (isPressed) {
+			mmbIsDown = true;
+		}
+		else {
+			mmbIsDown = false;
+		}
+	}
 }
 
 
 void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
-	if (!lmbIsDown) {
-		return;
+	if (lmbIsDown) {
+		PerformRotation((float)x, (float)y);
 	}
-
-	PerformRotation((float)x, (float)y);
+	else if (mmbIsDown) {
+		PerformTranslation((float)x, (float)y);
+	}
+	
 }
 
 
@@ -105,11 +116,34 @@ void SimpleCamera::PerformRotation(float x, float y) {
 	// refer to this for calculations:
 	// https://stackoverflow.com/questions/40195569/arcball-camera-inverting-at-90-deg-azimuth
 
+	// NOTE all previous matrix calculations have been moved here:
+	UpdateViewMatrixAndPosition();
+}
+
+
+void SimpleCamera::PerformTranslation(float x, float y) {
+	
+	glm::vec2 posMouse = ScreenToNDC(glm::vec2(x, y));
+	glm::vec2 delta = DeltaNDC(posMouse);
+
+	lastMousePosNDC = posMouse;
+
+	//TODO: calc target pos via mouse input
+}
+
+
+void SimpleCamera::UpdateViewMatrixAndPosition(void) {
+
 	const float xInputInv = -1.0f;
 	const float yInputInv = 1.0f;
 
-	// these steps calculate the transformation matrix camera->world
+	// these steps calculate the transformation matrix camera->world	
 	V = glm::mat4(1.0f);
+
+	//test
+	//target.x = 2.0f;
+	V = glm::translate(V, target);
+
 	V = glm::rotate(V, glm::radians(phi) * xInputInv, glm::vec3(0.0f, 1.0f, 0.0f));
 	V = glm::rotate(V, glm::radians(theta) * yInputInv, glm::vec3(1.0f, 0.0f, 0.0f));
 

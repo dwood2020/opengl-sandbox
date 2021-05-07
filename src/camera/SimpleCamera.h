@@ -11,6 +11,7 @@ private:
 	glm::mat4 P;
 	glm::vec2 windowRect;
 	bool lmbIsDown;
+	bool mmbIsDown;
 	bool isFirstFrame;
 	glm::vec2 lastMousePosNDC;
 
@@ -76,6 +77,20 @@ private:
 	/// <param name="x">Mouse x position [screen coordinates]</param>
 	/// <param name="y">Mouse y position [screen coordinates]</param>
 	void PerformRotation(float x, float y);
+
+	/// <summary>
+	/// Performs a translation of the camera target according to mouse input
+	/// (currently only on xz plane)
+	/// </summary>
+	/// <param name="x">Mouse x position [screen coordinates]</param>
+	/// <param name="y">Mouse y position [screen coordinates]</param>
+	void PerformTranslation(float x, float y);
+
+	/// <summary>
+	/// Calculates an updated view matrix from the camera positions rho, phi, theta
+	/// and updates the position vector from the fourth matrix column (matrix is in homogenous coordinates)
+	/// </summary>	
+	void UpdateViewMatrixAndPosition(void);
 
 	/// <summary>
 	/// Calculates the camera projection matrix as orthographic or perspective projection.
