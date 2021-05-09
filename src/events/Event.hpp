@@ -25,7 +25,7 @@ public:
 		return type;
 	}
 
-public:
+protected:
 	// payload data
 	// this is really the easiest (but not the best) way possible: no subclass members which can be sliced away.
 	// & there is no need to allocate event instances on the heap (to avoid obj slicing in the queue) this way - event base types can be directly used.
