@@ -7,7 +7,6 @@
 #include "events/EventBus.h"
 #include "events/EventListener.hpp"
 #include "Keycodes.hpp"
-
 #include "window/IupWindow.h"
 #include "Shader.h"
 #include "ShaderProgram.h"
@@ -16,26 +15,16 @@
 #include "Texture.h"
 #include "camera/SimpleCamera.h"
 
-
 #include <chrono>
 
 
 bool g_exitProgram = false;
 
 
-void OnKeyEvent(Event& e) {
-	if (e.keyCode != KeyCode::None) {
-		std::cout << "Key " << (int)e.keyCode << ((e.isKeydown) ? " pressed" : " released") << std::endl;
-	}	
-	if (e.keyCode == KeyCode::Esc) {
-		g_exitProgram = true;
-	}
-}
-
-
 void OnWindowResize(Event& e) {
 	std::cout << "OnWindowResize called!" << std::endl;
-	glViewport(0, 0, e.w, e.h);
+	WindowResizeEvent& eRes = (WindowResizeEvent&)e;
+	glViewport(0, 0, eRes.GetScreenWidth(), eRes.GetScreenHeight());
 }
 
 
@@ -43,11 +32,6 @@ void OnWindowResize(Event& e) {
 void OnWindowClose(Event& e) {
 	std::cout << "Window Close event received!" << std::endl;
 	g_exitProgram = true;
-}
-
-
-void OnMouseButtonClick(Event& e) {
-	std::cout << "Mouse button " << ((e.isPressed) ? "clicked" : "released") << ": " << (int)e.mbCode << std::endl;	
 }
 
 
@@ -60,8 +44,7 @@ public:
 		}
 		else if (e.GetType() == EventType::WindowResize) {
 			OnWindowResize(e);
-		}
-		// key and mousebutton event handlers not yet added
+		}		
 	}
 };
 

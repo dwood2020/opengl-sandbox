@@ -68,14 +68,16 @@ public:
 };
 
 
-class WindowResizeEvent : public Event {
+class WindowResizeEvent final : public Event {
 public:
 	WindowResizeEvent(int w, int h): Event(EventType::WindowResize) {
 		this->w = w;
 		this->h = h;
 	}
 
-	virtual ~WindowResizeEvent() { }
+	int GetScreenWidth(void) const { return this->w; }
+	int GetScreenHeight(void) const { return this->h; }
+	
 };
 
 
@@ -85,6 +87,9 @@ public:
 		this->mbCode = mbCode;
 		this->isPressed = isPressed;
 	}	
+
+	const MouseButtonCode& GetMbCode(void) { return this->mbCode; }
+	bool GetIsPressed(void) { return this->isPressed; }
 
 };
 
@@ -96,6 +101,9 @@ public:
 		this->isKeydown = isKeydown;
 	}
 
+	const KeyCode& GetKeyCode(void) const { return this->keyCode; }
+	bool GetIsKeydown(void) const { return this->isKeydown; }
+
 };
 
 
@@ -105,4 +113,7 @@ public:
 		this->xScreen = x;
 		this->yScreen = y;
 	}
+
+	int GetPositionX(void) const { return this->xScreen; }
+	int GetPositionY(void) const { return this->yScreen; }
 };

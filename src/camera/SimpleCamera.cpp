@@ -49,15 +49,18 @@ const glm::vec3& SimpleCamera::GetPosition(void) const {
 
 void SimpleCamera::OnEvent(Event& e) {
 	if (e.GetType() == EventType::WindowResize) {
-		windowRect.x = (float)e.w;
-		windowRect.y = (float)e.h;
+		WindowResizeEvent& eResize = (WindowResizeEvent&)e;
+		windowRect.x = (float)eResize.GetScreenWidth();
+		windowRect.y = (float)eResize.GetScreenHeight();
 		CalcProjectionMatrix();
 	}
 	else if (e.GetType() == EventType::MouseButton) {
-		ProcessMouseButtonInput(e.mbCode, e.isPressed);
+		MouseButtonEvent& etmp = (MouseButtonEvent&)e;
+		ProcessMouseButtonInput(((MouseButtonEvent&)e).GetMbCode(), etmp.GetIsPressed());
 	}
 	else if (e.GetType() == EventType::MouseMove) {
-		ProcessMouseMoveInput(e.xScreen, e.yScreen);
+		MouseMoveEvent& emm = (MouseMoveEvent&)e;
+		ProcessMouseMoveInput(emm.GetPositionX(), emm.GetPositionY());
 	}
 }
 
