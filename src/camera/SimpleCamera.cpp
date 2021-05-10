@@ -132,6 +132,28 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 	lastMousePosNDC = posMouse;
 
 	//TODO: calc target pos via mouse input
+
+	//NOTE: the transformation delta [NDC] --> delta [world] is a simple scalation (scalar factor)
+
+	const float scale = 0.4f;
+
+	// simple try: transform pos into camera coords, then add factors, then retransform?
+	// V is transf world->camera
+	glm::vec4 pos = V * glm::vec4(position, 1.0f);
+	pos.x += delta.x * scale;
+	//pos.z += delta.y * scale;
+
+	glm::mat4 Vinf = glm::inverse(V);
+
+	pos = Vinf * pos;
+
+	target.x = pos.x;
+	target.y = pos.y;
+	//target.z = pos.z;
+
+	std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
+
+	UpdateViewMatrixAndPosition();
 }
 
 
