@@ -81,6 +81,7 @@ void SimpleCamera::ProcessMouseButtonInput(MouseButtonCode mbCode, bool isPresse
 		}
 		else {
 			mmbIsDown = false;
+			isFirstFrame = true;
 		}
 	}
 }
@@ -116,6 +117,8 @@ void SimpleCamera::PerformRotation(float x, float y) {
 	phi = std::fmodf(phi + delta.x, 360.0f);
 	//NOTE rho is untouched (no zooming atm)
 
+	//std::cout << "rho: " << rho << "  phi: " << phi << "  theta: " << theta << std::endl;
+
 	// refer to this for calculations:
 	// https://stackoverflow.com/questions/40195569/arcball-camera-inverting-at-90-deg-azimuth
 
@@ -131,27 +134,34 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 
 	lastMousePosNDC = posMouse;
 
+	if (isFirstFrame) {
+		isFirstFrame = false;
+		return;
+	}
+
 	//TODO: calc target pos via mouse input
 
 	//NOTE: the transformation delta [NDC] --> delta [world] is a simple scalation (scalar factor)
-
 	const float scale = 0.4f;
 
 	// simple try: transform pos into camera coords, then add factors, then retransform?
 	// V is transf world->camera
 	glm::vec4 pos = V * glm::vec4(position, 1.0f);
-	pos.x += delta.x * scale;
-	//pos.z += delta.y * scale;
 
 	glm::mat4 Vinf = glm::inverse(V);
 
+	std::cout << "pos [camera]: " << pos.x << std::endl;
+
+	pos.x += delta.x;	
+
 	pos = Vinf * pos;
 
-	target.x = pos.x;
-	target.y = pos.y;
-	//target.z = pos.z;
+	std::cout << "pos [world]: " << pos.x << std::endl;
 
-	std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
+	position.x = pos.x;
+	target.x = pos.x;
+	
+	//std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
 
 	UpdateViewMatrixAndPosition();
 }
