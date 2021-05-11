@@ -139,13 +139,12 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 		return;
 	}
 
+	// calculation approach:
+	// retrieve camera right and up vector (normalized), multiply with deltas and add to current target (and pos)
 
 	const float rightScale = -1.5f;
 	const float upScale = 1.5f;
-	const glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
-	// calculation:
-	// retrieve camera right and up vector (normalized), multiply with deltas and add to current target (and pos)
+	const glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f);	
 
 	glm::vec3 dir = target - position;
 	
@@ -179,7 +178,7 @@ void SimpleCamera::UpdateViewMatrixAndPosition(void) {
 	// update position before inverting the matrix, because
 	// position is the position in world coordinates
 	position = glm::column(V, 3);
-	std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
+	//std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
 
 	// V is actually V^-1, as the View matrix is defined to be the transformation world->camera
 	V = glm::inverse(V);
