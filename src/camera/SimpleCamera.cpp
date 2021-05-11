@@ -139,29 +139,23 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 		return;
 	}
 
-	//TODO: calc target pos via mouse input
 
-	//NOTE: the transformation delta [NDC] --> delta [world] is a simple scalation (scalar factor)
-	const float scale = 0.4f;
+	const float rightScale = -1.5f;
+	const float upScale = 1.5f;
+	const glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-	// simple try: transform pos into camera coords, then add factors, then retransform?
-	// V is transf world->camera
-	glm::vec4 pos = V * glm::vec4(position, 1.0f);
+	// calculation:
+	// retrieve camera right and up vector (normalized), multiply with deltas and add to current target (and pos)
 
-	glm::mat4 Vinf = glm::inverse(V);
-
-	std::cout << "pos [camera]: " << pos.x << std::endl;
-
-	pos.x += delta.x;	
-
-	pos = Vinf * pos;
-
-	std::cout << "pos [world]: " << pos.x << std::endl;
-
-	position.x = pos.x;
-	target.x = pos.x;
+	glm::vec3 dir = target - position;
 	
-	//std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
+	glm::vec3 right = glm::normalize(glm::cross(dir, worldUp));
+	glm::vec3 up = glm::normalize(glm::cross(dir, right));
+
+	glm::vec3 deltaPan = (right * delta.x * rightScale) + (up * delta.y * upScale);
+
+	target = target + deltaPan;
+	position = position + deltaPan;
 
 	UpdateViewMatrixAndPosition();
 }
@@ -175,8 +169,6 @@ void SimpleCamera::UpdateViewMatrixAndPosition(void) {
 	// these steps calculate the transformation matrix camera->world	
 	V = glm::mat4(1.0f);
 
-	//test
-	//target.x = 2.0f;
 	V = glm::translate(V, target);
 
 	V = glm::rotate(V, glm::radians(phi) * xInputInv, glm::vec3(0.0f, 1.0f, 0.0f));
