@@ -26,6 +26,7 @@ SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, cons
 	eventBus.AddListener(EventType::WindowResize, this);
 	eventBus.AddListener(EventType::MouseButton, this);
 	eventBus.AddListener(EventType::MouseMove, this);
+	eventBus.AddListener(EventType::MouseScroll, this);
 }
 
 
@@ -61,6 +62,10 @@ void SimpleCamera::OnEvent(Event& e) {
 	else if (e.GetType() == EventType::MouseMove) {
 		MouseMoveEvent& emm = (MouseMoveEvent&)e;
 		ProcessMouseMoveInput(emm.GetPositionX(), emm.GetPositionY());
+	}
+	else if (e.GetType() == EventType::MouseScroll) {
+		MouseScrollEvent& ems = (MouseScrollEvent&)e;
+		PerformZoom(ems.GetScrollDirection());
 	}
 }
 
@@ -155,6 +160,25 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 
 	target = target + deltaPan;
 	position = position + deltaPan;
+
+	UpdateViewMatrixAndPosition();
+}
+
+
+void SimpleCamera::PerformZoom(MouseScrollDirection dir) {	
+	
+	const float rhoMin = 0.5f;
+	float delta = 0.5f;
+
+	if (dir == MouseScrollDirection::Up) {
+		delta *= -1.0f;
+	}
+	else if (dir == MouseScrollDirection::Down) {
+		delta *= 1.0f;
+	}
+
+	rho += delta;
+	rho = std::max(rho, rhoMin);
 
 	UpdateViewMatrixAndPosition();
 }

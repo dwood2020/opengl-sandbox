@@ -87,6 +87,12 @@ private:
 	void PerformTranslation(float x, float y);
 
 	/// <summary>
+	/// Performs a zoom notch by altering rho according to the scroll direction, at most up to a minimum value.
+	/// </summary>
+	/// <param name="dir">scroll direction</param>
+	void PerformZoom(MouseScrollDirection dir);
+
+	/// <summary>
 	/// Calculates an updated view matrix from the camera positions rho, phi, theta
 	/// and updates the position vector from the fourth matrix column (matrix is in homogenous coordinates)
 	/// </summary>	
