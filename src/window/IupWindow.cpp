@@ -152,6 +152,23 @@ int IupWindow::CanvasMouseMoveCb(Ihandle* self, int x, int y, char* status) {
 }
 
 
+int IupWindow::CanvasWheelCb(Ihandle* self, float delta, int x, int y, char* status) {
+	
+	MouseScrollDirection dir = MouseScrollDirection::None;
+	if (delta < -0.5f) {
+		dir = MouseScrollDirection::Down;
+	}
+	else if (delta > 0.5f) {
+		dir = MouseScrollDirection::Up;
+	}
+
+	MouseScrollEvent e(dir, 1.0f);
+	OnEvent(e);
+
+	return IUP_DEFAULT;
+}
+
+
 
 // custom function which will not be needed in IupWindowBase class
 void IupWindow::SetGLVersionLabel(const std::string& glVersion) {

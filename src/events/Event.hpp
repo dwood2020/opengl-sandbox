@@ -8,7 +8,8 @@ enum class EventType {
 	WindowResize,
 	Key,	
 	MouseMove,
-	MouseButton,	
+	MouseButton,
+	MouseScroll,
 };
 
 
@@ -53,6 +54,11 @@ protected:
 		struct {
 			int xScreen;
 			int yScreen;	//TODO: Think about this. Its a double definition of two ints
+		};
+
+		struct {
+			MouseScrollDirection scrollDir;
+			float delta;
 		};
 	};
 
@@ -116,4 +122,16 @@ public:
 
 	int GetPositionX(void) const { return this->xScreen; }
 	int GetPositionY(void) const { return this->yScreen; }
+};
+
+
+class MouseScrollEvent final : public Event {
+public:
+	MouseScrollEvent(MouseScrollDirection scrollDir, float delta):
+		Event(EventType::MouseScroll) {
+
+		this->scrollDir = scrollDir;
+	}
+
+	const MouseScrollDirection& GetScrollDirection(void) const { return this->scrollDir; }
 };

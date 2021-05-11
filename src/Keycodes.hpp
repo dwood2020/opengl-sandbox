@@ -18,3 +18,10 @@ enum class KeyCode {
 	Esc,
 	Space
 };
+
+
+enum class MouseScrollDirection {
+	None = 0,
+	Up,
+	Down
+};
