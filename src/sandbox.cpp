@@ -44,7 +44,10 @@ public:
 		}
 		else if (e.GetType() == EventType::WindowResize) {
 			OnWindowResize(e);
-		}		
+		}	
+		else if (e.GetType() == EventType::MouseScroll) {
+			std::cout << "Mouse scroll event: " << (int)((MouseScrollEvent&)e).GetScrollDirection() << "  delta: " << ((MouseScrollEvent&)e).GetDelta() << std::endl;
+		}
 	}
 };
 
@@ -81,8 +84,7 @@ int main(int argc, char* argv[]) {
 
 	eventBus.AddListener(EventType::WindowResize, &sandboxListener);
 	eventBus.AddListener(EventType::WindowClose, &sandboxListener);
-	eventBus.AddListener(EventType::MouseButton, &sandboxListener);
-	eventBus.AddListener(EventType::Key, &sandboxListener);
+	eventBus.AddListener(EventType::MouseScroll, &sandboxListener);
 
 
 	glClearColor(0.075f, 0.196f, 0.325f, 1.0f);	

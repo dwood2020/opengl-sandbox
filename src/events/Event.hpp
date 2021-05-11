@@ -131,7 +131,9 @@ public:
 		Event(EventType::MouseScroll) {
 
 		this->scrollDir = scrollDir;
+		this->delta = delta;
 	}
 
 	const MouseScrollDirection& GetScrollDirection(void) const { return this->scrollDir; }
+	float GetDelta(void) const { return this->delta; }
 };

@@ -28,6 +28,7 @@ void IupWindow::Init(int argc, char** argv) {
 	IUP_CLASS_SETCALLBACK(canvas, "BUTTON_CB", CanvasButtonCb);
 	IUP_CLASS_SETCALLBACK(canvas, "KEYPRESS_CB", CanvasKeyCb);
 	IUP_CLASS_SETCALLBACK(canvas, "MOTION_CB", CanvasMouseMoveCb);
+	IUP_CLASS_SETCALLBACK(canvas, "WHEEL_CB", CanvasWheelCb);
 
 	Ihandle* dlg = IupDialog(IupVbox(IupHbox(label1, labelGlVersion, NULL), canvas, NULL));
 	std::string size = std::to_string(this->width) + 'X' + std::to_string(this->height);
