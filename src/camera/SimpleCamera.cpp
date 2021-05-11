@@ -89,7 +89,7 @@ void SimpleCamera::ProcessMouseButtonInput(MouseButtonCode mbCode, bool isPresse
 
 void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
 	if (lmbIsDown) {
-		PerformRotation((float)x, (float)y);
+		PerformRotation((float)x, (float)y);		
 	}
 	else if (mmbIsDown) {
 		PerformTranslation((float)x, (float)y);
