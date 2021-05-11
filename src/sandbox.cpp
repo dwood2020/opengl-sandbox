@@ -146,6 +146,9 @@ int main(int argc, char* argv[]) {
 	// Part Going 3D
 	// -------------
 	glm::mat4 M = glm::mat4(1.0f);
+	glm::mat4 Mcube = glm::mat4(1.0f);
+	//Mcube = glm::translate(Mcube, glm::vec3(0.5f, 0.5f, 0.5f));
+	
 	//glm::mat4 V = glm::mat4(1.0f);
 	//glm::mat4 P = glm::mat4(1.0f);
 
@@ -161,7 +164,7 @@ int main(int argc, char* argv[]) {
 
 	// send all matrices to shaders
 	shaderProgram.Use();
-	shaderProgram.SetUniformMat4("M", M);	
+	shaderProgram.SetUniformMat4("M", Mcube);	
 	shaderProgram.SetUniformMat4("V", camera.GetViewMatrix());
 	shaderProgram.SetUniformMat4("P", camera.GetProjectionMatrix());
 
