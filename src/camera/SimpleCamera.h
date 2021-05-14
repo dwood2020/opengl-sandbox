@@ -9,6 +9,7 @@ class SimpleCamera final : public CameraBase {
 private:
 	glm::mat4 V;
 	glm::mat4 P;
+	glm::mat4 PV;
 	glm::vec2 windowRect;
 	bool lmbIsDown;
 	bool mmbIsDown;
@@ -100,15 +101,17 @@ private:
 
 	/// <summary>
 	/// Calculates an updated view matrix from the camera positions rho, phi, theta
-	/// and updates the position vector from the fourth matrix column (matrix is in homogenous coordinates)
+	/// and updates the position vector from the fourth matrix column (matrix is in homogenous coordinates).
+	/// Updates view projection matrix PV.
 	/// </summary>	
-	void UpdateViewMatrixAndPosition(void);
+	void UpdateViewProjectionMatrixAndPosition(void);
 
 	/// <summary>
-	/// Calculates the camera projection matrix as orthographic or perspective projection.
+	/// Calculates the camera projection matrix as orthographic or perspective projection,
+	/// updates View projection matrix PV.
 	/// </summary>
 	/// <param name="asOrthographic">True for orthographic proj., False for perspective proj.</param>
-	void CalcProjectionMatrix(bool asOrthographic = false);	
+	void CalcProjection(bool asOrthographic = false);	
 
 	/// <summary>
 	/// Transforms screen coordinates into Normalized Device Coordinates (NDC)

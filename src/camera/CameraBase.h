@@ -7,24 +7,17 @@
 
 class CameraBase : public EventListener {
 protected:	
-	bool PIsDirty;
-	bool VIsDirty;
+	bool PVIsDirty;
 
 public:
 	CameraBase();
-	virtual ~CameraBase();
-	
-	/// <summary>
-	/// This returns true if V has changed and the shaders require a uniform update.
-	/// </summary>
-	/// <returns>True if V dirty, see above</returns>
-	bool GetViewMatrixIsDirty(void) const;
+	virtual ~CameraBase();	
 
 	/// <summary>
-	/// This returns True if P has changed and the shaders require a uniform update.
+	/// This returns True if PV has changed and the shaders require a uniform update.
 	/// </summary>	
-	/// <returns>True if P dirty, see above</returns>
-	bool GetProjectionMatrixIsDirty(void) const;
+	/// <returns>True if PV dirty, see above</returns>
+	bool GetViewProjectionMatrixIsDirty(void) const;
 
 	/// <summary>
 	/// This shall be called once after V and P updates are passed everywhere needed

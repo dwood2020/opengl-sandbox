@@ -161,14 +161,12 @@ int main(int argc, char* argv[]) {
 
 	// send all matrices to shaders
 	shaderProgram.Use();
-	shaderProgram.SetUniformMat4("M", Mcube);	
-	shaderProgram.SetUniformMat4("V", camera.GetViewMatrix());
-	shaderProgram.SetUniformMat4("P", camera.GetProjectionMatrix());
+	shaderProgram.SetUniformMat4("M", Mcube);		
+	shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 
 	shaderProgramCS.Use();
-	shaderProgramCS.SetUniformMat4("M", M);
-	shaderProgramCS.SetUniformMat4("V", camera.GetViewMatrix());
-	shaderProgramCS.SetUniformMat4("P", camera.GetProjectionMatrix());
+	shaderProgramCS.SetUniformMat4("M", M);	
+	shaderProgramCS.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -180,12 +178,10 @@ int main(int argc, char* argv[]) {
 		
 		// all steps for cube
 		shaderProgram.Use();
-		if (camera.GetProjectionMatrixIsDirty()) {
-			shaderProgram.SetUniformMat4("P", camera.GetProjectionMatrix());
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}
-		if (camera.GetViewMatrixIsDirty()) {
-			shaderProgram.SetUniformMat4("V", camera.GetViewMatrix());
-		}
+		
 				
 		tex1.Bind();
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
@@ -195,14 +191,10 @@ int main(int argc, char* argv[]) {
 
 		// now all steps for coordsystem
 		shaderProgramCS.Use();		
-		if (camera.GetProjectionMatrixIsDirty()) {
-			shaderProgramCS.SetUniformMat4("P", camera.GetProjectionMatrix());			
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			shaderProgramCS.SetUniformMat4("PV", camera.GetViewProjectionMatrix());			
 			camera.ResetDirtyState();
-		}
-		if (camera.GetViewMatrixIsDirty()) {
-			shaderProgramCS.SetUniformMat4("V", camera.GetViewMatrix());
-			camera.ResetDirtyState();
-		}
+		}		
 		csMesh.Draw();
 
 

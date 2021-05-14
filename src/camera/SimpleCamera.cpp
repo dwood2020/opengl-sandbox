@@ -8,7 +8,7 @@
 
 
 SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, const glm::vec3& pos):
-	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)), windowRect(windowRect),
+	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)), PV(glm::mat4(1.0f)), windowRect(windowRect),
 	lmbIsDown(false), mmbIsDown(false), isFirstFrame(true), lastMousePosNDC(glm::vec2(0.0f)),
 	target(glm::vec3(0.0f)) {
 	
@@ -20,7 +20,7 @@ SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, cons
 	position = glm::column(V, 3);
 	V = glm::inverse(V);*/
 	
-	UpdateViewMatrixAndPosition();
+	UpdateViewProjectionMatrixAndPosition();
 	//std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
 
 	eventBus.AddListener(EventType::WindowResize, this);
@@ -44,7 +44,7 @@ const glm::mat4& SimpleCamera::GetProjectionMatrix(void) const {
 
 
 const glm::mat4& SimpleCamera::GetViewProjectionMatrix(void) const {
-	return P * V;
+	return PV;
 }
 
 
@@ -58,7 +58,7 @@ void SimpleCamera::OnEvent(Event& e) {
 		WindowResizeEvent& eResize = (WindowResizeEvent&)e;
 		windowRect.x = (float)eResize.GetScreenWidth();
 		windowRect.y = (float)eResize.GetScreenHeight();
-		CalcProjectionMatrix();
+		CalcProjection();
 	}
 	else if (e.GetType() == EventType::MouseButton) {
 		MouseButtonEvent& etmp = (MouseButtonEvent&)e;
@@ -133,7 +133,7 @@ void SimpleCamera::PerformRotation(float x, float y) {
 	// https://stackoverflow.com/questions/40195569/arcball-camera-inverting-at-90-deg-azimuth
 
 	// NOTE all previous matrix calculations have been moved here:
-	UpdateViewMatrixAndPosition();
+	UpdateViewProjectionMatrixAndPosition();
 }
 
 
@@ -166,7 +166,7 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 	target = target + deltaPan;
 	position = position + deltaPan;
 
-	UpdateViewMatrixAndPosition();
+	UpdateViewProjectionMatrixAndPosition();
 }
 
 
@@ -185,11 +185,11 @@ void SimpleCamera::PerformZoom(MouseScrollDirection dir) {
 	rho += delta;
 	rho = std::max(rho, rhoMin);
 
-	UpdateViewMatrixAndPosition();
+	UpdateViewProjectionMatrixAndPosition();
 }
 
 
-void SimpleCamera::UpdateViewMatrixAndPosition(void) {
+void SimpleCamera::UpdateViewProjectionMatrixAndPosition(void) {
 
 	const float xInputInv = -1.0f;
 	const float yInputInv = 1.0f;
@@ -212,11 +212,12 @@ void SimpleCamera::UpdateViewMatrixAndPosition(void) {
 	// V is actually V^-1, as the View matrix is defined to be the transformation world->camera
 	V = glm::inverse(V);
 
-	VIsDirty = true;
+	PV = P * V;
+	PVIsDirty = true;
 }
 
 
-void SimpleCamera::CalcProjectionMatrix(bool asOrthographic) {
+void SimpleCamera::CalcProjection(bool asOrthographic) {
 	
 	float w = windowRect.x;
 	float h = windowRect.y;	
@@ -232,7 +233,8 @@ void SimpleCamera::CalcProjectionMatrix(bool asOrthographic) {
 		P = glm::perspective(glm::radians(45.0f), w / h, 1.0f, 100.0f);
 	}
 
-	PIsDirty = true;
+	PV = P * V;
+	PVIsDirty = true;
 }
 
 

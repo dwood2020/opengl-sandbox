@@ -1,23 +1,17 @@
 #include "CameraBase.h"
 
 
-CameraBase::CameraBase(): VIsDirty(false), PIsDirty(false) { }
+CameraBase::CameraBase(): PVIsDirty(false) { }
 
 
 CameraBase::~CameraBase() { }
 
 
-bool CameraBase::GetViewMatrixIsDirty(void) const {
-	return VIsDirty;
-}
-
-
-bool CameraBase::GetProjectionMatrixIsDirty(void) const {
-	return PIsDirty;
+bool CameraBase::GetViewProjectionMatrixIsDirty(void) const {
+	return PVIsDirty;
 }
 
 
 void CameraBase::ResetDirtyState(void) {
-	VIsDirty = false;
-	PIsDirty = false;
+	PVIsDirty = false;
 }
