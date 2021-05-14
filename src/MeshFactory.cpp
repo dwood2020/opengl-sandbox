@@ -220,3 +220,27 @@ Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 }
 
 
+Mesh MeshFactory::MakeSimpleGrid(float l) const {
+	
+	std::vector<glm::vec3> vertices;
+	
+	const float d = 1.0f;
+
+	for (float x = -l; x <= l; x += d) {
+		vertices.push_back(glm::vec3(x, 0.0f, -l));
+		vertices.push_back(glm::vec3(x, 0.0f, l));
+	}
+
+	for (float z = -l; z <= l; z += d) {
+		vertices.push_back(glm::vec3(-l, 0.0f, z));
+		vertices.push_back(glm::vec3(l, 0.0f, z));
+	}
+
+	Mesh mesh;
+	mesh.SetPositionVertices(vertices);
+	mesh.SetGlMode(GL_LINES);
+	mesh.Prepare();
+	return mesh;
+}
+
+

@@ -113,6 +113,7 @@ int main(int argc, char* argv[]) {
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
 	Mesh mesh = meshFactory.MakeCube(1.0f, true);	
 	Mesh csMesh = meshFactory.MakeCoordinateSystem(2.0f);
+	Mesh gridMesh = meshFactory.MakeSimpleGrid(10.0f);
 
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
@@ -133,6 +134,11 @@ int main(int argc, char* argv[]) {
 	ShaderProgram shaderProgramCS(vertexShaderCS, fragmentShaderCS);
 	shaderProgramCS.CheckLinkStatus();
 	//shaderProgramCS.Use();
+
+	Shader vertexShaderSimple(Shader::ReadSourceFromFile("res/vert_simple.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragmentShaderSimple(Shader::ReadSourceFromFile("res/frag_simple.glsl").c_str(), GL_FRAGMENT_SHADER);
+	ShaderProgram shaderProgramSimple(vertexShaderSimple, fragmentShaderSimple);
+	shaderProgramSimple.CheckLinkStatus();
 	
 
 	// Textures
@@ -144,7 +150,9 @@ int main(int argc, char* argv[]) {
 	// -------------
 	glm::mat4 M = glm::mat4(1.0f);
 	glm::mat4 Mcube = glm::mat4(1.0f);
-	//Mcube = glm::translate(Mcube, glm::vec3(0.5f, 0.5f, 0.5f));
+	Mcube = glm::translate(Mcube, glm::vec3(0.5f, 0.5f, 0.5f));
+
+	glm::mat4 Mgrid = glm::mat4(1.0f);
 	
 	//glm::mat4 V = glm::mat4(1.0f);
 	//glm::mat4 P = glm::mat4(1.0f);
@@ -163,6 +171,10 @@ int main(int argc, char* argv[]) {
 	shaderProgram.Use();
 	shaderProgram.SetUniformMat4("M", Mcube);		
 	shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+
+	shaderProgramSimple.Use();
+	shaderProgramCS.SetUniformMat4("M", Mgrid);
+	shaderProgramCS.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 
 	shaderProgramCS.Use();
 	shaderProgramCS.SetUniformMat4("M", M);	
@@ -188,6 +200,12 @@ int main(int argc, char* argv[]) {
 		mesh.Draw();
 
 		glBindTexture(GL_TEXTURE_2D, 0);
+
+		shaderProgramSimple.Use();
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());			
+		}
+		gridMesh.Draw();
 
 		// now all steps for coordsystem
 		shaderProgramCS.Use();		
