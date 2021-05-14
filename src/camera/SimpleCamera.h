@@ -49,6 +49,12 @@ public:
 	const glm::mat4& GetProjectionMatrix(void) const override;
 
 	/// <summary>
+	/// Get the View Projection matrix P * V
+	/// </summary>	
+	/// <returns>PV</returns>
+	const glm::mat4& GetViewProjectionMatrix(void) const override;
+
+	/// <summary>
 	/// Get the camera position (or "eye") in world coordinates
 	/// </summary>
 	/// <returns>camera position [world]</returns>

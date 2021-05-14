@@ -45,6 +45,12 @@ public:
 	virtual const glm::mat4& GetProjectionMatrix(void) const = 0;
 
 	/// <summary>
+	/// Get the View Projection matrix P * V
+	/// </summary>	
+	/// <returns>PV</returns>
+	virtual const glm::mat4& GetViewProjectionMatrix(void) const = 0;
+
+	/// <summary>
 	/// Get the camera position (the "eye" position)
 	/// </summary>
 	/// <returns>eye position</returns>

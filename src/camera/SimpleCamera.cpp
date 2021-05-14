@@ -43,6 +43,11 @@ const glm::mat4& SimpleCamera::GetProjectionMatrix(void) const {
 }
 
 
+const glm::mat4& SimpleCamera::GetViewProjectionMatrix(void) const {
+	return P * V;
+}
+
+
 const glm::vec3& SimpleCamera::GetPosition(void) const {
 	return position;
 }
