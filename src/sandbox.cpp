@@ -112,10 +112,8 @@ int main(int argc, char* argv[]) {
 
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
 	Mesh mesh = meshFactory.MakeCube(1.0f, true);	
-	Mesh csMesh = meshFactory.MakeSimpleCoordinateSystem(2.0f);
 	Mesh gridMesh = meshFactory.MakeSimpleGrid(10.0f);
-
-	Mesh cs3dMesh = meshFactory.MakeCoordinateSystem();
+	Mesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
 
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
@@ -126,16 +124,6 @@ int main(int argc, char* argv[]) {
 	ShaderProgram shaderProgram(vertexShader, fragmentShader);
 	shaderProgram.CheckLinkStatus();
 	//shaderProgram.Use();	
-
-	// second shader program for coordinate system
-	Shader vertexShaderCS(Shader::ReadSourceFromFile("res/coordSystemSimple_vert.glsl").c_str(), GL_VERTEX_SHADER);
-	Shader fragmentShaderCS(Shader::ReadSourceFromFile("res/coordSystemSimple_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
-	vertexShaderCS.CheckCompilationStatus();
-	fragmentShaderCS.CheckCompilationStatus();
-
-	ShaderProgram shaderProgramCS(vertexShaderCS, fragmentShaderCS);
-	shaderProgramCS.CheckLinkStatus();
-	//shaderProgramCS.Use();
 
 	Shader vertexShaderSimple(Shader::ReadSourceFromFile("res/vert_simple.glsl").c_str(), GL_VERTEX_SHADER);
 	Shader fragmentShaderSimple(Shader::ReadSourceFromFile("res/frag_simple.glsl").c_str(), GL_FRAGMENT_SHADER);
@@ -183,12 +171,8 @@ int main(int argc, char* argv[]) {
 	shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 
 	shaderProgramSimple.Use();
-	shaderProgramCS.SetUniformMat4("M", Mgrid);
-	shaderProgramCS.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-
-	shaderProgramCS.Use();
-	shaderProgramCS.SetUniformMat4("M", M);	
-	shaderProgramCS.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+	shaderProgramSimple.SetUniformMat4("M", Mgrid);
+	shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 
 	shaderProgramCS3d.Use();
 	shaderProgramCS3d.SetUniformMat4("M", Mcs3d);
@@ -218,14 +202,7 @@ int main(int argc, char* argv[]) {
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());			
 		}
-		gridMesh.Draw();		
-
-		// now all steps for coordsystem
-		shaderProgramCS.Use();		
-		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgramCS.SetUniformMat4("PV", camera.GetViewProjectionMatrix());						
-		}		
-		csMesh.Draw();
+		gridMesh.Draw();
 
 
 		// new 3d coordinate system
