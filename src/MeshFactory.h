@@ -31,7 +31,11 @@ public:
 	/// <returns>Coordinate system mesh object</returns>
 	Mesh MakeSimpleCoordinateSystem(float l = 1.0f) const;
 
-
+	/// <summary>
+	/// Generates a 3D coordinate system consisting of a thin cylinder each in positive x-, y- and z-direction.
+	/// </summary>
+	/// <param name="l">Length of axes</param>
+	/// <returns>Coordinate system mesh object</returns>
 	Mesh MakeCoordinateSystem(float l = 1.0f) const;
 
 	/// <summary>
@@ -44,6 +48,14 @@ public:
 
 
 private:
+	/// <summary>
+	/// Generates a cylinder vertex and index list.
+	/// </summary>
+	/// <param name="vertices">vertices vector to write to</param>
+	/// <param name="indices">indices vector to write to</param>
+	/// <param name="points">number of points on each end circle of the cylinder</param>
+	/// <param name="r">radius</param>
+	/// <param name="h">height</param>
 	void MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const;
 };
 
