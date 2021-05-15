@@ -237,7 +237,7 @@ Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 
 	vertices.insert(std::end(vertices), verticesX.begin(), verticesX.end());
 
-	// rotation matrix: 90 degrees around x axis
+	// rotation matrix: 90 degrees around x axis (for z axis)
 	glm::mat3 R90x = glm::mat3 {
 		1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, -1.0f,
@@ -249,7 +249,7 @@ Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 		vertices.push_back(R90x * v);
 	}
 
-	// rotation matrix: 270 degrees around z axis
+	// rotation matrix: 270 degrees around z axis (for x axis)
 	glm::mat3 R270z = glm::mat3{
 		0.0f, 1.0f, 0.0f,
 		-1.0f, 0.0f, 0.0f,
@@ -267,9 +267,7 @@ Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 		for (unsigned int i : indicesX) {
 			indices.push_back(i + j * 2 * pointsPerCircle);
 		}
-	}
-
-	
+	}	
 
 	Mesh mesh;
 	mesh.SetPositionVertices(vertices);
