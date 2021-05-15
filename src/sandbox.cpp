@@ -128,8 +128,8 @@ int main(int argc, char* argv[]) {
 	//shaderProgram.Use();	
 
 	// second shader program for coordinate system
-	Shader vertexShaderCS(Shader::ReadSourceFromFile("res/coordSystem_vert.glsl").c_str(), GL_VERTEX_SHADER);
-	Shader fragmentShaderCS(Shader::ReadSourceFromFile("res/coordSystem_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
+	Shader vertexShaderCS(Shader::ReadSourceFromFile("res/coordSystemSimple_vert.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragmentShaderCS(Shader::ReadSourceFromFile("res/coordSystemSimple_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
 	vertexShaderCS.CheckCompilationStatus();
 	fragmentShaderCS.CheckCompilationStatus();
 
