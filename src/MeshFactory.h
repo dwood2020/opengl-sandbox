@@ -57,5 +57,8 @@ private:
 	/// <param name="r">radius</param>
 	/// <param name="h">height</param>
 	void MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const;
+
+
+	void MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const;
 };
 

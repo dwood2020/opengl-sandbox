@@ -341,3 +341,8 @@ void MeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<uns
 }
 
 
+void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const {
+	//TODO: Implement this
+}
+
+

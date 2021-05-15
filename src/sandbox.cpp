@@ -144,20 +144,13 @@ int main(int argc, char* argv[]) {
 
 	// Part Going 3D
 	// -------------
-	glm::mat4 M = glm::mat4(1.0f);
+	// transform local coordinates to world coordinates	
 	glm::mat4 Mcube = glm::mat4(1.0f);
 	Mcube = glm::translate(Mcube, glm::vec3(0.5f, 0.5f, 0.5f));
 
 	glm::mat4 Mgrid = glm::mat4(1.0f);
-
 	glm::mat4 Mcs3d = glm::mat4(1.0f);
 	
-	//glm::mat4 V = glm::mat4(1.0f);
-	//glm::mat4 P = glm::mat4(1.0f);
-
-	// transform local coordinates to world coordinates
-	//M = glm::rotate(M, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
 
