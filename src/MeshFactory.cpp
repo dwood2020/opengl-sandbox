@@ -2,6 +2,7 @@
 #include <vector>
 #include "glad/glad.h"
 #include "glm/glm.hpp"
+#include <cmath>
 
 
 MeshFactory::MeshFactory() { }
@@ -198,7 +199,7 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 }
 
 
-Mesh MeshFactory::MakeCoordinateSystem(float l) const {
+Mesh MeshFactory::MakeSimpleCoordinateSystem(float l) const {
 	
 	std::vector<glm::vec3> vertices = {
 		{0.0f, 0.0f, 0.0f},
@@ -216,6 +217,22 @@ Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 	mesh.SetGlMode(GL_LINES);
 	mesh.Prepare();
 
+	return mesh;
+}
+
+
+Mesh MeshFactory::MakeCoordinateSystem(float l) const {
+	
+	std::vector<glm::vec3> verticesX;
+	std::vector<unsigned int> indicesX;
+	MakeCylinder(verticesX, indicesX, 10, 0.5f, 2.0f);
+
+	Mesh mesh;
+	mesh.SetPositionVertices(verticesX);
+	mesh.SetIndices(indicesX);
+	mesh.SetGlMode(GL_TRIANGLES);
+	mesh.Prepare();
+	
 	return mesh;
 }
 
@@ -241,6 +258,33 @@ Mesh MeshFactory::MakeSimpleGrid(float l) const {
 	mesh.SetGlMode(GL_LINES);
 	mesh.Prepare();
 	return mesh;
+}
+
+
+void MeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const {
+	vertices.reserve(2 * points);
+
+	const float deltaPhi = (2.0f * 3.1415926f) / (float)points;
+
+	for (int i = 0; i < points; i++) {
+		vertices.push_back(glm::vec3(r * std::cosf(i * deltaPhi), 0.0f, r * std::sinf(i * deltaPhi)));
+	}
+
+	for (int i = 0; i < points; i++) {
+		vertices.push_back(glm::vec3(r * std::cosf(i * deltaPhi), h, r * std::sinf(i * deltaPhi)));
+	}
+
+	// indices
+	indices.reserve(6 * points);
+	for (unsigned int i = 0; i < points; i++) {		
+		indices.push_back(i + 1);
+		indices.push_back(i + points + 1);
+		indices.push_back(i + points);
+
+		indices.push_back(i);
+		indices.push_back(i + 1);
+		indices.push_back(i + points);
+	}
 }
 
 

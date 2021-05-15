@@ -29,6 +29,9 @@ public:
 	/// </summary>
 	/// <param name="l">Length of lines</param>
 	/// <returns>Coordinate system mesh object</returns>
+	Mesh MakeSimpleCoordinateSystem(float l = 1.0f) const;
+
+
 	Mesh MakeCoordinateSystem(float l = 1.0f) const;
 
 	/// <summary>
@@ -39,5 +42,8 @@ public:
 	/// <returns>Grid mesh object</returns>
 	Mesh MakeSimpleGrid(float l = 10.0f) const;
 
+
+private:
+	void MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const;
 };
 

@@ -112,8 +112,10 @@ int main(int argc, char* argv[]) {
 
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
 	Mesh mesh = meshFactory.MakeCube(1.0f, true);	
-	Mesh csMesh = meshFactory.MakeCoordinateSystem(2.0f);
+	Mesh csMesh = meshFactory.MakeSimpleCoordinateSystem(2.0f);
 	Mesh gridMesh = meshFactory.MakeSimpleGrid(10.0f);
+
+	Mesh testMesh = meshFactory.MakeCoordinateSystem();
 
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
@@ -153,6 +155,8 @@ int main(int argc, char* argv[]) {
 	Mcube = glm::translate(Mcube, glm::vec3(0.5f, 0.5f, 0.5f));
 
 	glm::mat4 Mgrid = glm::mat4(1.0f);
+
+	glm::mat4 Mtest = glm::mat4(1.0f);
 	
 	//glm::mat4 V = glm::mat4(1.0f);
 	//glm::mat4 P = glm::mat4(1.0f);
@@ -193,8 +197,7 @@ int main(int argc, char* argv[]) {
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}
-		
-				
+						
 		tex1.Bind();
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
 		mesh.Draw();
@@ -206,6 +209,8 @@ int main(int argc, char* argv[]) {
 			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());			
 		}
 		gridMesh.Draw();
+
+		testMesh.Draw();
 
 		// now all steps for coordsystem
 		shaderProgramCS.Use();		
