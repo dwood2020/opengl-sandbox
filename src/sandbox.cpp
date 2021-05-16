@@ -112,7 +112,7 @@ int main(int argc, char* argv[]) {
 
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
 	Mesh mesh = meshFactory.MakeCube(1.0f, true);	
-	Mesh gridMesh = meshFactory.MakeSimpleGrid(10.0f);
+	Mesh gridMesh = meshFactory.MakeSimpleGrid(20.0f);
 	Mesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
 
 	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f);
