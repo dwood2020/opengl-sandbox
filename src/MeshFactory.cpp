@@ -386,3 +386,8 @@ void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigne
 }
 
 
+void MeshFactory::MakeIndexedSphere(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int nrLat, int nrLong, float r) const {
+
+}
+
+

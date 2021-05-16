@@ -70,5 +70,8 @@ private:
 	/// <param name="r">radius of the bottom ring</param>
 	/// <param name="h">height</param>
 	void MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const;
+
+
+	void MakeIndexedSphere(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int nrLat, int nrLong, float r) const;
 };
 

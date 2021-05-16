@@ -196,15 +196,20 @@ int main(int argc, char* argv[]) {
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+		// draw grid
 		shaderProgramSimple.Use();
+		shaderProgramSimple.SetUniformMat4("M", Mgrid);
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());			
 		}
 		gridMesh.Draw();
 
-		// use same shader for cone
+		// draw cone: use same shader
+		shaderProgramSimple.Use();
 		shaderProgramSimple.SetUniformMat4("M", Mcone);
-
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+		}
 		coneMesh.Draw();
 
 		// new 3d coordinate system
