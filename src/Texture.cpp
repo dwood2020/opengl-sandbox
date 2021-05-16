@@ -46,6 +46,11 @@ void Texture::Bind(void) const {
 }
 
 
+void Texture::Unbind(void) {
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+
 
 Texture Texture::GenerateFromFile(const std::string& filepath, GLint glTexFilterParam) {
 

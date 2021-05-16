@@ -212,8 +212,8 @@ int main(int argc, char* argv[]) {
 		tex1.Bind();
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
 		mesh.Draw();
-
-		glBindTexture(GL_TEXTURE_2D, 0);
+		
+		Texture::Unbind();
 
 		// draw grid
 		shaderProgramSimple.Use();		
