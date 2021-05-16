@@ -116,7 +116,7 @@ int main(int argc, char* argv[]) {
 	Mesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
 
 	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f);
-	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 10, 10, false);
+	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, true);
 
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
@@ -142,13 +142,15 @@ int main(int argc, char* argv[]) {
 	// different shaders for each object, test if this reduces cpu load
 	ShaderProgram shaderProgramSimple2(vertexShaderSimple, fragmentShaderSimple);
 	shaderProgramSimple2.CheckLinkStatus();
-	ShaderProgram shaderProgramSimple3(vertexShaderSimple, fragmentShaderSimple);
-	shaderProgramSimple3.CheckLinkStatus();
+	
+	ShaderProgram shaderProgramTextured2(vertexShader, fragmentShader);
+	shaderProgramTextured2.CheckLinkStatus();
 	
 
 	// Textures
 	// --------
 	Texture tex1 = Texture::GenerateFromFile("res/texture/box.png", GL_NEAREST);
+	Texture tex2 = Texture::GenerateFromFile("res/texture/concrete.png", GL_NEAREST);
 
 
 	// Part Going 3D
@@ -186,9 +188,9 @@ int main(int argc, char* argv[]) {
 	shaderProgramSimple2.SetUniformMat4("M", Mcone);
 	shaderProgramSimple2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 
-	shaderProgramSimple3.Use();
-	shaderProgramSimple3.SetUniformMat4("M", Msphere);
-	shaderProgramSimple3.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+	shaderProgramTextured2.Use();
+	shaderProgramTextured2.SetUniformMat4("M", Msphere);
+	shaderProgramTextured2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 
 
 	shaderProgramCS3d.Use();
@@ -222,19 +224,21 @@ int main(int argc, char* argv[]) {
 		}
 		gridMesh.Draw();
 
-		// draw cone: use same shader
+		// draw cone
 		shaderProgramSimple2.Use();		
 		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+			shaderProgramSimple2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}
 		coneMesh.Draw();
 
-		// draw sphere: use same shader
-		shaderProgramSimple3.Use();		
+		// draw sphere
+		shaderProgramTextured2.Use();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+			shaderProgramTextured2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}
+		tex2.Bind();
 		sphereMesh.Draw();
+		Texture::Unbind();
 
 		// new 3d coordinate system
 		shaderProgramCS3d.Use();
