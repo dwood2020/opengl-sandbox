@@ -152,8 +152,8 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 	// calculation approach:
 	// retrieve camera right and up vector (normalized), multiply with deltas and add to current target (and pos)
 
-	const float rightScale = -2.0f;
-	const float upScale = 2.0f;
+	const float rightScale = -3.0f;
+	const float upScale = 3.0f;
 	const glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f);	
 
 	glm::vec3 dir = target - position;
