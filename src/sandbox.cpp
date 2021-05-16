@@ -116,6 +116,7 @@ int main(int argc, char* argv[]) {
 	Mesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
 
 	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f);
+	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 10, 10, false);
 
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
@@ -155,6 +156,9 @@ int main(int argc, char* argv[]) {
 
 	glm::mat4 Mcone = glm::mat4(1.0f);
 	Mcone = glm::translate(Mcone, glm::vec3(4.0f, 0.0f, 1.0f));
+
+	glm::mat4 Msphere = glm::mat4(1.0f);
+	Msphere = glm::translate(Msphere, glm::vec3(-2.0f, 0.0f, -3.0f));
 	
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
@@ -211,6 +215,14 @@ int main(int argc, char* argv[]) {
 			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}
 		coneMesh.Draw();
+
+		// draw sphere: use same shader
+		shaderProgramSimple.Use();
+		shaderProgramSimple.SetUniformMat4("M", Msphere);
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+		}
+		sphereMesh.Draw();
 
 		// new 3d coordinate system
 		shaderProgramCS3d.Use();

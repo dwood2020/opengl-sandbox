@@ -24,8 +24,26 @@ public:
 	/// <returns>Cube mesh object</returns>
 	Mesh MakeCube(float l, bool isTextured = false) const;
 
-
+	/// <summary>
+	/// Generates a cone mesh. 0 (in local coordinates) is located in the center of the bottom circle.
+	/// </summary>
+	/// <param name="r">radius of bottom circle</param>
+	/// <param name="h">height of cone</param>
+	/// <param name="points">number of points on the bottom circle</param>
+	/// <returns>Cone mesh object</returns>
 	Mesh MakeCone(float r, float h, int points = 10) const;
+
+	/// <summary>
+	/// Generates a sphere mesh. 0 (in local coordinates) is located in the center.
+	/// The mesh is generated in a geographic coordinate system, north and south pole are located on the (local) y-axis.
+	/// Texture coordinates are optional.
+	/// </summary>
+	/// <param name="r">Radius</param>
+	/// <param name="nrLat">Number of Latitudes</param>
+	/// <param name="nrLong">Number of longitudes</param>
+	/// <param name="isTextured">True if texture coordinates shall be created</param>
+	/// <returns>Sphere mesh object</returns>
+	Mesh MakeSphere(float r, int nrLat = 10, int nrLong = 10, bool isTextured = false) const;
 
 	/// <summary>
 	/// Generates a simple coordinate system consisting of a line each in positive x-, y- and z-direction.
@@ -71,7 +89,15 @@ private:
 	/// <param name="h">height</param>
 	void MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const;
 
-
-	void MakeIndexedSphere(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int nrLat, int nrLong, float r) const;
+	/// <summary>
+	/// Generates a sphere vertex + index list + optionally texture coordinates list
+	/// </summary>
+	/// <param name="vertices">vertices vector to write to</param>
+	/// <param name="indices">indices vector to write to</param>
+	/// <param name="texCoords">texture coords vector to write to (optional)</param>
+	/// <param name="nrLat">number of latitudes</param>
+	/// <param name="nrLong">number of longitudes</param>
+	/// <param name="r">radius</param>
+	void MakeIndexedSphere(std::vector<glm::vec3>* vertices, std::vector<unsigned int>* indices, std::vector<glm::vec2>* texCoords, int nrLat, int nrLong, float r) const;
 };
 

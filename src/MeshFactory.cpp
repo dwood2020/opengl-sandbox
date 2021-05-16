@@ -215,6 +215,31 @@ Mesh MeshFactory::MakeCone(float r, float h, int points) const {
 }
 
 
+Mesh MeshFactory::MakeSphere(float r, int nrLat, int nrLong, bool isTextured) const {
+	
+	std::vector<glm::vec3> vertices;
+	std::vector<unsigned int> indices;
+	std::vector<glm::vec2> texCoords;
+	std::vector<glm::vec2>* pTexCoords = nullptr;
+	if (isTextured) {
+		pTexCoords = &texCoords;
+	}	
+
+	MakeIndexedSphere(&vertices, &indices, pTexCoords, nrLat, nrLong, r);
+
+	Mesh mesh;
+	mesh.SetPositionVertices(vertices);
+	mesh.SetIndices(indices);
+	if (isTextured) {
+		mesh.SetTextureCoordVertices(texCoords);
+	}
+	mesh.SetGlMode(GL_TRIANGLES);
+	mesh.Prepare();	
+
+	return mesh;
+}
+
+
 Mesh MeshFactory::MakeSimpleCoordinateSystem(float l) const {
 	
 	std::vector<glm::vec3> vertices = {
@@ -386,8 +411,115 @@ void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigne
 }
 
 
-void MeshFactory::MakeIndexedSphere(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int nrLat, int nrLong, float r) const {
+void MeshFactory::MakeIndexedSphere(std::vector<glm::vec3>* vertices, std::vector<unsigned int>* indices, std::vector<glm::vec2>* texCoords, int nrLat, int nrLong, float r) const {
+	if (vertices == nullptr || indices == nullptr) {
+		return;
+	}
 
+	// Vertices
+	// --------
+
+	// NOTE: Sphere poles are on z-axis
+
+	// north pole			
+	vertices->push_back(glm::vec3(0.0f, 0.0f, r));
+
+	const float PI = 3.1415926f;
+	float rho;
+	float theta;
+	float phi;
+
+	rho = r;
+
+	// NOTE: 
+	// Latitude = Breitengrad 
+	// Longitude = Laengengrad
+
+	for (int i = 1; i <= nrLat; i++) {
+		for (int j = 0; j <= nrLong; j++) {
+
+			theta = i * (PI / (nrLat + 1));
+			phi = j * (2 * PI) / nrLong;
+
+			glm::vec3 point = glm::vec3(0.0f);
+			point.x = rho * sin(theta) * cos(phi);
+			point.y = rho * sin(theta) * sin(phi);
+			point.z = rho * cos(theta);
+
+			vertices->push_back(point);
+		}
+	}
+
+	//south pole	
+	vertices->push_back(glm::vec3(0.0f, 0.0f, -r));
+
+
+	// Indices
+	// -------
+
+	// north pole cap
+	for (int i = 1; i <= nrLong; i++) {
+		indices->push_back(0);
+		indices->push_back(i);
+		indices->push_back(i + 1);
+	}
+	indices->push_back(0);
+	indices->push_back(nrLong);
+	indices->push_back(1);
+
+	// center
+	if (nrLat > 1) {
+		int stride = nrLong + 1;
+
+		for (int i = 0; i < nrLat - 1; i++) {
+			for (int j = 1; j <= nrLong; j++) {
+				indices->push_back(j + i * stride);
+				indices->push_back(j + (i + 1) * stride);
+				indices->push_back((j + 1) + (i + 1) * stride);
+
+				indices->push_back(j + i * stride);
+				indices->push_back((j + 1) + i * stride);
+				indices->push_back((j + 1) + (i + 1) * stride);
+			}
+		}
+	}
+
+	// south pole cap
+	int s = (int)vertices->size() - 1;	//Index south pole
+	int x = s - (nrLong + 1);			//first index cap
+
+	for (int i = x; i <= s - 1; i++) {
+		indices->push_back(i);
+		indices->push_back(i + 1);
+		indices->push_back(s);
+	}
+
+
+	// Texture coordinates
+	// -------------------
+	if (texCoords == nullptr) {
+		return;
+	}
+
+	// north pole
+	texCoords->push_back(glm::vec2(0.0f, 1.0f));
+
+	//Mitte
+	glm::vec2 point = glm::vec2(0.0f);
+
+	float deltaU = 1.0f / nrLong;
+	float deltaV = 1.0f / (nrLat + 1);
+
+	for (int i = 0; i <= nrLat; i++) {
+		for (int j = 0; j <= nrLong; j++) {
+			point.x = j * deltaU;
+			point.y = i * deltaV;
+			texCoords->push_back(point);
+		}
+	}
+
+	//Suedpol
+	texCoords->push_back(glm::vec2(0.0f, 0.0f));
 }
 
 
