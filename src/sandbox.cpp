@@ -115,6 +115,8 @@ int main(int argc, char* argv[]) {
 	Mesh gridMesh = meshFactory.MakeSimpleGrid(10.0f);
 	Mesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
 
+	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f);
+
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
 	Shader fragmentShader(Shader::ReadSourceFromFile("res/frag_texture.glsl").c_str(), GL_FRAGMENT_SHADER);
@@ -139,7 +141,7 @@ int main(int argc, char* argv[]) {
 
 	// Textures
 	// --------
-	Texture tex1 = Texture::GenerateFromFile("res/texture/mc/cobblestone.png", GL_NEAREST);
+	Texture tex1 = Texture::GenerateFromFile("res/texture/box.png", GL_NEAREST);
 
 
 	// Part Going 3D
@@ -150,6 +152,9 @@ int main(int argc, char* argv[]) {
 
 	glm::mat4 Mgrid = glm::mat4(1.0f);
 	glm::mat4 Mcs3d = glm::mat4(1.0f);
+
+	glm::mat4 Mcone = glm::mat4(1.0f);
+	Mcone = glm::translate(Mcone, glm::vec3(4.0f, 0.0f, 1.0f));
 	
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
@@ -197,6 +202,10 @@ int main(int argc, char* argv[]) {
 		}
 		gridMesh.Draw();
 
+		// use same shader for cone
+		shaderProgramSimple.SetUniformMat4("M", Mcone);
+
+		coneMesh.Draw();
 
 		// new 3d coordinate system
 		shaderProgramCS3d.Use();

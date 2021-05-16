@@ -24,6 +24,9 @@ public:
 	/// <returns>Cube mesh object</returns>
 	Mesh MakeCube(float l, bool isTextured = false) const;
 
+
+	Mesh MakeCone(float r, float h, int points = 10) const;
+
 	/// <summary>
 	/// Generates a simple coordinate system consisting of a line each in positive x-, y- and z-direction.
 	/// </summary>
@@ -58,7 +61,14 @@ private:
 	/// <param name="h">height</param>
 	void MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const;
 
-
+	/// <summary>
+	/// Generates a cone vertex and index list.
+	/// </summary>
+	/// <param name="vertices">vertices vector to write to</param>
+	/// <param name="indices">indices vector to write to</param>
+	/// <param name="points">number of points on the bottom circle of the cone</param>
+	/// <param name="r">radius of the bottom ring</param>
+	/// <param name="h">height</param>
 	void MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const;
 };
 

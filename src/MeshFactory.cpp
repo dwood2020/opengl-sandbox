@@ -199,6 +199,22 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 }
 
 
+Mesh MeshFactory::MakeCone(float r, float h, int points) const {
+	std::vector<glm::vec3> vertices;
+	std::vector<unsigned int> indices;
+
+	MakeCone(vertices, indices, points, r, h);
+
+	Mesh mesh;
+	mesh.SetPositionVertices(vertices);
+	mesh.SetIndices(indices);
+	mesh.SetGlMode(GL_TRIANGLES);
+	mesh.Prepare();
+
+	return mesh;
+}
+
+
 Mesh MeshFactory::MakeSimpleCoordinateSystem(float l) const {
 	
 	std::vector<glm::vec3> vertices = {
@@ -341,8 +357,32 @@ void MeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<uns
 }
 
 
-void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const {
-	//TODO: Implement this
+void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const {	
+	
+	vertices.reserve(points + 1);	
+	
+	const float deltaPhi = (2.0f * 3.1415926f) / (float)points;
+
+	// cone point
+	vertices.push_back(glm::vec3(0.0f, h, 0.0f));
+
+	// cone ring
+	for (int i = 0; i < points; i++) {
+		vertices.push_back(glm::vec3(r * std::cosf(i * deltaPhi), 0.0f, r * std::sinf(i * deltaPhi)));
+	}
+
+	
+	indices.reserve(points * 3);
+
+	for (unsigned int i = 1; i < points; i++) {
+		indices.push_back(i);
+		indices.push_back(i + 1);
+		indices.push_back(0);
+	}
+
+	indices.push_back(points);
+	indices.push_back(1);
+	indices.push_back(0);
 }
 
 
