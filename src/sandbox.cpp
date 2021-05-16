@@ -138,6 +138,12 @@ int main(int argc, char* argv[]) {
 	Shader fragmentShaderCS3d(Shader::ReadSourceFromFile("res/coordSystem3d_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
 	ShaderProgram shaderProgramCS3d(vertexShaderCS3d, fragmentShaderCS3d);
 	shaderProgramCS3d.CheckLinkStatus();
+
+	// different shaders for each object, test if this reduces cpu load
+	ShaderProgram shaderProgramSimple2(vertexShaderSimple, fragmentShaderSimple);
+	shaderProgramSimple2.CheckLinkStatus();
+	ShaderProgram shaderProgramSimple3(vertexShaderSimple, fragmentShaderSimple);
+	shaderProgramSimple3.CheckLinkStatus();
 	
 
 	// Textures
@@ -176,6 +182,15 @@ int main(int argc, char* argv[]) {
 	shaderProgramSimple.SetUniformMat4("M", Mgrid);
 	shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 
+	shaderProgramSimple2.Use();
+	shaderProgramSimple2.SetUniformMat4("M", Mcone);
+	shaderProgramSimple2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+
+	shaderProgramSimple3.Use();
+	shaderProgramSimple3.SetUniformMat4("M", Msphere);
+	shaderProgramSimple3.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+
+
 	shaderProgramCS3d.Use();
 	shaderProgramCS3d.SetUniformMat4("M", Mcs3d);
 	shaderProgramCS3d.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
@@ -201,24 +216,21 @@ int main(int argc, char* argv[]) {
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		// draw grid
-		shaderProgramSimple.Use();
-		shaderProgramSimple.SetUniformMat4("M", Mgrid);
+		shaderProgramSimple.Use();		
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());			
 		}
 		gridMesh.Draw();
 
 		// draw cone: use same shader
-		shaderProgramSimple.Use();
-		shaderProgramSimple.SetUniformMat4("M", Mcone);
+		shaderProgramSimple2.Use();		
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}
 		coneMesh.Draw();
 
 		// draw sphere: use same shader
-		shaderProgramSimple.Use();
-		shaderProgramSimple.SetUniformMat4("M", Msphere);
+		shaderProgramSimple3.Use();		
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}
