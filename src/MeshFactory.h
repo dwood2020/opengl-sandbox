@@ -83,21 +83,23 @@ private:
 	/// Generates a cone vertex and index list.
 	/// </summary>
 	/// <param name="vertices">vertices vector to write to</param>
+	/// <param name="normals">normals vector to write to</param>
 	/// <param name="indices">indices vector to write to</param>
 	/// <param name="points">number of points on the bottom circle of the cone</param>
 	/// <param name="r">radius of the bottom ring</param>
 	/// <param name="h">height</param>
-	void MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const;
+	void MakeCone(std::vector<glm::vec3>& vertices, std::vector<glm::vec3>& normals, std::vector<unsigned int>& indices, int points, float r, float h) const;
 
 	/// <summary>
 	/// Generates a sphere vertex + index list + optionally texture coordinates list
 	/// </summary>
 	/// <param name="vertices">vertices vector to write to</param>
+	/// <param name="normals">normals vector to write to</param>
 	/// <param name="indices">indices vector to write to</param>
 	/// <param name="texCoords">texture coords vector to write to (optional)</param>
 	/// <param name="nrLat">number of latitudes</param>
 	/// <param name="nrLong">number of longitudes</param>
 	/// <param name="r">radius</param>
-	void MakeIndexedSphere(std::vector<glm::vec3>* vertices, std::vector<unsigned int>* indices, std::vector<glm::vec2>* texCoords, int nrLat, int nrLong, float r) const;
+	void MakeIndexedSphere(std::vector<glm::vec3>* vertices, std::vector<glm::vec3>* normals, std::vector<unsigned int>* indices, std::vector<glm::vec2>* texCoords, int nrLat, int nrLong, float r) const;
 };
 

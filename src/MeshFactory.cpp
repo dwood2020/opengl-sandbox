@@ -71,49 +71,7 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 	Mesh mesh;
 	float lh = l / 2.0f;
 
-	if (isTextured == false) {
-		
-		std::vector<glm::vec3> vertices = {
-			{-lh, -lh, lh},
-			{lh, -lh, lh},
-			{lh, lh, lh},
-			{-lh, lh, lh},	// front plane
-
-			{-lh, -lh, -lh},
-			{lh, -lh, -lh},
-			{lh, lh, -lh},
-			{-lh, lh, -lh}	// rear plane
-		};
-
-		std::vector<unsigned int> indices = {
-			0, 1, 2,
-			0, 2, 3,	// front plane
-
-			1, 5, 6,
-			1, 6, 2,	// right plane
-
-			5, 4, 7,
-			5, 7, 6,	// rear plane
-
-			4, 0, 3,
-			4, 3, 7,	// left plane
-
-			3, 2, 6,
-			3, 6, 7,	// top plane
-
-			4, 5, 1,
-			4, 1, 0,	// bottom plane
-		};
-
-		mesh.SetPositionVertices(vertices);
-		mesh.SetIndices(indices);
-		mesh.SetGlMode(GL_TRIANGLES);
-		mesh.Prepare();
-
-	}
-	else {
-
-		std::vector<glm::vec3> vertices = {
+	std::vector<glm::vec3> vertices = {
 			{-lh, -lh, lh},
 			{lh, -lh, lh},
 			{lh, lh, lh},
@@ -143,57 +101,92 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 			{lh, -lh, -lh},
 			{lh, -lh, lh},
 			{-lh, -lh, lh}	// bottom plane
+	};
+
+	std::vector<glm::vec2> texCoords;
+	if (isTextured) {
+		texCoords = {
+		{0.0f, 0.0f},
+		{1.0f, 0.0f},
+		{1.0f, 1.0f},
+		{0.0f, 1.0f},
+
+		{0.0f, 0.0f},
+		{1.0f, 0.0f},
+		{1.0f, 1.0f},
+		{0.0f, 1.0f},
+
+		{0.0f, 0.0f},
+		{1.0f, 0.0f},
+		{1.0f, 1.0f},
+		{0.0f, 1.0f},
+
+		{0.0f, 0.0f},
+		{1.0f, 0.0f},
+		{1.0f, 1.0f},
+		{0.0f, 1.0f},
+
+		{0.0f, 0.0f},
+		{1.0f, 0.0f},
+		{1.0f, 1.0f},
+		{0.0f, 1.0f},
+
+		{0.0f, 0.0f},
+		{1.0f, 0.0f},
+		{1.0f, 1.0f},
+		{0.0f, 1.0f},
 		};
-
-		std::vector<glm::vec2> texCoords = {
-			{0.0f, 0.0f},
-			{1.0f, 0.0f},
-			{1.0f, 1.0f},
-			{0.0f, 1.0f},
-
-			{0.0f, 0.0f},
-			{1.0f, 0.0f},
-			{1.0f, 1.0f},
-			{0.0f, 1.0f},
-
-			{0.0f, 0.0f},
-			{1.0f, 0.0f},
-			{1.0f, 1.0f},
-			{0.0f, 1.0f},
-
-			{0.0f, 0.0f},
-			{1.0f, 0.0f},
-			{1.0f, 1.0f},
-			{0.0f, 1.0f},
-
-			{0.0f, 0.0f},
-			{1.0f, 0.0f},
-			{1.0f, 1.0f},
-			{0.0f, 1.0f},
-
-			{0.0f, 0.0f},
-			{1.0f, 0.0f},
-			{1.0f, 1.0f},
-			{0.0f, 1.0f},
-		};
-
-		std::vector<unsigned int> indices = {
-			0, 1, 2,
-			0, 2, 3,
-		};
-		
-		for (unsigned int i = 1; i < 6; i++) {
-			for (unsigned int j = 0; j < 6; j++) {
-				indices.push_back(indices[j] + 4 * i);
-			}
-		}
-
-		mesh.SetPositionVertices(vertices);
-		mesh.SetTextureCoordVertices(texCoords);
-		mesh.SetIndices(indices);
-		mesh.SetGlMode(GL_TRIANGLES);
-		mesh.Prepare();
 	}
+
+	std::vector<glm::vec3> normals = {
+		{0.0f, 0.0f, 1.0f},
+		{0.0f, 0.0f, 1.0f},
+		{0.0f, 0.0f, 1.0f},
+		{0.0f, 0.0f, 1.0f},		// front
+
+		{1.0f, 0.0f, 0.0f},
+		{1.0f, 0.0f, 0.0f},
+		{1.0f, 0.0f, 0.0f},
+		{1.0f, 0.0f, 0.0f},		// right
+
+		{0.0f, 0.0f, -1.0f},
+		{0.0f, 0.0f, -1.0f},
+		{0.0f, 0.0f, -1.0f},
+		{0.0f, 0.0f, -1.0f},	// rear
+
+		{-1.0f, 0.0f, 0.0f},
+		{-1.0f, 0.0f, 0.0f},
+		{-1.0f, 0.0f, 0.0f},
+		{-1.0f, 0.0f, 0.0f},	// left
+
+		{0.0f, 1.0f, 0.0f},
+		{0.0f, 1.0f, 0.0f},
+		{0.0f, 1.0f, 0.0f},
+		{0.0f, 1.0f, 0.0f},		// top
+
+		{0.0f, -1.0f, 0.0f},
+		{0.0f, -1.0f, 0.0f},
+		{0.0f, -1.0f, 0.0f},
+		{0.0f, -1.0f, 0.0f},	// bottom
+	};
+	
+	std::vector<unsigned int> indices = {
+		0, 1, 2,
+		0, 2, 3,
+	};
+
+	for (unsigned int i = 1; i < 6; i++) {
+		for (unsigned int j = 0; j < 6; j++) {
+			indices.push_back(indices[j] + 4 * i);
+		}
+	}
+
+	mesh.SetPositionVertices(vertices);
+	mesh.SetTextureCoordVertices(texCoords);
+	mesh.SetNormalVertices(normals);
+	mesh.SetIndices(indices);
+	mesh.SetGlMode(GL_TRIANGLES);
+	mesh.Prepare();
 
 	return mesh;
 }
@@ -201,9 +194,10 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 
 Mesh MeshFactory::MakeCone(float r, float h, int points) const {
 	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec3> normals;
 	std::vector<unsigned int> indices;
 
-	MakeCone(vertices, indices, points, r, h);
+	MakeCone(vertices, normals, indices, points, r, h);
 
 	Mesh mesh;
 	mesh.SetPositionVertices(vertices);
@@ -218,14 +212,15 @@ Mesh MeshFactory::MakeCone(float r, float h, int points) const {
 Mesh MeshFactory::MakeSphere(float r, int nrLat, int nrLong, bool isTextured) const {
 	
 	std::vector<glm::vec3> vertices;
-	std::vector<unsigned int> indices;
+	std::vector<glm::vec3> normals;
+	std::vector<unsigned int> indices;	
 	std::vector<glm::vec2> texCoords;
 	std::vector<glm::vec2>* pTexCoords = nullptr;
 	if (isTextured) {
 		pTexCoords = &texCoords;
 	}	
 
-	MakeIndexedSphere(&vertices, &indices, pTexCoords, nrLat, nrLong, r);
+	MakeIndexedSphere(&vertices, &normals, &indices, pTexCoords, nrLat, nrLong, r);
 
 	Mesh mesh;
 	mesh.SetPositionVertices(vertices);
@@ -382,8 +377,10 @@ void MeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<uns
 }
 
 
-void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const {	
+void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<glm::vec3>& normals, std::vector<unsigned int>& indices, int points, float r, float h) const {	
 	
+	// vertices
+	// --------
 	vertices.reserve(points + 1);	
 	
 	const float deltaPhi = (2.0f * 3.1415926f) / (float)points;
@@ -396,7 +393,19 @@ void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigne
 		vertices.push_back(glm::vec3(r * std::cosf(i * deltaPhi), 0.0f, r * std::sinf(i * deltaPhi)));
 	}
 
+	// normals
+	// -------
+	normals.reserve(points + 1);
+
+	float x = (r * r) / h;	
 	
+	vertices.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
+	for (int i = 0; i < points; i++) {
+		vertices.push_back(glm::normalize(glm::vec3(r * std::cosf(i * deltaPhi), x, r * std::sinf(i * deltaPhi))));
+	}
+
+	// indices
+	// -------	
 	indices.reserve(points * 3);
 
 	for (unsigned int i = 1; i < points; i++) {
@@ -411,8 +420,8 @@ void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<unsigne
 }
 
 
-void MeshFactory::MakeIndexedSphere(std::vector<glm::vec3>* vertices, std::vector<unsigned int>* indices, std::vector<glm::vec2>* texCoords, int nrLat, int nrLong, float r) const {
-	if (vertices == nullptr || indices == nullptr) {
+void MeshFactory::MakeIndexedSphere(std::vector<glm::vec3>* vertices, std::vector<glm::vec3>* normals, std::vector<unsigned int>* indices, std::vector<glm::vec2>* texCoords, int nrLat, int nrLong, float r) const {
+	if (vertices == nullptr || indices == nullptr || normals == nullptr) {
 		return;
 	}
 
@@ -453,6 +462,13 @@ void MeshFactory::MakeIndexedSphere(std::vector<glm::vec3>* vertices, std::vecto
 	//south pole	
 	vertices->push_back(glm::vec3(0.0f, 0.0f, -r));
 
+
+	// Normals
+	// -------
+
+	for (unsigned int i = 0; i < vertices->size(); i++) {
+		normals->push_back((1 / r) * (*vertices)[i]);
+	}
 
 	// Indices
 	// -------
