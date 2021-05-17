@@ -118,6 +118,8 @@ int main(int argc, char* argv[]) {
 	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f);
 	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, true);
 
+	Mesh lampMesh = meshFactory.MakeSphere(0.25f);
+
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
 	Shader fragmentShader(Shader::ReadSourceFromFile("res/frag_texture.glsl").c_str(), GL_FRAGMENT_SHADER);
@@ -167,6 +169,9 @@ int main(int argc, char* argv[]) {
 
 	glm::mat4 Msphere = glm::mat4(1.0f);
 	Msphere = glm::translate(Msphere, glm::vec3(-2.0f, 0.0f, -3.0f));
+
+	glm::mat4 Mlamp = glm::mat4(1.0f);
+	Mlamp = glm::translate(Mlamp, glm::vec3(6.0f, 6.0f, 0.0f));
 	
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
