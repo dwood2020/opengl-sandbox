@@ -118,7 +118,7 @@ int main(int argc, char* argv[]) {
 	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f);
 	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, true);
 
-	Mesh lampMesh = meshFactory.MakeSphere(0.25f);
+	Mesh lampMesh = meshFactory.MakeSphere(0.25f);	
 
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
@@ -153,6 +153,12 @@ int main(int argc, char* argv[]) {
 	Shader fragShaderSimpleLight(Shader::ReadSourceFromFile("res/simple_light_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
 	ShaderProgram shaderProgSimpleLight(vertShaderSimpleLight, fragShaderSimpleLight);
 	shaderProgSimpleLight.CheckLinkStatus();
+
+	// shader for lightSource (lamp)
+	Shader vertShaderSimpleLamp(Shader::ReadSourceFromFile("res/simple_lamp_vert.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragShaderSimpleLamp(Shader::ReadSourceFromFile("res/simple_lamp_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
+	ShaderProgram shaderProgSimpleLamp(vertShaderSimpleLamp, fragShaderSimpleLamp);
+	shaderProgSimpleLamp.CheckLinkStatus();
 	
 
 	// Textures
@@ -177,7 +183,7 @@ int main(int argc, char* argv[]) {
 	Msphere = glm::translate(Msphere, glm::vec3(-2.0f, 0.0f, -3.0f));
 
 	glm::mat4 Mlamp = glm::mat4(1.0f);
-	Mlamp = glm::translate(Mlamp, glm::vec3(6.0f, 6.0f, 0.0f));
+	Mlamp = glm::translate(Mlamp, glm::vec3(5.0f, 5.0f, 0.0f));
 	
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
@@ -186,6 +192,10 @@ int main(int argc, char* argv[]) {
 	glm::vec3 initialCameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
 	SimpleCamera camera(eventBus, window.GetWindowRect(), initialCameraPos);
 
+
+	//set the light color here
+	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 0.0f);
+
 	// send all matrices to shaders
 	/*shaderProgram.Use();
 	shaderProgram.SetUniformMat4("M", Mcube);		
@@ -193,6 +203,12 @@ int main(int argc, char* argv[]) {
 	shaderProgSimpleLight.Use();
 	shaderProgSimpleLight.SetUniformMat4("M", Mcube);
 	shaderProgSimpleLight.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+	shaderProgSimpleLight.SetUniformVec3("lightColor", lightColor);
+
+	shaderProgSimpleLamp.Use();
+	shaderProgSimpleLamp.SetUniformMat4("M", Mlamp);
+	shaderProgSimpleLamp.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+	shaderProgSimpleLamp.SetUniformVec3("lightColor", lightColor);
 
 	shaderProgramSimple.Use();
 	shaderProgramSimple.SetUniformMat4("M", Mgrid);
@@ -227,14 +243,19 @@ int main(int argc, char* argv[]) {
 			
 		shaderProgSimpleLight.Use();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgSimpleLight.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-			shaderProgSimpleLight.SetUniformVec3("lightColor", glm::vec3(0.0f, 1.0f, 0.0f));
-		}
+			shaderProgSimpleLight.SetUniformMat4("PV", camera.GetViewProjectionMatrix());			
+		}		
 
 		//tex1.Bind();
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
 		mesh.Draw();		
 		//Texture::Unbind();
+
+		shaderProgSimpleLamp.Use();
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+		}
+		lampMesh.Draw();
 
 		// draw grid
 		shaderProgramSimple.Use();		

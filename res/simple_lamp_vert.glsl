@@ -8,10 +8,7 @@ uniform mat4 PV;
 
 
 void main(void) {
-
-	vec4 pos = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-	pos = PV * M * pos;
 	
+	vec4 pos = PV * M * vec4(aPos, 1.0);	
 	gl_Position = pos;
 }
-

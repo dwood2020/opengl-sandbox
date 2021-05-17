@@ -2,14 +2,11 @@
 
 out vec4 fragColor;
 
-
-const vec3 defaultColor = vec3(0.494, 0.486, 0.455);
+uniform vec3 lightColor;
 
 
 void main(void) {
 
-	vec3 color = defaultColor;	
-
-	fragColor = vec4(color, 1.0f);
+	fragColor = vec4(lightColor, 1.0f);
 }
 
