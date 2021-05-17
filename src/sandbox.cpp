@@ -147,6 +147,12 @@ int main(int argc, char* argv[]) {
 	
 	ShaderProgram shaderProgramTextured2(vertexShader, fragmentShader);
 	shaderProgramTextured2.CheckLinkStatus();
+
+	// new simple lighting shader
+	Shader vertShaderSimpleLight(Shader::ReadSourceFromFile("res/simple_light_vert.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragShaderSimpleLight(Shader::ReadSourceFromFile("res/simple_light_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
+	ShaderProgram shaderProgSimpleLight(vertShaderSimpleLight, fragShaderSimpleLight);
+	shaderProgSimpleLight.CheckLinkStatus();
 	
 
 	// Textures
@@ -181,9 +187,12 @@ int main(int argc, char* argv[]) {
 	SimpleCamera camera(eventBus, window.GetWindowRect(), initialCameraPos);
 
 	// send all matrices to shaders
-	shaderProgram.Use();
+	/*shaderProgram.Use();
 	shaderProgram.SetUniformMat4("M", Mcube);		
-	shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+	shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());*/
+	shaderProgSimpleLight.Use();
+	shaderProgSimpleLight.SetUniformMat4("M", Mcube);
+	shaderProgSimpleLight.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 
 	shaderProgramSimple.Use();
 	shaderProgramSimple.SetUniformMat4("M", Mgrid);
@@ -211,16 +220,21 @@ int main(int argc, char* argv[]) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		// all steps for cube
-		shaderProgram.Use();
+		/*shaderProgram.Use();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+		}*/
+			
+		shaderProgSimpleLight.Use();
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			shaderProgSimpleLight.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+			shaderProgSimpleLight.SetUniformVec3("lightColor", glm::vec3(0.0f, 1.0f, 0.0f));
 		}
-						
-		tex1.Bind();
+
+		//tex1.Bind();
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
-		mesh.Draw();
-		
-		Texture::Unbind();
+		mesh.Draw();		
+		//Texture::Unbind();
 
 		// draw grid
 		shaderProgramSimple.Use();		
