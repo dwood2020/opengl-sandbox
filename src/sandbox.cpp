@@ -189,7 +189,8 @@ int main(int argc, char* argv[]) {
 	Msphere = glm::translate(Msphere, glm::vec3(-2.0f, 0.0f, -3.0f));
 
 	glm::mat4 Mlamp = glm::mat4(1.0f);
-	Mlamp = glm::translate(Mlamp, glm::vec3(5.0f, 5.0f, 0.0f));
+	glm::vec3 lampPos = glm::vec3(5.0f, 5.0f, 0.0f);
+	Mlamp = glm::translate(Mlamp, lampPos);
 	
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
@@ -216,6 +217,7 @@ int main(int argc, char* argv[]) {
 	shaderProgPhong.SetUniformMat4("M", Mcube);
 	shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 	shaderProgPhong.SetUniformVec3("lightColor", lightColor);
+	shaderProgPhong.SetUniformVec3("lampPos", lampPos);
 
 	shaderProgSimpleLamp.Use();
 	shaderProgSimpleLamp.SetUniformMat4("M", Mlamp);
