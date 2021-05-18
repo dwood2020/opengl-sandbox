@@ -228,6 +228,7 @@ Mesh MeshFactory::MakeSphere(float r, int nrLat, int nrLong, bool isTextured) co
 
 	Mesh mesh;
 	mesh.SetPositionVertices(vertices);
+	mesh.SetNormalVertices(normals);
 	mesh.SetIndices(indices);
 	if (isTextured) {
 		mesh.SetTextureCoordVertices(texCoords);

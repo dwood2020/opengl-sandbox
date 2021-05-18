@@ -111,12 +111,12 @@ int main(int argc, char* argv[]) {
 	mesh.SetMode(GL_TRIANGLES);*/
 
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
-	Mesh mesh = meshFactory.MakeCube(1.0f, true);	
+	Mesh mesh = meshFactory.MakeCube(1.0f, false);	
 	Mesh gridMesh = meshFactory.MakeSimpleGrid(20.0f);
 	Mesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
 
 	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f);
-	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, true);
+	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
 
 	Mesh lampMesh = meshFactory.MakeSphere(0.25f);	
 
@@ -232,9 +232,9 @@ int main(int argc, char* argv[]) {
 	shaderProgramSimple2.SetUniformMat4("M", Mcone);
 	shaderProgramSimple2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 
-	shaderProgramTextured2.Use();
+	/*shaderProgramTextured2.Use();
 	shaderProgramTextured2.SetUniformMat4("M", Msphere);
-	shaderProgramTextured2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+	shaderProgramTextured2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());*/
 
 
 	shaderProgramCS3d.Use();
@@ -291,13 +291,20 @@ int main(int argc, char* argv[]) {
 		coneMesh.Draw();
 
 		// draw sphere
-		shaderProgramTextured2.Use();
+		/*shaderProgramTextured2.Use();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgramTextured2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}
 		tex2.Bind();
 		sphereMesh.Draw();
-		Texture::Unbind();
+		Texture::Unbind();*/
+		shaderProgPhong.Use();
+		shaderProgPhong.SetUniformMat4("M", Msphere);
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+		}
+		sphereMesh.Draw();
+		shaderProgPhong.SetUniformMat4("M", Mcube);
 
 		// new 3d coordinate system
 		shaderProgramCS3d.Use();
