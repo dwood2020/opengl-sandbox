@@ -182,7 +182,11 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 	}
 
 	mesh.SetPositionVertices(vertices);
-	mesh.SetTextureCoordVertices(texCoords);
+	
+	if (isTextured) {
+		mesh.SetTextureCoordVertices(texCoords);
+	}
+
 	mesh.SetNormalVertices(normals);
 	mesh.SetIndices(indices);
 	mesh.SetGlMode(GL_TRIANGLES);

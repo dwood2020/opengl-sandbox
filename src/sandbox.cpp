@@ -159,6 +159,12 @@ int main(int argc, char* argv[]) {
 	Shader fragShaderSimpleLamp(Shader::ReadSourceFromFile("res/simple_lamp_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
 	ShaderProgram shaderProgSimpleLamp(vertShaderSimpleLamp, fragShaderSimpleLamp);
 	shaderProgSimpleLamp.CheckLinkStatus();
+
+	// simple phong shader
+	Shader vertShaderPhong(Shader::ReadSourceFromFile("res/phong_light_vert.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragShaderPhong(Shader::ReadSourceFromFile("res/phong_light_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
+	ShaderProgram shaderProgPhong(vertShaderPhong, fragShaderPhong);
+	shaderProgPhong.CheckLinkStatus();
 	
 
 	// Textures
@@ -200,10 +206,16 @@ int main(int argc, char* argv[]) {
 	/*shaderProgram.Use();
 	shaderProgram.SetUniformMat4("M", Mcube);		
 	shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());*/
-	shaderProgSimpleLight.Use();
+
+	/*shaderProgSimpleLight.Use();
 	shaderProgSimpleLight.SetUniformMat4("M", Mcube);
 	shaderProgSimpleLight.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-	shaderProgSimpleLight.SetUniformVec3("lightColor", lightColor);
+	shaderProgSimpleLight.SetUniformVec3("lightColor", lightColor);*/
+
+	shaderProgPhong.Use();
+	shaderProgPhong.SetUniformMat4("M", Mcube);
+	shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+	shaderProgPhong.SetUniformVec3("lightColor", lightColor);
 
 	shaderProgSimpleLamp.Use();
 	shaderProgSimpleLamp.SetUniformMat4("M", Mlamp);
@@ -241,10 +253,15 @@ int main(int argc, char* argv[]) {
 			shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}*/
 			
-		shaderProgSimpleLight.Use();
+		/*shaderProgSimpleLight.Use();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgSimpleLight.SetUniformMat4("PV", camera.GetViewProjectionMatrix());			
-		}		
+		}*/	
+
+		shaderProgPhong.Use();
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+		}
 
 		//tex1.Bind();
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
