@@ -21,7 +21,7 @@ const float ambientStrength = 0.5f;
 void main(void) {		
 	
 	// ambient
-	vec3 ambient = ambientStrength * lightColor;
+	vec3 ambient = ambientStrength * lightColor * defaultObjectColor;
 
 	// diffuse
 	vec3 norm = normalize(normal);
