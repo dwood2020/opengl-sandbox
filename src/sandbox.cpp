@@ -218,6 +218,7 @@ int main(int argc, char* argv[]) {
 	shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 	shaderProgPhong.SetUniformVec3("lightColor", lightColor);
 	shaderProgPhong.SetUniformVec3("lampPos", lampPos);
+	shaderProgPhong.SetUniformVec3("viewPos", camera.GetPosition());
 
 	shaderProgSimpleLamp.Use();
 	shaderProgSimpleLamp.SetUniformMat4("M", Mlamp);
@@ -302,6 +303,7 @@ int main(int argc, char* argv[]) {
 		shaderProgPhong.SetUniformMat4("M", Msphere);
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+			shaderProgPhong.SetUniformVec3("viewPos", camera.GetPosition());
 		}
 		sphereMesh.Draw();
 		shaderProgPhong.SetUniformMat4("M", Mcube);
