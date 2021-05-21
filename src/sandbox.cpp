@@ -115,7 +115,7 @@ int main(int argc, char* argv[]) {
 	Mesh gridMesh = meshFactory.MakeSimpleGrid(20.0f);
 	Mesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
 
-	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f);
+	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f, 20);
 	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
 
 	Mesh lampMesh = meshFactory.MakeSphere(0.25f);	
@@ -143,16 +143,9 @@ int main(int argc, char* argv[]) {
 
 	// different shaders for each object, test if this reduces cpu load
 	ShaderProgram shaderProgramSimple2(vertexShaderSimple, fragmentShaderSimple);
-	shaderProgramSimple2.CheckLinkStatus();
-	
+	shaderProgramSimple2.CheckLinkStatus();	
 	ShaderProgram shaderProgramTextured2(vertexShader, fragmentShader);
 	shaderProgramTextured2.CheckLinkStatus();
-
-	// new simple lighting shader
-	Shader vertShaderSimpleLight(Shader::ReadSourceFromFile("res/simple_light_vert.glsl").c_str(), GL_VERTEX_SHADER);
-	Shader fragShaderSimpleLight(Shader::ReadSourceFromFile("res/simple_light_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
-	ShaderProgram shaderProgSimpleLight(vertShaderSimpleLight, fragShaderSimpleLight);
-	shaderProgSimpleLight.CheckLinkStatus();
 
 	// shader for lightSource (lamp)
 	Shader vertShaderSimpleLamp(Shader::ReadSourceFromFile("res/simple_lamp_vert.glsl").c_str(), GL_VERTEX_SHADER);
@@ -201,17 +194,12 @@ int main(int argc, char* argv[]) {
 
 
 	//set the light color here
-	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 0.0f);
+	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 
 	// send all matrices to shaders
 	/*shaderProgram.Use();
 	shaderProgram.SetUniformMat4("M", Mcube);		
-	shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());*/
-
-	/*shaderProgSimpleLight.Use();
-	shaderProgSimpleLight.SetUniformMat4("M", Mcube);
-	shaderProgSimpleLight.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-	shaderProgSimpleLight.SetUniformVec3("lightColor", lightColor);*/
+	shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());*/	
 
 	shaderProgPhong.Use();
 	shaderProgPhong.SetUniformMat4("M", Mcube);
