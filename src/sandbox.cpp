@@ -285,11 +285,12 @@ int main(int argc, char* argv[]) {
 		gridMesh.Draw();
 
 		// draw cone
-		shaderProgramSimple2.Use();		
+		/*shaderProgramSimple2.Use();		
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgramSimple2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}
-		coneMesh.Draw();
+		coneMesh.Draw();*/
+
 
 		// draw sphere
 		/*shaderProgramTextured2.Use();
@@ -306,6 +307,11 @@ int main(int argc, char* argv[]) {
 			shaderProgPhong.SetUniformVec3("viewPos", camera.GetPosition());
 		}
 		sphereMesh.Draw();
+
+		// draw cone now here (set PV etc only once)
+		shaderProgPhong.SetUniformMat4("M", Mcone);
+		coneMesh.Draw();
+
 		shaderProgPhong.SetUniformMat4("M", Mcube);
 
 		// new 3d coordinate system

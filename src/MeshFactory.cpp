@@ -205,6 +205,7 @@ Mesh MeshFactory::MakeCone(float r, float h, int points) const {
 
 	Mesh mesh;
 	mesh.SetPositionVertices(vertices);
+	mesh.SetNormalVertices(normals);
 	mesh.SetIndices(indices);
 	mesh.SetGlMode(GL_TRIANGLES);
 	mesh.Prepare();
@@ -404,9 +405,9 @@ void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<glm::ve
 
 	float x = (r * r) / h;	
 	
-	vertices.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
+	normals.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
 	for (int i = 0; i < points; i++) {
-		vertices.push_back(glm::normalize(glm::vec3(r * std::cosf(i * deltaPhi), x, r * std::sinf(i * deltaPhi))));
+		normals.push_back(glm::normalize(glm::vec3(r * std::cosf(i * deltaPhi), x, r * std::sinf(i * deltaPhi))));
 	}
 
 	// indices
