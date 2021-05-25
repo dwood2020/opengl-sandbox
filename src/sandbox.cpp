@@ -150,6 +150,13 @@ int main(int argc, char* argv[]) {
 	Shader fragShaderPhong(Shader::ReadSourceFromFile("res/phong_light_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
 	ShaderProgram shaderProgPhong(vertShaderPhong, fragShaderPhong);
 	shaderProgPhong.CheckLinkStatus();
+
+
+	// material phong shader
+	Shader vertShaderPhongMat(Shader::ReadSourceFromFile("res/phong_material_vert.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragShaderPhongMat(Shader::ReadSourceFromFile("res/phong_material_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
+	ShaderProgram shaderProgPhongMat(vertShaderPhongMat, fragShaderPhongMat);
+	shaderProgPhongMat.CheckLinkStatus();
 	
 
 	// Textures
@@ -190,12 +197,23 @@ int main(int argc, char* argv[]) {
 	shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());*/	
 
 	shaderProgPhong.Use();
-	shaderProgPhong.SetUniformMat4("M", Mcube);
+	//shaderProgPhong.SetUniformMat4("M", Msphere);
 	shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-	shaderProgPhong.SetUniformVec3("lightColor", lightColor);
-	//shaderProgPhong.SetUniformVec3("lampPos", lampPos);
+	shaderProgPhong.SetUniformVec3("lightColor", lightColor);	
 	shaderProgPhong.SetUniformVec3("directionalLightDir", glm::vec3(-1.0f, -1.0f, -1.0f));
 	shaderProgPhong.SetUniformVec3("viewPos", camera.GetPosition());
+
+	shaderProgPhongMat.Use();
+	shaderProgPhongMat.SetUniformMat4("M", Mcube);
+	shaderProgPhongMat.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+	shaderProgPhongMat.SetUniformVec3("lightColor", lightColor);
+	shaderProgPhongMat.SetUniformVec3("directionalLightDir", glm::vec3(-1.0f, -1.0f, -1.0f));
+	shaderProgPhongMat.SetUniformVec3("viewPos", camera.GetPosition());
+	glm::vec3 defaultObjectColor = glm::vec3(0.494f, 0.486f, 0.455f);
+	shaderProgPhongMat.SetUniformVec3("material.ambient", defaultObjectColor * 0.4f);
+	shaderProgPhongMat.SetUniformVec3("material.diffuse", defaultObjectColor * 0.6f);
+	shaderProgPhongMat.SetUniformVec3("material.specular", glm::vec3(1.0f));
+	shaderProgPhongMat.SetUniformFloat("material.shininess", 64.0f);
 
 
 	shaderProgramSimple.Use();
@@ -234,9 +252,9 @@ int main(int argc, char* argv[]) {
 			shaderProgSimpleLight.SetUniformMat4("PV", camera.GetViewProjectionMatrix());			
 		}*/	
 
-		shaderProgPhong.Use();
+		shaderProgPhongMat.Use();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+			shaderProgPhongMat.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}
 
 		//tex1.Bind();
@@ -280,7 +298,7 @@ int main(int argc, char* argv[]) {
 		shaderProgPhong.SetUniformMat4("M", Mcone);
 		coneMesh.Draw();
 
-		shaderProgPhong.SetUniformMat4("M", Mcube);
+		//shaderProgPhong.SetUniformMat4("M", Mcube);
 
 		// new 3d coordinate system
 		shaderProgramCS3d.Use();
