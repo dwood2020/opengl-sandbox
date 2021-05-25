@@ -205,13 +205,14 @@ int main(int argc, char* argv[]) {
 	shaderProgPhong.SetUniformMat4("M", Mcube);
 	shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 	shaderProgPhong.SetUniformVec3("lightColor", lightColor);
-	shaderProgPhong.SetUniformVec3("lampPos", lampPos);
+	//shaderProgPhong.SetUniformVec3("lampPos", lampPos);
+	shaderProgPhong.SetUniformVec3("directionalLightDir", glm::vec3(-1.0f, -1.0f, -1.0f));
 	shaderProgPhong.SetUniformVec3("viewPos", camera.GetPosition());
 
-	shaderProgSimpleLamp.Use();
+	/*shaderProgSimpleLamp.Use();
 	shaderProgSimpleLamp.SetUniformMat4("M", Mlamp);
 	shaderProgSimpleLamp.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-	shaderProgSimpleLamp.SetUniformVec3("lightColor", lightColor);
+	shaderProgSimpleLamp.SetUniformVec3("lightColor", lightColor);*/
 
 	shaderProgramSimple.Use();
 	shaderProgramSimple.SetUniformMat4("M", Mgrid);
@@ -259,11 +260,12 @@ int main(int argc, char* argv[]) {
 		mesh.Draw();		
 		//Texture::Unbind();
 
-		shaderProgSimpleLamp.Use();
+
+		/*shaderProgSimpleLamp.Use();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 		}
-		lampMesh.Draw();
+		lampMesh.Draw();*/
 
 		// draw grid
 		shaderProgramSimple.Use();		

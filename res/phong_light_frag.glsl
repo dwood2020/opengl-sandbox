@@ -12,7 +12,7 @@ in vec3 fragPos;
 out vec4 fragColor;
 
 uniform vec3 lightColor;
-uniform vec3 lampPos;
+uniform vec3 directionalLightDir;
 uniform vec3 viewPos;
 
 const vec3 defaultObjectColor = vec3(0.494, 0.486, 0.455);
@@ -26,7 +26,7 @@ void main(void) {
 
 	// diffuse
 	vec3 norm = normalize(normal);					// normalized normals
-	vec3 lightDir = normalize(lampPos - fragPos);
+	vec3 lightDir = normalize(-directionalLightDir);
 	float diff = max(dot(norm, lightDir), 0.0f);	// diffuse impact via dot product (refer to angle theta in tutorial)
 	vec3 diffuse = diff * lightColor;
 
