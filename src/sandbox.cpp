@@ -212,7 +212,7 @@ int main(int argc, char* argv[]) {
 	glm::vec3 defaultObjectColor = glm::vec3(0.494f, 0.486f, 0.455f);	
 	shaderProgPhongMat.SetUniformVec3("material.ambient", defaultObjectColor * 0.3f);
 	shaderProgPhongMat.SetUniformVec3("material.diffuse", glm::vec3(0.0f, 1.0f, 0.0f) * 0.8f);
-	shaderProgPhongMat.SetUniformVec3("material.specular", glm::vec3(1.0f) * 0.5f);
+	shaderProgPhongMat.SetUniformVec3("material.specular", glm::vec3(1.0f, 0.0f, 0.0f) * 0.5f);
 	shaderProgPhongMat.SetUniformFloat("material.shininess", 32.0f);
 
 
