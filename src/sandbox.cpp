@@ -209,11 +209,11 @@ int main(int argc, char* argv[]) {
 	shaderProgPhongMat.SetUniformVec3("lightColor", lightColor);
 	shaderProgPhongMat.SetUniformVec3("directionalLightDir", glm::vec3(-1.0f, -1.0f, -1.0f));
 	shaderProgPhongMat.SetUniformVec3("viewPos", camera.GetPosition());
-	glm::vec3 defaultObjectColor = glm::vec3(0.494f, 0.486f, 0.455f);
-	shaderProgPhongMat.SetUniformVec3("material.ambient", defaultObjectColor * 0.4f);
-	shaderProgPhongMat.SetUniformVec3("material.diffuse", defaultObjectColor * 0.6f);
-	shaderProgPhongMat.SetUniformVec3("material.specular", glm::vec3(1.0f));
-	shaderProgPhongMat.SetUniformFloat("material.shininess", 64.0f);
+	glm::vec3 defaultObjectColor = glm::vec3(0.494f, 0.486f, 0.455f);	
+	shaderProgPhongMat.SetUniformVec3("material.ambient", defaultObjectColor * 0.3f);
+	shaderProgPhongMat.SetUniformVec3("material.diffuse", glm::vec3(0.0f, 1.0f, 0.0f) * 0.8f);
+	shaderProgPhongMat.SetUniformVec3("material.specular", glm::vec3(1.0f) * 0.5f);
+	shaderProgPhongMat.SetUniformFloat("material.shininess", 32.0f);
 
 
 	shaderProgramSimple.Use();
@@ -255,12 +255,18 @@ int main(int argc, char* argv[]) {
 		shaderProgPhongMat.Use();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgPhongMat.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
+			shaderProgPhongMat.SetUniformVec3("viewPos", camera.GetPosition());
 		}
+		shaderProgPhongMat.SetUniformMat4("M", Mcube);
 
 		//tex1.Bind();
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
 		mesh.Draw();		
 		//Texture::Unbind();
+
+		// draw sphere with phong material shader
+		shaderProgPhongMat.SetUniformMat4("M", Msphere);
+		sphereMesh.Draw();
 
 
 		// draw grid
@@ -278,27 +284,19 @@ int main(int argc, char* argv[]) {
 		coneMesh.Draw();*/
 
 
-		// draw sphere
-		/*shaderProgramTextured2.Use();
-		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgramTextured2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-		}
-		tex2.Bind();
-		sphereMesh.Draw();
-		Texture::Unbind();*/
+
 		shaderProgPhong.Use();
-		shaderProgPhong.SetUniformMat4("M", Msphere);
+		shaderProgPhong.SetUniformMat4("M", Mcone);
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 			shaderProgPhong.SetUniformVec3("viewPos", camera.GetPosition());
 		}
-		sphereMesh.Draw();
-
-		// draw cone now here (set PV etc only once)
-		shaderProgPhong.SetUniformMat4("M", Mcone);
 		coneMesh.Draw();
 
-		//shaderProgPhong.SetUniformMat4("M", Mcube);
+		// draw sphere now here (set PV etc only once)
+		/*shaderProgPhong.SetUniformMat4("M", Msphere);
+		sphereMesh.Draw();*/
+
 
 		// new 3d coordinate system
 		shaderProgramCS3d.Use();
