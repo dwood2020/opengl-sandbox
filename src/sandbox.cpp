@@ -118,8 +118,6 @@ int main(int argc, char* argv[]) {
 	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f, 20);
 	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
 
-	Mesh lampMesh = meshFactory.MakeSphere(0.25f);	
-
 
 	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
 	Shader fragmentShader(Shader::ReadSourceFromFile("res/frag_texture.glsl").c_str(), GL_FRAGMENT_SHADER);
@@ -146,12 +144,6 @@ int main(int argc, char* argv[]) {
 	shaderProgramSimple2.CheckLinkStatus();	
 	ShaderProgram shaderProgramTextured2(vertexShader, fragmentShader);
 	shaderProgramTextured2.CheckLinkStatus();
-
-	// shader for lightSource (lamp)
-	Shader vertShaderSimpleLamp(Shader::ReadSourceFromFile("res/simple_lamp_vert.glsl").c_str(), GL_VERTEX_SHADER);
-	Shader fragShaderSimpleLamp(Shader::ReadSourceFromFile("res/simple_lamp_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
-	ShaderProgram shaderProgSimpleLamp(vertShaderSimpleLamp, fragShaderSimpleLamp);
-	shaderProgSimpleLamp.CheckLinkStatus();
 
 	// simple phong shader
 	Shader vertShaderPhong(Shader::ReadSourceFromFile("res/phong_light_vert.glsl").c_str(), GL_VERTEX_SHADER);
@@ -181,10 +173,6 @@ int main(int argc, char* argv[]) {
 	glm::mat4 Msphere = glm::mat4(1.0f);
 	Msphere = glm::translate(Msphere, glm::vec3(-2.0f, 0.0f, -3.0f));
 
-	glm::mat4 Mlamp = glm::mat4(1.0f);
-	glm::vec3 lampPos = glm::vec3(5.0f, 5.0f, 0.0f);
-	Mlamp = glm::translate(Mlamp, lampPos);
-	
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
 
@@ -209,10 +197,6 @@ int main(int argc, char* argv[]) {
 	shaderProgPhong.SetUniformVec3("directionalLightDir", glm::vec3(-1.0f, -1.0f, -1.0f));
 	shaderProgPhong.SetUniformVec3("viewPos", camera.GetPosition());
 
-	/*shaderProgSimpleLamp.Use();
-	shaderProgSimpleLamp.SetUniformMat4("M", Mlamp);
-	shaderProgSimpleLamp.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-	shaderProgSimpleLamp.SetUniformVec3("lightColor", lightColor);*/
 
 	shaderProgramSimple.Use();
 	shaderProgramSimple.SetUniformMat4("M", Mgrid);
@@ -260,12 +244,6 @@ int main(int argc, char* argv[]) {
 		mesh.Draw();		
 		//Texture::Unbind();
 
-
-		/*shaderProgSimpleLamp.Use();
-		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-		}
-		lampMesh.Draw();*/
 
 		// draw grid
 		shaderProgramSimple.Use();		
