@@ -206,11 +206,14 @@ int main(int argc, char* argv[]) {
 	shaderProgPhongMat.Use();
 	shaderProgPhongMat.SetUniformMat4("M", Mcube);
 	shaderProgPhongMat.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-	shaderProgPhongMat.SetUniformVec3("lightColor", lightColor);
-	shaderProgPhongMat.SetUniformVec3("directionalLightDir", glm::vec3(-1.0f, -1.0f, -1.0f));
+	/*shaderProgPhongMat.SetUniformVec3("lightColor", lightColor);
+	shaderProgPhongMat.SetUniformVec3("directionalLightDir", glm::vec3(-1.0f, -1.0f, -1.0f));*/
+	shaderProgPhongMat.SetUniformVec3("directionalLight.direction", glm::vec3(-0.8f, -1.0f, -1.0f));
+	shaderProgPhongMat.SetUniformVec3("directionalLight.color", glm::vec3(1.0f));
+	shaderProgPhongMat.SetUniformFloat("directionalLight.ambientFactor", 0.5f);
 	shaderProgPhongMat.SetUniformVec3("viewPos", camera.GetPosition());
 	glm::vec3 defaultObjectColor = glm::vec3(0.494f, 0.486f, 0.455f);	
-	shaderProgPhongMat.SetUniformVec3("material.ambient", defaultObjectColor * 0.3f);
+	shaderProgPhongMat.SetUniformVec3("material.ambient", glm::vec3(0.0f, 1.0f, 0.0f) * 0.3f);
 	shaderProgPhongMat.SetUniformVec3("material.diffuse", glm::vec3(0.0f, 1.0f, 0.0f) * 0.8f);
 	shaderProgPhongMat.SetUniformVec3("material.specular", glm::vec3(1.0f, 0.0f, 0.0f) * 0.5f);
 	shaderProgPhongMat.SetUniformFloat("material.shininess", 32.0f);
