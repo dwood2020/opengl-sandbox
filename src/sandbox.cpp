@@ -208,11 +208,11 @@ int main(int argc, char* argv[]) {
 	shaderProgPhongMat.SetUniformMat4("PV", camera.GetViewProjectionMatrix());	
 	shaderProgPhongMat.SetUniformVec3("directionalLight.direction", glm::vec3(-0.8f, -1.2f, -1.0f));	//NOTE: Not exactly pointed towards corner to make sides of cube better visible
 	shaderProgPhongMat.SetUniformVec3("directionalLight.color", glm::vec3(1.0f));
-	shaderProgPhongMat.SetUniformFloat("directionalLight.ambientFactor", 0.2f);
+	shaderProgPhongMat.SetUniformFloat("directionalLight.ambientFactor", 0.3f);
 	shaderProgPhongMat.SetUniformVec3("viewPos", camera.GetPosition());
 	glm::vec3 defaultObjectColor = glm::vec3(0.494f, 0.486f, 0.455f);	
-	shaderProgPhongMat.SetUniformVec3("material.diffuse", glm::vec3(0.0f, 1.0f, 0.0f) * 0.8f);
-	shaderProgPhongMat.SetUniformVec3("material.specular", glm::vec3(1.0f, 0.0f, 0.0f) * 0.5f);
+	shaderProgPhongMat.SetUniformVec3("material.diffuse", defaultObjectColor);
+	shaderProgPhongMat.SetUniformVec3("material.specular", glm::vec3(1.0f, 0.0f, 0.0f) * 0.3f);
 	shaderProgPhongMat.SetUniformFloat("material.shininess", 32.0f);
 	
 
