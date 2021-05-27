@@ -12,14 +12,9 @@ in vec3 fragPos;
 
 out vec4 fragColor;
 
-//uniform vec3 lightColor;
-//uniform vec3 directionalLightDir;
-
-uniform vec3 viewPos;
-
 
 struct Material {
-	vec3 ambient;
+	//vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
 	float shininess;
@@ -33,12 +28,13 @@ struct DirectionalLight {
 
 uniform Material material;
 uniform DirectionalLight directionalLight;
+uniform vec3 viewPos;
 
 
 void main(void) {		
 	
 	// ambient	
-	vec3 ambient = directionalLight.ambientFactor * directionalLight.color * material.ambient;
+	vec3 ambient = directionalLight.ambientFactor * directionalLight.color * material.diffuse;
 
 	// diffuse
 	vec3 norm = normalize(normal);					// normalized normals	
