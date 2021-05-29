@@ -121,15 +121,6 @@ int main(int argc, char* argv[]) {
 	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
 
 
-	Shader vertexShader(Shader::ReadSourceFromFile("res/vert_texture.glsl").c_str(), GL_VERTEX_SHADER);
-	Shader fragmentShader(Shader::ReadSourceFromFile("res/frag_texture.glsl").c_str(), GL_FRAGMENT_SHADER);
-	vertexShader.CheckCompilationStatus();
-	fragmentShader.CheckCompilationStatus();
-
-	ShaderProgram shaderProgram(vertexShader, fragmentShader);
-	shaderProgram.CheckLinkStatus();
-	//shaderProgram.Use();	
-
 	Shader vertexShaderSimple(Shader::ReadSourceFromFile("res/vert_simple.glsl").c_str(), GL_VERTEX_SHADER);
 	Shader fragmentShaderSimple(Shader::ReadSourceFromFile("res/frag_simple.glsl").c_str(), GL_FRAGMENT_SHADER);
 	ShaderProgram shaderProgramSimple(vertexShaderSimple, fragmentShaderSimple);
@@ -140,19 +131,6 @@ int main(int argc, char* argv[]) {
 	Shader fragmentShaderCS3d(Shader::ReadSourceFromFile("res/coordSystem3d_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
 	ShaderProgram shaderProgramCS3d(vertexShaderCS3d, fragmentShaderCS3d);
 	shaderProgramCS3d.CheckLinkStatus();
-
-	// different shaders for each object, test if this reduces cpu load
-	ShaderProgram shaderProgramSimple2(vertexShaderSimple, fragmentShaderSimple);
-	shaderProgramSimple2.CheckLinkStatus();	
-	ShaderProgram shaderProgramTextured2(vertexShader, fragmentShader);
-	shaderProgramTextured2.CheckLinkStatus();
-
-	// simple phong shader
-	Shader vertShaderPhong(Shader::ReadSourceFromFile("res/phong_light_vert.glsl").c_str(), GL_VERTEX_SHADER);
-	Shader fragShaderPhong(Shader::ReadSourceFromFile("res/phong_light_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
-	ShaderProgram shaderProgPhong(vertShaderPhong, fragShaderPhong);
-	shaderProgPhong.CheckLinkStatus();
-
 
 	// material phong shader
 	Shader vertShaderPhongMat(Shader::ReadSourceFromFile("res/phong_material_vert.glsl").c_str(), GL_VERTEX_SHADER);
@@ -204,15 +182,6 @@ int main(int argc, char* argv[]) {
 
 
 	// send all matrices to shaders
-	/*shaderProgram.Use();
-	shaderProgram.SetUniformMat4("M", Mcube);		
-	shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());*/	
-
-	shaderProgPhong.Use();
-	shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-	shaderProgPhong.SetUniformVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-	shaderProgPhong.SetUniformVec3("directionalLightDir", glm::vec3(-1.0f, -1.0f, -1.0f));
-	shaderProgPhong.SetUniformVec3("viewPos", camera.GetPosition());
 
 	shaderProgPhongMat.Use();
 	shaderProgPhongMat.SetUniformMat4("M", Mcube);
@@ -228,14 +197,6 @@ int main(int argc, char* argv[]) {
 	shaderProgramSimple.SetUniformMat4("M", Mgrid);
 	shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 
-	shaderProgramSimple2.Use();
-	shaderProgramSimple2.SetUniformMat4("M", Mcone);
-	shaderProgramSimple2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-
-	/*shaderProgramTextured2.Use();
-	shaderProgramTextured2.SetUniformMat4("M", Msphere);
-	shaderProgramTextured2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());*/
-
 
 	shaderProgramCS3d.Use();
 	shaderProgramCS3d.SetUniformMat4("M", Mcs3d);
@@ -249,16 +210,7 @@ int main(int argc, char* argv[]) {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		// all steps for cube
-		/*shaderProgram.Use();
-		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-		}*/
-			
-		/*shaderProgSimpleLight.Use();
-		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgSimpleLight.SetUniformMat4("PV", camera.GetViewProjectionMatrix());			
-		}*/	
+		// all steps for cube		
 
 		shaderProgPhongMat.Use();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
@@ -276,6 +228,10 @@ int main(int argc, char* argv[]) {
 		shaderProgPhongMat.SetUniformMat4("M", Msphere);
 		sphereMesh.Draw();
 
+		// draw cone with phong material shadeer
+		shaderProgPhongMat.SetUniformMat4("M", Mcone);
+		coneMesh.Draw();
+
 
 		// draw grid
 		shaderProgramSimple.Use();		
@@ -283,27 +239,6 @@ int main(int argc, char* argv[]) {
 			shaderProgramSimple.SetUniformMat4("PV", camera.GetViewProjectionMatrix());			
 		}
 		gridMesh.Draw();
-
-		// draw cone
-		/*shaderProgramSimple2.Use();		
-		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgramSimple2.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-		}
-		coneMesh.Draw();*/
-
-
-
-		shaderProgPhong.Use();
-		shaderProgPhong.SetUniformMat4("M", Mcone);
-		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-			shaderProgPhong.SetUniformVec3("viewPos", camera.GetPosition());
-		}
-		coneMesh.Draw();
-
-		// draw sphere now here (set PV etc only once)
-		/*shaderProgPhong.SetUniformMat4("M", Msphere);
-		sphereMesh.Draw();*/
 
 
 		// new 3d coordinate system
