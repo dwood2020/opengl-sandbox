@@ -42,7 +42,7 @@ void Mesh::Prepare(void) {
 		return;
 	}
 
-	size_t dataSize = verticesPosition.size() * 3 + verticesTexCoord.size() * 2 + verticesNormal.size() * 3;
+	size_t dataSize = verticesPosition.size() * 3 + verticesNormal.size() * 3 + verticesTexCoord.size() * 2;
 	
 	std::vector<float> data;
 	data.reserve(dataSize);
@@ -60,16 +60,16 @@ void Mesh::Prepare(void) {
 		data.push_back(verticesPosition[i].y);
 		data.push_back(verticesPosition[i].z);
 
-		if (!verticesTexCoord.empty()) {
-			data.push_back(verticesTexCoord[i].x);
-			data.push_back(verticesTexCoord[i].y);
-		}
-
 		if (!verticesNormal.empty()) {
 			data.push_back(verticesNormal[i].x);
 			data.push_back(verticesNormal[i].y);
 			data.push_back(verticesNormal[i].z);
 		}
+
+		if (!verticesTexCoord.empty()) {
+			data.push_back(verticesTexCoord[i].x);
+			data.push_back(verticesTexCoord[i].y);
+		}		
 	}
 
 	glGenVertexArrays(1, &vao);
@@ -92,12 +92,12 @@ void Mesh::Prepare(void) {
 	GLsizei stride;
 	stride = 3 * sizeof(float);
 
-	if (!verticesTexCoord.empty()) {
-		stride += 2 * sizeof(float);
-	}
 	if (!verticesNormal.empty()) {
 		stride += 3 * sizeof(float);
 	}
+	if (!verticesTexCoord.empty()) {
+		stride += 2 * sizeof(float);
+	}	
 
 	GLsizei offset = 0;	
 
@@ -105,24 +105,24 @@ void Mesh::Prepare(void) {
 	glEnableVertexAttribArray(0);
 	offset += 3 * sizeof(float);
 
-	if (!verticesTexCoord.empty()) {
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (void*)offset);
-		glEnableVertexAttribArray(1);
-		offset += 2 * sizeof(float);
-	}
-
 	if (!verticesNormal.empty()) {
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (void*)offset);
-		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, (void*)offset);
+		glEnableVertexAttribArray(1);
 		offset += 3 * sizeof(float);
 	}
 
+	if (!verticesTexCoord.empty()) {
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride, (void*)offset);
+		glEnableVertexAttribArray(2);
+		offset += 2 * sizeof(float);
+	}
+	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
 	verticesPosition.clear();
-	verticesTexCoord.clear();
 	verticesNormal.clear();
+	verticesTexCoord.clear();	
 	indices.clear();
 }
 
