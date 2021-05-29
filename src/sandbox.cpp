@@ -14,6 +14,7 @@
 #include "MeshFactory.h"
 #include "Texture.h"
 #include "camera/SimpleCamera.h"
+#include "Lighting.h"
 
 #include <chrono>
 
@@ -191,13 +192,18 @@ int main(int argc, char* argv[]) {
 	//set the light color here
 	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 
+	// use lighting class
+	Lighting lighting;
+	lighting.SetDirection(glm::vec3(-0.8f, -1.2f, -1.0f));	//NOTE: Not exactly pointed towards corner to make sides of cube better visible
+	lighting.SetColor(glm::vec3(1.0f));
+	lighting.SetAmbientFactor(0.4f);
+
 	// send all matrices to shaders
 	/*shaderProgram.Use();
 	shaderProgram.SetUniformMat4("M", Mcube);		
 	shaderProgram.SetUniformMat4("PV", camera.GetViewProjectionMatrix());*/	
 
 	shaderProgPhong.Use();
-	//shaderProgPhong.SetUniformMat4("M", Msphere);
 	shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
 	shaderProgPhong.SetUniformVec3("lightColor", lightColor);	
 	shaderProgPhong.SetUniformVec3("directionalLightDir", glm::vec3(-1.0f, -1.0f, -1.0f));
@@ -206,10 +212,10 @@ int main(int argc, char* argv[]) {
 	shaderProgPhongMat.Use();
 	shaderProgPhongMat.SetUniformMat4("M", Mcube);
 	shaderProgPhongMat.SetUniformMat4("PV", camera.GetViewProjectionMatrix());	
-	shaderProgPhongMat.SetUniformVec3("directionalLight.direction", glm::vec3(-0.8f, -1.2f, -1.0f));	//NOTE: Not exactly pointed towards corner to make sides of cube better visible
-	shaderProgPhongMat.SetUniformVec3("directionalLight.color", glm::vec3(1.0f));
-	shaderProgPhongMat.SetUniformFloat("directionalLight.ambientFactor", 0.3f);
+
+	lighting.SetUniforms(shaderProgPhongMat);
 	shaderProgPhongMat.SetUniformVec3("viewPos", camera.GetPosition());
+
 	glm::vec3 defaultObjectColor = glm::vec3(0.494f, 0.486f, 0.455f);	
 	shaderProgPhongMat.SetUniformVec3("material.diffuse", defaultObjectColor);
 	shaderProgPhongMat.SetUniformVec3("material.specular", glm::vec3(1.0f, 0.0f, 0.0f) * 0.3f);
