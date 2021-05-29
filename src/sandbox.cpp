@@ -15,6 +15,7 @@
 #include "Texture.h"
 #include "camera/SimpleCamera.h"
 #include "Lighting.h"
+#include "Material.h"
 
 #include <chrono>
 
@@ -189,14 +190,18 @@ int main(int argc, char* argv[]) {
 	SimpleCamera camera(eventBus, window.GetWindowRect(), initialCameraPos);
 
 
-	//set the light color here
-	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 
 	// use lighting class
 	Lighting lighting;
 	lighting.SetDirection(glm::vec3(-0.8f, -1.2f, -1.0f));	//NOTE: Not exactly pointed towards corner to make sides of cube better visible
-	lighting.SetColor(glm::vec3(1.0f));
+	lighting.SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	lighting.SetAmbientFactor(0.4f);
+
+	// use material class
+	Material defaultMaterial;
+	defaultMaterial.SetDiffuseColor(glm::vec3(0.494f, 0.486f, 0.455f));
+	defaultMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.3f);
+
 
 	// send all matrices to shaders
 	/*shaderProgram.Use();
@@ -205,7 +210,7 @@ int main(int argc, char* argv[]) {
 
 	shaderProgPhong.Use();
 	shaderProgPhong.SetUniformMat4("PV", camera.GetViewProjectionMatrix());
-	shaderProgPhong.SetUniformVec3("lightColor", lightColor);	
+	shaderProgPhong.SetUniformVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
 	shaderProgPhong.SetUniformVec3("directionalLightDir", glm::vec3(-1.0f, -1.0f, -1.0f));
 	shaderProgPhong.SetUniformVec3("viewPos", camera.GetPosition());
 
@@ -216,10 +221,7 @@ int main(int argc, char* argv[]) {
 	lighting.SetUniforms(shaderProgPhongMat);
 	shaderProgPhongMat.SetUniformVec3("viewPos", camera.GetPosition());
 
-	glm::vec3 defaultObjectColor = glm::vec3(0.494f, 0.486f, 0.455f);	
-	shaderProgPhongMat.SetUniformVec3("material.diffuse", defaultObjectColor);
-	shaderProgPhongMat.SetUniformVec3("material.specular", glm::vec3(1.0f, 0.0f, 0.0f) * 0.3f);
-	shaderProgPhongMat.SetUniformFloat("material.shininess", 32.0f);
+	defaultMaterial.SetUniforms(shaderProgPhongMat);
 	
 
 	shaderProgramSimple.Use();

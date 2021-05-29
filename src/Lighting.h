@@ -39,9 +39,10 @@ public:
 
 
 	/// <summary>
-	/// Sets all lighting uniforms in the specified shader program.
+	/// Sets all lighting uniforms in the given shader program.
+	/// The shader program must contain the appropriate uniform declarations.
 	/// </summary>
-	/// <param name="shaderProg">Shader program to set the uniforms in. Must contain the appropriate uniform declarations.</param>
+	/// <param name="shaderProg">Shader program to set the uniforms in</param>
 	void SetUniforms(ShaderProgram& shaderProg) const;
 
 
