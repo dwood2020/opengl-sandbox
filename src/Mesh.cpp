@@ -99,8 +99,7 @@ void Mesh::Prepare(void) {
 		stride += 3 * sizeof(float);
 	}
 
-	GLsizei offset;
-	offset = 0;
+	GLsizei offset = 0;	
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)offset);
 	glEnableVertexAttribArray(0);
