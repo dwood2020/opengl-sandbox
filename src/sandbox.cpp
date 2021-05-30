@@ -180,6 +180,10 @@ int main(int argc, char* argv[]) {
 	defaultMaterial.SetDiffuseColor(glm::vec3(0.494f, 0.486f, 0.455f));
 	defaultMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.3f);
 
+	Material texturedMaterial;
+	texturedMaterial.SetDiffuseTexture(tex1);
+	texturedMaterial.SetDiffuseColor(glm::vec3(1.0f));
+
 
 	// send all matrices to shaders
 
@@ -220,7 +224,7 @@ int main(int argc, char* argv[]) {
 		shaderProgPhongMat.SetUniformMat4("M", Mcube);
 
 		//tex1.Bind();
-		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)
+		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)		
 		mesh.Draw();		
 		//Texture::Unbind();
 

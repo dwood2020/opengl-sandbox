@@ -1,6 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
+#include "Texture.h"
 
 
 /// <summary>
@@ -12,16 +13,26 @@ protected:
 	glm::vec3 specularColor;
 	float shininess;
 
+	bool hasDiffuseTexture;		//NOTE: these booleans are actually unnecessary but are used to represent the same variables here as uniforms in the shader.
+	bool hasSpecularTexture;
+	const Texture* diffuseTexture;
+	const Texture* specularTexture;
+
+	const int diffuseTextureIndex = 0;
+	const int specularTextureIndex = 1;
+
 public:
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	Material();
 
+
 	/// <summary>
 	/// Destructor.
 	/// </summary>
 	virtual ~Material();
+
 
 	/// <summary>
 	/// Sets the material's diffuse color.
@@ -31,10 +42,25 @@ public:
 
 
 	/// <summary>
+	/// Sets the material's diffuse texture.
+	/// </summary>
+	/// <param name="diffuse">Diffuse texture</param>
+	void SetDiffuseTexture(const Texture& diffuse);
+
+
+	/// <summary>
 	/// Sets the material's specular (reflection) color.
 	/// </summary>
 	/// <param name="specular">Specular color</param>
 	void SetSpecularColor(const glm::vec3& specular);
+
+
+	/// <summary>
+	/// Sets the material's specular texture (reflection map)
+	/// </summary>
+	/// <param name="specular">Specular texture</param>
+	void SetSpecularTexture(const Texture& specular);
+
 
 	/// <summary>
 	/// Sets the material's shininess parameter.
@@ -51,5 +77,12 @@ public:
 	/// </summary>
 	/// <param name="shaderProg">Shader program to set the uniforms in</param>
 	void SetUniforms(ShaderProgram& shaderProg) const;
+
+
+	/// <summary>
+	/// Binds the material's textures if it has any.
+	/// </summary>	
+	void BindTextures(void) const;
+
 };
 

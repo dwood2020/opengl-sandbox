@@ -40,8 +40,8 @@ void Texture::Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data,
 }
 
 
-void Texture::Bind(void) const {
-	//glActiveTexture(GL_TEXTURE0);	//TODO: move this when more than 1 texture is used
+void Texture::Bind(GLenum texture) const {
+	glActiveTexture(texture);
 	glBindTexture(GL_TEXTURE_2D, id);
 }
 

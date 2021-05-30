@@ -22,9 +22,9 @@ public:
 	void Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data, GLint glTexFilter = GL_LINEAR);
 
 	/// <summary>
-	/// Binds this texture object as active texture
+	/// Binds this texture object as active texture.
 	/// </summary>	
-	void Bind(void) const;
+	void Bind(GLenum texture = GL_TEXTURE0) const;
 	
 	/// <summary>
 	/// Unbinds the currently active texture object.
