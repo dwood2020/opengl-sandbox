@@ -44,25 +44,25 @@ void ShaderProgram::Use(void) {
 }
 
 
-void ShaderProgram::SetUniformInt(const std::string& name, const int value) {
+void ShaderProgram::SetUniformInt(const std::string& name, const int value) const {
 	int uniformLoc = glGetUniformLocation(id, name.c_str());
 	glUniform1i(uniformLoc, value);
 }
 
 
-void ShaderProgram::SetUniformFloat(const std::string& name, const float value) {
+void ShaderProgram::SetUniformFloat(const std::string& name, const float value) const {
 	int uniformLoc = glGetUniformLocation(id, name.c_str());
 	glUniform1f(uniformLoc, value);
 }
 
 
-void ShaderProgram::SetUniformVec3(const std::string& name, const glm::vec3& value) {
+void ShaderProgram::SetUniformVec3(const std::string& name, const glm::vec3& value) const {
 	int uniformLoc = glGetUniformLocation(id, name.c_str());
 	glUniform3fv(uniformLoc, 1, &value[0]);
 }
 
 
-void ShaderProgram::SetUniformMat4(const std::string& name, const glm::mat4& value) {
+void ShaderProgram::SetUniformMat4(const std::string& name, const glm::mat4& value) const {
 	int uniformLoc = glGetUniformLocation(id, name.c_str());
 	glUniformMatrix4fv(uniformLoc, 1, GL_FALSE, &value[0][0]);
 }

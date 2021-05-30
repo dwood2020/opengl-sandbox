@@ -176,11 +176,11 @@ int main(int argc, char* argv[]) {
 	lighting.SetAmbientFactor(0.4f);
 
 	// use material class
-	Material defaultMaterial;
+	Material defaultMaterial(shaderProgPhongMat);
 	defaultMaterial.SetDiffuseColor(glm::vec3(0.494f, 0.486f, 0.455f));
 	defaultMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.3f);
 
-	Material texturedMaterial;
+	Material texturedMaterial(shaderProgPhongMat);
 	texturedMaterial.SetDiffuseTexture(tex1);
 	texturedMaterial.SetDiffuseColor(glm::vec3(1.0f));
 
@@ -194,7 +194,7 @@ int main(int argc, char* argv[]) {
 	lighting.SetUniforms(shaderProgPhongMat);
 	shaderProgPhongMat.SetUniformVec3("viewPos", camera.GetPosition());
 
-	defaultMaterial.SetUniforms(shaderProgPhongMat);
+	defaultMaterial.SetUniforms();
 	
 
 	shaderProgramSimple.Use();

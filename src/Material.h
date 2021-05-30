@@ -9,6 +9,8 @@
 /// </summary>
 class Material {
 protected:
+	const ShaderProgram* shaderProg;
+
 	glm::vec3 diffuseColor;
 	glm::vec3 specularColor;
 	float shininess;
@@ -21,16 +23,20 @@ protected:
 	const int diffuseTextureIndex = 0;
 	const int specularTextureIndex = 1;
 
+private:
+	Material() = default;
+
 public:
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	Material();
+	/// /// <param name="shaderProg">Shader program to be used with the material</param>
+	Material(const ShaderProgram& shaderProg);
 
 
 	/// <summary>
 	/// Destructor.
-	/// </summary>
+	/// </summary>	
 	virtual ~Material();
 
 
@@ -74,9 +80,8 @@ public:
 	/// <summary>
 	/// Sets all material uniforms in the given shader program.
 	/// The shader program must contain the appropriate uniform declarations.
-	/// </summary>
-	/// <param name="shaderProg">Shader program to set the uniforms in</param>
-	void SetUniforms(ShaderProgram& shaderProg) const;
+	/// </summary>	
+	void SetUniforms(void);
 
 
 	/// <summary>
