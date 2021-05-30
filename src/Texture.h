@@ -24,6 +24,7 @@ public:
 	/// <summary>
 	/// Binds this texture object as active texture.
 	/// </summary>	
+	/// <param name="texture">the texture unit to bind to, e.g. GL_TEXTURE0, GL_TEXTURE1,... (see glActiveTexture)</param>
 	void Bind(GLenum texture = GL_TEXTURE0) const;
 	
 	/// <summary>

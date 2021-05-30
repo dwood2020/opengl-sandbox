@@ -45,9 +45,7 @@ void Material::SetUniforms() {
 	shaderProg->SetUniformFloat("material.shininess", shininess);	
 
 	shaderProg->SetUniformInt("material.hasDiffuseTexture", (int)hasDiffuseTexture);
-	if (hasDiffuseTexture) {
-		shaderProg->SetUniformInt("useTexCoords", 1);
-	}	
+	shaderProg->SetUniformInt("useTexCoords", (int)hasDiffuseTexture);	
 }
 
 

@@ -43,7 +43,7 @@ void ShaderProgram::Use(void) {
 	glUseProgram(id);
 }
 
-
+//TODO: (lazily?) save the uniform locations in map and look up to gather efficiency
 void ShaderProgram::SetUniformInt(const std::string& name, const int value) const {
 	int uniformLoc = glGetUniformLocation(id, name.c_str());
 	glUniform1i(uniformLoc, value);

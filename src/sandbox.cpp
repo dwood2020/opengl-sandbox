@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
 	mesh.SetMode(GL_TRIANGLES);*/
 
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
-	Mesh mesh = meshFactory.MakeCube(1.0f, false);	
+	Mesh mesh = meshFactory.MakeCube(1.0f, true);	
 	Mesh gridMesh = meshFactory.MakeSimpleGrid(20.0f);
 	Mesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
 
@@ -183,6 +183,7 @@ int main(int argc, char* argv[]) {
 	Material texturedMaterial(shaderProgPhongMat);
 	texturedMaterial.SetDiffuseTexture(tex1);
 	texturedMaterial.SetDiffuseColor(glm::vec3(1.0f));
+	texturedMaterial.SetSpecularColor(glm::vec3(0.3f));
 
 
 	// send all matrices to shaders
@@ -222,13 +223,16 @@ int main(int argc, char* argv[]) {
 			shaderProgPhongMat.SetUniformVec3("viewPos", camera.GetPosition());
 		}
 		shaderProgPhongMat.SetUniformMat4("M", Mcube);
+		texturedMaterial.SetUniforms();
+		texturedMaterial.BindTextures();
 
 		//tex1.Bind();
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)		
 		mesh.Draw();		
-		//Texture::Unbind();
+		Texture::Unbind();
 
 		// draw sphere with phong material shader
+		defaultMaterial.SetUniforms();
 		shaderProgPhongMat.SetUniformMat4("M", Msphere);
 		sphereMesh.Draw();
 
