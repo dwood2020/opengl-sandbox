@@ -66,9 +66,6 @@
     <ClCompile Include="src\material\MaterialUniform.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\material\UniformRef.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -129,9 +126,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\material\MaterialUniform.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\material\UniformRef.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

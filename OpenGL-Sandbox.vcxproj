@@ -184,7 +184,6 @@
     <ClCompile Include="src\window\WindowBase.cpp" />
     <ClCompile Include="src\sandbox.cpp" />
     <ClCompile Include="src\Texture.cpp" />
-    <ClCompile Include="src\material\UniformRef.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\material\MaterialUniform.h" />
@@ -207,7 +206,6 @@
     <ClInclude Include="src\glad\khrplatform.h" />
     <ClInclude Include="src\window\WindowBase.h" />
     <ClInclude Include="src\Texture.h" />
-    <ClInclude Include="src\material\UniformRef.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

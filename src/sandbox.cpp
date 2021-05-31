@@ -17,8 +17,11 @@
 #include "camera/SimpleCamera.h"
 #include "Lighting.h"
 #include "Material.h"
+#include "material/MaterialUniform.h"
 
 #include <chrono>
+
+#include <variant>
 
 
 bool g_exitProgram = false;
@@ -143,7 +146,31 @@ int main(int argc, char* argv[]) {
 	// test: get phong shader from factory
 	ShaderFactory shaderFactory;
 	auto phongShaderProgRef = shaderFactory.MakeDefaultPhongShaderProgram();
-	
+
+
+	//TEST
+	enum class variantTypes {
+		Int,
+		Float,
+		Vec3
+	};
+
+	std::variant<int, float, glm::vec3> var1, var2;
+	//std::variant<int, float, glm::vec3, glm::mat4> var1, var2;
+	var1 = 10.0f;
+	var2 = glm::vec3(1.0f);
+	std::cout << "sizeof float: " << sizeof(float) << "  sizeof glm::vec3: " << sizeof(glm::vec3) << "  sizeof glm::mat4: " << sizeof(glm::mat4) << "\n";
+	std::cout << "sizeof var1: " << sizeof(var1) << "  sizeof var2:" << sizeof(var2) << std::endl;
+
+	std::cout << "variant type Int picked from var1: " << std::get<(int)variantTypes::Float>(var1) << std::endl;
+
+	// test materialuniform class
+	MaterialUniform uniform1(10);		// int type
+	MaterialUniform uniform2(20.0f);	// float type
+
+	std::cout << "uniform1: " << std::get<(int)0>(uniform1.value) << std::endl;
+
+
 
 	// Textures
 	// --------
