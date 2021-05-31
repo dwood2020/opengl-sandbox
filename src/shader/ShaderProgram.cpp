@@ -1,5 +1,5 @@
 #include "ShaderProgram.h"
-#include "glad/glad.h"
+#include "../glad/glad.h"
 #include <vector>
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>

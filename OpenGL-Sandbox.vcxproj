@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\shader\ShaderFactory.cpp" />
     <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Lighting.cpp" />
     <ClCompile Include="src\camera\SimpleCamera.cpp" />
@@ -170,8 +171,8 @@
     <ClCompile Include="src\MeshFactory.cpp" />
     <ClCompile Include="src\events\EventBus.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
-    <ClCompile Include="src\ShaderProgram.cpp" />
-    <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\shader\ShaderProgram.cpp" />
+    <ClCompile Include="src\shader\Shader.cpp" />
     <ClCompile Include="src\stb\stb_image.cpp" />
     <ClCompile Include="src\window\IupWindow.cpp" />
     <ClCompile Include="src\glad\glad.c" />
@@ -180,6 +181,7 @@
     <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\shader\ShaderFactory.h" />
     <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\Lighting.h" />
     <ClInclude Include="src\camera\SimpleCamera.h" />
@@ -191,8 +193,8 @@
     <ClInclude Include="src\events\Event.hpp" />
     <ClInclude Include="src\Keycodes.hpp" />
     <ClInclude Include="src\Mesh.h" />
-    <ClInclude Include="src\ShaderProgram.h" />
-    <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\shader\ShaderProgram.h" />
+    <ClInclude Include="src\shader\Shader.h" />
     <ClInclude Include="src\window\IupWindow.h" />
     <ClInclude Include="src\glad\glad.h" />
     <ClInclude Include="src\glad\khrplatform.h" />
