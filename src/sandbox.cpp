@@ -10,6 +10,7 @@
 #include "window/IupWindow.h"
 #include "shader/Shader.h"
 #include "shader/ShaderProgram.h"
+#include "shader/ShaderFactory.h"
 #include "Mesh.h"
 #include "MeshFactory.h"
 #include "Texture.h"
@@ -137,6 +138,11 @@ int main(int argc, char* argv[]) {
 	Shader fragShaderPhongMat(Shader::ReadSourceFromFile("res/phong_material_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
 	ShaderProgram shaderProgPhongMat(vertShaderPhongMat, fragShaderPhongMat);
 	shaderProgPhongMat.CheckLinkStatus();
+
+
+	// test: get phong shader from factory
+	ShaderFactory shaderFactory;
+	auto phongShaderProgRef = shaderFactory.MakeDefaultPhongShaderProgram();
 	
 
 	// Textures
