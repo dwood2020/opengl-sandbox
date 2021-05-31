@@ -169,6 +169,7 @@ int main(int argc, char* argv[]) {
 	MaterialUniform uniform2(20.0f);	// float type
 
 	std::cout << "uniform1: " << std::get<(int)0>(uniform1.value) << std::endl;
+	//std::cout << "uniform1: " << std::get<(const int)uniform1.type>(uniform1.value) << std::endl;	//C2975, compile-time constant required.
 
 
 
