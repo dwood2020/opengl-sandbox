@@ -26,3 +26,7 @@ int Uniform::GetInt(void) const {
 float Uniform::GetFloat(void) const {
 	return std::get<float>(value);
 }
+
+const glm::vec3& Uniform::GetVec3(void) const {
+	// TODO: hier return-Anweisung eingeben
+}

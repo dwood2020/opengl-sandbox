@@ -49,5 +49,8 @@ public:
 
 
 	float GetFloat(void) const;
+
+
+	const glm::vec3& GetVec3(void) const;
 };
 
