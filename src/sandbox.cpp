@@ -17,11 +17,9 @@
 #include "camera/SimpleCamera.h"
 #include "Lighting.h"
 #include "Material.h"
-
+#include "Uniform.h"
 
 #include <chrono>
-
-#include <variant>
 
 
 bool g_exitProgram = false;
@@ -148,23 +146,19 @@ int main(int argc, char* argv[]) {
 	auto phongShaderProgRef = shaderFactory.MakeDefaultPhongShaderProgram();
 
 
-	//TEST
-	enum class variantTypes {
-		Int,
-		Float,
-		Vec3
-	};
+	//test: Uniform class
+	std::vector<Uniform> uniforms;
+	uniforms.push_back(Uniform(1));
+	uniforms.push_back(Uniform(glm::vec3(1.0f)));
+	uniforms.push_back(Uniform(glm::mat4(1.0f)));
 
-	std::variant<int, float, glm::vec3> var1, var2;
-	//std::variant<int, float, glm::vec3, glm::mat4> var1, var2;
-	var1 = 10.0f;
-	var2 = glm::vec3(1.0f);
-	std::cout << "sizeof float: " << sizeof(float) << "  sizeof glm::vec3: " << sizeof(glm::vec3) << "  sizeof glm::mat4: " << sizeof(glm::mat4) << "\n";
-	std::cout << "sizeof var1: " << sizeof(var1) << "  sizeof var2:" << sizeof(var2) << std::endl;
+	glm::mat4 testmatrix = uniforms[2].GetMat4();
+	glm::vec4 testvec = glm::vec4(1.0f, 2.0f, 3.0f, 1.0f);
+	glm::vec4 result = testmatrix * testvec;	
+	glm::mat4 refMatrix = glm::mat4(1.0f);
+	glm::vec4 refResult = refMatrix * testvec;
 
-	std::cout << "variant type Int picked from var1: " << std::get<(int)variantTypes::Float>(var1) << std::endl;
-
-	
+	//Result: Working!!
 
 
 	// Textures

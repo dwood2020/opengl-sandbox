@@ -27,6 +27,12 @@ float Uniform::GetFloat(void) const {
 	return std::get<float>(value);
 }
 
+
 const glm::vec3& Uniform::GetVec3(void) const {
-	// TODO: hier return-Anweisung eingeben
+	return std::get<(size_t)UniformType::Vec3>(value);
+}
+
+
+const glm::mat4& Uniform::GetMat4(void) const {
+	return *std::get<(size_t)UniformType::Mat4>(value);
 }
