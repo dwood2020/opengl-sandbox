@@ -17,7 +17,7 @@
 #include "camera/SimpleCamera.h"
 #include "Lighting.h"
 #include "Material.h"
-#include "material/MaterialUniform.h"
+
 
 #include <chrono>
 
@@ -164,13 +164,7 @@ int main(int argc, char* argv[]) {
 
 	std::cout << "variant type Int picked from var1: " << std::get<(int)variantTypes::Float>(var1) << std::endl;
 
-	// test materialuniform class
-	MaterialUniform uniform1(10);		// int type
-	MaterialUniform uniform2(20.0f);	// float type
-
-	std::cout << "uniform1: " << std::get<(int)0>(uniform1.value) << std::endl;
-	//std::cout << "uniform1: " << std::get<(const int)uniform1.type>(uniform1.value) << std::endl;	//C2975, compile-time constant required.
-
+	
 
 
 	// Textures
