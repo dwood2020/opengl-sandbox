@@ -26,11 +26,16 @@ enum class UniformType {
 /// This is a trade-off between memory usage and fragmentation optimization.
 /// </summary>
 class Uniform final {
-private:
-	std::variant<int, float, glm::vec3, std::shared_ptr<glm::mat4>> value;
+private:	
+	std::variant<int, float, glm::vec3, std::shared_ptr<glm::mat4>> value;	
+	
+	int location;
 
 private:
-	Uniform() = default;
+	/// <summary>
+	/// Default constructor. Sets the location to unspecified: -1
+	/// </summary>
+	Uniform();
 
 public:
 	/// <summary>

@@ -1,6 +1,9 @@
 #include "Uniform.h"
 
 
+Uniform::Uniform(): location(-1) { }
+
+
 Uniform::Uniform(int value) : value(value) { }
 
 
