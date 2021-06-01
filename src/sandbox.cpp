@@ -157,7 +157,6 @@ int main(int argc, char* argv[]) {
 	glm::vec4 result = testmatrix * testvec;	
 	glm::mat4 refMatrix = glm::mat4(1.0f);
 	glm::vec4 refResult = refMatrix * testvec;
-
 	//Result: Working!!
 
 
