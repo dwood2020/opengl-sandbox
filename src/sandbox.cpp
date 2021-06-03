@@ -203,28 +203,38 @@ int main(int argc, char* argv[]) {
 
 	
 	// use new Materials
-	PhongMaterial phongMaterial(shaderProgPhongMat);
+	PhongMaterial phongMaterial(*phongShaderProgRef);
 	phongMaterial.SetDiffuseColor(glm::vec3(1.0f, 0.0f, 0.0f));
 
 
 	// send all matrices to shaders
 
-	shaderProgPhongMat.Use();
-	shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("M"), Mcube);
-	shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+	//shaderProgPhongMat.Use();
+	phongMaterial.Prepare();
+	phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("M"), Mcube);
+	phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+	lighting.SetUniforms(*phongShaderProgRef);
 
+	shaderProgPhongMat.Use();
 	lighting.SetUniforms(shaderProgPhongMat);
 	shaderProgPhongMat.SetUniformVec3(shaderProgPhongMat.GetUniformLocation("viewPos"), camera.GetPosition());
 
+	// manually set some uniforms
+	shaderProgPhongMat.SetUniformVec3(shaderProgPhongMat.GetUniformLocation("material.diffuseColor"), glm::vec3(1.0f, 1.0f, 0.0f));
+	shaderProgPhongMat.SetUniformVec3(shaderProgPhongMat.GetUniformLocation("material.specularColor"), glm::vec3(0.0f));
+	shaderProgPhongMat.SetUniformFloat(shaderProgPhongMat.GetUniformLocation("material.shininess"), 32.0f);
+	shaderProgPhongMat.SetUniformInt(shaderProgPhongMat.GetUniformLocation("useTexCoords"), (int)false);
+	shaderProgPhongMat.SetUniformInt(shaderProgPhongMat.GetUniformLocation("material.hasDiffuseTexture"), (int)false);
+
 		
 	shaderProgramSimple.Use();
-	shaderProgramSimple.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("M"), Mgrid);
-	shaderProgramSimple.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+	shaderProgramSimple.SetUniformMat4(shaderProgramSimple.GetUniformLocation("M"), Mgrid);
+	shaderProgramSimple.SetUniformMat4(shaderProgramSimple.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 
 
 	shaderProgramCS3d.Use();
-	shaderProgramCS3d.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("M"), Mcs3d);
-	shaderProgramCS3d.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+	shaderProgramCS3d.SetUniformMat4(shaderProgramCS3d.GetUniformLocation("M"), Mcs3d);
+	shaderProgramCS3d.SetUniformMat4(shaderProgramCS3d.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 
 
 
@@ -238,21 +248,26 @@ int main(int argc, char* argv[]) {
 		// all steps for cube		
 
 		//shaderProgPhongMat.Use();
-
+		phongMaterial.Bind();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-			shaderProgPhongMat.SetUniformVec3(shaderProgPhongMat.GetUniformLocation("viewPos"), camera.GetPosition());
+			phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+			phongShaderProgRef->SetUniformVec3(phongShaderProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
 		}
-		shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("M"), Mcube);
+		phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("M"), Mcube);
 		
 
 		//tex1.Bind();
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)		
 		mesh.Draw();		
 		//Texture::Unbind();
+		phongMaterial.Unbind();
 
-
-		// draw sphere with phong material shader		
+		shaderProgPhongMat.Use();
+		// draw sphere		
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+			shaderProgPhongMat.SetUniformVec3(shaderProgPhongMat.GetUniformLocation("viewPos"), camera.GetPosition());
+		}
 		shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("M"), Msphere);
 		sphereMesh.Draw();
 
