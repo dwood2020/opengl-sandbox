@@ -10,7 +10,7 @@ MaterialBase::~MaterialBase() { }
 
 
 void MaterialBase::SetUniform(const std::string& name, Uniform& uniform) {
-	uniforms[name];
+	uniforms[name] = uniform;
 }
 
 
