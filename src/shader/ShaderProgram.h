@@ -14,10 +14,15 @@ public:
 	bool CheckLinkStatus(void);
 	void Use(void);
 
-	void SetUniformInt(const std::string& name, const int value) const;
-	void SetUniformFloat(const std::string& name, const float value) const;
-	void SetUniformVec3(const std::string& name, const glm::vec3& value) const;
-	void SetUniformMat4(const std::string& name, const glm::mat4& value) const;
+	int GetUniformLocation(const std::string& name) const;
+
+	void SetUniformInt(int location, const int value) const;
+
+	void SetUniformFloat(int location, const float value) const;
+
+	void SetUniformVec3(int location, const glm::vec3& value) const;
+
+	void SetUniformMat4(int location, const glm::mat4& value) const;
 };
 
 

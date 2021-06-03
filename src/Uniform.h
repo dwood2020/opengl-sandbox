@@ -71,6 +71,18 @@ public:
 	UniformType GetType(void) const;
 
 	/// <summary>
+	/// Gets the cached uniform location. Returns the initial value -1 if not cached/set yet.
+	/// </summary>	
+	/// <returns>Uniform location</returns>
+	int GetLocation(void) const;
+
+	/// <summary>
+	/// Sets the cached uniform location.
+	/// </summary>
+	/// <param name="location">Uniform location</param>
+	void SetLocation(int location);
+
+	/// <summary>
 	/// Gets the uniform value.
 	/// </summary>	
 	/// <returns>Uniform value (Int)</returns>

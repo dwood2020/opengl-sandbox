@@ -159,6 +159,11 @@ int main(int argc, char* argv[]) {
 	glm::vec4 refResult = refMatrix * testvec;
 	//Result: Working!!
 
+	auto a = GL_TEXTURE0;
+	auto b = GL_TEXTURE1;
+	auto c = a + 1;
+	if (c == b) std::cout << "TEXTURE LOC WORKING" << std::endl;
+
 
 	// Textures
 	// --------

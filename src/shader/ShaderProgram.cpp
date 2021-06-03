@@ -43,26 +43,27 @@ void ShaderProgram::Use(void) {
 	glUseProgram(id);
 }
 
-//TODO: (lazily?) save the uniform locations in map and look up to gather efficiency
-void ShaderProgram::SetUniformInt(const std::string& name, const int value) const {
-	int uniformLoc = glGetUniformLocation(id, name.c_str());
-	glUniform1i(uniformLoc, value);
+
+int ShaderProgram::GetUniformLocation(const std::string& name) const {
+	return glGetUniformLocation(id, name.c_str());;
 }
 
 
-void ShaderProgram::SetUniformFloat(const std::string& name, const float value) const {
-	int uniformLoc = glGetUniformLocation(id, name.c_str());
-	glUniform1f(uniformLoc, value);
+void ShaderProgram::SetUniformInt(int location, const int value) const {	
+	glUniform1i(location, value);
 }
 
 
-void ShaderProgram::SetUniformVec3(const std::string& name, const glm::vec3& value) const {
-	int uniformLoc = glGetUniformLocation(id, name.c_str());
-	glUniform3fv(uniformLoc, 1, &value[0]);
+void ShaderProgram::SetUniformFloat(int location, const float value) const {	
+	glUniform1f(location, value);
 }
 
 
-void ShaderProgram::SetUniformMat4(const std::string& name, const glm::mat4& value) const {
-	int uniformLoc = glGetUniformLocation(id, name.c_str());
-	glUniformMatrix4fv(uniformLoc, 1, GL_FALSE, &value[0][0]);
+void ShaderProgram::SetUniformVec3(int location, const glm::vec3& value) const {	
+	glUniform3fv(location, 1, &value[0]);
+}
+
+
+void ShaderProgram::SetUniformMat4(int location, const glm::mat4& value) const {	
+	glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
 }
