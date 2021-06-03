@@ -10,6 +10,8 @@ private:
 	const std::string diffuseName = "material.diffuse";
 	const std::string specularName = "material.specular";
 	const std::string shininessName = "material.shininess";
+	const std::string hasDiffuseTextureName = "material.hasDiffuseTexture";
+	const std::string useTexCoordsName = "hasTexCoords";
 
 	bool hasDiffuseTexture;		//NOTE: these booleans are actually unnecessary but are used to represent the same variables here as uniforms in the shader.
 	bool hasSpecularTexture;

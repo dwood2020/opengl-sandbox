@@ -57,9 +57,6 @@
     <ClCompile Include="src\Lighting.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\Material.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\shader\ShaderFactory.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -123,9 +120,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\Lighting.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Material.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\shader\ShaderFactory.h">

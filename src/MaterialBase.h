@@ -18,7 +18,7 @@ protected:
 
 	std::map<std::string, Uniform> uniforms;
 
-	std::vector<Texture*> textures;
+	std::vector<const Texture*> textures;
 	
 	int maxTextures;
 
@@ -42,7 +42,7 @@ public:
 	/// </summary>
 	/// <param name="name">Uniform name</param>
 	/// <param name="uniform">Uniform object</param>
-	void SetUniform(const std::string& name, Uniform& uniform);
+	void SetUniform(const std::string& name, const Uniform& uniform);
 
 	/// <summary>
 	/// Gets a uniform object by name.
@@ -52,7 +52,7 @@ public:
 	const Uniform* GetUniform(const std::string& name) const;
 
 
-	void SetTexture(Texture& texture);
+	void SetTexture(const Texture& texture);
 
 	/// <summary>
 	/// Sends ALL set uniforms to the shader program and retrieves + caches their uniform locations

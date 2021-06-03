@@ -9,7 +9,7 @@ MaterialBase::MaterialBase(ShaderProgram& shaderProgram): shaderProgram(&shaderP
 MaterialBase::~MaterialBase() { }
 
 
-void MaterialBase::SetUniform(const std::string& name, Uniform& uniform) {
+void MaterialBase::SetUniform(const std::string& name, const Uniform& uniform) {
 	uniforms[name] = uniform;
 }
 
@@ -23,7 +23,8 @@ const Uniform* MaterialBase::GetUniform(const std::string& name) const {
 }
 
 
-void MaterialBase::SetTexture(Texture& texture) {
+void MaterialBase::SetTexture(const Texture& texture) {
+	//TODO: Check this, if storing pointers is optimal or should be changed to store the entire object.
 	if ((int)textures.size() < maxTextures - 1) {
 		textures.push_back(&texture);
 	}

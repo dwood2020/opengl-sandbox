@@ -170,7 +170,6 @@
     <ClCompile Include="src\PhongMaterial.cpp" />
     <ClCompile Include="src\MaterialBase.cpp" />
     <ClCompile Include="src\shader\ShaderFactory.cpp" />
-    <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Lighting.cpp" />
     <ClCompile Include="src\camera\SimpleCamera.cpp" />
     <ClCompile Include="src\camera\CameraBase.cpp" />
@@ -191,7 +190,6 @@
     <ClInclude Include="src\PhongMaterial.h" />
     <ClInclude Include="src\MaterialBase.h" />
     <ClInclude Include="src\shader\ShaderFactory.h" />
-    <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\Lighting.h" />
     <ClInclude Include="src\camera\SimpleCamera.h" />
     <ClInclude Include="src\camera\CameraBase.h" />
