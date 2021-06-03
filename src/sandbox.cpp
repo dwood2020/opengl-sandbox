@@ -204,7 +204,9 @@ int main(int argc, char* argv[]) {
 	
 	// use new Materials
 	PhongMaterial phongMaterial(*phongShaderProgRef);
-	phongMaterial.SetDiffuseColor(glm::vec3(1.0f, 0.0f, 0.0f));
+	phongMaterial.SetDiffuseColor(glm::vec3(1.0f, 0.0f, 1.0f));
+	phongMaterial.SetDiffuseTexture(tex1);
+	phongMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 
 
 	// send all matrices to shaders
@@ -253,12 +255,11 @@ int main(int argc, char* argv[]) {
 			phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 			phongShaderProgRef->SetUniformVec3(phongShaderProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
 		}
-		phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("M"), Mcube);
+		//phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("M"), Mcube);
 		
-
 		//tex1.Bind();
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)		
-		mesh.Draw();		
+		mesh.Draw();
 		//Texture::Unbind();
 		phongMaterial.Unbind();
 
