@@ -4,16 +4,16 @@
 Uniform::Uniform(): location(-1) { }
 
 
-Uniform::Uniform(int value) : value(value) { }
+Uniform::Uniform(int value) : value(value), location(-1) { }
 
 
-Uniform::Uniform(float value): value(value) { }
+Uniform::Uniform(float value): value(value), location(-1) { }
 
 
-Uniform::Uniform(const glm::vec3& value): value(value) { }
+Uniform::Uniform(const glm::vec3& value): value(value), location(-1) { }
 
 
-Uniform::Uniform(const glm::mat4& value): value(std::make_shared<glm::mat4>(value)) { }
+Uniform::Uniform(const glm::mat4& value): value(std::make_shared<glm::mat4>(value)), location(-1) { }
 
 
 UniformType Uniform::GetType(void) const {
