@@ -1,6 +1,7 @@
 #include "Texture.h"
 #include <stb/stb_image.h>
 #include "glad/glad.h"
+#include <algorithm>
 
 #include <iostream>
 
@@ -76,5 +77,13 @@ Texture Texture::GenerateFromFile(const std::string& filepath, GLint glTexFilter
 	stbi_image_free(data);
 
 	return obj;
+}
+
+
+int Texture::GetMaxTextures(void) {
+	int maxTexturesInFragShader;
+	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTexturesInFragShader);
+
+	return std::min(maxTexturesInFragShader, GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS);
 }
 

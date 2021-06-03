@@ -40,4 +40,12 @@ public:
 	/// <returns>Texture object</returns>
 	static Texture GenerateFromFile(const std::string& filepath, GLint glTexFilter = GL_LINEAR);
 
+	/// <summary>
+	/// Gets the maximum possible amount of textures to be set at once, which is the lower value of either 
+	/// - the maximum number of textures which can be accessed by the fragment shader or
+	/// - the total maximum number of textures which can be used.
+	/// </summary>	
+	/// <returns>Maximum number of textures possible</returns>
+	static int GetMaxTextures(void);
+
 };

@@ -1,7 +1,9 @@
 #include "MaterialBase.h"
 
 
-MaterialBase::MaterialBase(ShaderProgram& shaderProgram): shaderProgram(&shaderProgram) { }
+MaterialBase::MaterialBase(ShaderProgram& shaderProgram): shaderProgram(&shaderProgram) {
+	maxTextures = Texture::GetMaxTextures();
+}
 
 
 MaterialBase::~MaterialBase() { }
@@ -18,6 +20,16 @@ const Uniform* MaterialBase::GetUniform(const std::string& name) const {
 		return &it->second;
 	}
 	return nullptr;
+}
+
+
+void MaterialBase::SetTexture(Texture& texture) {
+	if ((int)textures.size() < maxTextures - 1) {
+		textures.push_back(&texture);
+	}
+	else {
+		//TODO: ASSERT
+	}
 }
 
 
