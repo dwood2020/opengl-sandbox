@@ -39,27 +39,27 @@ public:
 
 public:
 	/// <summary>
-	/// Constructor.
+	/// Constructor. Sets the location to unspecified: -1
 	/// </summary>
 	/// <param name="value">Uniform value (Integer)</param>
 	Uniform(int value);
 
 
 	/// <summary>
-	/// Constructor.
+	/// Constructor. Sets the location to unspecified: -1
 	/// </summary>
 	/// <param name="value">Uniform value (Float)</param>
 	Uniform(float value);
 
 
 	/// <summary>
-	/// Constructor.
+	/// Constructor. Sets the location to unspecified: -1
 	/// </summary>
 	/// <param name="value">Uniform value (Vec3)</param>
 	Uniform(const glm::vec3& value);
 
 	/// <summary>
-	/// Constructor.
+	/// Constructor. Sets the location to unspecified: -1
 	/// </summary>
 	/// <param name="value">Uniform value (Mat4)</param>
 	Uniform(const glm::mat4& value);
