@@ -1,5 +1,6 @@
 #version 430 core
 
+// NOTE: This shader is currently unused.
 
 layout (location = 0) in vec3 aPos;
 
