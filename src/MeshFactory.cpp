@@ -267,17 +267,25 @@ Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 	
 	std::vector<glm::vec3> vertices;
 	std::vector<unsigned int> indices;
+	std::vector<glm::vec3> colorVertices;
 
 	const int pointsPerCircle = 5;
 
+	// make a cylinder on y axis, then rotate it for the other axes.
 	std::vector<glm::vec3> verticesX;
 	std::vector<unsigned int> indicesX;
 	MakeCylinder(verticesX, indicesX, pointsPerCircle, 0.01f, l);
 
 	vertices.reserve(3 * verticesX.size());
 	indices.reserve(3 * indicesX.size());
+	colorVertices.reserve(3 * indicesX.size());
 
+	// y axis
 	vertices.insert(std::end(vertices), verticesX.begin(), verticesX.end());
+	for (unsigned int i = 0; i < verticesX.size(); i++) {
+		colorVertices.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
+	}
+
 
 	// rotation matrix: 90 degrees around x axis (for z axis)
 	glm::mat3 R90x = glm::mat3 {
@@ -289,6 +297,7 @@ Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 
 	for (glm::vec3 v : verticesX) {
 		vertices.push_back(R90x * v);
+		colorVertices.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
 	}
 
 	// rotation matrix: 270 degrees around z axis (for x axis)
@@ -301,6 +310,7 @@ Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 
 	for (glm::vec3 v : verticesX) {
 		vertices.push_back(R270z * v);
+		colorVertices.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
 	}
 
 	// add all indices 
@@ -313,6 +323,7 @@ Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 
 	Mesh mesh;
 	mesh.SetPositionVertices(vertices);
+	mesh.SetColorVertices(colorVertices);
 	mesh.SetIndices(indices);
 	mesh.SetGlMode(GL_TRIANGLES);
 	mesh.Prepare();

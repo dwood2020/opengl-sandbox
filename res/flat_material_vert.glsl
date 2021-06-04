@@ -1,7 +1,10 @@
 #version 430 core
 
 layout (location = 0) in vec3 aPos;
+layout (location = 3) in vec3 aColor;
 
+
+out vec3 vertexColor;
 
 uniform mat4 M;
 uniform mat4 PV;
@@ -14,5 +17,9 @@ void main(void) {
 	pos = PV * M * pos;
 	
 	gl_Position = pos;
+
+	if (useColorVertices == 1) {
+		vertexColor = aColor;
+	}
 }
 

@@ -8,7 +8,7 @@
 class FlatMaterial final : public MaterialBase {
 private:
 	const std::string colorName = "color";
-	const std::string hasTextureVerticesName = "";
+	const std::string hasTextureVerticesName = "useColorVertices";
 
 	bool useColorVertices;
 
