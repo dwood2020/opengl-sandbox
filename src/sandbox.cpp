@@ -141,6 +141,7 @@ int main(int argc, char* argv[]) {
 	ShaderFactory shaderFactory;
 	auto woodenBoxProgRef = shaderFactory.MakeDefaultPhongShaderProgram();
 	auto gridShaderProgRef = shaderFactory.MakeDefaultFlatShaderProgram();
+	auto defaultMaterialProgRef = shaderFactory.MakeDefaultPhongShaderProgram();
 	
 
 	////test: Uniform class
@@ -209,9 +210,13 @@ int main(int argc, char* argv[]) {
 	gridMaterial.SetFlatColor(glm::vec3(0.494f, 0.486f, 0.455f));
 	//gridMaterial.SetFlatColor(glm::vec3(1.0f, 0.0f, 0.0f));
 
+	PhongMaterial defaultMaterial(*defaultMaterialProgRef);
+	defaultMaterial.SetDiffuseColor(glm::vec3(0.0f, 1.0f, 0.0f));
+	defaultMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.4f);
+	defaultMaterial.SetShininess(32.0f);
+
 
 	// send all matrices to shaders
-
 
 	woodenBoxMaterial.Prepare();
 	woodenBoxProgRef->SetUniformMat4(woodenBoxProgRef->GetUniformLocation("M"), Mcube);
@@ -221,6 +226,10 @@ int main(int argc, char* argv[]) {
 	gridMaterial.Prepare();
 	gridShaderProgRef->SetUniformMat4(gridShaderProgRef->GetUniformLocation("M"), Mgrid);
 	gridShaderProgRef->SetUniformMat4(gridShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+
+	defaultMaterial.Prepare();
+	lighting.SetUniforms(*defaultMaterialProgRef);
+	defaultMaterialProgRef->SetUniformVec3(defaultMaterialProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
 
 	shaderProgPhongMat.Use();
 	lighting.SetUniforms(shaderProgPhongMat);
@@ -263,18 +272,34 @@ int main(int argc, char* argv[]) {
 		//Texture::Unbind();
 		woodenBoxMaterial.Unbind();
 
-		shaderProgPhongMat.Use();
-		// draw sphere		
+		//shaderProgPhongMat.Use();
+		//// draw sphere		
+		//if (camera.GetViewProjectionMatrixIsDirty()) {
+		//	shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+		//	shaderProgPhongMat.SetUniformVec3(shaderProgPhongMat.GetUniformLocation("viewPos"), camera.GetPosition());
+		//}
+		//shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("M"), Msphere);
+		//sphereMesh.Draw();
+
+		//// draw cone with phong material shadeer
+		//shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("M"), Mcone);
+		//coneMesh.Draw();
+
+
+		// draw sphere & cone with default material
+		defaultMaterial.Bind();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-			shaderProgPhongMat.SetUniformVec3(shaderProgPhongMat.GetUniformLocation("viewPos"), camera.GetPosition());
+			defaultMaterialProgRef->SetUniformMat4(defaultMaterialProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+			defaultMaterialProgRef->SetUniformVec3(defaultMaterialProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
 		}
-		shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("M"), Msphere);
+		int modelMatrixUniformLocation = defaultMaterialProgRef->GetUniformLocation("M");
+		defaultMaterialProgRef->SetUniformMat4(modelMatrixUniformLocation, Msphere);
 		sphereMesh.Draw();
 
-		// draw cone with phong material shadeer
-		shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("M"), Mcone);
+		defaultMaterialProgRef->SetUniformMat4(modelMatrixUniformLocation, Mcone);
 		coneMesh.Draw();
+
+		defaultMaterial.Unbind();
 
 
 		// draw grid		
