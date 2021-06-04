@@ -5,6 +5,7 @@ layout (location = 0) in vec3 aPos;
 
 uniform mat4 M;
 uniform mat4 PV;
+uniform int useColorVertices;
 
 
 void main(void) {

@@ -8,6 +8,9 @@
 class FlatMaterial final : public MaterialBase {
 private:
 	const std::string colorName = "color";
+	const std::string hasTextureVerticesName = "";
+
+	bool useColorVertices;
 
 public:
 	FlatMaterial() = default;
@@ -29,5 +32,11 @@ public:
 	/// </summary>
 	/// <param name="color">Color (RGB)</param>
 	void SetFlatColor(const glm::vec3& color);
+
+	/// <summary>
+	/// Enables the usage of color vertices in the shader.
+	/// </summary>
+	/// <param name="set">True to enable</param>
+	void SetUseColorVertices(bool set);
 };
 
