@@ -17,7 +17,7 @@
 #include "camera/SimpleCamera.h"
 #include "Lighting.h"
 #include "Uniform.h"
-#include "PhongMaterial.h"
+#include "material/PhongMaterial.h"
 
 #include <chrono>
 

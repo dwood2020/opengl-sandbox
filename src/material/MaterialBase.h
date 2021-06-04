@@ -2,9 +2,9 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "shader/ShaderProgram.h"
-#include "Uniform.h"
-#include "Texture.h"
+#include "../shader/ShaderProgram.h"
+#include "../Uniform.h"
+#include "../Texture.h"
 
 
 /// <summary>

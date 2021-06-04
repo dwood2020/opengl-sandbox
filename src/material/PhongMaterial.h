@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 #include "MaterialBase.h"
-#include "shader/ShaderProgram.h"
+#include "../shader/ShaderProgram.h"
 
 
 /// <summary>

@@ -167,8 +167,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\PhongMaterial.cpp" />
-    <ClCompile Include="src\MaterialBase.cpp" />
+    <ClCompile Include="src\material\PhongMaterial.cpp" />
+    <ClCompile Include="src\material\MaterialBase.cpp" />
     <ClCompile Include="src\shader\ShaderFactory.cpp" />
     <ClCompile Include="src\Lighting.cpp" />
     <ClCompile Include="src\camera\SimpleCamera.cpp" />
@@ -187,8 +187,8 @@
     <ClCompile Include="src\Uniform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\PhongMaterial.h" />
-    <ClInclude Include="src\MaterialBase.h" />
+    <ClInclude Include="src\material\PhongMaterial.h" />
+    <ClInclude Include="src\material\MaterialBase.h" />
     <ClInclude Include="src\shader\ShaderFactory.h" />
     <ClInclude Include="src\Lighting.h" />
     <ClInclude Include="src\camera\SimpleCamera.h" />

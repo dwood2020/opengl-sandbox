@@ -63,10 +63,10 @@
     <ClCompile Include="src\Uniform.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\MaterialBase.cpp">
+    <ClCompile Include="src\material\MaterialBase.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\PhongMaterial.cpp">
+    <ClCompile Include="src\material\PhongMaterial.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,10 +128,10 @@
     <ClInclude Include="src\Uniform.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\MaterialBase.h">
+    <ClInclude Include="src\material\MaterialBase.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\PhongMaterial.h">
+    <ClInclude Include="src\material\PhongMaterial.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
