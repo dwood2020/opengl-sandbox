@@ -21,7 +21,7 @@ public:
 	/// Sets the color to the default (0,0,0).
 	/// </summary>
 	/// <param name="shaderProgram">Shader program</param>
-	FlatMaterial(std::shared_ptr<ShaderProgram> shaderProgram);
+	FlatMaterial(ShaderProgram* shaderProgram);
 
 	/// <summary>
 	/// Destructor.

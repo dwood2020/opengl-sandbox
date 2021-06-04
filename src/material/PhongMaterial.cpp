@@ -2,7 +2,7 @@
 #include <utility>
 
 
-PhongMaterial::PhongMaterial(std::shared_ptr<ShaderProgram> shaderProgram): MaterialBase(shaderProgram) {
+PhongMaterial::PhongMaterial(ShaderProgram* shaderProgram): MaterialBase(shaderProgram) {
 	hasDiffuseTexture = false;
 	hasSpecularTexture = false;
 

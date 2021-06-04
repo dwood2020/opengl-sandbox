@@ -1,7 +1,7 @@
 #include "MaterialBase.h"
 
 
-MaterialBase::MaterialBase(std::shared_ptr<ShaderProgram> shaderProgram) {
+MaterialBase::MaterialBase(ShaderProgram* shaderProgram) {
 	//TODO: Next step: Parse all uniforms from shader and add to map.
 
 	this->shaderProgram = shaderProgram;

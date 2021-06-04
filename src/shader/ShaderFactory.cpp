@@ -5,20 +5,26 @@
 ShaderFactory::ShaderFactory() { }
 
 
-ShaderFactory::~ShaderFactory() { }
-
-
-std::shared_ptr<ShaderProgram> ShaderFactory::MakeDefaultPhongShaderProgram(void) const {
-	return std::make_shared<ShaderProgram>(MakeShaderProgram(Shader::ReadSourceFromFile(phongVertSourePath), Shader::ReadSourceFromFile(phongFragSourcePath)));
+ShaderFactory::~ShaderFactory() {
+	for (ShaderProgram* ref : refs) {
+		delete ref;
+	}
 }
 
 
-std::shared_ptr<ShaderProgram> ShaderFactory::MakeDefaultFlatShaderProgram(void) const {
-	return std::make_shared<ShaderProgram>(MakeShaderProgram(Shader::ReadSourceFromFile(flatVertSourcePath), Shader::ReadSourceFromFile(flatFragSourcePath)));
+ShaderProgram* ShaderFactory::MakeDefaultPhongShaderProgram(void) {
+	//return std::make_shared<ShaderProgram>(MakeShaderProgram(Shader::ReadSourceFromFile(phongVertSourePath), Shader::ReadSourceFromFile(phongFragSourcePath)));
+	return MakeShaderProgram(Shader::ReadSourceFromFile(phongVertSourePath), Shader::ReadSourceFromFile(phongFragSourcePath));
 }
 
 
-const ShaderProgram* ShaderFactory::MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const {
+ShaderProgram* ShaderFactory::MakeDefaultFlatShaderProgram(void) {
+	//return std::make_shared<ShaderProgram>(MakeShaderProgram(Shader::ReadSourceFromFile(flatVertSourcePath), Shader::ReadSourceFromFile(flatFragSourcePath)));
+	return MakeShaderProgram(Shader::ReadSourceFromFile(flatVertSourcePath), Shader::ReadSourceFromFile(flatFragSourcePath));
+}
+
+
+ShaderProgram* ShaderFactory::MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) {
 
 	Shader vertShader(vertSrc.c_str(), GL_VERTEX_SHADER);
 	Shader fragShader(fragSrc.c_str(), GL_FRAGMENT_SHADER);
@@ -31,6 +37,8 @@ const ShaderProgram* ShaderFactory::MakeShaderProgram(const std::string& vertSrc
 
 	ShaderProgram* shaderProg = new ShaderProgram(vertShader, fragShader);	
 	shaderProg->CheckLinkStatus();
+
+	refs.push_back(shaderProg);
 
 	return shaderProg;
 }

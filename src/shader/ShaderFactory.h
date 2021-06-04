@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <string>
+#include <vector>
 #include "ShaderProgram.h"
 
 //TODO: Might move this into the material system later? &rename to "MaterialShaderFactory" or so
@@ -17,14 +18,16 @@ private:
 	const std::string flatVertSourcePath = "res/flat_material_vert.glsl";
 	const std::string flatFragSourcePath = "res/flat_material_frag.glsl";
 
+	std::vector<ShaderProgram*> refs;
+
 public:
 	ShaderFactory();
 	~ShaderFactory();
 
-	std::shared_ptr<ShaderProgram> MakeDefaultPhongShaderProgram(void) const;
+	ShaderProgram* MakeDefaultPhongShaderProgram(void);
 
-	std::shared_ptr<ShaderProgram> MakeDefaultFlatShaderProgram(void) const;
+	ShaderProgram* MakeDefaultFlatShaderProgram(void);
 
 private:
-	const ShaderProgram* MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const;
+	ShaderProgram* MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc);
 };
