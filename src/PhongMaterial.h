@@ -5,6 +5,9 @@
 #include "shader/ShaderProgram.h"
 
 
+/// <summary>
+/// This class represents a Phong-model material.
+/// </summary>
 class PhongMaterial final : public MaterialBase {
 private:
 	const std::string diffuseName = "material.diffuseColor";
@@ -26,7 +29,9 @@ public:
 	/// <param name="shaderProgram">Shader program</param>
 	PhongMaterial(ShaderProgram& shaderProgram);
 
-	
+	/// <summary>
+	/// Destructor.
+	/// </summary>
 	~PhongMaterial();
 
 	/// <summary>
