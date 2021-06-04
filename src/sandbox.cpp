@@ -142,7 +142,7 @@ int main(int argc, char* argv[]) {
 	auto woodenBoxProgRef = shaderFactory.MakeDefaultPhongShaderProgram();
 	auto gridShaderProgRef = shaderFactory.MakeDefaultFlatShaderProgram();
 	auto defaultMaterialProgRef = shaderFactory.MakeDefaultPhongShaderProgram();
-	
+	auto coordSystemMaterialProgRef = shaderFactory.MakeDefaultFlatShaderProgram();
 
 	////test: Uniform class
 	//std::vector<Uniform> uniforms;
@@ -215,6 +215,8 @@ int main(int argc, char* argv[]) {
 	defaultMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 	defaultMaterial.SetShininess(32.0f);
 
+	FlatMaterial coordSystemMaterial(*coordSystemMaterialProgRef);
+	coordSystemMaterial.SetUseColorVertices(true);
 
 	// send all matrices to shaders
 
@@ -230,6 +232,10 @@ int main(int argc, char* argv[]) {
 	defaultMaterial.Prepare();
 	lighting.SetUniforms(*defaultMaterialProgRef);
 	defaultMaterialProgRef->SetUniformVec3(defaultMaterialProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
+
+	coordSystemMaterial.Prepare();
+	coordSystemMaterialProgRef->SetUniformMat4(coordSystemMaterialProgRef->GetUniformLocation("M"), Mcs3d);
+	coordSystemMaterialProgRef->SetUniformMat4(coordSystemMaterialProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 
 	shaderProgPhongMat.Use();
 	lighting.SetUniforms(shaderProgPhongMat);
@@ -311,14 +317,23 @@ int main(int argc, char* argv[]) {
 
 		
 
+		//// new 3d coordinate system
+		//shaderProgramCS3d.Use();
+		//if (camera.GetViewProjectionMatrixIsDirty()) {
+		//	shaderProgramCS3d.SetUniformMat4(shaderProgramCS3d.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+		//	camera.ResetDirtyState();
+		//}
+		//cs3dMesh.Draw();
 
-		// new 3d coordinate system
-		shaderProgramCS3d.Use();
+
+		// draw coord system using flat material
+		coordSystemMaterial.Bind();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgramCS3d.SetUniformMat4(shaderProgramCS3d.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-			camera.ResetDirtyState();
+			coordSystemMaterialProgRef->SetUniformMat4(coordSystemMaterialProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+			camera.ResetDirtyState();	//as this is the last set
 		}
 		cs3dMesh.Draw();
+		coordSystemMaterial.Unbind();
 
 
 
