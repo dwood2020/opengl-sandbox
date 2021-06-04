@@ -9,6 +9,6 @@ FlatMaterial::FlatMaterial(ShaderProgram& shaderProgram): MaterialBase(shaderPro
 FlatMaterial::~FlatMaterial() { }
 
 
-void FlatMaterial::SetColor(const glm::vec3& color) {
+void FlatMaterial::SetFlatColor(const glm::vec3& color) {
 	SetUniform(colorName, Uniform(color));
 }

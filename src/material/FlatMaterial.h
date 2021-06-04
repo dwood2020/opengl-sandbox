@@ -28,6 +28,6 @@ public:
 	/// Sets the flat color.
 	/// </summary>
 	/// <param name="color">Color (RGB)</param>
-	void SetColor(const glm::vec3& color);
+	void SetFlatColor(const glm::vec3& color);
 };
 

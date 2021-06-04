@@ -144,8 +144,8 @@ int main(int argc, char* argv[]) {
 
 	// test: get phong shader from factory
 	ShaderFactory shaderFactory;
-	auto phongShaderProgRef = shaderFactory.MakeDefaultPhongShaderProgram();
-	auto flatShaderProgRef = shaderFactory.MakeDefaultFlatShaderProgram();
+	auto woodenBoxProgRef = shaderFactory.MakeDefaultPhongShaderProgram();
+	auto gridShaderProgRef = shaderFactory.MakeDefaultFlatShaderProgram();
 	
 
 	////test: Uniform class
@@ -205,22 +205,27 @@ int main(int argc, char* argv[]) {
 
 	
 	// use new Materials
-	PhongMaterial woodenBoxMaterial(*phongShaderProgRef);
+	PhongMaterial woodenBoxMaterial(*woodenBoxProgRef);
 	woodenBoxMaterial.SetDiffuseColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	woodenBoxMaterial.SetDiffuseTexture(tex1);
 	woodenBoxMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 
-	FlatMaterial gridMaterial(*flatShaderProgRef);
-	
+	FlatMaterial gridMaterial(*gridShaderProgRef);
+	gridMaterial.SetFlatColor(glm::vec3(0.494f, 0.486f, 0.455f));
+	//gridMaterial.SetFlatColor(glm::vec3(1.0f, 0.0f, 0.0f));
 
 
 	// send all matrices to shaders
 
-	//shaderProgPhongMat.Use();
+
 	woodenBoxMaterial.Prepare();
-	phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("M"), Mcube);
-	phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-	lighting.SetUniforms(*phongShaderProgRef);
+	woodenBoxProgRef->SetUniformMat4(woodenBoxProgRef->GetUniformLocation("M"), Mcube);
+	woodenBoxProgRef->SetUniformMat4(woodenBoxProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+	lighting.SetUniforms(*woodenBoxProgRef);
+
+	gridMaterial.Prepare();
+	gridShaderProgRef->SetUniformMat4(gridShaderProgRef->GetUniformLocation("M"), Mgrid);
+	gridShaderProgRef->SetUniformMat4(gridShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 
 	shaderProgPhongMat.Use();
 	lighting.SetUniforms(shaderProgPhongMat);
@@ -234,9 +239,9 @@ int main(int argc, char* argv[]) {
 	shaderProgPhongMat.SetUniformInt(shaderProgPhongMat.GetUniformLocation("material.hasDiffuseTexture"), (int)false);
 
 		
-	shaderProgramSimple.Use();
+	/*shaderProgramSimple.Use();
 	shaderProgramSimple.SetUniformMat4(shaderProgramSimple.GetUniformLocation("M"), Mgrid);
-	shaderProgramSimple.SetUniformMat4(shaderProgramSimple.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+	shaderProgramSimple.SetUniformMat4(shaderProgramSimple.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());*/
 
 
 	shaderProgramCS3d.Use();
@@ -257,8 +262,8 @@ int main(int argc, char* argv[]) {
 		//shaderProgPhongMat.Use();
 		woodenBoxMaterial.Bind();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
-			phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-			phongShaderProgRef->SetUniformVec3(phongShaderProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
+			woodenBoxProgRef->SetUniformMat4(woodenBoxProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+			woodenBoxProgRef->SetUniformVec3(woodenBoxProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
 		}
 		//phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("M"), Mcube);
 		
@@ -283,11 +288,17 @@ int main(int argc, char* argv[]) {
 
 
 		// draw grid
-		shaderProgramSimple.Use();		
+		/*shaderProgramSimple.Use();		
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			shaderProgramSimple.SetUniformMat4(shaderProgramSimple.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());			
+		}*/
+		gridMaterial.Bind();
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			gridShaderProgRef->SetUniformMat4(gridShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 		}
 		gridMesh.Draw();
+
+		
 
 
 		// new 3d coordinate system
