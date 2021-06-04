@@ -9,16 +9,16 @@ ShaderFactory::~ShaderFactory() { }
 
 
 std::shared_ptr<ShaderProgram> ShaderFactory::MakeDefaultPhongShaderProgram(void) const {
-	return MakeShaderProgram(Shader::ReadSourceFromFile(phongVertSourePath), Shader::ReadSourceFromFile(phongFragSourcePath));
+	return std::make_shared<ShaderProgram>(MakeShaderProgram(Shader::ReadSourceFromFile(phongVertSourePath), Shader::ReadSourceFromFile(phongFragSourcePath)));
 }
 
 
 std::shared_ptr<ShaderProgram> ShaderFactory::MakeDefaultFlatShaderProgram(void) const {
-	return MakeShaderProgram(Shader::ReadSourceFromFile(flatVertSourcePath), Shader::ReadSourceFromFile(flatFragSourcePath));
+	return std::make_shared<ShaderProgram>(MakeShaderProgram(Shader::ReadSourceFromFile(flatVertSourcePath), Shader::ReadSourceFromFile(flatFragSourcePath)));
 }
 
 
-std::shared_ptr<ShaderProgram> ShaderFactory::MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const {
+ShaderProgram* ShaderFactory::MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const {
 
 	Shader vertShader(vertSrc.c_str(), GL_VERTEX_SHADER);
 	Shader fragShader(fragSrc.c_str(), GL_FRAGMENT_SHADER);
@@ -26,8 +26,10 @@ std::shared_ptr<ShaderProgram> ShaderFactory::MakeShaderProgram(const std::strin
 	//TODO: handle unsuccessful compilation or linking
 	vertShader.CheckCompilationStatus();
 	fragShader.CheckCompilationStatus();
+		
+	//std::shared_ptr<ShaderProgram> shaderProg = std::make_shared<ShaderProgram>(new ShaderProgram(vertShader, fragShader));
 
-	std::shared_ptr<ShaderProgram> shaderProg = std::make_shared<ShaderProgram>(new ShaderProgram(vertShader, fragShader));	
+	ShaderProgram* shaderProg = new ShaderProgram(vertShader, fragShader);	
 	shaderProg->CheckLinkStatus();
 
 	return shaderProg;
