@@ -122,10 +122,22 @@ int main(int argc, char* argv[]) {
 
 	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f, 20);
 	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
-		
+	
+
+	// new shader for 3D coordinate system
+	Shader vertexShaderCS3d(Shader::ReadSourceFromFile("res/coordSystem3d_vert.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragmentShaderCS3d(Shader::ReadSourceFromFile("res/coordSystem3d_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
+	ShaderProgram shaderProgramCS3d(vertexShaderCS3d, fragmentShaderCS3d);
+	shaderProgramCS3d.CheckLinkStatus();
+
+	// material phong shader
+	Shader vertShaderPhongMat(Shader::ReadSourceFromFile("res/phong_material_vert.glsl").c_str(), GL_VERTEX_SHADER);
+	Shader fragShaderPhongMat(Shader::ReadSourceFromFile("res/phong_material_frag.glsl").c_str(), GL_FRAGMENT_SHADER);
+	ShaderProgram shaderProgPhongMat(vertShaderPhongMat, fragShaderPhongMat);
+	shaderProgPhongMat.CheckLinkStatus();
 
 
-	// get shaders from factory
+	// test: get phong shader from factory
 	ShaderFactory shaderFactory;
 	auto woodenBoxProgRef = shaderFactory.MakeDefaultPhongShaderProgram();	
 	auto gridShaderProgRef = shaderFactory.MakeDefaultFlatShaderProgram();	
@@ -231,7 +243,23 @@ int main(int argc, char* argv[]) {
 	coordSystemMaterial.Prepare();
 	coordSystemMaterialProgRef->SetUniformMat4(coordSystemMaterialProgRef->GetUniformLocation("M"), Mcs3d);
 	coordSystemMaterialProgRef->SetUniformMat4(coordSystemMaterialProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+
+	shaderProgPhongMat.Use();
+	lighting.SetUniforms(shaderProgPhongMat);
+	shaderProgPhongMat.SetUniformVec3(shaderProgPhongMat.GetUniformLocation("viewPos"), camera.GetPosition());
+
+	// manually set some uniforms
+	shaderProgPhongMat.SetUniformVec3(shaderProgPhongMat.GetUniformLocation("material.diffuseColor"), glm::vec3(1.0f, 1.0f, 0.0f));
+	shaderProgPhongMat.SetUniformVec3(shaderProgPhongMat.GetUniformLocation("material.specularColor"), glm::vec3(0.0f));
+	shaderProgPhongMat.SetUniformFloat(shaderProgPhongMat.GetUniformLocation("material.shininess"), 32.0f);
+	shaderProgPhongMat.SetUniformInt(shaderProgPhongMat.GetUniformLocation("useTexCoords"), (int)false);
+	shaderProgPhongMat.SetUniformInt(shaderProgPhongMat.GetUniformLocation("material.hasDiffuseTexture"), (int)false);
 	
+
+	shaderProgramCS3d.Use();
+	shaderProgramCS3d.SetUniformMat4(shaderProgramCS3d.GetUniformLocation("M"), Mcs3d);
+	shaderProgramCS3d.SetUniformMat4(shaderProgramCS3d.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+
 
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -242,17 +270,33 @@ int main(int argc, char* argv[]) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		// all steps for cube		
+
+		//shaderProgPhongMat.Use();
 		woodenBoxMaterial.Bind();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			woodenBoxProgRef->SetUniformMat4(woodenBoxProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 			woodenBoxProgRef->SetUniformVec3(woodenBoxProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
 		}
+		//phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("M"), Mcube);
 		
 		//tex1.Bind();
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)		
 		mesh.Draw();
 		//Texture::Unbind();
-		woodenBoxMaterial.Unbind();		
+		woodenBoxMaterial.Unbind();
+
+		//shaderProgPhongMat.Use();
+		//// draw sphere		
+		//if (camera.GetViewProjectionMatrixIsDirty()) {
+		//	shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+		//	shaderProgPhongMat.SetUniformVec3(shaderProgPhongMat.GetUniformLocation("viewPos"), camera.GetPosition());
+		//}
+		//shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("M"), Msphere);
+		//sphereMesh.Draw();
+
+		//// draw cone with phong material shadeer
+		//shaderProgPhongMat.SetUniformMat4(shaderProgPhongMat.GetUniformLocation("M"), Mcone);
+		//coneMesh.Draw();
 
 
 		// draw sphere & cone with default material
@@ -277,6 +321,16 @@ int main(int argc, char* argv[]) {
 			gridShaderProgRef->SetUniformMat4(gridShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 		}
 		gridMesh.Draw();
+
+		
+
+		//// new 3d coordinate system
+		//shaderProgramCS3d.Use();
+		//if (camera.GetViewProjectionMatrixIsDirty()) {
+		//	shaderProgramCS3d.SetUniformMat4(shaderProgramCS3d.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+		//	camera.ResetDirtyState();
+		//}
+		//cs3dMesh.Draw();
 
 
 		// draw coord system using flat material
