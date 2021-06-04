@@ -198,7 +198,7 @@ int main(int argc, char* argv[]) {
 	//gridMaterial.SetFlatColor(glm::vec3(1.0f, 0.0f, 0.0f));
 
 	PhongMaterial defaultMaterial(defaultMaterialProgRef);
-	defaultMaterial.SetDiffuseColor(glm::vec3(0.0f, 1.0f, 0.0f));
+	defaultMaterial.SetDiffuseColor(glm::vec3(0.1f, 0.9f, 0.2f));
 	defaultMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 	defaultMaterial.SetShininess(32.0f);
 

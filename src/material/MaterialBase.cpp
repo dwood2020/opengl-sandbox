@@ -5,8 +5,6 @@ MaterialBase::MaterialBase(ShaderProgram* shaderProgram) {
 	//TODO: Next step: Parse all uniforms from shader and add to map.
 
 	this->shaderProgram = shaderProgram;
-	//NOTE: The material shall "own" the shader program.
-	// This is currently done by simply copying-by-value.
 
 	maxTextures = Texture::GetMaxTextures();
 	isAffectedByLight = false;
