@@ -12,14 +12,12 @@ ShaderFactory::~ShaderFactory() {
 }
 
 
-ShaderProgram* ShaderFactory::MakeDefaultPhongShaderProgram(void) {
-	//return std::make_shared<ShaderProgram>(MakeShaderProgram(Shader::ReadSourceFromFile(phongVertSourePath), Shader::ReadSourceFromFile(phongFragSourcePath)));
+ShaderProgram* ShaderFactory::MakeDefaultPhongShaderProgram(void) {	
 	return MakeShaderProgram(Shader::ReadSourceFromFile(phongVertSourePath), Shader::ReadSourceFromFile(phongFragSourcePath));
 }
 
 
-ShaderProgram* ShaderFactory::MakeDefaultFlatShaderProgram(void) {
-	//return std::make_shared<ShaderProgram>(MakeShaderProgram(Shader::ReadSourceFromFile(flatVertSourcePath), Shader::ReadSourceFromFile(flatFragSourcePath)));
+ShaderProgram* ShaderFactory::MakeDefaultFlatShaderProgram(void) {	
 	return MakeShaderProgram(Shader::ReadSourceFromFile(flatVertSourcePath), Shader::ReadSourceFromFile(flatFragSourcePath));
 }
 
@@ -36,11 +34,12 @@ ShaderProgram* ShaderFactory::MakeShaderProgram(const std::string& vertSrc, cons
 	//std::shared_ptr<ShaderProgram> shaderProg = std::make_shared<ShaderProgram>(new ShaderProgram(vertShader, fragShader));
 
 	ShaderProgram* shaderProg = new ShaderProgram(vertShader, fragShader);	
-	shaderProg->CheckLinkStatus();
-
+	if (!shaderProg->CheckLinkStatus()) {
+		delete shaderProg;
+		return nullptr;
+	}
 
 	refs.push_back(shaderProg);
-
 	return shaderProg;
 }
 
