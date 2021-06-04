@@ -30,8 +30,7 @@ protected:
 
 public:	
 	/// <summary>
-	/// Constructor. A  shader program is mandatory.
-	/// NOTE: This transfers ownership of the shader program onto the material.
+	/// Constructor. A  shader program is mandatory.	
 	/// </summary>
 	/// <param name="shaderProgram">Shader program</param>
 	MaterialBase(ShaderProgram* shaderProgram);
