@@ -13,6 +13,11 @@ std::unique_ptr<ShaderProgram> ShaderFactory::MakeDefaultPhongShaderProgram(void
 }
 
 
+std::unique_ptr<ShaderProgram> ShaderFactory::MakeDefaultFlatShaderProgram(void) const {
+	return MakeShaderProgram(Shader::ReadSourceFromFile(flatVertSourcePath), Shader::ReadSourceFromFile(flatFragSourcePath));
+}
+
+
 std::unique_ptr<ShaderProgram> ShaderFactory::MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const {
 
 	Shader vertShader(vertSrc.c_str(), GL_VERTEX_SHADER);

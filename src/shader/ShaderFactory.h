@@ -14,11 +14,16 @@ private:
 	const std::string phongVertSourePath = "res/phong_material_vert.glsl";
 	const std::string phongFragSourcePath = "res/phong_material_frag.glsl";
 
+	const std::string flatVertSourcePath = "res/flat_material_vert.glsl";
+	const std::string flatFragSourcePath = "res/flat_material_frag.glsl";
+
 public:
 	ShaderFactory();
 	~ShaderFactory();
 
 	std::unique_ptr<ShaderProgram> MakeDefaultPhongShaderProgram(void) const;
+
+	std::unique_ptr<ShaderProgram> MakeDefaultFlatShaderProgram(void) const;
 
 	std::unique_ptr<ShaderProgram> MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const;
 };

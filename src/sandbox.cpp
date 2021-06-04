@@ -18,6 +18,7 @@
 #include "Lighting.h"
 #include "Uniform.h"
 #include "material/PhongMaterial.h"
+#include "material/FlatMaterial.h"
 
 #include <chrono>
 
@@ -144,7 +145,8 @@ int main(int argc, char* argv[]) {
 	// test: get phong shader from factory
 	ShaderFactory shaderFactory;
 	auto phongShaderProgRef = shaderFactory.MakeDefaultPhongShaderProgram();
-
+	auto flatShaderProgRef = shaderFactory.MakeDefaultFlatShaderProgram();
+	
 
 	////test: Uniform class
 	//std::vector<Uniform> uniforms;
@@ -203,16 +205,19 @@ int main(int argc, char* argv[]) {
 
 	
 	// use new Materials
-	PhongMaterial phongMaterial(*phongShaderProgRef);
-	phongMaterial.SetDiffuseColor(glm::vec3(1.0f, 0.0f, 1.0f));
-	phongMaterial.SetDiffuseTexture(tex1);
-	phongMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.4f);
+	PhongMaterial woodenBoxMaterial(*phongShaderProgRef);
+	woodenBoxMaterial.SetDiffuseColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	woodenBoxMaterial.SetDiffuseTexture(tex1);
+	woodenBoxMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.4f);
+
+	FlatMaterial gridMaterial(*flatShaderProgRef);
+	
 
 
 	// send all matrices to shaders
 
 	//shaderProgPhongMat.Use();
-	phongMaterial.Prepare();
+	woodenBoxMaterial.Prepare();
 	phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("M"), Mcube);
 	phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 	lighting.SetUniforms(*phongShaderProgRef);
@@ -250,7 +255,7 @@ int main(int argc, char* argv[]) {
 		// all steps for cube		
 
 		//shaderProgPhongMat.Use();
-		phongMaterial.Bind();
+		woodenBoxMaterial.Bind();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			phongShaderProgRef->SetUniformMat4(phongShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 			phongShaderProgRef->SetUniformVec3(phongShaderProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
@@ -261,7 +266,7 @@ int main(int argc, char* argv[]) {
 		//shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)		
 		mesh.Draw();
 		//Texture::Unbind();
-		phongMaterial.Unbind();
+		woodenBoxMaterial.Unbind();
 
 		shaderProgPhongMat.Use();
 		// draw sphere		
