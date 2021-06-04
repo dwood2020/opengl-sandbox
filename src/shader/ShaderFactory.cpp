@@ -38,6 +38,7 @@ ShaderProgram* ShaderFactory::MakeShaderProgram(const std::string& vertSrc, cons
 	ShaderProgram* shaderProg = new ShaderProgram(vertShader, fragShader);	
 	shaderProg->CheckLinkStatus();
 
+
 	refs.push_back(shaderProg);
 
 	return shaderProg;

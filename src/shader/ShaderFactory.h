@@ -4,11 +4,12 @@
 #include <vector>
 #include "ShaderProgram.h"
 
-//TODO: Might move this into the material system later? &rename to "MaterialShaderFactory" or so
 
 /// <summary>
 /// This class handles shader construction and compilation.
 /// It knows default shaders.
+/// 
+/// NOTE: Ownership of shader programs is currently NOT transferred.
 /// </summary>
 class ShaderFactory final {
 private:
@@ -18,6 +19,8 @@ private:
 	const std::string flatVertSourcePath = "res/flat_material_vert.glsl";
 	const std::string flatFragSourcePath = "res/flat_material_frag.glsl";
 
+	// this is a quick fix.
+	//TODO: Rework this entire ownership system!
 	std::vector<ShaderProgram*> refs;
 
 public:
