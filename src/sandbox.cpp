@@ -122,12 +122,7 @@ int main(int argc, char* argv[]) {
 
 	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f, 20);
 	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
-
-
-	Shader vertexShaderSimple(Shader::ReadSourceFromFile("res/vert_simple.glsl").c_str(), GL_VERTEX_SHADER);
-	Shader fragmentShaderSimple(Shader::ReadSourceFromFile("res/frag_simple.glsl").c_str(), GL_FRAGMENT_SHADER);
-	ShaderProgram shaderProgramSimple(vertexShaderSimple, fragmentShaderSimple);
-	shaderProgramSimple.CheckLinkStatus();
+	
 
 	// new shader for 3D coordinate system
 	Shader vertexShaderCS3d(Shader::ReadSourceFromFile("res/coordSystem3d_vert.glsl").c_str(), GL_VERTEX_SHADER);
@@ -237,12 +232,7 @@ int main(int argc, char* argv[]) {
 	shaderProgPhongMat.SetUniformFloat(shaderProgPhongMat.GetUniformLocation("material.shininess"), 32.0f);
 	shaderProgPhongMat.SetUniformInt(shaderProgPhongMat.GetUniformLocation("useTexCoords"), (int)false);
 	shaderProgPhongMat.SetUniformInt(shaderProgPhongMat.GetUniformLocation("material.hasDiffuseTexture"), (int)false);
-
-		
-	/*shaderProgramSimple.Use();
-	shaderProgramSimple.SetUniformMat4(shaderProgramSimple.GetUniformLocation("M"), Mgrid);
-	shaderProgramSimple.SetUniformMat4(shaderProgramSimple.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());*/
-
+	
 
 	shaderProgramCS3d.Use();
 	shaderProgramCS3d.SetUniformMat4(shaderProgramCS3d.GetUniformLocation("M"), Mcs3d);
@@ -287,11 +277,7 @@ int main(int argc, char* argv[]) {
 		coneMesh.Draw();
 
 
-		// draw grid
-		/*shaderProgramSimple.Use();		
-		if (camera.GetViewProjectionMatrixIsDirty()) {
-			shaderProgramSimple.SetUniformMat4(shaderProgramSimple.GetUniformLocation("PV"), camera.GetViewProjectionMatrix());			
-		}*/
+		// draw grid		
 		gridMaterial.Bind();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			gridShaderProgRef->SetUniformMat4(gridShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
