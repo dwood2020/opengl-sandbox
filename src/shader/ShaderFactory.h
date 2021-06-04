@@ -21,9 +21,9 @@ public:
 	ShaderFactory();
 	~ShaderFactory();
 
-	ShaderProgram MakeDefaultPhongShaderProgram(void) const;
+	std::shared_ptr<ShaderProgram> MakeDefaultPhongShaderProgram(void) const;
 
-	ShaderProgram MakeDefaultFlatShaderProgram(void) const;
+	std::shared_ptr<ShaderProgram> MakeDefaultFlatShaderProgram(void) const;
 
-	ShaderProgram MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const;
+	std::shared_ptr<ShaderProgram> MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const;
 };

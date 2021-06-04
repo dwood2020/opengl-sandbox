@@ -15,8 +15,9 @@
 /// </summary>
 class MaterialBase {
 protected:
-	ShaderProgram shaderProgram;
+	//ShaderProgram shaderProgram;
 	//std::unique_ptr<ShaderProgram> shaderProgram;
+	std::shared_ptr<ShaderProgram> shaderProgram;
 
 	std::map<std::string, Uniform> uniforms;
 
@@ -35,7 +36,7 @@ public:
 	/// NOTE: This transfers ownership of the shader program onto the material.
 	/// </summary>
 	/// <param name="shaderProgram">Shader program</param>
-	MaterialBase(ShaderProgram shaderProgram);
+	MaterialBase(std::shared_ptr<ShaderProgram> shaderProgram);
 
 	/// <summary>
 	/// Destructor.

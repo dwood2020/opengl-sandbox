@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <memory>
 #include <glm/glm.hpp>
 #include "MaterialBase.h"
 #include "../shader/ShaderProgram.h"
@@ -27,7 +28,7 @@ public:
 	/// Constructor. Shader program is mandatory.
 	/// </summary>
 	/// <param name="shaderProgram">Shader program</param>
-	PhongMaterial(ShaderProgram shaderProgram);
+	PhongMaterial(std::shared_ptr<ShaderProgram> shaderProgram);
 
 	/// <summary>
 	/// Destructor.

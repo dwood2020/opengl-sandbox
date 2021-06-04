@@ -2,7 +2,7 @@
 #include <utility>
 
 
-FlatMaterial::FlatMaterial(ShaderProgram shaderProgram): MaterialBase(shaderProgram) {
+FlatMaterial::FlatMaterial(std::shared_ptr<ShaderProgram> shaderProgram): MaterialBase(shaderProgram) {
 	useColorVertices = false;
 
 	SetAffectedByLight(false);

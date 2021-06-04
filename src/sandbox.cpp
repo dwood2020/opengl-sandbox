@@ -127,14 +127,10 @@ int main(int argc, char* argv[]) {
 
 	// get shaders from factory
 	ShaderFactory shaderFactory;
-	auto woodenBoxProg = shaderFactory.MakeDefaultPhongShaderProgram();
-	auto woodenBoxProgRef = &woodenBoxProg;
-	auto gridShaderProg = shaderFactory.MakeDefaultFlatShaderProgram();
-	auto gridShaderProgRef = &gridShaderProg;
-	auto defaultMaterialProg = shaderFactory.MakeDefaultPhongShaderProgram();
-	auto defaultMaterialProgRef = &defaultMaterialProg;
-	auto coordSystemMaterialProg = shaderFactory.MakeDefaultFlatShaderProgram();
-	auto coordSystemMaterialProgRef = &coordSystemMaterialProg;
+	auto woodenBoxProgRef = shaderFactory.MakeDefaultPhongShaderProgram();	
+	auto gridShaderProgRef = shaderFactory.MakeDefaultFlatShaderProgram();	
+	auto defaultMaterialProgRef = shaderFactory.MakeDefaultPhongShaderProgram();	
+	auto coordSystemMaterialProgRef = shaderFactory.MakeDefaultFlatShaderProgram();	
 
 	////test: Uniform class
 	//std::vector<Uniform> uniforms;
@@ -193,21 +189,21 @@ int main(int argc, char* argv[]) {
 
 	
 	// use new Materials
-	PhongMaterial woodenBoxMaterial(woodenBoxProg);
+	PhongMaterial woodenBoxMaterial(woodenBoxProgRef);
 	woodenBoxMaterial.SetDiffuseColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	woodenBoxMaterial.SetDiffuseTexture(tex1);
 	woodenBoxMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 
-	FlatMaterial gridMaterial(gridShaderProg);
+	FlatMaterial gridMaterial(gridShaderProgRef);
 	gridMaterial.SetFlatColor(glm::vec3(0.494f, 0.486f, 0.455f));
 	//gridMaterial.SetFlatColor(glm::vec3(1.0f, 0.0f, 0.0f));
 
-	PhongMaterial defaultMaterial(defaultMaterialProg);
+	PhongMaterial defaultMaterial(defaultMaterialProgRef);
 	defaultMaterial.SetDiffuseColor(glm::vec3(0.0f, 1.0f, 0.0f));
 	defaultMaterial.SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 	defaultMaterial.SetShininess(32.0f);
 
-	FlatMaterial coordSystemMaterial(coordSystemMaterialProg);
+	FlatMaterial coordSystemMaterial(coordSystemMaterialProgRef);
 	coordSystemMaterial.SetUseColorVertices(true);
 
 	// send all matrices to shaders
