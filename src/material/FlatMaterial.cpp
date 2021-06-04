@@ -4,6 +4,8 @@
 FlatMaterial::FlatMaterial(ShaderProgram& shaderProgram): MaterialBase(shaderProgram) {
 	useColorVertices = false;
 
+	SetAffectedByLight(false);
+
 	SetUniform(colorName, Uniform(glm::vec3(1.0f)));
 	SetUniform(hasTextureVerticesName, Uniform((int)useColorVertices));
 }

@@ -22,6 +22,8 @@ protected:
 	
 	int maxTextures;
 
+	bool isAffectedByLight;
+
 
 	MaterialBase() = default;
 
@@ -51,8 +53,30 @@ public:
 	/// <returns>Uniform object</returns>
 	const Uniform* GetUniform(const std::string& name) const;
 
-
+	/// <summary>
+	/// Adds a texture to the texture stack.
+	/// This is possible until the maxTextures is reached.
+	/// </summary>
+	/// <param name="texture">Texture</param>
 	void SetTexture(const Texture& texture);
+
+	/// <summary>
+	/// Sets this material to be affected by light. 
+	/// </summary>
+	/// <param name="isAffected">True if material is affected by light</param>
+	void SetAffectedByLight(bool isAffected);
+
+	/// <summary>
+	/// Gets whether the material is affected by light.
+	/// </summary>	
+	/// <returns>True if material is affected by light</returns>
+	bool GetAffectedByLight(void) const;
+
+	/// <summary>
+	/// Gets the associated Shader program.
+	/// </summary>	
+	/// <returns>Shader program</returns>
+	ShaderProgram* GetShaderProgram(void) const;
 
 	/// <summary>
 	/// Sends ALL set uniforms to the shader program and retrieves + caches their uniform locations

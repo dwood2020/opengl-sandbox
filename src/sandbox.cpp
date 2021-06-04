@@ -211,14 +211,21 @@ int main(int argc, char* argv[]) {
 	woodenBoxMaterial.Prepare();
 	woodenBoxProgRef->SetUniformMat4(woodenBoxProgRef->GetUniformLocation("M"), Mcube);
 	woodenBoxProgRef->SetUniformMat4(woodenBoxProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-	lighting.SetUniforms(*woodenBoxProgRef);
+	if (woodenBoxMaterial.GetAffectedByLight()) {
+		lighting.SetUniforms(*woodenBoxProgRef);
+		woodenBoxProgRef->SetUniformVec3(woodenBoxProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
+	}
+	
 
 	gridMaterial.Prepare();
 	gridShaderProgRef->SetUniformMat4(gridShaderProgRef->GetUniformLocation("M"), Mgrid);
 	gridShaderProgRef->SetUniformMat4(gridShaderProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 
 	defaultMaterial.Prepare();
-	lighting.SetUniforms(*defaultMaterialProgRef);
+	if (defaultMaterial.GetAffectedByLight()) {
+		lighting.SetUniforms(*defaultMaterialProgRef);
+	}
+	
 	defaultMaterialProgRef->SetUniformVec3(defaultMaterialProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
 
 	coordSystemMaterial.Prepare();

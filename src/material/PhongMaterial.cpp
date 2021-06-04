@@ -5,6 +5,8 @@ PhongMaterial::PhongMaterial(ShaderProgram& shaderProgram): MaterialBase(shaderP
 	hasDiffuseTexture = false;
 	hasSpecularTexture = false;
 
+	SetAffectedByLight(true);
+
 	// set the default values
 	SetUniform(diffuseName, Uniform(glm::vec3(0.0f)));
 	SetUniform(specularName, Uniform(glm::vec3(0.0f)));

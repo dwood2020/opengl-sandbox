@@ -2,7 +2,9 @@
 
 
 MaterialBase::MaterialBase(ShaderProgram& shaderProgram): shaderProgram(&shaderProgram) {
+	//TODO: Next step: Parse all uniforms from shader and add to map.
 	maxTextures = Texture::GetMaxTextures();
+	isAffectedByLight = false;
 }
 
 
@@ -31,6 +33,21 @@ void MaterialBase::SetTexture(const Texture& texture) {
 	else {
 		//TODO: ASSERT
 	}
+}
+
+
+void MaterialBase::SetAffectedByLight(bool isAffected) {
+	isAffectedByLight = isAffected;
+}
+
+
+bool MaterialBase::GetAffectedByLight(void) const {
+	return isAffectedByLight;
+}
+
+
+ShaderProgram* MaterialBase::GetShaderProgram(void) const {
+	return shaderProgram;
 }
 
 
