@@ -12,7 +12,7 @@ public:
 	~ShaderProgram();
 
 	bool CheckLinkStatus(void);
-	void Use(void);
+	void Use(void) const;
 
 	int GetUniformLocation(const std::string& name) const;
 

@@ -27,7 +27,7 @@ public:
 	/// Constructor. Shader program is mandatory.
 	/// </summary>
 	/// <param name="shaderProgram">Shader program</param>
-	PhongMaterial(ShaderProgram& shaderProgram);
+	PhongMaterial(ShaderProgram shaderProgram);
 
 	/// <summary>
 	/// Destructor.

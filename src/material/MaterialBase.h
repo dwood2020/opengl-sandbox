@@ -2,6 +2,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <memory>
 #include "../shader/ShaderProgram.h"
 #include "../Uniform.h"
 #include "../Texture.h"
@@ -14,7 +15,8 @@
 /// </summary>
 class MaterialBase {
 protected:
-	ShaderProgram* shaderProgram;
+	ShaderProgram shaderProgram;
+	//std::unique_ptr<ShaderProgram> shaderProgram;
 
 	std::map<std::string, Uniform> uniforms;
 
@@ -29,10 +31,11 @@ protected:
 
 public:	
 	/// <summary>
-	/// Constructor. A reference to a shader program is mandatory.
+	/// Constructor. A  shader program is mandatory.
+	/// NOTE: This transfers ownership of the shader program onto the material.
 	/// </summary>
 	/// <param name="shaderProgram">Shader program</param>
-	MaterialBase(ShaderProgram& shaderProgram);
+	MaterialBase(ShaderProgram shaderProgram);
 
 	/// <summary>
 	/// Destructor.
@@ -76,7 +79,7 @@ public:
 	/// Gets the associated Shader program.
 	/// </summary>	
 	/// <returns>Shader program</returns>
-	ShaderProgram* GetShaderProgram(void) const;
+	const ShaderProgram* GetShaderProgram(void) const;
 
 	/// <summary>
 	/// Sends ALL set uniforms to the shader program and retrieves + caches their uniform locations

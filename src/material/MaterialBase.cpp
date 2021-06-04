@@ -1,8 +1,13 @@
 #include "MaterialBase.h"
+#include <utility>
 
 
-MaterialBase::MaterialBase(ShaderProgram& shaderProgram): shaderProgram(&shaderProgram) {
+MaterialBase::MaterialBase(ShaderProgram shaderProgram): shaderProgram(shaderProgram) {
 	//TODO: Next step: Parse all uniforms from shader and add to map.
+
+	//NOTE: The material shall "own" the shader program.
+	// This is currently done by simply copying-by-value.
+
 	maxTextures = Texture::GetMaxTextures();
 	isAffectedByLight = false;
 }
@@ -46,31 +51,33 @@ bool MaterialBase::GetAffectedByLight(void) const {
 }
 
 
-ShaderProgram* MaterialBase::GetShaderProgram(void) const {
-	return shaderProgram;
+const ShaderProgram* MaterialBase::GetShaderProgram(void) const {
+	//NOTE: This does NOT make the unique_ptr release ownership. 
+	//return shaderProgram.get();
+	return &shaderProgram;
 }
 
 
 void MaterialBase::Prepare(void) {
-	shaderProgram->Use();
+	shaderProgram.Use();
 
 	for (auto it = uniforms.begin(); it != uniforms.end(); ++it) {
 		if (it->second.GetLocation() == -1) {
-			it->second.SetLocation(shaderProgram->GetUniformLocation(it->first));
+			it->second.SetLocation(shaderProgram.GetUniformLocation(it->first));
 		}
 
 		switch (it->second.GetType()) {
 		case UniformType::Int:
-			shaderProgram->SetUniformInt(it->second.GetLocation(), it->second.GetInt());
+			shaderProgram.SetUniformInt(it->second.GetLocation(), it->second.GetInt());
 			break;
 		case UniformType::Float:
-			shaderProgram->SetUniformFloat(it->second.GetLocation(), it->second.GetFloat());
+			shaderProgram.SetUniformFloat(it->second.GetLocation(), it->second.GetFloat());
 			break;
 		case UniformType::Vec3:
-			shaderProgram->SetUniformVec3(it->second.GetLocation(), it->second.GetVec3());
+			shaderProgram.SetUniformVec3(it->second.GetLocation(), it->second.GetVec3());
 			break;
 		case UniformType::Mat4:
-			shaderProgram->SetUniformMat4(it->second.GetLocation(), it->second.GetMat4());
+			shaderProgram.SetUniformMat4(it->second.GetLocation(), it->second.GetMat4());
 			break;
 		default:
 			break;
@@ -86,7 +93,7 @@ void MaterialBase::Bind(void) const {
 		}
 	}
 
-	shaderProgram->Use();
+	shaderProgram.Use();
 }
 
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <memory>
 #include <glm/glm.hpp>
 #include "MaterialBase.h"
 #include "../shader/ShaderProgram.h"
@@ -20,7 +21,7 @@ public:
 	/// Sets the color to the default (0,0,0).
 	/// </summary>
 	/// <param name="shaderProgram">Shader program</param>
-	FlatMaterial(ShaderProgram& shaderProgram);
+	FlatMaterial(ShaderProgram shaderProgram);
 
 	/// <summary>
 	/// Destructor.

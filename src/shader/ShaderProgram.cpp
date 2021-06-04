@@ -39,7 +39,7 @@ bool ShaderProgram::CheckLinkStatus(void) {
 }
 
 
-void ShaderProgram::Use(void) {
+void ShaderProgram::Use(void) const {
 	glUseProgram(id);
 }
 

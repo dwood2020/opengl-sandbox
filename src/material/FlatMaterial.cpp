@@ -1,7 +1,8 @@
 #include "FlatMaterial.h"
+#include <utility>
 
 
-FlatMaterial::FlatMaterial(ShaderProgram& shaderProgram): MaterialBase(shaderProgram) {
+FlatMaterial::FlatMaterial(ShaderProgram shaderProgram): MaterialBase(shaderProgram) {
 	useColorVertices = false;
 
 	SetAffectedByLight(false);
