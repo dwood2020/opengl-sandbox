@@ -16,8 +16,9 @@ protected:
 	// and are cleared after calling Prepare()
 	// TODO: convert these to pointers
 	std::vector<glm::vec3> verticesPosition;
-	std::vector<glm::vec2> verticesTexCoord;
 	std::vector<glm::vec3> verticesNormal;
+	std::vector<glm::vec2> verticesTexCoord;
+	std::vector<glm::vec3> verticesColor;	
 	std::vector<unsigned int> indices;
 
 public:
@@ -25,8 +26,9 @@ public:
 	virtual ~Mesh();
 
 	void SetPositionVertices(std::vector<glm::vec3>& vertices);
-	void SetTextureCoordVertices(std::vector<glm::vec2>& texCoords);
 	void SetNormalVertices(std::vector<glm::vec3>& normals);
+	void SetTextureCoordVertices(std::vector<glm::vec2>& texCoords);
+	void SetColorVertices(std::vector<glm::vec3>& colors);
 	void SetIndices(std::vector<unsigned int>& indices);
 	void SetGlMode(GLenum glMode);
 

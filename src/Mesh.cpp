@@ -16,13 +16,18 @@ void Mesh::SetPositionVertices(std::vector<glm::vec3>& vertices) {
 }
 
 
+void Mesh::SetNormalVertices(std::vector<glm::vec3>& normals) {
+	verticesNormal = normals;
+}
+
+
 void Mesh::SetTextureCoordVertices(std::vector<glm::vec2>& texCoords) {
 	verticesTexCoord = texCoords;
 }
 
 
-void Mesh::SetNormalVertices(std::vector<glm::vec3>& normals) {
-	verticesNormal = normals;
+void Mesh::SetColorVertices(std::vector<glm::vec3>& colors) {
+	verticesColor = colors;
 }
 
 
@@ -69,7 +74,13 @@ void Mesh::Prepare(void) {
 		if (!verticesTexCoord.empty()) {
 			data.push_back(verticesTexCoord[i].x);
 			data.push_back(verticesTexCoord[i].y);
-		}		
+		}	
+
+		if (!verticesColor.empty()) {
+			data.push_back(verticesColor[i].x);
+			data.push_back(verticesColor[i].y);
+			data.push_back(verticesColor[i].z);
+		}
 	}
 
 	glGenVertexArrays(1, &vao);
@@ -98,6 +109,9 @@ void Mesh::Prepare(void) {
 	if (!verticesTexCoord.empty()) {
 		stride += 2 * sizeof(float);
 	}	
+	if (!verticesColor.empty()) {
+		stride += 3 * sizeof(float);
+	}
 
 	GLsizei offset = 0;	
 
@@ -116,6 +130,12 @@ void Mesh::Prepare(void) {
 		glEnableVertexAttribArray(2);
 		offset += 2 * sizeof(float);
 	}
+
+	if (!verticesColor.empty()) {
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, stride, (void*)offset);
+		glEnableVertexAttribArray(3);
+		offset += 3 * sizeof(float);
+	}
 	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -123,6 +143,7 @@ void Mesh::Prepare(void) {
 	verticesPosition.clear();
 	verticesNormal.clear();
 	verticesTexCoord.clear();	
+	verticesColor.clear();
 	indices.clear();
 }
 
@@ -141,7 +162,7 @@ void Mesh::Draw(void) {
 
 bool Mesh::CheckDataConsistency(void) const {
 
-	unsigned int vertexCount = verticesPosition.size();
+	size_t vertexCount = verticesPosition.size();
 
 	if (!indices.empty()) {
 		auto it = std::max_element(indices.begin(), indices.end());
