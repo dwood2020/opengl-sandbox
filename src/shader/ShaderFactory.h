@@ -27,10 +27,24 @@ public:
 	ShaderFactory();
 	~ShaderFactory();
 
+	/// <summary>
+	/// Makes a default phong model-based shader program.
+	/// </summary>	
+	/// <returns>Shader program</returns>
 	ShaderProgram* MakeDefaultPhongShaderProgram(void);
 
+	/// <summary>
+	/// Makes a default flat shader program.	
+	/// </summary>	
+	/// <returns>Shader program</returns>
 	ShaderProgram* MakeDefaultFlatShaderProgram(void);
 
 private:
+	/// <summary>
+	/// Handles all the work to make a shader program.
+	/// </summary>
+	/// <param name="vertSrc">Vertex shader source</param>
+	/// <param name="fragSrc">Fragment shader source</param>
+	/// <returns></returns>
 	ShaderProgram* MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc);
 };
