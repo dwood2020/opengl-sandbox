@@ -26,5 +26,5 @@ public:
 	std::shared_ptr<ShaderProgram> MakeDefaultFlatShaderProgram(void) const;
 
 private:
-	ShaderProgram* MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const;
+	const ShaderProgram* MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const;
 };

@@ -18,7 +18,7 @@ std::shared_ptr<ShaderProgram> ShaderFactory::MakeDefaultFlatShaderProgram(void)
 }
 
 
-ShaderProgram* ShaderFactory::MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const {
+const ShaderProgram* ShaderFactory::MakeShaderProgram(const std::string& vertSrc, const std::string& fragSrc) const {
 
 	Shader vertShader(vertSrc.c_str(), GL_VERTEX_SHADER);
 	Shader fragShader(fragSrc.c_str(), GL_FRAGMENT_SHADER);
