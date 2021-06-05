@@ -43,7 +43,7 @@ public:
 	/// The shader program must contain the appropriate uniform declarations.
 	/// </summary>
 	/// <param name="shaderProg">Shader program to set the uniforms in</param>
-	void SetUniforms(ShaderProgram& shaderProg) const;
+	void SetUniforms(ShaderProgram* shaderProg) const;
 
 
 };

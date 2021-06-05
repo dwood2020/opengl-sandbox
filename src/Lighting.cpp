@@ -22,8 +22,11 @@ void Lighting::SetAmbientFactor(float ambient) {
 }
 
 
-void Lighting::SetUniforms(ShaderProgram& shaderProg) const {
-	shaderProg.SetUniformVec3(shaderProg.GetUniformLocation("directionalLight.direction"), direction);
-	shaderProg.SetUniformVec3(shaderProg.GetUniformLocation("directionalLight.color"), color);
-	shaderProg.SetUniformFloat(shaderProg.GetUniformLocation("directionalLight.ambientFactor"), ambient);
+void Lighting::SetUniforms(ShaderProgram* shaderProg) const {
+	if (shaderProg == nullptr) {
+		return;
+	}
+	shaderProg->SetUniformVec3(shaderProg->GetUniformLocation("directionalLight.direction"), direction);
+	shaderProg->SetUniformVec3(shaderProg->GetUniformLocation("directionalLight.color"), color);
+	shaderProg->SetUniformFloat(shaderProg->GetUniformLocation("directionalLight.ambientFactor"), ambient);
 }

@@ -1,5 +1,5 @@
 #include "MaterialBase.h"
-
+#include <iostream>
 
 MaterialBase::MaterialBase(ShaderProgram* shaderProgram) {
 	//TODO: Next step: Parse all uniforms from shader and add to map.
@@ -11,7 +11,9 @@ MaterialBase::MaterialBase(ShaderProgram* shaderProgram) {
 }
 
 
-MaterialBase::~MaterialBase() { }
+MaterialBase::~MaterialBase() {
+	std::cout << "DEBUG: destroyed MaterialBase " << std::endl;
+}
 
 
 void MaterialBase::SetUniform(const std::string& name, const Uniform& uniform) {
@@ -49,10 +51,10 @@ bool MaterialBase::GetAffectedByLight(void) const {
 }
 
 
-const ShaderProgram* MaterialBase::GetShaderProgram(void) const {
+ShaderProgram* MaterialBase::GetShaderProgram(void) {
 	//NOTE: This does NOT make the unique_ptr release ownership. 
 	//return shaderProgram.get();
-	return &*shaderProgram;
+	return shaderProgram;
 }
 
 

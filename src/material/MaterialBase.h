@@ -77,7 +77,7 @@ public:
 	/// Gets the associated Shader program.
 	/// </summary>	
 	/// <returns>Shader program</returns>
-	const ShaderProgram* GetShaderProgram(void) const;
+	ShaderProgram* GetShaderProgram(void);
 
 	/// <summary>
 	/// Sends ALL set uniforms to the shader program and retrieves + caches their uniform locations

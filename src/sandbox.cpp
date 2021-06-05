@@ -19,6 +19,7 @@
 #include "Uniform.h"
 #include "material/PhongMaterial.h"
 #include "material/FlatMaterial.h"
+#include "material/MaterialLibrary.h"
 
 #include <chrono>
 
@@ -69,6 +70,9 @@ int main(int argc, char* argv[]) {
 
 	EventBus eventBus;
 	MeshFactory meshFactory;
+
+	ShaderFactory shaderFactory;
+	MaterialLibrary materialLibrary(&shaderFactory);
 
 
 	IupWindow window(&eventBus, 800, 600, "OpenGL Sandbox - IUP Window");		
@@ -122,10 +126,10 @@ int main(int argc, char* argv[]) {
 
 	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f, 20);
 	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
+	Mesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, false);
 
 
-	// test: get phong shader from factory
-	ShaderFactory shaderFactory;
+	// test: get phong shader from factory	
 	auto woodenBoxProgRef = shaderFactory.MakeDefaultPhongShaderProgram();	
 	auto gridShaderProgRef = shaderFactory.MakeDefaultFlatShaderProgram();	
 	auto defaultMaterialProgRef = shaderFactory.MakeDefaultPhongShaderProgram();	
@@ -171,6 +175,8 @@ int main(int argc, char* argv[]) {
 	glm::mat4 Msphere = glm::mat4(1.0f);
 	Msphere = glm::translate(Msphere, glm::vec3(-2.0f, 0.0f, -3.0f));
 
+	glm::mat4 MsecondSphere = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 0.0f, -4.0f));
+
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
 
@@ -205,13 +211,23 @@ int main(int argc, char* argv[]) {
 	FlatMaterial coordSystemMaterial(coordSystemMaterialProgRef);
 	coordSystemMaterial.SetUseColorVertices(true);
 
+
+	FlatMaterial* flatMaterial1 = materialLibrary.MakeFlatMaterial("flatMaterial1");
+	flatMaterial1->SetFlatColor(glm::vec3(1.0f, 0.0f, 0.5f));
+
+
+	PhongMaterial* phongMaterial1 = materialLibrary.MakePhongMaterial("phongMaterial1");
+	phongMaterial1->SetDiffuseColor(glm::vec3(1.0f) * 0.5f);
+	phongMaterial1->SetSpecularColor(glm::vec3(1.0f));
+
+
 	// send all matrices to shaders
 
 	woodenBoxMaterial.Prepare();
 	woodenBoxProgRef->SetUniformMat4(woodenBoxProgRef->GetUniformLocation("M"), Mcube);
 	woodenBoxProgRef->SetUniformMat4(woodenBoxProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 	if (woodenBoxMaterial.GetAffectedByLight()) {
-		lighting.SetUniforms(*woodenBoxProgRef);
+		lighting.SetUniforms(woodenBoxProgRef);
 		woodenBoxProgRef->SetUniformVec3(woodenBoxProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
 	}
 	
@@ -222,7 +238,7 @@ int main(int argc, char* argv[]) {
 
 	defaultMaterial.Prepare();
 	if (defaultMaterial.GetAffectedByLight()) {
-		lighting.SetUniforms(*defaultMaterialProgRef);
+		lighting.SetUniforms(defaultMaterialProgRef);
 	}
 	
 	defaultMaterialProgRef->SetUniformVec3(defaultMaterialProgRef->GetUniformLocation("viewPos"), camera.GetPosition());
@@ -231,6 +247,21 @@ int main(int argc, char* argv[]) {
 	coordSystemMaterialProgRef->SetUniformMat4(coordSystemMaterialProgRef->GetUniformLocation("M"), Mcs3d);
 	coordSystemMaterialProgRef->SetUniformMat4(coordSystemMaterialProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 
+
+	flatMaterial1->Prepare();
+	flatMaterial1->GetShaderProgram()->SetUniformMat4(flatMaterial1->GetShaderProgram()->GetUniformLocation("M"), MsecondSphere);
+	flatMaterial1->GetShaderProgram()->SetUniformMat4(flatMaterial1->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+	if (flatMaterial1->GetAffectedByLight() == true) {
+		lighting.SetUniforms(flatMaterial1->GetShaderProgram());
+	}
+
+	phongMaterial1->Prepare();
+	phongMaterial1->GetShaderProgram()->SetUniformMat4(phongMaterial1->GetShaderProgram()->GetUniformLocation("M"), MsecondSphere);
+	phongMaterial1->GetShaderProgram()->SetUniformMat4(phongMaterial1->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+	if (phongMaterial1->GetAffectedByLight()) {
+		lighting.SetUniforms(phongMaterial1->GetShaderProgram());
+	}
+	
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glEnable(GL_DEPTH_TEST);
@@ -282,14 +313,24 @@ int main(int argc, char* argv[]) {
 		// draw coord system using flat material
 		coordSystemMaterial.Bind();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
-			coordSystemMaterialProgRef->SetUniformMat4(coordSystemMaterialProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-			camera.ResetDirtyState();	//as this is the last set
+			coordSystemMaterialProgRef->SetUniformMat4(coordSystemMaterialProgRef->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());			
 		}
 		cs3dMesh.Draw();
 		coordSystemMaterial.Unbind();
+	
+
+		// draw second sphere
+		flatMaterial1->Bind();
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			flatMaterial1->GetShaderProgram()->SetUniformMat4(flatMaterial1->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+		}
+		secondSphereMesh.Draw();
+		flatMaterial1->Unbind();
 
 
-
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			camera.ResetDirtyState();
+		}
 		window.SwapBuffers();
 		window.DoFrame();
 
