@@ -31,13 +31,27 @@ public:
 	/// <param name="shaderFactory">Shader factory</param>
 	MaterialLibrary(ShaderFactory* shaderFactory);
 
-	
+	/// <summary>
+	/// Destructor.
+	/// </summary>
 	~MaterialLibrary();
 
-
+	/// <summary>
+	/// Makes a new flat material, adds it to the library and returns a pointer to it.
+	/// It is tagged with the given name.
+	/// NOTE: If the name already exists, the previously saved material is overwritten.
+	/// </summary>
+	/// <param name="name">Name tag</param>
+	/// <returns>Flat material</returns>
 	FlatMaterial* MakeFlatMaterial(const std::string& name);
 
-
+	/// <summary>
+	/// Makes a new phong material, adds it to the library and returns a pointer to it.
+	/// It is tagged with the given name.
+	/// NOTE: If the name already exists, the previously saved material is overwritten.
+	/// </summary>
+	/// <param name="name">Name tag</param>
+	/// <returns>Phong material</returns>
 	PhongMaterial* MakePhongMaterial(const std::string& name);
 
 

@@ -99,7 +99,6 @@ int main(int argc, char* argv[]) {
 	std::cout << "OpenGL Version: " << glVersionStr << std::endl;
 	window.SetGLVersionLabel(glVersionStr);
 
-
 	
 
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
