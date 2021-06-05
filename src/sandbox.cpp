@@ -126,7 +126,7 @@ int main(int argc, char* argv[]) {
 
 	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f, 20);
 	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
-	Mesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, false);
+	Mesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
 
 	// test: get phong shader from factory	
@@ -135,24 +135,8 @@ int main(int argc, char* argv[]) {
 	auto defaultMaterialProgRef = shaderFactory.MakeDefaultPhongShaderProgram();	
 	auto coordSystemMaterialProgRef = shaderFactory.MakeDefaultFlatShaderProgram();	
 
-	////test: Uniform class
-	//std::vector<Uniform> uniforms;
-	//uniforms.push_back(Uniform(1));
-	//uniforms.push_back(Uniform(glm::vec3(1.0f)));
-	//uniforms.push_back(Uniform(glm::mat4(1.0f)));
 
-	//glm::mat4 testmatrix = uniforms[2].GetMat4();
-	//glm::vec4 testvec = glm::vec4(1.0f, 2.0f, 3.0f, 1.0f);
-	//glm::vec4 result = testmatrix * testvec;	
-	//glm::mat4 refMatrix = glm::mat4(1.0f);
-	//glm::vec4 refResult = refMatrix * testvec;
-	////Result: Working!!
-
-	/*auto a = GL_TEXTURE0;
-	auto b = GL_TEXTURE1;
-	auto c = a + 1;
-	if (c == b) std::cout << "TEXTURE LOC WORKING" << std::endl;*/
-
+	
 
 	// Textures
 	// --------
@@ -218,6 +202,7 @@ int main(int argc, char* argv[]) {
 
 	PhongMaterial* phongMaterial1 = materialLibrary.MakePhongMaterial("phongMaterial1");
 	phongMaterial1->SetDiffuseColor(glm::vec3(1.0f) * 0.5f);
+	phongMaterial1->SetDiffuseTexture(tex2);
 	phongMaterial1->SetSpecularColor(glm::vec3(1.0f));
 
 
@@ -258,6 +243,7 @@ int main(int argc, char* argv[]) {
 	phongMaterial1->Prepare();
 	phongMaterial1->GetShaderProgram()->SetUniformMat4(phongMaterial1->GetShaderProgram()->GetUniformLocation("M"), MsecondSphere);
 	phongMaterial1->GetShaderProgram()->SetUniformMat4(phongMaterial1->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+	phongMaterial1->GetShaderProgram()->SetUniformVec3(phongMaterial1->GetShaderProgram()->GetUniformLocation("viewPos"), camera.GetPosition());
 	if (phongMaterial1->GetAffectedByLight()) {
 		lighting.SetUniforms(phongMaterial1->GetShaderProgram());
 	}
@@ -320,12 +306,19 @@ int main(int argc, char* argv[]) {
 	
 
 		// draw second sphere
-		flatMaterial1->Bind();
+		/*flatMaterial1->Bind();
 		if (camera.GetViewProjectionMatrixIsDirty()) {
 			flatMaterial1->GetShaderProgram()->SetUniformMat4(flatMaterial1->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 		}
 		secondSphereMesh.Draw();
-		flatMaterial1->Unbind();
+		flatMaterial1->Unbind();*/
+		phongMaterial1->Bind();
+		if (camera.GetViewProjectionMatrixIsDirty()) {
+			phongMaterial1->GetShaderProgram()->SetUniformMat4(phongMaterial1->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+			phongMaterial1->GetShaderProgram()->SetUniformVec3(phongMaterial1->GetShaderProgram()->GetUniformLocation("viewPos"), camera.GetPosition());
+		}
+		secondSphereMesh.Draw();
+		phongMaterial1->Unbind();
 
 
 		if (camera.GetViewProjectionMatrixIsDirty()) {
