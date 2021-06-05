@@ -100,24 +100,7 @@ int main(int argc, char* argv[]) {
 	window.SetGLVersionLabel(glVersionStr);
 
 
-	// test of new mesh class
-	/*std::vector<glm::vec3> vertices = {
-		{-0.5f, -0.5f, 0.0f},
-		{0.5f, -0.5f, 0.0f},
-		{-0.5f, 0.5f, 0.0f},
-		{0.5f, 0.5f, 0.0f}
-	};
-
-	std::vector<unsigned int> indices = {
-		0, 1, 2,
-		2, 3, 1
-	};
-
-	Mesh mesh;
-	mesh.SetPositionVertices(vertices);
-	mesh.SetIndices(indices);
-	mesh.Prepare();
-	mesh.SetMode(GL_TRIANGLES);*/
+	
 
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
 	Mesh mesh = meshFactory.MakeCube(1.0f, true);	
