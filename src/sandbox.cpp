@@ -22,8 +22,6 @@
 #include "material/MaterialLibrary.h"
 #include "renderer/SimpleRenderer.h"
 
-#include "renderer/RenderCommand.hpp"
-
 #include <chrono>
 
 
@@ -185,74 +183,10 @@ int main(int argc, char* argv[]) {
 	coordSystemMaterial->SetUseColorVertices(true);
 
 
-	// send all matrices to shaders
-	
-	/*woodenBoxMaterial->Prepare();	
-	woodenBoxMaterial->GetShaderProgram()->SetUniformMat4(woodenBoxMaterial->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-	if (woodenBoxMaterial->GetAffectedByLight()) {
-		lighting.SetUniforms(woodenBoxMaterial->GetShaderProgram());		
-		woodenBoxMaterial->GetShaderProgram()->SetUniformVec3(woodenBoxMaterial->GetShaderProgram()->GetUniformLocation("viewPos"), camera.GetPosition());
-	}
-	woodenBoxMaterial->GetShaderProgram()->SetUniformMat4(woodenBoxMaterial->GetShaderProgram()->GetUniformLocation("M"), Mcube);*/
 
-
-	//gridMaterial->Prepare();	
-	//gridMaterial->GetShaderProgram()->SetUniformMat4(gridMaterial->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-	//gridMaterial->GetShaderProgram()->SetUniformMat4(gridMaterial->GetShaderProgram()->GetUniformLocation("M"), Mgrid);
-
-	//defaultMaterial->Prepare();
-	//if (defaultMaterial->GetAffectedByLight()) {
-	//	lighting.SetUniforms(defaultMaterial->GetShaderProgram());
-	//	defaultMaterial->GetShaderProgram()->SetUniformVec3(defaultMaterial->GetShaderProgram()->GetUniformLocation("viewPos"), camera.GetPosition());
-	//}
-	//
-	//	
-	//coordSystemMaterial->Prepare();
-	//coordSystemMaterial->GetShaderProgram()->SetUniformMat4(coordSystemMaterial->GetShaderProgram()->GetUniformLocation("M"), Mcs3d);
-	//coordSystemMaterial->GetShaderProgram()->SetUniformMat4(coordSystemMaterial->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-
-
-	//flatMaterial1->Prepare();
-	//flatMaterial1->GetShaderProgram()->SetUniformMat4(flatMaterial1->GetShaderProgram()->GetUniformLocation("M"), MsecondSphere);
-	//flatMaterial1->GetShaderProgram()->SetUniformMat4(flatMaterial1->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-	//if (flatMaterial1->GetAffectedByLight() == true) {
-	//	lighting.SetUniforms(flatMaterial1->GetShaderProgram());
-	//}
-
-	//phongMaterial1->Prepare();
-	//phongMaterial1->GetShaderProgram()->SetUniformMat4(phongMaterial1->GetShaderProgram()->GetUniformLocation("M"), MsecondSphere);
-	//phongMaterial1->GetShaderProgram()->SetUniformMat4(phongMaterial1->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-	//phongMaterial1->GetShaderProgram()->SetUniformVec3(phongMaterial1->GetShaderProgram()->GetUniformLocation("viewPos"), camera.GetPosition());
-	//if (phongMaterial1->GetAffectedByLight()) {
-	//	lighting.SetUniforms(phongMaterial1->GetShaderProgram());
-	//}
-	//
-
-	////TEST: Use render command on cube
-	//RenderCommand boxCommand(Mcube, &mesh, woodenBoxMaterial);
-	//boxCommand.material->Prepare();
-	//boxCommand.pvUniformLocation = boxCommand.material->GetShaderProgram()->GetUniformLocation("PV");
-	//boxCommand.viewPosUniformLocation = boxCommand.material->GetShaderProgram()->GetUniformLocation("viewPos");
-	//boxCommand.mUniformLocation = boxCommand.material->GetShaderProgram()->GetUniformLocation("M");
-	//// do camera + lighting
-	//boxCommand.material->GetShaderProgram()->SetUniformMat4(boxCommand.pvUniformLocation, camera.GetViewProjectionMatrix());
-	//if (boxCommand.material->GetAffectedByLight() == true) {
-	//	lighting.SetUniforms(boxCommand.material->GetShaderProgram());
-	//	boxCommand.material->GetShaderProgram()->SetUniformVec3(boxCommand.viewPosUniformLocation, camera.GetPosition());
-	//}
-	//boxCommand.material->GetShaderProgram()->SetUniformMat4(boxCommand.mUniformLocation, boxCommand.M);
-
-
-
-
-	
 	renderer.AddCommand(Mgrid, &gridMesh, gridMaterial);
 	renderer.AddCommand(Mcs3d, &cs3dMesh, coordSystemMaterial);
-
 	renderer.AddCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
-
-
-	
 	renderer.AddCommand(Msphere, &sphereMesh, defaultMaterial);
 	renderer.AddCommand(Mcone, &coneMesh, defaultMaterial);
 
@@ -266,98 +200,9 @@ int main(int argc, char* argv[]) {
 
 	while (!g_exitProgram) {		
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
-		// all steps for cube		
-		//woodenBoxMaterial->Bind();
-		//if (camera.GetViewProjectionMatrixIsDirty()) {			
-		//	woodenBoxMaterial->GetShaderProgram()->SetUniformMat4(woodenBoxMaterial->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());			
-		//	woodenBoxMaterial->GetShaderProgram()->SetUniformVec3(woodenBoxMaterial->GetShaderProgram()->GetUniformLocation("viewPos"), camera.GetPosition());
-		//}		
-		//
-		////tex1.Bind();
-		////shaderProgram.SetUniformInt("tex", 0);	//this is needed for blending different textures (materials)		
-		//mesh.Draw();
-		////Texture::Unbind();
-		//woodenBoxMaterial->Unbind();
-
-
-
-
-		//boxCommand.material->Bind();
-		//if (camera.GetViewProjectionMatrixIsDirty() == true) {
-		//	boxCommand.material->GetShaderProgram()->SetUniformMat4(boxCommand.pvUniformLocation, camera.GetViewProjectionMatrix());
-		//	if (boxCommand.material->GetAffectedByLight() == true) {
-		//		boxCommand.material->GetShaderProgram()->SetUniformVec3(boxCommand.viewPosUniformLocation, camera.GetPosition());
-		//	}
-		//	
-		//}
-		//boxCommand.material->GetShaderProgram()->SetUniformMat4(boxCommand.mUniformLocation, boxCommand.M);
-		//boxCommand.mesh->Draw();
-		//boxCommand.material->Unbind();
-
-
-
-		//// draw sphere & cone with default material
-		//defaultMaterial->Bind();
-		//if (camera.GetViewProjectionMatrixIsDirty()) {
-		//	defaultMaterial->GetShaderProgram()->SetUniformMat4(defaultMaterial->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-		//	defaultMaterial->GetShaderProgram()->SetUniformVec3(defaultMaterial->GetShaderProgram()->GetUniformLocation("viewPos"), camera.GetPosition());
-		//}
-		//int modelMatrixUniformLocation = defaultMaterial->GetShaderProgram()->GetUniformLocation("M");
-		//defaultMaterial->GetShaderProgram()->SetUniformMat4(modelMatrixUniformLocation, Msphere);
-		//sphereMesh.Draw();
-
-		//defaultMaterial->GetShaderProgram()->SetUniformMat4(modelMatrixUniformLocation, Mcone);
-		//coneMesh.Draw();
-
-		//defaultMaterial->Unbind();
-
-
-		//// draw grid		
-		//gridMaterial->Bind();
-		//if (camera.GetViewProjectionMatrixIsDirty()) {
-		//	gridMaterial->GetShaderProgram()->SetUniformMat4(gridMaterial->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-		//}
-		//gridMesh.Draw();
-		//gridMaterial->Unbind();
-
-
-
-		//// draw coord system using flat material
-		//coordSystemMaterial->Bind();
-		//if (camera.GetViewProjectionMatrixIsDirty()) {
-		//	coordSystemMaterial->GetShaderProgram()->SetUniformMat4(coordSystemMaterial->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-		//}
-		//cs3dMesh.Draw();
-		//coordSystemMaterial->Unbind();
-	
-
-		//// draw second sphere
-		///*flatMaterial1->Bind();
-		//if (camera.GetViewProjectionMatrixIsDirty()) {
-		//	flatMaterial1->GetShaderProgram()->SetUniformMat4(flatMaterial1->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-		//}
-		//secondSphereMesh.Draw();
-		//flatMaterial1->Unbind();*/
-
-		//phongMaterial1->Bind();
-		//if (camera.GetViewProjectionMatrixIsDirty()) {
-		//	phongMaterial1->GetShaderProgram()->SetUniformMat4(phongMaterial1->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
-		//	phongMaterial1->GetShaderProgram()->SetUniformVec3(phongMaterial1->GetShaderProgram()->GetUniformLocation("viewPos"), camera.GetPosition());
-		//}
-		//secondSphereMesh.Draw();
-		//phongMaterial1->Unbind();
-
-
-		//if (camera.GetViewProjectionMatrixIsDirty()) {
-		//	camera.ResetDirtyState();
-		//}
-
-
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);				
 
 		renderer.ExecuteCommands();
-
 
 		window.SwapBuffers();
 		window.DoFrame();
