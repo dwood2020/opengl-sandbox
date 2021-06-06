@@ -52,9 +52,6 @@ void SimpleRenderer::PrepareCommands(void) {
 		// do model matrix
 		command.material->GetShaderProgram()->SetUniformMat4(command.mUniformLocation, command.M);
 	}
-
-	// refactored for loop:
-
 }
 
 
@@ -83,7 +80,8 @@ void SimpleRenderer::ExecuteCommands(void) {
 
 			// this is super dirty
 			ctr += 1;
-			if (ctr == renderCommands.size() - 1) {
+			if (ctr == renderCommands.size()) {
+				//NOTE: not size() -1 as ctr is incremented AFTER the actual rendering.
 				camera->ResetDirtyState();
 			}
 		}
