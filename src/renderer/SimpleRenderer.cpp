@@ -54,20 +54,33 @@ void SimpleRenderer::PrepareCommands(void) {
 
 void SimpleRenderer::ExecuteCommands(void) {
 
-	if (camera->GetViewProjectionMatrixIsDirty() == true) {
-		for (RenderCommand command : renderCommands) {
+	//if (camera->GetViewProjectionMatrixIsDirty() == true) {
+	//	for (RenderCommand command : renderCommands) {
+	//		command.material->GetShaderProgram()->SetUniformMat4(command.pvUniformLocation, camera->GetViewProjectionMatrix());
+	//		if (command.material->GetAffectedByLight() == true) {
+	//			command.material->GetShaderProgram()->SetUniformVec3(command.viewPosUniformLocation, camera->GetPosition());
+	//		}
+	//	}
+	//	camera->ResetDirtyState();
+	//	//TODO: Make this whole thing EVENT-BASED!
+	//}
+
+	//TODO: apply sorting!
+	unsigned int ctr = 0;
+	for (RenderCommand command : renderCommands) {
+		command.material->Bind();
+		if (camera->GetViewProjectionMatrixIsDirty() == true) {
 			command.material->GetShaderProgram()->SetUniformMat4(command.pvUniformLocation, camera->GetViewProjectionMatrix());
 			if (command.material->GetAffectedByLight() == true) {
 				command.material->GetShaderProgram()->SetUniformVec3(command.viewPosUniformLocation, camera->GetPosition());
 			}
-		}
-		camera->ResetDirtyState();
-		//TODO: Make this whole thing EVENT-BASED!
-	}
 
-	//TODO: apply sorting!
-	for (RenderCommand command : renderCommands) {
-		command.material->Bind();
+			// this is super dirty
+			ctr += 1;
+			if (ctr == renderCommands.size() - 1) {
+				camera->ResetDirtyState();
+			}
+		}
 		command.material->GetShaderProgram()->SetUniformMat4(command.mUniformLocation, command.M);
 		command.mesh->Draw();
 		command.material->Unbind();
