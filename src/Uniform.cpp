@@ -74,5 +74,7 @@ void Uniform::UpdateValue(const glm::vec3& value) {
 
 
 void Uniform::UpdateValue(const glm::mat4& value) {
-
+	if (((UniformType)this->value.index()) == UniformType::Mat4) {
+		*std::get<(size_t)UniformType::Mat4>(this->value) = value;
+	}
 }

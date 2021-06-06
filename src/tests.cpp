@@ -35,3 +35,23 @@ glm::vec4 result = testmatrix * testvec;
 glm::mat4 refMatrix = glm::mat4(1.0f);
 glm::vec4 refResult = refMatrix * testvec;
 //Result: Working!!
+
+
+// test of Uniform UpdateValue member fns
+Uniform uniInt(10);
+Uniform uniVec3(glm::vec3(10.0f));
+
+std::cout << "uniInt type: " << (int)uniInt.GetType() << "  value: " << uniInt.GetInt() << std::endl;
+
+uniInt.UpdateValue(20);
+std::cout << "uniInt type: " << (int)uniInt.GetType() << "  value: " << uniInt.GetInt() << std::endl;
+
+std::cout << "uniVec3 type: " << (int)uniVec3.GetType() << "  value: " << uniVec3.GetVec3().x << " " << uniVec3.GetVec3().y << " " << uniVec3.GetVec3().z << std::endl;
+uniVec3.UpdateValue(glm::vec3(100.0f, 200.0f, 300.0f));
+std::cout << "uniVec3 type: " << (int)uniVec3.GetType() << "  value: " << uniVec3.GetVec3().x << " " << uniVec3.GetVec3().y << " " << uniVec3.GetVec3().z << std::endl;
+
+Uniform uniMat4(glm::mat4(1.0f));
+std::cout << "uniMat4 type: " << (int)uniMat4.GetType() << "  value 0,0: " << uniMat4.GetMat4()[0][0] << std::endl;
+uniMat4.UpdateValue(glm::mat4(25.0f));
+std::cout << "uniMat4 type: " << (int)uniMat4.GetType() << "  value 0,0: " << uniMat4.GetMat4()[0][0] << std::endl;
+// Result: Working

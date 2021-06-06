@@ -119,7 +119,6 @@ int main(int argc, char* argv[]) {
 
 
 	
-
 	// Textures
 	// --------
 	Texture tex1 = Texture::GenerateFromFile("res/texture/box.png", GL_NEAREST);
