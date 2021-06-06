@@ -68,8 +68,7 @@ void SimpleRenderer::ExecuteCommands(void) {
 	//	//TODO: Make this whole thing EVENT-BASED!
 	//}
 
-	//TODO: apply sorting!
-	unsigned int ctr = 0;
+	//TODO: apply sorting!	
 	for (RenderCommand& command : renderCommands) {
 		command.material->Bind();
 		if (camera->GetViewProjectionMatrixIsDirty() == true) {
@@ -78,18 +77,15 @@ void SimpleRenderer::ExecuteCommands(void) {
 				command.material->GetShaderProgram()->SetUniformVec3(command.viewPosUniformLocation, camera->GetPosition());
 			}
 
-			// this is super dirty
-			ctr += 1;
-			if (ctr == renderCommands.size()) {
-				//NOTE: not size() -1 as ctr is incremented AFTER the actual rendering.
-				camera->ResetDirtyState();
-			}
 		}
 		command.material->GetShaderProgram()->SetUniformMat4(command.mUniformLocation, command.M);
 		command.mesh->Draw();
 		command.material->Unbind();
 	}
 
+	if (camera->GetViewProjectionMatrixIsDirty() == true) {
+		camera->ResetDirtyState();
+	}
 
 
 }
