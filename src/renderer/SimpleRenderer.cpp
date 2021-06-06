@@ -24,18 +24,22 @@ void SimpleRenderer::AddCommand(const glm::mat4& modelMatrix, Mesh* mesh, Materi
 
 void SimpleRenderer::PrepareCommands(void) {
 	
-	for (RenderCommand command : renderCommands) {
+	for (RenderCommand& command : renderCommands) {
 		// prepare material		
 		command.material->Prepare();		
 
 		// get uniform locations into command
 		command.pvUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("PV");
-		command.viewPosUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("viewPos");
+		
 		command.mUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("M");
 		
 		// do camera + lighting
 		command.material->GetShaderProgram()->SetUniformMat4(command.pvUniformLocation, camera->GetViewProjectionMatrix());
 		if (command.material->GetAffectedByLight() == true) {
+			
+			command.viewPosUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("viewPos");
+
+
 			lighting->SetUniforms(command.material->GetShaderProgram());
 
 			// first possibility (see RenderCommand + viewPos uniform loc)
@@ -47,8 +51,10 @@ void SimpleRenderer::PrepareCommands(void) {
 		
 		// do model matrix
 		command.material->GetShaderProgram()->SetUniformMat4(command.mUniformLocation, command.M);
-
 	}
+
+	// refactored for loop:
+
 }
 
 
@@ -67,7 +73,7 @@ void SimpleRenderer::ExecuteCommands(void) {
 
 	//TODO: apply sorting!
 	unsigned int ctr = 0;
-	for (RenderCommand command : renderCommands) {
+	for (RenderCommand& command : renderCommands) {
 		command.material->Bind();
 		if (camera->GetViewProjectionMatrixIsDirty() == true) {
 			command.material->GetShaderProgram()->SetUniformMat4(command.pvUniformLocation, camera->GetViewProjectionMatrix());

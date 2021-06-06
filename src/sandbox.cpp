@@ -228,11 +228,6 @@ int main(int argc, char* argv[]) {
 	}
 	
 
-	/*renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);
-	renderer.AddCommand(Mgrid, &gridMesh, gridMaterial);
-	renderer.AddCommand(Mcs3d, &cs3dMesh, coordSystemMaterial);
-	renderer.PrepareCommands();*/
-
 	//TEST: Use render command on cube
 	RenderCommand boxCommand(Mcube, &mesh, woodenBoxMaterial);
 	boxCommand.material->Prepare();
@@ -243,13 +238,17 @@ int main(int argc, char* argv[]) {
 	boxCommand.material->GetShaderProgram()->SetUniformMat4(boxCommand.pvUniformLocation, camera.GetViewProjectionMatrix());
 	if (boxCommand.material->GetAffectedByLight() == true) {
 		lighting.SetUniforms(boxCommand.material->GetShaderProgram());
-
-		// first possibility (see RenderCommand + viewPos uniform loc)
 		boxCommand.material->GetShaderProgram()->SetUniformVec3(boxCommand.viewPosUniformLocation, camera.GetPosition());
 	}
 	boxCommand.material->GetShaderProgram()->SetUniformMat4(boxCommand.mUniformLocation, boxCommand.M);
 
 
+
+
+	/*renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);
+	renderer.AddCommand(Mgrid, &gridMesh, gridMaterial);
+	renderer.AddCommand(Mcs3d, &cs3dMesh, coordSystemMaterial);
+	renderer.PrepareCommands();*/
 
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -271,6 +270,9 @@ int main(int argc, char* argv[]) {
 		//mesh.Draw();
 		////Texture::Unbind();
 		//woodenBoxMaterial->Unbind();
+
+
+
 
 		boxCommand.material->Bind();
 		if (camera.GetViewProjectionMatrixIsDirty() == true) {
@@ -344,7 +346,7 @@ int main(int argc, char* argv[]) {
 
 
 
-		//renderer.ExecuteCommands();
+		/*renderer.ExecuteCommands();*/
 
 
 		window.SwapBuffers();
