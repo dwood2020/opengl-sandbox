@@ -190,6 +190,7 @@
     <ClCompile Include="src\Uniform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\renderer\RenderCommand.hpp" />
     <ClInclude Include="src\renderer\SimpleRenderer.h" />
     <ClInclude Include="src\material\MaterialLibrary.h" />
     <ClInclude Include="src\material\FlatMaterial.h" />
