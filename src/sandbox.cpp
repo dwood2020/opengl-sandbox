@@ -180,18 +180,17 @@ int main(int argc, char* argv[]) {
 
 	// send all matrices to shaders
 
-	woodenBoxMaterial->Prepare();
-	woodenBoxMaterial->GetShaderProgram()->SetUniformMat4(woodenBoxMaterial->GetShaderProgram()->GetUniformLocation("M"), Mcube);
+	woodenBoxMaterial->Prepare();	
 	woodenBoxMaterial->GetShaderProgram()->SetUniformMat4(woodenBoxMaterial->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
 	if (woodenBoxMaterial->GetAffectedByLight()) {
 		lighting.SetUniforms(woodenBoxMaterial->GetShaderProgram());		
 		woodenBoxMaterial->GetShaderProgram()->SetUniformVec3(woodenBoxMaterial->GetShaderProgram()->GetUniformLocation("viewPos"), camera.GetPosition());
 	}
+	woodenBoxMaterial->GetShaderProgram()->SetUniformMat4(woodenBoxMaterial->GetShaderProgram()->GetUniformLocation("M"), Mcube);
 
-
-	gridMaterial->Prepare();
-	gridMaterial->GetShaderProgram()->SetUniformMat4(gridMaterial->GetShaderProgram()->GetUniformLocation("M"), Mgrid);
+	gridMaterial->Prepare();	
 	gridMaterial->GetShaderProgram()->SetUniformMat4(gridMaterial->GetShaderProgram()->GetUniformLocation("PV"), camera.GetViewProjectionMatrix());
+	gridMaterial->GetShaderProgram()->SetUniformMat4(gridMaterial->GetShaderProgram()->GetUniformLocation("M"), Mgrid);
 
 	defaultMaterial->Prepare();
 	if (defaultMaterial->GetAffectedByLight()) {

@@ -9,11 +9,14 @@ public:
 	glm::mat4 M;
 	Mesh* mesh;
 	MaterialBase* material;
-	int MuniformLocation;	//TODO: this is my first approach. think about this.
+	int mUniformLocation;	//TODO: this is my first approach. think about this.
+	int pvUniformLocation;
+	int viewPosUniformLocation;
 
-	RenderCommand(): M(glm::mat4(1.0f)), mesh(nullptr), material(nullptr), MuniformLocation(-1) { }
+	RenderCommand(): M(glm::mat4(1.0f)), mesh(nullptr), material(nullptr), mUniformLocation(-1), pvUniformLocation(-1), viewPosUniformLocation(-1) { }
 
-	RenderCommand(const glm::mat4& modelMatrix, Mesh* mesh, MaterialBase* material): M(modelMatrix), mesh(mesh), material(material), MuniformLocation(-1) { }
+	RenderCommand(const glm::mat4& modelMatrix, Mesh* mesh, MaterialBase* material): 
+		M(modelMatrix), mesh(mesh), material(material), mUniformLocation(-1), pvUniformLocation(-1), viewPosUniformLocation(-1) { }
 
 	~RenderCommand() { }
 };
