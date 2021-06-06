@@ -50,3 +50,29 @@ const glm::vec3& Uniform::GetVec3(void) const {
 const glm::mat4& Uniform::GetMat4(void) const {
 	return *std::get<(size_t)UniformType::Mat4>(value);
 }
+
+
+void Uniform::UpdateValue(int value) {
+	if (((UniformType)this->value.index()) == UniformType::Int) {
+		this->value = value;
+	}
+}
+
+
+void Uniform::UpdateValue(float value) {
+	if (((UniformType)this->value.index()) == UniformType::Float) {
+		this->value = value;
+	}
+}
+
+
+void Uniform::UpdateValue(const glm::vec3& value) {
+	if (((UniformType)this->value.index()) == UniformType::Vec3) {
+		this->value = value;
+	}
+}
+
+
+void Uniform::UpdateValue(const glm::mat4& value) {
+
+}

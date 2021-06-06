@@ -105,5 +105,29 @@ public:
 	/// </summary>	
 	/// <returns>Uniform value (Mat4)</returns>
 	const glm::mat4& GetMat4(void) const;
+
+	/// <summary>
+	/// Updates the Uniform value (Type Int)
+	/// </summary>
+	/// <param name="value">New value</param>
+	void UpdateValue(int value);
+
+	/// <summary>
+	/// Updates the Uniform value (Type Float)
+	/// </summary>
+	/// <param name="value">New value</param>
+	void UpdateValue(float value);
+
+	/// <summary>
+	/// Updates the Uniform value (Type Vec3)
+	/// </summary>
+	/// <param name="value">New value</param>
+	void UpdateValue(const glm::vec3& value);
+
+	/// <summary>
+	/// Updates the Uniform value (Type Mat4)
+	/// </summary>
+	/// <param name="value">New value</param>
+	void UpdateValue(const glm::mat4& value);
 };
 
