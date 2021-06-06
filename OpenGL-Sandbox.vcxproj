@@ -167,6 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\renderer\SimpleRenderer.cpp" />
     <ClCompile Include="src\material\MaterialLibrary.cpp" />
     <ClCompile Include="src\material\FlatMaterial.cpp" />
     <ClCompile Include="src\material\PhongMaterial.cpp" />
@@ -189,6 +190,7 @@
     <ClCompile Include="src\Uniform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\renderer\SimpleRenderer.h" />
     <ClInclude Include="src\material\MaterialLibrary.h" />
     <ClInclude Include="src\material\FlatMaterial.h" />
     <ClInclude Include="src\material\PhongMaterial.h" />
