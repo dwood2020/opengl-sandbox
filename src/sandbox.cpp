@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
 	eventBus.AddListener(EventType::WindowClose, &sandboxListener);
 
 
-	glClearColor(0.075f, 0.196f, 0.325f, 1.0f);	
+	//glClearColor(0.075f, 0.196f, 0.325f, 1.0f);	
 	// use lighting class
 	Lighting lighting;
 	lighting.SetDirection(glm::vec3(-0.8f, -1.2f, -1.0f));	//NOTE: Not exactly pointed towards corner to make sides of cube better visible
@@ -107,6 +107,7 @@ int main(int argc, char* argv[]) {
 
 	// use renderer
 	SimpleRenderer renderer(eventBus, lighting, camera, window.GetWindowRect());
+	renderer.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));
 
 	
 	std::string glVersionStr = (const char*)glGetString(GL_VERSION);
@@ -196,7 +197,7 @@ int main(int argc, char* argv[]) {
 
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
 	while (!g_exitProgram) {		
 

@@ -26,6 +26,9 @@ public:
 	~SimpleRenderer();
 
 
+	void SetClearColor(const glm::vec3& clearColor);
+
+
 	void AddCommand(const glm::mat4& modelMatrix, Mesh* mesh, MaterialBase* material);
 
 

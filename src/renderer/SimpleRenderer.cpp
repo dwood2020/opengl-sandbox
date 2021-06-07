@@ -13,11 +13,19 @@ SimpleRenderer::SimpleRenderer(EventBus& eventBus, Lighting& lighting, CameraBas
 	eventBus.AddListener(EventType::WindowResize, this);
 
 	// initialize rendering
+	SetClearColor(glm::vec3(0.0f));
 	CalculateViewport(windowRect);
+
+	glEnable(GL_DEPTH_TEST);
 }
 
 
 SimpleRenderer::~SimpleRenderer() { }
+
+
+void SimpleRenderer::SetClearColor(const glm::vec3& clearColor) {	
+	glClearColor(clearColor.x, clearColor.y, clearColor.z, 1.0f);
+}
 
 
 
