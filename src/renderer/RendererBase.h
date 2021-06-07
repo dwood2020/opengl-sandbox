@@ -21,6 +21,11 @@ public:
 
 	virtual void OnEvent(Event& e) override = 0;
 
+
+protected:
+	void CalculateViewport(const glm::vec2& rect);
+
+
 };
 
 

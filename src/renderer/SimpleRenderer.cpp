@@ -121,7 +121,3 @@ void SimpleRenderer::OnEvent(Event& e) {
 }
 
 
-void SimpleRenderer::CalculateViewport(const glm::vec2& rect) {
-	glViewport(0, 0, (GLsizei)rect.x, (GLsizei)rect.y);
-}
-

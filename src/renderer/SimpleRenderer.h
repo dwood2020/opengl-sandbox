@@ -40,8 +40,6 @@ public:
 
 	void OnEvent(Event& e) override;
 
-private:
-	void CalculateViewport(const glm::vec2& rect);
 
 };
 
