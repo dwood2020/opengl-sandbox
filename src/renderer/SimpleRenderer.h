@@ -1,17 +1,17 @@
 #pragma once
 #include <vector>
 
-#include "../glad/glad.h"
 #include <glm/glm.hpp>
 
 #include "../Mesh.h"
 #include "../material/MaterialBase.h"
 #include "../Lighting.h"
 #include "../camera/CameraBase.h"
+#include "RendererBase.h"
 #include "RenderCommand.hpp"
 
 
-class SimpleRenderer final {
+class SimpleRenderer final : public RendererBase {
 private:
 	Lighting* lighting;
 	CameraBase* camera;
@@ -21,7 +21,7 @@ private:
 public:
 	SimpleRenderer();
 
-	SimpleRenderer(Lighting& lighting, CameraBase& camera);
+	SimpleRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, const glm::vec2& windowRect);
 
 	~SimpleRenderer();
 
@@ -29,10 +29,16 @@ public:
 	void AddCommand(const glm::mat4& modelMatrix, Mesh* mesh, MaterialBase* material);
 
 
-	void PrepareCommands(void);
+	void Prepare(void) override;
 
 
-	void ExecuteCommands(void);
+	void DoFrame(void) override;
+
+
+	void OnEvent(Event& e) override;
+
+private:
+	void CalculateViewport(const glm::vec2& rect);
 
 };
 

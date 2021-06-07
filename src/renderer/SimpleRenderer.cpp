@@ -1,10 +1,20 @@
 #include "SimpleRenderer.h"
+#include "../glad/glad.h"
+
+#include <iostream>	//FOR DEBUG
 
 
 SimpleRenderer::SimpleRenderer(): lighting(nullptr), camera(nullptr) { }
 
 
-SimpleRenderer::SimpleRenderer(Lighting& lighting, CameraBase& camera): lighting(&lighting), camera(&camera) { }
+SimpleRenderer::SimpleRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, const glm::vec2& windowRect): lighting(&lighting), camera(&camera) {
+	
+	// register for events
+	eventBus.AddListener(EventType::WindowResize, this);
+
+	// initialize rendering
+	CalculateViewport(windowRect);
+}
 
 
 SimpleRenderer::~SimpleRenderer() { }
@@ -22,7 +32,7 @@ void SimpleRenderer::AddCommand(const glm::mat4& modelMatrix, Mesh* mesh, Materi
 }
 
 
-void SimpleRenderer::PrepareCommands(void) {
+void SimpleRenderer::Prepare(void) {
 	
 	for (RenderCommand& command : renderCommands) {
 		// prepare material		
@@ -55,7 +65,7 @@ void SimpleRenderer::PrepareCommands(void) {
 }
 
 
-void SimpleRenderer::ExecuteCommands(void) {
+void SimpleRenderer::DoFrame(void) {
 
 	//if (camera->GetViewProjectionMatrixIsDirty() == true) {
 	//	for (RenderCommand command : renderCommands) {
@@ -88,5 +98,22 @@ void SimpleRenderer::ExecuteCommands(void) {
 	}
 
 
+}
+
+
+void SimpleRenderer::OnEvent(Event& e) {
+
+	if (e.GetType() == EventType::WindowResize) {
+		auto& eResize = (WindowResizeEvent&)e;
+		glm::vec2 rect = glm::vec2(eResize.GetScreenWidth(), eResize.GetScreenHeight());
+		CalculateViewport(rect);
+
+		std::cout << "Window resize event handled in SimpleRenderer" << std::endl;
+	}
+}
+
+
+void SimpleRenderer::CalculateViewport(const glm::vec2& rect) {
+	glViewport(0, 0, (GLsizei)rect.x, (GLsizei)rect.y);
 }
 

@@ -28,11 +28,11 @@
 bool g_exitProgram = false;
 
 
-void OnWindowResize(Event& e) {
-	std::cout << "OnWindowResize called!" << std::endl;
-	WindowResizeEvent& eRes = (WindowResizeEvent&)e;
-	glViewport(0, 0, eRes.GetScreenWidth(), eRes.GetScreenHeight());
-}
+//void OnWindowResize(Event& e) {
+//	std::cout << "OnWindowResize called!" << std::endl;
+//	WindowResizeEvent& eRes = (WindowResizeEvent&)e;
+//	glViewport(0, 0, eRes.GetScreenWidth(), eRes.GetScreenHeight());
+//}
 
 
 // this is now a proof of concept
@@ -49,9 +49,9 @@ public:
 		if (e.GetType() == EventType::WindowClose) {
 			OnWindowClose(e);
 		}
-		else if (e.GetType() == EventType::WindowResize) {
+		/*else if (e.GetType() == EventType::WindowResize) {
 			OnWindowResize(e);
-		}	
+		}*/	
 		
 	}
 };
@@ -87,8 +87,8 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	glm::vec2 windowRect = window.GetWindowRect();
-	glViewport(0, 0, (GLsizei)windowRect.x, (GLsizei)windowRect.y);
+	/*glm::vec2 windowRect = window.GetWindowRect();
+	glViewport(0, 0, (GLsizei)windowRect.x, (GLsizei)windowRect.y);*/
 
 	glm::vec3 initialCameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
 	SimpleCamera camera(eventBus, window.GetWindowRect(), initialCameraPos);
@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
 	lighting.SetAmbientFactor(0.4f);
 
 	// use renderer
-	SimpleRenderer renderer(lighting, camera);
+	SimpleRenderer renderer(eventBus, lighting, camera, window.GetWindowRect());
 
 	
 	std::string glVersionStr = (const char*)glGetString(GL_VERSION);
@@ -192,7 +192,7 @@ int main(int argc, char* argv[]) {
 
 	renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);
 	
-	renderer.PrepareCommands();
+	renderer.Prepare();
 
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -202,7 +202,7 @@ int main(int argc, char* argv[]) {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);				
 
-		renderer.ExecuteCommands();
+		renderer.DoFrame();
 
 		window.SwapBuffers();
 		window.DoFrame();
