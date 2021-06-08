@@ -201,8 +201,6 @@ int main(int argc, char* argv[]) {
 
 	while (!g_exitProgram) {		
 
-					
-
 		renderer.DoFrame();
 
 		window.SwapBuffers();
