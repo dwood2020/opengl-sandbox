@@ -12,7 +12,7 @@
 #include "shader/ShaderProgram.h"
 #include "shader/ShaderFactory.h"
 #include "mesh/StaticMesh.h"
-#include "mesh/MeshFactory.h"
+#include "mesh/StaticMeshFactory.h"
 #include "Texture.h"
 #include "camera/SimpleCamera.h"
 #include "Lighting.h"

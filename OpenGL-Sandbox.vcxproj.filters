@@ -39,7 +39,7 @@
     <ClCompile Include="src\events\EventBus.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\mesh\MeshFactory.cpp">
+    <ClCompile Include="src\mesh\StaticMeshFactory.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\Texture.cpp">
@@ -119,7 +119,7 @@
     <ClInclude Include="src\Keycodes.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\mesh\MeshFactory.h">
+    <ClInclude Include="src\mesh\StaticMeshFactory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\Texture.h">

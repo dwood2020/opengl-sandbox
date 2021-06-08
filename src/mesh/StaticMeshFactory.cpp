@@ -1,4 +1,4 @@
-#include "MeshFactory.h"
+#include "StaticMeshFactory.h"
 #include <vector>
 #include "../glad/glad.h"
 #include "glm/glm.hpp"
