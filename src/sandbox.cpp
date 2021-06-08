@@ -11,8 +11,8 @@
 #include "shader/Shader.h"
 #include "shader/ShaderProgram.h"
 #include "shader/ShaderFactory.h"
-#include "Mesh.h"
-#include "MeshFactory.h"
+#include "mesh/StaticMesh.h"
+#include "mesh/MeshFactory.h"
 #include "Texture.h"
 #include "camera/SimpleCamera.h"
 #include "Lighting.h"
@@ -70,7 +70,7 @@ int main(int argc, char* argv[]) {
 	SandboxListener sandboxListener;
 
 	EventBus eventBus;
-	MeshFactory meshFactory;
+	StaticMeshFactory meshFactory;
 
 	ShaderFactory shaderFactory;
 	MaterialLibrary materialLibrary(&shaderFactory);
@@ -117,13 +117,13 @@ int main(int argc, char* argv[]) {
 	
 
 	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
-	Mesh mesh = meshFactory.MakeCube(1.0f, true);	
-	Mesh gridMesh = meshFactory.MakeSimpleGrid(20.0f);
-	Mesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
+	StaticMesh mesh = meshFactory.MakeCube(1.0f, true);	
+	StaticMesh gridMesh = meshFactory.MakeSimpleGrid(20.0f);
+	StaticMesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
 
-	Mesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f, 20);
-	Mesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
-	Mesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
+	StaticMesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f, 20);
+	StaticMesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
+	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
 
 	// Textures

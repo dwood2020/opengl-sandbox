@@ -33,13 +33,13 @@
     <ClCompile Include="src\shader\ShaderProgram.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\Mesh.cpp">
+    <ClCompile Include="src\mesh\StaticMesh.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\events\EventBus.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\MeshFactory.cpp">
+    <ClCompile Include="src\mesh\MeshFactory.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\Texture.cpp">
@@ -101,7 +101,7 @@
     <ClInclude Include="src\shader\ShaderProgram.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\Mesh.h">
+    <ClInclude Include="src\mesh\StaticMesh.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\events\Event.hpp">
@@ -116,7 +116,7 @@
     <ClInclude Include="src\Keycodes.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\MeshFactory.h">
+    <ClInclude Include="src\mesh\MeshFactory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\Texture.h">

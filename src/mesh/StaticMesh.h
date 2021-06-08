@@ -1,10 +1,10 @@
 #pragma once
 #include <vector>
-#include "glad/glad.h"
+#include "../glad/glad.h"
 #include <glm/glm.hpp>
 
 
-class Mesh {
+class StaticMesh {
 protected:
 	unsigned int vao;	
 	unsigned int vbo;
@@ -22,8 +22,8 @@ protected:
 	std::vector<unsigned int> indices;
 
 public:
-	Mesh();
-	virtual ~Mesh();
+	StaticMesh();
+	virtual ~StaticMesh();
 
 	void SetPositionVertices(std::vector<glm::vec3>& vertices);
 	void SetNormalVertices(std::vector<glm::vec3>& normals);

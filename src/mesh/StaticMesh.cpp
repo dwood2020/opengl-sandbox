@@ -1,47 +1,47 @@
-#include "Mesh.h"
+#include "StaticMesh.h"
 #include <cstddef>
 #include <algorithm>
 
 #include <iostream>
 
 
-Mesh::Mesh() : vao(0), vbo(0), ebo(0), glMode(GL_POINTS), nrElements(0) { }
+StaticMesh::StaticMesh() : vao(0), vbo(0), ebo(0), glMode(GL_POINTS), nrElements(0) { }
 
 
-Mesh::~Mesh() { }
+StaticMesh::~StaticMesh() { }
 
 
-void Mesh::SetPositionVertices(std::vector<glm::vec3>& vertices) {
+void StaticMesh::SetPositionVertices(std::vector<glm::vec3>& vertices) {
 	verticesPosition = vertices;
 }
 
 
-void Mesh::SetNormalVertices(std::vector<glm::vec3>& normals) {
+void StaticMesh::SetNormalVertices(std::vector<glm::vec3>& normals) {
 	verticesNormal = normals;
 }
 
 
-void Mesh::SetTextureCoordVertices(std::vector<glm::vec2>& texCoords) {
+void StaticMesh::SetTextureCoordVertices(std::vector<glm::vec2>& texCoords) {
 	verticesTexCoord = texCoords;
 }
 
 
-void Mesh::SetColorVertices(std::vector<glm::vec3>& colors) {
+void StaticMesh::SetColorVertices(std::vector<glm::vec3>& colors) {
 	verticesColor = colors;
 }
 
 
-void Mesh::SetIndices(std::vector<unsigned int>& indices) {
+void StaticMesh::SetIndices(std::vector<unsigned int>& indices) {
 	this->indices = indices;
 }
 
 
-void Mesh::SetGlMode(GLenum glMode) {
+void StaticMesh::SetGlMode(GLenum glMode) {
 	this->glMode = glMode;
 }
 
 
-void Mesh::Prepare(void) {
+void StaticMesh::Prepare(void) {
 
 	if (!CheckDataConsistency()) {
 		return;
@@ -148,7 +148,7 @@ void Mesh::Prepare(void) {
 }
 
 
-void Mesh::Draw(void) {
+void StaticMesh::Draw(void) {
 	glBindVertexArray(vao);
 	if (ebo == 0) {
 		glDrawArrays(glMode, 0, nrElements);
@@ -160,7 +160,7 @@ void Mesh::Draw(void) {
 }
 
 
-bool Mesh::CheckDataConsistency(void) const {
+bool StaticMesh::CheckDataConsistency(void) const {
 
 	size_t vertexCount = verticesPosition.size();
 

@@ -29,7 +29,7 @@ void SimpleRenderer::SetClearColor(const glm::vec3& clearColor) {
 
 
 
-void SimpleRenderer::AddCommand(const glm::mat4& modelMatrix, Mesh* mesh, MaterialBase* material) {
+void SimpleRenderer::AddCommand(const glm::mat4& modelMatrix, StaticMesh* mesh, MaterialBase* material) {
 	if (mesh == nullptr || material == nullptr) {
 		//TODO ASSERT or check if passing arg by reference is better option
 		return;

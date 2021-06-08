@@ -1,19 +1,19 @@
 #include "MeshFactory.h"
 #include <vector>
-#include "glad/glad.h"
+#include "../glad/glad.h"
 #include "glm/glm.hpp"
 #include <cmath>
 
 
-MeshFactory::MeshFactory() { }
+StaticMeshFactory::StaticMeshFactory() { }
 
 
-MeshFactory::~MeshFactory() { }
+StaticMeshFactory::~StaticMeshFactory() { }
 
 
-Mesh MeshFactory::MakeRectangle(float w, float h, float z) const {
+StaticMesh StaticMeshFactory::MakeRectangle(float w, float h, float z) const {
 
-	Mesh mesh;
+	StaticMesh mesh;
 
 	const float wHalf = w / 2.0f;
 	const float hHalf = h / 2.0f;
@@ -66,9 +66,9 @@ Mesh MeshFactory::MakeRectangle(float w, float h, float z) const {
 }
 
 
-Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
+StaticMesh StaticMeshFactory::MakeCube(float l, bool isTextured) const {
 
-	Mesh mesh;
+	StaticMesh mesh;
 	float lh = l / 2.0f;
 
 	std::vector<glm::vec3> vertices = {
@@ -196,14 +196,14 @@ Mesh MeshFactory::MakeCube(float l, bool isTextured) const {
 }
 
 
-Mesh MeshFactory::MakeCone(float r, float h, int points) const {
+StaticMesh StaticMeshFactory::MakeCone(float r, float h, int points) const {
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec3> normals;
 	std::vector<unsigned int> indices;
 
 	MakeCone(vertices, normals, indices, points, r, h);
 
-	Mesh mesh;
+	StaticMesh mesh;
 	mesh.SetPositionVertices(vertices);
 	mesh.SetNormalVertices(normals);
 	mesh.SetIndices(indices);
@@ -214,7 +214,7 @@ Mesh MeshFactory::MakeCone(float r, float h, int points) const {
 }
 
 
-Mesh MeshFactory::MakeSphere(float r, int nrLat, int nrLong, bool isTextured) const {
+StaticMesh StaticMeshFactory::MakeSphere(float r, int nrLat, int nrLong, bool isTextured) const {
 	
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec3> normals;
@@ -227,7 +227,7 @@ Mesh MeshFactory::MakeSphere(float r, int nrLat, int nrLong, bool isTextured) co
 
 	MakeIndexedSphere(&vertices, &normals, &indices, pTexCoords, nrLat, nrLong, r);
 
-	Mesh mesh;
+	StaticMesh mesh;
 	mesh.SetPositionVertices(vertices);
 	mesh.SetNormalVertices(normals);
 	mesh.SetIndices(indices);
@@ -241,7 +241,7 @@ Mesh MeshFactory::MakeSphere(float r, int nrLat, int nrLong, bool isTextured) co
 }
 
 
-Mesh MeshFactory::MakeSimpleCoordinateSystem(float l) const {
+StaticMesh StaticMeshFactory::MakeSimpleCoordinateSystem(float l) const {
 	
 	std::vector<glm::vec3> vertices = {
 		{0.0f, 0.0f, 0.0f},
@@ -254,7 +254,7 @@ Mesh MeshFactory::MakeSimpleCoordinateSystem(float l) const {
 		{0.0f, 0.0f, l}
 	};
 
-	Mesh mesh;
+	StaticMesh mesh;
 	mesh.SetPositionVertices(vertices);
 	mesh.SetGlMode(GL_LINES);
 	mesh.Prepare();
@@ -263,7 +263,7 @@ Mesh MeshFactory::MakeSimpleCoordinateSystem(float l) const {
 }
 
 
-Mesh MeshFactory::MakeCoordinateSystem(float l) const {
+StaticMesh StaticMeshFactory::MakeCoordinateSystem(float l) const {
 	
 	std::vector<glm::vec3> vertices;
 	std::vector<unsigned int> indices;
@@ -321,7 +321,7 @@ Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 		}
 	}	
 
-	Mesh mesh;
+	StaticMesh mesh;
 	mesh.SetPositionVertices(vertices);
 	mesh.SetColorVertices(colorVertices);
 	mesh.SetIndices(indices);
@@ -332,7 +332,7 @@ Mesh MeshFactory::MakeCoordinateSystem(float l) const {
 }
 
 
-Mesh MeshFactory::MakeSimpleGrid(float l) const {
+StaticMesh StaticMeshFactory::MakeSimpleGrid(float l) const {
 	
 	std::vector<glm::vec3> vertices;
 	
@@ -348,7 +348,7 @@ Mesh MeshFactory::MakeSimpleGrid(float l) const {
 		vertices.push_back(glm::vec3(l, 0.0f, z));
 	}
 
-	Mesh mesh;
+	StaticMesh mesh;
 	mesh.SetPositionVertices(vertices);
 	mesh.SetGlMode(GL_LINES);
 	mesh.Prepare();
@@ -356,7 +356,7 @@ Mesh MeshFactory::MakeSimpleGrid(float l) const {
 }
 
 
-void MeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const {
+void StaticMeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const {
 	vertices.reserve(2 * points);
 
 	const float deltaPhi = (2.0f * 3.1415926f) / (float)points;
@@ -394,7 +394,7 @@ void MeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<uns
 }
 
 
-void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<glm::vec3>& normals, std::vector<unsigned int>& indices, int points, float r, float h) const {	
+void StaticMeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<glm::vec3>& normals, std::vector<unsigned int>& indices, int points, float r, float h) const {	
 	
 	// vertices
 	// --------
@@ -437,7 +437,7 @@ void MeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<glm::ve
 }
 
 
-void MeshFactory::MakeIndexedSphere(std::vector<glm::vec3>* vertices, std::vector<glm::vec3>* normals, std::vector<unsigned int>* indices, std::vector<glm::vec2>* texCoords, int nrLat, int nrLong, float r) const {
+void StaticMeshFactory::MakeIndexedSphere(std::vector<glm::vec3>* vertices, std::vector<glm::vec3>* normals, std::vector<unsigned int>* indices, std::vector<glm::vec2>* texCoords, int nrLat, int nrLong, float r) const {
 	if (vertices == nullptr || indices == nullptr || normals == nullptr) {
 		return;
 	}

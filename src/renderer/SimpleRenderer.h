@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 
-#include "../Mesh.h"
+#include "../mesh/StaticMesh.h"
 #include "../material/MaterialBase.h"
 #include "../Lighting.h"
 #include "../camera/CameraBase.h"
@@ -29,7 +29,7 @@ public:
 	void SetClearColor(const glm::vec3& clearColor);
 
 
-	void AddCommand(const glm::mat4& modelMatrix, Mesh* mesh, MaterialBase* material);
+	void AddCommand(const glm::mat4& modelMatrix, StaticMesh* mesh, MaterialBase* material);
 
 
 	void Prepare(void) override;
