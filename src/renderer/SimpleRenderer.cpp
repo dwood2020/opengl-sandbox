@@ -75,6 +75,8 @@ void SimpleRenderer::Prepare(void) {
 
 void SimpleRenderer::DoFrame(void) {
 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	//if (camera->GetViewProjectionMatrixIsDirty() == true) {
 	//	for (RenderCommand command : renderCommands) {
 	//		command.material->GetShaderProgram()->SetUniformMat4(command.pvUniformLocation, camera->GetViewProjectionMatrix());
