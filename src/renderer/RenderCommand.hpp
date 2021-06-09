@@ -1,13 +1,13 @@
 #pragma once
 #include <glm/glm.hpp>
-#include "../mesh/StaticMesh.h"
+#include "../mesh/MeshBase.h"
 #include "../material/MaterialBase.h"
 
 
 class RenderCommand final {
 public:
 	glm::mat4 M;
-	StaticMesh* mesh;
+	MeshBase* mesh;
 	MaterialBase* material;
 	int mUniformLocation;	//TODO: this is my first approach. think about this.
 	int pvUniformLocation;
