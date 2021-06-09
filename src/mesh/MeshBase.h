@@ -8,4 +8,10 @@ public:
 
 	virtual ~MeshBase();
 
+
+	virtual void Prepare(void) = 0;
+
+
+	virtual void Draw(void) = 0;
+
 };

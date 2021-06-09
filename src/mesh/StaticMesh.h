@@ -2,9 +2,10 @@
 #include <vector>
 #include "../glad/glad.h"
 #include <glm/glm.hpp>
+#include "MeshBase.h"
 
 
-class StaticMesh {
+class StaticMesh : public MeshBase {
 protected:
 	unsigned int vao;	
 	unsigned int vbo;
@@ -32,8 +33,9 @@ public:
 	void SetIndices(std::vector<unsigned int>& indices);
 	void SetGlMode(GLenum glMode);
 
-	void Prepare(void);
-	void Draw(void);
+	void Prepare(void) override;
+
+	void Draw(void) override;
 
 protected:
 	bool CheckDataConsistency(void) const;
