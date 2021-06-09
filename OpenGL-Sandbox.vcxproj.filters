@@ -84,6 +84,9 @@
     <ClCompile Include="src\mesh\MeshBase.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\mesh\DynamicMesh.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -165,6 +168,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\mesh\MeshBase.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mesh\DynamicMesh.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
