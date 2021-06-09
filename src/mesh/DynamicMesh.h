@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include "../glad/glad.h"
 #include <glm/glm.hpp>
 #include "MeshBase.h"
 
@@ -18,24 +17,31 @@ struct VertexPosNormTex {
 };
 
 
-class DynamicMesh : public MeshBase {
-protected:
+class DynamicMesh final : public MeshBase {
+private:
 	GLuint vao;
 	GLuint vbo;
 
 	std::vector<VertexPosNorm> verticesPosNorm;
 	std::vector<VertexPosNormTex> verticesPosNormTex;
 
+	bool useTexCoords;
+
 
 public:
 	DynamicMesh();
 
-	virtual ~DynamicMesh();
+	~DynamicMesh();
+
+
+	void SetUseTexCoords(bool useTexCoords);
 
 
 	void Prepare(void) override;
 
 
 	void Draw(void) override;
+
+
 
 };
