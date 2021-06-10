@@ -15,7 +15,7 @@ public:
 
 	RenderCommand(): M(glm::mat4(1.0f)), mesh(nullptr), material(nullptr), mUniformLocation(-1), pvUniformLocation(-1), viewPosUniformLocation(-1) { }
 
-	RenderCommand(const glm::mat4& modelMatrix, StaticMesh* mesh, MaterialBase* material): 
+	RenderCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material): 
 		M(modelMatrix), mesh(mesh), material(material), mUniformLocation(-1), pvUniformLocation(-1), viewPosUniformLocation(-1) { }
 
 	~RenderCommand() { }

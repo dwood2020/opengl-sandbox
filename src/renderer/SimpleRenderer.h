@@ -29,7 +29,7 @@ public:
 	void SetClearColor(const glm::vec3& clearColor);
 
 
-	void AddCommand(const glm::mat4& modelMatrix, StaticMesh* mesh, MaterialBase* material);
+	void AddCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
 
 
 	void Prepare(void) override;
