@@ -13,6 +13,7 @@
 #include "shader/ShaderFactory.h"
 #include "mesh/StaticMesh.h"
 #include "mesh/StaticMeshFactory.h"
+#include "mesh/DynamicMesh.h"
 #include "Texture.h"
 #include "camera/SimpleCamera.h"
 #include "Lighting.h"
@@ -125,6 +126,36 @@ int main(int argc, char* argv[]) {
 	StaticMesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
 	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
+	// Test: Dynamic mesh class
+	DynamicMesh dynamicMesh;
+	auto& vertexRef = dynamicMesh.GetVerticesPosNorm();
+
+	// plane vertices:
+	glm::vec3 lb = glm::vec3(0.0f);
+	glm::vec3 rb = glm::vec3(1.0f, 0.0f, 0.0f);
+	glm::vec3 rt = glm::vec3(1.0f, 1.0f, 0.0f);
+	glm::vec3 lt = glm::vec3(0.0f, 1.0f, 0.0f);
+
+	// plane normals:
+	glm::vec3 n = glm::vec3(0.0f, 0.0f, 1.0f);
+
+	VertexPosNorm vLb{lb, n};
+	VertexPosNorm vRb{ rb, n };
+	VertexPosNorm vRt{ rt, n };
+	VertexPosNorm vLt{ lt, n };
+
+	vertexRef.push_back(vLb);
+	vertexRef.push_back(vRb);
+	vertexRef.push_back(vRt);
+	vertexRef.push_back(vLt);
+
+	glm::vec3 move = glm::vec3(1.0f, 0.0f, -8.0f);
+	for (VertexPosNorm& v : vertexRef) {
+		v.pos += move;
+	}
+
+	dynamicMesh.Prepare();
+
 
 	// Textures
 	// --------
@@ -190,8 +221,9 @@ int main(int argc, char* argv[]) {
 	renderer.AddCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
 	renderer.AddCommand(Msphere, &sphereMesh, defaultMaterial);
 	renderer.AddCommand(Mcone, &coneMesh, defaultMaterial);
-
 	renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);
+
+	//renderer.AddCommand(glm::mat4(1.0f), &dynamicMesh, defaultMaterial);
 	
 	renderer.Prepare();
 
