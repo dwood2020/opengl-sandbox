@@ -39,15 +39,15 @@ void DynamicMesh::Prepare(void) {
 		glBufferData(GL_ARRAY_BUFFER, verticesPosNormTex.size() * sizeof(VertexPosNormTex), &verticesPosNormTex[0].pos.x, GL_STATIC_DRAW);
 
 		// set up position
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPosNormTex), (float*)&verticesPosNormTex[0].pos.x);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPosNormTex), (void*)0);
 		glEnableVertexAttribArray(0);
 
 		// set up normal
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPosNormTex), (float*)&verticesPosNormTex[0].norm.x);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPosNormTex), (void*)sizeof(VertexPosNorm::pos));
 		glEnableVertexAttribArray(1);
 
 		// set up tex coords
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexPosNormTex), (float*)&verticesPosNormTex[0].tex.x);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexPosNormTex), (void*)(sizeof(VertexPosNorm::pos) + sizeof(VertexPosNorm::norm)));
 		glEnableVertexAttribArray(2);
 				
 
@@ -56,7 +56,7 @@ void DynamicMesh::Prepare(void) {
 	else {
 		// do the same for a vertex buffer without tex coords
 		glBufferData(GL_ARRAY_BUFFER, verticesPosNorm.size() * sizeof(VertexPosNorm), &verticesPosNorm[0].pos.x, GL_STATIC_DRAW);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPosNorm), 0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPosNorm), (void*)0);
 		glEnableVertexAttribArray(0);
 
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPosNorm), (void*)sizeof(VertexPosNorm::pos));		
