@@ -128,7 +128,7 @@ int main(int argc, char* argv[]) {
 
 	// Test: Dynamic mesh class
 	DynamicMesh dynamicMesh;
-	auto& vertexRef = dynamicMesh.GetVerticesPosNorm();
+	std::vector<VertexPosNorm>* vertexRef = &dynamicMesh.GetVerticesPosNorm();
 
 	// plane vertices:
 	glm::vec3 lb = glm::vec3(0.0f);
@@ -139,21 +139,33 @@ int main(int argc, char* argv[]) {
 	// plane normals:
 	glm::vec3 n = glm::vec3(0.0f, 0.0f, 1.0f);
 
-	VertexPosNorm vLb{lb, n};
-	VertexPosNorm vRb{ rb, n };
-	VertexPosNorm vRt{ rt, n };
-	VertexPosNorm vLt{ lt, n };
+	VertexPosNorm vLb;
+	vLb.pos = lb;
+	vLb.norm = n;
+	VertexPosNorm vRb;
+	vRb.pos = rb;
+	vRb.norm = n;
+	VertexPosNorm vRt;
+	vRt.pos = rt;
+	vRt.norm = n;
+	VertexPosNorm vLt;
+	vLt.pos = lt;
+	vLt.norm = n;
 
-	vertexRef.push_back(vLb);
-	vertexRef.push_back(vRb);
-	vertexRef.push_back(vRt);
-	vertexRef.push_back(vLt);
+	vertexRef->push_back(vLb);
+	vertexRef->push_back(vRb);
+	vertexRef->push_back(vRt);
+	
+	vertexRef->push_back(vLb);
+	vertexRef->push_back(vRt);
+	vertexRef->push_back(vLt);
 
 	glm::vec3 move = glm::vec3(1.0f, 0.0f, -8.0f);
-	for (VertexPosNorm& v : vertexRef) {
+	for (VertexPosNorm& v : *vertexRef) {
 		v.pos += move;
 	}
 
+	dynamicMesh.SetGlMode(GL_TRIANGLES);
 	dynamicMesh.Prepare();
 
 
@@ -169,8 +181,7 @@ int main(int argc, char* argv[]) {
 	glm::mat4 Mcube = glm::mat4(1.0f);
 	Mcube = glm::translate(Mcube, glm::vec3(0.5f, 0.5f, 0.5f));
 
-	glm::mat4 Mgrid = glm::mat4(1.0f);
-	glm::mat4 Mcs3d = glm::mat4(1.0f);
+	glm::mat4 Mid = glm::mat4(1.0f);	
 
 	glm::mat4 Mcone = glm::mat4(1.0f);
 	Mcone = glm::translate(Mcone, glm::vec3(4.0f, 0.0f, 1.0f));
@@ -216,14 +227,14 @@ int main(int argc, char* argv[]) {
 
 
 
-	renderer.AddCommand(Mgrid, &gridMesh, gridMaterial);
-	renderer.AddCommand(Mcs3d, &cs3dMesh, coordSystemMaterial);
+	renderer.AddCommand(Mid, &gridMesh, gridMaterial);
+	renderer.AddCommand(Mid, &cs3dMesh, coordSystemMaterial);
 	renderer.AddCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
 	renderer.AddCommand(Msphere, &sphereMesh, defaultMaterial);
 	renderer.AddCommand(Mcone, &coneMesh, defaultMaterial);
 	renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);
 
-	//renderer.AddCommand(glm::mat4(1.0f), &dynamicMesh, defaultMaterial);
+	renderer.AddCommand(Mid, &dynamicMesh, defaultMaterial);
 	
 	renderer.Prepare();
 
