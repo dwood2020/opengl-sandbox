@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <functional>
-#include "../events/EventEmitter.hpp";
+#include "../events/EventEmitter.hpp"
 #include "../events/EventBus.h"
 #include <glm/glm.hpp>
 

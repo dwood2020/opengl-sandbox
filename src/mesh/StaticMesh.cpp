@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-StaticMesh::StaticMesh() : vao(0), vbo(0), ebo(0), glMode(GL_POINTS), nrElements(0) { }
+StaticMesh::StaticMesh() : vao(0), vbo(0), ebo(0), nrElements(0) { }
 
 
 StaticMesh::~StaticMesh() { }
@@ -33,11 +33,6 @@ void StaticMesh::SetColorVertices(std::vector<glm::vec3>& colors) {
 
 void StaticMesh::SetIndices(std::vector<unsigned int>& indices) {
 	this->indices = indices;
-}
-
-
-void StaticMesh::SetGlMode(GLenum glMode) {
-	this->glMode = glMode;
 }
 
 

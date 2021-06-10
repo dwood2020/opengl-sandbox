@@ -1,9 +1,11 @@
 #include "MeshBase.h"
 
-MeshBase::MeshBase()
-{
-}
+MeshBase::MeshBase(): glMode(GL_POINTS) { }
 
-MeshBase::~MeshBase()
-{
+
+MeshBase::~MeshBase() { }
+
+
+void MeshBase::SetGlMode(GLenum glMode) {
+	this->glMode = glMode;
 }

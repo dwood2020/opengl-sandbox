@@ -10,7 +10,7 @@ protected:
 	unsigned int vao;	
 	unsigned int vbo;
 	unsigned int ebo;
-	GLenum glMode;
+	
 	GLsizei nrElements;
 
 	// these arrays serve for building the vertex data
@@ -30,8 +30,7 @@ public:
 	void SetNormalVertices(std::vector<glm::vec3>& normals);
 	void SetTextureCoordVertices(std::vector<glm::vec2>& texCoords);
 	void SetColorVertices(std::vector<glm::vec3>& colors);
-	void SetIndices(std::vector<unsigned int>& indices);
-	void SetGlMode(GLenum glMode);
+	void SetIndices(std::vector<unsigned int>& indices);	
 
 	void Prepare(void) override;
 	void Draw(void) override;
