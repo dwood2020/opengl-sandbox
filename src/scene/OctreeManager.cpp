@@ -1,4 +1,5 @@
 #include "OctreeManager.h"
+#include <cmath>
 
 
 OctreeManager::OctreeManager(): rootNode(nullptr) { }
@@ -18,6 +19,20 @@ void OctreeManager::AddLeaf(const glm::vec3& pos) {
 	}
 	
 	// added leaf node is not the first node
+	OctreeNode* newNode = GetNewNode();
+	newNode->position = pos + posCenterOffset;
+	newNode->level = 0;
+
+	// check if inside bounds of current root
+	bool outOfBounds = false;
+	for (unsigned int i = 0; i < 3; i++) {
+		if (abs(newNode->position[i] - rootNode->position[i]) < rootNode->level) {
+			// within root 
+		}
+		else {
+
+		}
+	}
 
 }
 
