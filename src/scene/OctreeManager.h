@@ -10,6 +10,9 @@ private:
 	// IDEA: manager owns all nodes, independently of their actual structure
 	std::vector<std::unique_ptr<OctreeNode>> nodeInstances;
 
+	//IDEA: "pos" ist northwest bottom corner, "center" is actual center position of node
+	const glm::vec3 posCenterOffset = glm::vec3(0.5f, 0.5f, 0.5f);
+
 public:
 	OctreeNode* rootNode;
 
@@ -20,5 +23,8 @@ public:
 
 
 	void AddLeaf(const glm::vec3& pos);
+
+private:
+	OctreeNode* GetNewNode(void);
 };
 
