@@ -52,26 +52,7 @@ void OctreeManager::AddLeaf(const glm::vec3& center) {
 	}
 
 	
-	//if (insideRootBounds) {
-	//	// iterate to the new leaf's direct parent node
-	//	OctreeNode* directParent = rootNode;
-	//	int directParentOctant = GetOctant(newNode->position, directParent->position);
-	//	while (directParent->level > newNode->level + 1) {
-	//		OctreeNode* newParent = GetNewNode();
-	//		newParent->level = directParent->level - 1;
-	//		directParent->AddChild(newParent, directParentOctant);
-	//		
-	//		directParent = newParent;
-	//		directParentOctant = GetOctant(newNode->position, directParent->position);
-	//	}
-
-	//	directParent->AddChild(newNode, directParentOctant);
-
-	//}
-	//else {
-
-	//}
-
+	
 
 }
 
