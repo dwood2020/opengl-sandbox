@@ -25,6 +25,10 @@ public:
 	void AddLeaf(const glm::vec3& pos);
 
 private:
+	bool IsInsideBounds(OctreeNode* node, OctreeNode* root) const;
+
+	int GetOctet(const glm::vec3& pos, const glm::vec3& rootCenter);
+
 	OctreeNode* GetNewNode(void);
 };
 

@@ -23,6 +23,8 @@
 #include "material/MaterialLibrary.h"
 #include "renderer/SimpleRenderer.h"
 
+#include "scene/OctreeManager.h"
+
 #include <chrono>
 
 
@@ -167,6 +169,12 @@ int main(int argc, char* argv[]) {
 
 	dynamicMesh.SetGlMode(GL_TRIANGLES);
 	dynamicMesh.Prepare();
+
+
+	// Test Octree
+	OctreeManager octreeManager;
+	octreeManager.AddLeaf(glm::vec3(0.0f));
+
 
 
 	// Textures
