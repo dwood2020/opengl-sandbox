@@ -52,6 +52,10 @@ void OctreeManager::AddLeaf(const glm::vec3& center) {
 	}
 	else {
 		//TODO: here
+		while (!IsInsideBounds(newNode, rootNode)) {
+			OctreeNode* newRoot = GetNewNode();
+
+		}
 	}
 	
 	
