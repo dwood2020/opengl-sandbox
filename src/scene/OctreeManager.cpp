@@ -31,17 +31,17 @@ void OctreeManager::AddLeaf(const glm::vec3& pos) {
 	if (insideRootBounds) {
 		// iterate to the new leaf's direct parent node
 		OctreeNode* directParent = rootNode;
-		int directParentOctet = GetOctet(newNode->position, directParent->position);
+		int directParentOctant = GetOctant(newNode->position, directParent->position);
 		while (directParent->level > newNode->level + 1) {
 			OctreeNode* newParent = GetNewNode();
 			newParent->level = directParent->level - 1;
-			directParent->AddChild(newParent, directParentOctet);
+			directParent->AddChild(newParent, directParentOctant);
 			
 			directParent = newParent;
-			directParentOctet = GetOctet(newNode->position, directParent->position);
+			directParentOctant = GetOctant(newNode->position, directParent->position);
 		}
 
-		directParent->AddChild(newNode, directParentOctet);
+		directParent->AddChild(newNode, directParentOctant);
 
 	}
 	else {
@@ -66,7 +66,7 @@ bool OctreeManager::IsInsideBounds(OctreeNode* node, OctreeNode* root) const {
 }
 
 
-int OctreeManager::GetOctet(const glm::vec3& pos, const glm::vec3& rootCenter) {
+int OctreeManager::GetOctant(const glm::vec3& pos, const glm::vec3& rootCenter) {
 	
 	std::string octet = "xxx";
 	octet[0] = ((pos.x > rootCenter.x) ? '+' : '-');
