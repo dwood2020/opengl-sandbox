@@ -50,7 +50,9 @@ void OctreeManager::AddLeaf(const glm::vec3& center) {
 		int leafOctant = GetOctant(newNode->position, parent->position);
 		parent->AddChild(newNode, leafOctant);
 	}
-
+	else {
+		//TODO: here
+	}
 	
 	
 
