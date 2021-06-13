@@ -173,7 +173,9 @@ int main(int argc, char* argv[]) {
 
 	// Test Octree
 	OctreeManager octreeManager;
-	octreeManager.AddLeaf(glm::vec3(0.0f));
+	octreeManager.AddLeaf(glm::vec3(0.5f));
+	//octreeManager.AddLeaf(glm::vec3(0.5f, 0.5f, -0.5f));
+	octreeManager.AddLeaf(glm::vec3(0.5f, 0.5f, -1.0f));
 
 
 

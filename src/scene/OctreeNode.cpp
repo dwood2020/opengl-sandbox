@@ -9,21 +9,21 @@ OctreeNode::~OctreeNode() {
 }
 
 
-void OctreeNode::AddChild(OctreeNode* child, int octet) {
-	if (children[octet] == nullptr) {
+void OctreeNode::AddChild(OctreeNode* child, int octant) {
+	if (children[octant] == nullptr) {
 		nrChildren += 1;
 	}
-	children[octet] = child;
+	children[octant] = child;
 
 	child->parent = this;
-	child->position = GetChildCenter(octet);	
+	child->position = GetChildCenter(octant);	
 }
 
 
-glm::vec3 OctreeNode::GetChildCenter(int octet) const {
+glm::vec3 OctreeNode::GetChildCenter(int octant) const {
 	glm::vec3 dir = glm::vec3(0.0f);
 
-	switch (octet) {
+	switch (octant) {
 	case 0:
 		dir = glm::vec3(1.0f, 1.0f, 1.0f); break;
 	case 1:

@@ -20,8 +20,8 @@ public:
 
 	void AddChild(OctreeNode* child, int octet);
 
-private:
-	glm::vec3 GetChildCenter(int octet) const;
+
+	glm::vec3 GetChildCenter(int octant) const;
 
 };
 

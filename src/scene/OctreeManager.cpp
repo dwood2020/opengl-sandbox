@@ -9,44 +9,68 @@ OctreeManager::OctreeManager(): rootNode(nullptr) { }
 OctreeManager::~OctreeManager() { }
 
 
-void OctreeManager::AddLeaf(const glm::vec3& pos) {
+void OctreeManager::AddLeaf(const glm::vec3& center) {
 	if (rootNode == nullptr) {
 		// add first node
 		OctreeNode* node = GetNewNode();
 		node->level = 0;
-		node->position = pos + posCenterOffset;
-		rootNode = node;
+		node->position = center;
+		
+		// add a level 1 node as initial root
+		OctreeNode* parentNode = GetNewNode();
+		parentNode->level = 1;
+		parentNode->position = center - parentNode->GetChildCenter(0);
+		parentNode->AddChild(node, 0);
+
+		rootNode = parentNode;				
 		return;
 	}
 	
 	// added leaf node is not the first node
 	OctreeNode* newNode = GetNewNode();
-	newNode->position = pos + posCenterOffset;
+	newNode->position = center;
 	newNode->level = 0;
 
 	// check if inside bounds of current root
 	bool insideRootBounds = IsInsideBounds(newNode, rootNode);
 
-	
 	if (insideRootBounds) {
-		// iterate to the new leaf's direct parent node
-		OctreeNode* directParent = rootNode;
-		int directParentOctant = GetOctant(newNode->position, directParent->position);
-		while (directParent->level > newNode->level + 1) {
-			OctreeNode* newParent = GetNewNode();
-			newParent->level = directParent->level - 1;
-			directParent->AddChild(newParent, directParentOctant);
+		OctreeNode* parent = rootNode;
+
+		while (parent->level > 1) {
+			OctreeNode* nextParent = GetNewNode();
+			int octant = GetOctant(newNode->position, parent->position);
+			nextParent->position = parent->GetChildCenter(octant);
+			nextParent->level = parent->level - 1;
+			parent->AddChild(nextParent, octant);
 			
-			directParent = newParent;
-			directParentOctant = GetOctant(newNode->position, directParent->position);
+			parent = nextParent;
 		}
 
-		directParent->AddChild(newNode, directParentOctant);
-
+		int leafOctant = GetOctant(newNode->position, parent->position);
+		parent->AddChild(newNode, leafOctant);
 	}
-	else {
 
-	}
+	
+	//if (insideRootBounds) {
+	//	// iterate to the new leaf's direct parent node
+	//	OctreeNode* directParent = rootNode;
+	//	int directParentOctant = GetOctant(newNode->position, directParent->position);
+	//	while (directParent->level > newNode->level + 1) {
+	//		OctreeNode* newParent = GetNewNode();
+	//		newParent->level = directParent->level - 1;
+	//		directParent->AddChild(newParent, directParentOctant);
+	//		
+	//		directParent = newParent;
+	//		directParentOctant = GetOctant(newNode->position, directParent->position);
+	//	}
+
+	//	directParent->AddChild(newNode, directParentOctant);
+
+	//}
+	//else {
+
+	//}
 
 
 }

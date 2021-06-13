@@ -22,7 +22,7 @@ public:
 	~OctreeManager();
 
 
-	void AddLeaf(const glm::vec3& pos);
+	void AddLeaf(const glm::vec3& center);
 
 private:
 	bool IsInsideBounds(OctreeNode* node, OctreeNode* root) const;
