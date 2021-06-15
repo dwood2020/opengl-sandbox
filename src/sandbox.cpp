@@ -117,7 +117,7 @@ int main(int argc, char* argv[]) {
 
 	
 
-	//Mesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
+	//StaticMesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
 	StaticMesh mesh = meshFactory.MakeCube(1.0f, true);	
 	StaticMesh gridMesh = meshFactory.MakeSimpleGrid(20.0f);
 	StaticMesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);

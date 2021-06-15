@@ -1,15 +1,23 @@
 #pragma once
+#include <glm/glm.hpp>
 
 
-static constexpr unsigned int SECTION_SIZE = 16u;
+constexpr unsigned int sectionSize = 16u;
 
 
 class Section final {
 private:
-	char block[SECTION_SIZE][SECTION_SIZE][SECTION_SIZE] = { 0 };
+	char blocks[sectionSize][sectionSize][sectionSize];
 
 public:
 	Section();
 
 	~Section();
+
+
+	char GetBlock(int x, int y, int z);
+
+
+	char GetBlock(const glm::vec3& pos);
+
 };
