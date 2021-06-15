@@ -168,8 +168,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\voxel\Section.cpp" />
-    <ClCompile Include="src\scene\OctreeManager.cpp" />
-    <ClCompile Include="src\scene\OctreeNode.cpp" />
     <ClCompile Include="src\mesh\DynamicMesh.cpp" />
     <ClCompile Include="src\mesh\MeshBase.cpp" />
     <ClCompile Include="src\renderer\RendererBase.cpp" />
@@ -197,8 +195,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\voxel\Section.h" />
-    <ClInclude Include="src\scene\OctreeManager.h" />
-    <ClInclude Include="src\scene\OctreeNode.h" />
     <ClInclude Include="src\mesh\DynamicMesh.h" />
     <ClInclude Include="src\mesh\MeshBase.h" />
     <ClInclude Include="src\renderer\RendererBase.h" />
