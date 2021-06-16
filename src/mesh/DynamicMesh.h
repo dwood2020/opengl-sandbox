@@ -50,6 +50,4 @@ public:
 
 	void Draw(void) override;
 
-
-
 };
