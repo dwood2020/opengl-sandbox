@@ -175,7 +175,7 @@ int main(int argc, char* argv[]) {
 	blockManager.SetBlock({ 0,0,1 }, 1);
 	blockManager.SetBlock({ 0,0,3 }, 1);
 
-	auto b003 = blockManager.GetBlock({ 0,0,3 });
+	char b003 = blockManager.GetBlock({ 0,0,3 });
 
 
 

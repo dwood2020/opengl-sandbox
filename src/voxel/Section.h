@@ -13,8 +13,14 @@ private:
 	char blocks[sectionSize][sectionSize][sectionSize];
 
 public:	
+	/// <summary>
+	/// Constructor. Initializes array.
+	/// </summary>
 	Section();
 
+	/// <summary>
+	/// Destructor.
+	/// </summary>
 	~Section();
 
 	/// <summary>
