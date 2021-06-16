@@ -167,6 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\voxel\BlockMeshGenerator.cpp" />
     <ClCompile Include="src\voxel\BlockManager.cpp" />
     <ClCompile Include="src\voxel\Section.cpp" />
     <ClCompile Include="src\mesh\DynamicMesh.cpp" />
@@ -195,6 +196,7 @@
     <ClCompile Include="src\Uniform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\voxel\BlockMeshGenerator.h" />
     <ClInclude Include="src\voxel\BlockManager.h" />
     <ClInclude Include="src\voxel\Section.h" />
     <ClInclude Include="src\mesh\DynamicMesh.h" />
