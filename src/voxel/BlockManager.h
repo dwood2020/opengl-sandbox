@@ -14,6 +14,15 @@ public:
 	BlockManager();
 
 	~BlockManager();
+
+
+	char GetBlock(int x, int y, int z);
+
+	char GetBlock(const glm::vec3& pos);
+
+	void SetBlock(int x, int y, int z, char block);
+
+	void SetBlock(const glm::vec3& pos, char block);
 };
 
 
