@@ -2,7 +2,7 @@
 #include <cmath>
 
 
-Section::Section(): blocks{ 0 } { }
+Section::Section() : blocks{0} { }
 
 
 Section::~Section() { }

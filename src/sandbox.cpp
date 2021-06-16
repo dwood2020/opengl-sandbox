@@ -22,6 +22,7 @@
 #include "material/FlatMaterial.h"
 #include "material/MaterialLibrary.h"
 #include "renderer/SimpleRenderer.h"
+#include "voxel/BlockManager.h"
 
 #include <chrono>
 
@@ -167,6 +168,14 @@ int main(int argc, char* argv[]) {
 
 	dynamicMesh.SetGlMode(GL_TRIANGLES);
 	dynamicMesh.Prepare();
+
+	
+	// Testing voxel classes
+	BlockManager blockManager;
+	blockManager.SetBlock({ 0,0,1 }, 1);
+	blockManager.SetBlock({ 0,0,3 }, 1);
+
+	auto b003 = blockManager.GetBlock({ 0,0,3 });
 
 
 

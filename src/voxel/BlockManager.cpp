@@ -8,13 +8,23 @@ BlockManager::~BlockManager() { }
 
 
 char BlockManager::GetBlock(const glm::ivec3& pos) {
-	return sections[CalcSectionPosKey(pos)]->GetBlock(ToSectionCoords(pos));
+	auto key = CalcSectionPosKey(pos);
+	if (sections.find(key) == sections.end()) {
+		return -1;
+	}	
+	return sections[key]->GetBlock(ToSectionCoords(pos));
 }
 
 
 void BlockManager::SetBlock(const glm::ivec3& pos, char block) {
 	/*sections[{pos.x / 16, pos.y / 16, pos.z / 16}]->SetBlock({ pos.x % 16, pos.y % 16, pos.z % 16 }, block);*/
 	//sections[CalcSectionPos(pos)];
+
+	auto key = CalcSectionPosKey(pos);
+	if (sections.find(key) == sections.end()) {
+		sections[key] = std::make_unique<Section>();
+	}
+
 	sections[CalcSectionPosKey(pos)]->SetBlock(ToSectionCoords(pos), block);
 }
 
