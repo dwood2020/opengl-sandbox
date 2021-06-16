@@ -8,7 +8,7 @@
 
 class BlockManager final {
 private:
-	std::map<std::array<int, 3>, std::unique_ptr<Section>> sections;
+	std::map<glm::ivec3, std::unique_ptr<Section>> sections;
 
 public:
 	BlockManager();

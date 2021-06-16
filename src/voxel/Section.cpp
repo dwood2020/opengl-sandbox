@@ -8,32 +8,49 @@ Section::Section(): blocks{ 0 } { }
 Section::~Section() { }
 
 
-char Section::GetBlock(int x, int y, int z) {	
-	if (x >= sectionSize || y >= sectionSize || z >= sectionSize) {
+char Section::GetBlock(const glm::ivec3& pos) {	
+	if (!IsWithinBounds(pos)) {
 		return -1;
 	}
 	else {
-		return blocks[x][y][z];
+		return blocks[pos.x][pos.y][pos.z];
 	}	
 }
 
 
-void Section::SetBlock(int x, int y, int z, char block) {
+char Section::GetBlock(const glm::vec3& pos) {	
+	return GetBlock(FloatToInt(pos));
+}
 
+
+void Section::SetBlock(const glm::ivec3& pos, char block) {
+	if (!IsWithinBounds(pos)) {
+		return;
+	}
+
+	blocks[pos.x][pos.y][pos.z] = block;
 }
 
 
 void Section::SetBlock(const glm::vec3& pos, char block) {
-
+	SetBlock(FloatToInt(pos), block);
 }
 
 
-char Section::GetBlock(const glm::vec3& pos) {
-	int x = static_cast<int>(floor(pos.x));
-	int y = static_cast<int>(floor(pos.y));
-	int z = static_cast<int>(floor(pos.z));
-	
-	//TODO: Use glm::ivec3
+bool Section::IsWithinBounds(const glm::ivec3& pos) const {
+	if (pos.x >= sectionSize || pos.y >= sectionSize || pos.z >= sectionSize) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
 
-	return GetBlock(x, y, z);
+
+glm::ivec3 Section::FloatToInt(const glm::vec3& fv) const {
+	glm::ivec3 iv{ 0 };
+	iv.x = static_cast<int>(floor(fv.x));
+	iv.y = static_cast<int>(floor(fv.y));
+	iv.z = static_cast<int>(floor(fv.z));
+	return iv;
 }

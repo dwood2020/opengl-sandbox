@@ -18,11 +18,9 @@ public:
 	/// Gets a block information at the specified location within the section
 	/// NOTE: Location is in section coordinates.
 	/// </summary>
-	/// <param name="x">x location</param>
-	/// <param name="y">y location</param>
-	/// <param name="z">z location</param>
+	/// <param name="pos">location</param>
 	/// <returns>Block information at that location</returns>
-	char GetBlock(int x, int y, int z);
+	char GetBlock(const glm::ivec3& pos);
 
 	/// <summary>
 	/// Gets a block information at the specified location within the section
@@ -37,11 +35,9 @@ public:
 	/// Sets a block at the specified location within the section.
 	/// NOTE: Location is in section coordinates.
 	/// </summary>
-	/// <param name="x">block x location</param>
-	/// <param name="y">block y location</param>
-	/// <param name="z">block z location</param>
+	/// <param name="pos">block location</param>
 	/// <param name="block">Block information</param>	
-	void SetBlock(int x, int y, int z, char block);
+	void SetBlock(const glm::ivec3& pos, char block);
 
 	/// <summary>
 	/// Sets a block at the specified location within the section.
@@ -50,5 +46,10 @@ public:
 	/// <param name="pos"> block location</param>	
 	/// <param name="block">Block information</param>
 	void SetBlock(const glm::vec3& pos, char block);
+
+private:	
+	bool IsWithinBounds(const glm::ivec3& pos) const;
+
+	glm::ivec3 FloatToInt(const glm::vec3& fv) const;
 
 };
