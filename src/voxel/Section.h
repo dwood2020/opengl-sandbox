@@ -48,8 +48,8 @@ public:
 	void SetBlock(const glm::vec3& pos, char block);
 
 private:	
-	bool IsWithinBounds(const glm::ivec3& pos) const;
+	inline bool IsWithinBounds(const glm::ivec3& pos) const;
 
-	glm::ivec3 FloatToInt(const glm::vec3& fv) const;
+	inline glm::ivec3 FloatToInt(const glm::vec3& fv) const;
 
 };

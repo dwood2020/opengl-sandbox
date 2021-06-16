@@ -1,5 +1,4 @@
 #pragma once
-#include <array>
 #include <map>
 #include <memory>
 #include <glm/glm.hpp>
@@ -16,13 +15,10 @@ public:
 	~BlockManager();
 
 
-	char GetBlock(int x, int y, int z);
+	char GetBlock(const glm::ivec3& pos);	
 
-	char GetBlock(const glm::vec3& pos);
 
-	void SetBlock(int x, int y, int z, char block);
-
-	void SetBlock(const glm::vec3& pos, char block);
+	void SetBlock(const glm::ivec3& pos, char block);
 };
 
 
