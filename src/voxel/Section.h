@@ -2,14 +2,17 @@
 #include <glm/glm.hpp>
 
 
-constexpr unsigned int sectionSize = 16u;
+
 
 
 class Section final {
+public:
+	static constexpr unsigned int sectionSize = 16u;
+
 private:	
 	char blocks[sectionSize][sectionSize][sectionSize];
 
-public:
+public:	
 	Section();
 
 	~Section();
