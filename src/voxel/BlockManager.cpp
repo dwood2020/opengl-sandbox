@@ -6,15 +6,16 @@ BlockManager::BlockManager() { }
 
 BlockManager::~BlockManager() { }
 
+
 char BlockManager::GetBlock(const glm::ivec3& pos) {
-	return 0;
+	return sections[CalcSectionPosKey(pos)]->GetBlock(ToSectionCoords(pos));
 }
 
 
 void BlockManager::SetBlock(const glm::ivec3& pos, char block) {
 	/*sections[{pos.x / 16, pos.y / 16, pos.z / 16}]->SetBlock({ pos.x % 16, pos.y % 16, pos.z % 16 }, block);*/
 	//sections[CalcSectionPos(pos)];
-	sections[CalcSectionPosKey(pos)];
+	sections[CalcSectionPosKey(pos)]->SetBlock(ToSectionCoords(pos), block);
 }
 
 
