@@ -218,7 +218,7 @@
     <ClInclude Include="src\events\EventEmitter.hpp" />
     <ClInclude Include="src\events\EventBus.h" />
     <ClInclude Include="src\events\Event.hpp" />
-    <ClInclude Include="src\Keycodes.hpp" />
+    <ClInclude Include="src\events\Keycodes.hpp" />
     <ClInclude Include="src\mesh\StaticMesh.h" />
     <ClInclude Include="src\shader\ShaderProgram.h" />
     <ClInclude Include="src\shader\Shader.h" />

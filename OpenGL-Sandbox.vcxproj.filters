@@ -128,7 +128,7 @@
     <ClInclude Include="src\events\EventEmitter.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\Keycodes.hpp">
+    <ClInclude Include="src\events\Keycodes.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\mesh\StaticMeshFactory.h">

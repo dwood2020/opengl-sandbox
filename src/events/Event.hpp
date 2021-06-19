@@ -1,5 +1,5 @@
 #pragma once
-#include "../Keycodes.hpp"
+#include "Keycodes.hpp"
 
 
 using EventType_t = int;

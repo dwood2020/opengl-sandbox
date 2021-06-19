@@ -6,7 +6,7 @@
 
 #include "events/EventBus.h"
 #include "events/EventListener.hpp"
-#include "Keycodes.hpp"
+#include "events/Keycodes.hpp"
 #include "window/IupWindow.h"
 #include "shader/Shader.h"
 #include "shader/ShaderProgram.h"
