@@ -12,6 +12,7 @@ private:
 public:
 	BlockMeshGenerator(BlockManager& blockManager);
 
+
 	~BlockMeshGenerator();
 
 
