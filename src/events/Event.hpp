@@ -18,11 +18,11 @@ protected:
 	EventType type;
 
 public:
-	Event(EventType type): type(type), x(0), y(0) { }
+	Event(EventType type): type(type), IntInt_i1(0), IntInt_i2(0) { }
 
 	virtual ~Event() { }
 
-	const EventType& GetType(void) const {
+	EventType GetType(void) const {
 		return type;
 	}
 
@@ -32,34 +32,30 @@ protected:
 	// & there is no need to allocate event instances on the heap (to avoid obj slicing in the queue) this way - event base types can be directly used.
 	union {
 		struct {
-			float x;
-			float y;
+			float FloatFloat_f1;
+			float FloatFloat_f2;
 		};
 
 		struct {
-			int w;
-			int h;
+			float FloatInt_f;
+			int FloatInt_i;
+		};
+
+
+		struct {
+			int IntInt_i1;
+			int IntInt_i2;
+		};	
+
+		struct {
+			bool BoolInt_b;
+			int BoolInt_i;
 		};
 
 		struct {
-			MouseButtonCode mbCode;
-			bool isPressed;
-		};
-
-		struct {
-			KeyCode keyCode;
-			bool isKeydown;
-		};
-
-		struct {
-			int xScreen;
-			int yScreen;	//TODO: Think about this. Its a double definition of two ints
-		};
-
-		struct {
-			MouseScrollDirection scrollDir;
-			float delta;
-		};
+			unsigned int UintUint_ui1;
+			unsigned int UintUint_ui2;
+		};		
 	};
 
 };
@@ -76,26 +72,26 @@ public:
 
 class WindowResizeEvent final : public Event {
 public:
-	WindowResizeEvent(int w, int h): Event(EventType::WindowResize) {
-		this->w = w;
-		this->h = h;
+	WindowResizeEvent(int w, int h): Event(EventType::WindowResize) {			
+		IntInt_i1 = w;
+		IntInt_i2 = h;
 	}
 
-	int GetScreenWidth(void) const { return this->w; }
-	int GetScreenHeight(void) const { return this->h; }
+	int GetScreenWidth(void) const { return this->IntInt_i1; }
+	int GetScreenHeight(void) const { return this->IntInt_i2; }
 	
 };
 
 
 class MouseButtonEvent final : public Event {
 public:
-	MouseButtonEvent(MouseButtonCode mbCode, bool isPressed) : Event(EventType::MouseButton) {
-		this->mbCode = mbCode;
-		this->isPressed = isPressed;
+	MouseButtonEvent(MouseButtonCode mbCode, bool isPressed) : Event(EventType::MouseButton) {		
+		this->BoolInt_i = static_cast<int>(mbCode);
+		this->BoolInt_b = isPressed;
 	}	
 
-	const MouseButtonCode& GetMbCode(void) { return this->mbCode; }
-	bool GetIsPressed(void) { return this->isPressed; }
+	MouseButtonCode GetMbCode(void) { return static_cast<MouseButtonCode>(BoolInt_i); }
+	bool GetIsPressed(void) { return BoolInt_b; }
 
 };
 
@@ -103,12 +99,12 @@ public:
 class KeyEvent final : public Event {
 public:
 	KeyEvent(KeyCode keycode, bool isKeydown) : Event(EventType::Key) {
-		this->keyCode = keycode;
-		this->isKeydown = isKeydown;
+		BoolInt_i = static_cast<int>(keycode);
+		BoolInt_b = isKeydown;		
 	}
 
-	const KeyCode& GetKeyCode(void) const { return this->keyCode; }
-	bool GetIsKeydown(void) const { return this->isKeydown; }
+	KeyCode GetKeyCode(void) const { return static_cast<KeyCode>(BoolInt_i); }
+	bool GetIsKeydown(void) const { return BoolInt_b; }
 
 };
 
@@ -116,12 +112,12 @@ public:
 class MouseMoveEvent final : public Event {
 public:
 	MouseMoveEvent(int x, int y) : Event(EventType::MouseMove) {
-		this->xScreen = x;
-		this->yScreen = y;
+		IntInt_i1 = x;
+		IntInt_i2 = y;
 	}
 
-	int GetPositionX(void) const { return this->xScreen; }
-	int GetPositionY(void) const { return this->yScreen; }
+	int GetPositionX(void) const { return IntInt_i1; }
+	int GetPositionY(void) const { return IntInt_i2; }
 };
 
 
@@ -130,10 +126,10 @@ public:
 	MouseScrollEvent(MouseScrollDirection scrollDir, float delta):
 		Event(EventType::MouseScroll) {
 
-		this->scrollDir = scrollDir;
-		this->delta = delta;
+		FloatInt_i = static_cast<int>(scrollDir);
+		FloatInt_f = delta;		
 	}
 
-	const MouseScrollDirection& GetScrollDirection(void) const { return this->scrollDir; }
-	float GetDelta(void) const { return this->delta; }
+	MouseScrollDirection GetScrollDirection(void) const { return static_cast<MouseScrollDirection>(FloatInt_i); }
+	float GetDelta(void) const { return FloatInt_f; }
 };
