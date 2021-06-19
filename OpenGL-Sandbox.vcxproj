@@ -196,6 +196,7 @@
     <ClCompile Include="src\Uniform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\events\WindowEvents.hpp" />
     <ClInclude Include="src\voxel\BlockMeshGenerator.h" />
     <ClInclude Include="src\voxel\BlockManager.h" />
     <ClInclude Include="src\voxel\Section.h" />

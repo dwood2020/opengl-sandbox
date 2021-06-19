@@ -191,5 +191,8 @@
     <ClInclude Include="src\voxel\BlockMeshGenerator.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\events\WindowEvents.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

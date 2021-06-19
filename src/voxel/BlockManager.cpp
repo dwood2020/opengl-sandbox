@@ -29,6 +29,11 @@ void BlockManager::SetBlock(const glm::ivec3& pos, char block) {
 }
 
 
+const SectionsMap& BlockManager::GetSections(void) const {
+	return sections;
+}
+
+
 //glm::ivec3 BlockManager::CalcSectionPos(const glm::ivec3& pos) {
 //	glm::ivec3 p{0};
 //	p.x = pos.x / Section::sectionSize;

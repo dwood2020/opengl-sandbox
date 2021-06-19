@@ -6,10 +6,14 @@
 #include "Section.h"
 
 
+using SectionsMap = std::map<std::array<int, 3>, std::unique_ptr<Section>>;
+
+
 class BlockManager final {
 private:
 	/*std::map<glm::ivec3, std::unique_ptr<Section>> sections;*/
-	std::map<std::array<int, 3>, std::unique_ptr<Section>> sections;
+	/*std::map<std::array<int, 3>, std::unique_ptr<Section>> sections;*/
+	SectionsMap sections;
 
 public:
 	BlockManager();
@@ -21,6 +25,9 @@ public:
 
 
 	void SetBlock(const glm::ivec3& pos, char block);
+
+
+	const SectionsMap& GetSections(void) const;
 
 
 private:

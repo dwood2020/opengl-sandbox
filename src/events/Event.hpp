@@ -2,7 +2,10 @@
 #include "../Keycodes.hpp"
 
 
-enum class EventType {
+using EventType_t = int;
+
+
+enum class EventType : EventType_t {
 	None = 0,
 	WindowClose,
 	WindowResize,

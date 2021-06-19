@@ -5,8 +5,11 @@
 
 
 class BlockMeshGenerator final {
+private:
+	BlockManager* blockManager;
+
 public:
-	BlockMeshGenerator();
+	BlockMeshGenerator(BlockManager& blockManager);
 
 	~BlockMeshGenerator();
 };

@@ -1,7 +1,7 @@
 #include "BlockMeshGenerator.h"
 
 
-BlockMeshGenerator::BlockMeshGenerator() { }
+BlockMeshGenerator::BlockMeshGenerator(BlockManager& blockManager): blockManager(&blockManager) { }
 
 
 BlockMeshGenerator::~BlockMeshGenerator() { }
