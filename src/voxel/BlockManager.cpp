@@ -29,7 +29,7 @@ void BlockManager::SetBlock(const glm::ivec3& pos, char block) {
 }
 
 
-const SectionsMap& BlockManager::GetSections(void) const {
+SectionsMap& BlockManager::GetSections(void) {
 	return sections;
 }
 

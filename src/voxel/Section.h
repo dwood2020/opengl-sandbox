@@ -9,6 +9,11 @@ class Section final {
 public:
 	static constexpr unsigned int sectionSize = 16u;
 
+	/// <summary>
+	/// Pointer type to raw block array.
+	/// </summary>
+	typedef char(*ArrayPtr)[sectionSize][sectionSize][sectionSize];
+
 private:	
 	char blocks[sectionSize][sectionSize][sectionSize];
 
@@ -55,6 +60,13 @@ public:
 	/// <param name="pos"> block location</param>	
 	/// <param name="block">Block information</param>
 	void SetBlock(const glm::vec3& pos, char block);
+
+	/// <summary>
+	/// Gets a pointer to the raw array.
+	/// </summary>
+	/// <returns>Pointer to raw block array (see typedef)</returns>
+	ArrayPtr GetArray(void);
+
 
 private:	
 	inline bool IsWithinBounds(const glm::ivec3& pos) const;

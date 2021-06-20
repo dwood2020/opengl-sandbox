@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <glm/glm.hpp>
 #include "Section.h"
 #include "BlockManager.h"

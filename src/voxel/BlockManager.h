@@ -27,7 +27,7 @@ public:
 	void SetBlock(const glm::ivec3& pos, char block);
 
 
-	const SectionsMap& GetSections(void) const;
+	SectionsMap& GetSections(void);
 
 
 private:

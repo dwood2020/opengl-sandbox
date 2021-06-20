@@ -37,6 +37,11 @@ void Section::SetBlock(const glm::vec3& pos, char block) {
 }
 
 
+Section::ArrayPtr Section::GetArray(void) {
+	return &blocks;
+}
+
+
 bool Section::IsWithinBounds(const glm::ivec3& pos) const {
 	if (pos.x >= sectionSize || pos.y >= sectionSize || pos.z >= sectionSize) {
 		return false;
