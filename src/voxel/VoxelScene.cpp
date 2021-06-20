@@ -4,7 +4,12 @@
 VoxelScene::VoxelScene() { }
 
 
-VoxelScene::~VoxelScene() { }
+VoxelScene::~VoxelScene() {
+
+	for (unsigned int i = 0; i < meshes.size(); i++) {
+		delete meshes[i];
+	}
+}
 
 
 char VoxelScene::GetBlock(const glm::ivec3& pos) {
