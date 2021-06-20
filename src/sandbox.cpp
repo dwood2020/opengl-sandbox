@@ -23,6 +23,7 @@
 #include "material/MaterialLibrary.h"
 #include "renderer/SimpleRenderer.h"
 #include "voxel/BlockManager.h"
+#include "voxel/VoxelScene.h"
 
 #include <chrono>
 
@@ -171,12 +172,11 @@ int main(int argc, char* argv[]) {
 
 	
 	// Testing voxel classes
-	BlockManager blockManager;
-	blockManager.SetBlock({ 0,0,1 }, 1);
-	blockManager.SetBlock({ 0,0,3 }, 1);
+	VoxelScene voxelScene;
+	voxelScene.SetBlock({ 0,0,1 }, 1);
+	voxelScene.SetBlock({ 0,0,3 }, 1);
 
-	char b003 = blockManager.GetBlock({ 0,0,3 });
-
+	char b003 = voxelScene.GetBlock({ 0,0,3 });
 
 
 	// Textures

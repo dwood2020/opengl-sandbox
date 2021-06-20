@@ -167,7 +167,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\voxel\BlockMeshGenerator.cpp" />
     <ClCompile Include="src\voxel\BlockManager.cpp" />
     <ClCompile Include="src\voxel\Section.cpp" />
     <ClCompile Include="src\mesh\DynamicMesh.cpp" />
@@ -194,10 +193,10 @@
     <ClCompile Include="src\sandbox.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Uniform.cpp" />
+    <ClCompile Include="src\voxel\VoxelScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\events\WindowEvents.hpp" />
-    <ClInclude Include="src\voxel\BlockMeshGenerator.h" />
     <ClInclude Include="src\voxel\BlockManager.h" />
     <ClInclude Include="src\voxel\Section.h" />
     <ClInclude Include="src\mesh\DynamicMesh.h" />
@@ -228,6 +227,7 @@
     <ClInclude Include="src\window\WindowBase.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Uniform.h" />
+    <ClInclude Include="src\voxel\VoxelScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

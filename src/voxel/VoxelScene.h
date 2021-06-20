@@ -1,0 +1,39 @@
+#pragma once
+#include <array>
+#include <map>
+#include <memory>
+#include <vector>
+#include <glm/glm.hpp>
+#include "Section.h"
+#include "../mesh/DynamicMesh.h"
+
+
+using SectionsMap = std::map<std::array<int, 3>, std::unique_ptr<Section>>;
+
+
+class VoxelScene final {
+private:
+	SectionsMap sections;
+	std::vector<DynamicMesh*> meshes;
+
+public:
+	VoxelScene();
+
+	~VoxelScene();
+
+
+	char GetBlock(const glm::ivec3& pos);
+
+
+	void SetBlock(const glm::ivec3& pos, char block);
+
+
+	SectionsMap& GetSections(void);
+
+private:		
+	std::array<int, 3> CalcSectionPosKey(const glm::ivec3& pos);	//TODO: use glm::ivec3 (needs custom serialization)
+
+	glm::ivec3 ToSectionCoords(const glm::ivec3& pos);
+
+};
+

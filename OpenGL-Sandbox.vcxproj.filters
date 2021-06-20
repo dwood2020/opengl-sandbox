@@ -93,7 +93,7 @@
     <ClCompile Include="src\voxel\BlockManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\voxel\BlockMeshGenerator.cpp">
+    <ClCompile Include="src\voxel\VoxelScene.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -188,10 +188,10 @@
     <ClInclude Include="src\voxel\BlockManager.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\voxel\BlockMeshGenerator.h">
+    <ClInclude Include="src\events\WindowEvents.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\events\WindowEvents.hpp">
+    <ClInclude Include="src\voxel\VoxelScene.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
