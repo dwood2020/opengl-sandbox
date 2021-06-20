@@ -55,3 +55,49 @@ std::cout << "uniMat4 type: " << (int)uniMat4.GetType() << "  value 0,0: " << un
 uniMat4.UpdateValue(glm::mat4(25.0f));
 std::cout << "uniMat4 type: " << (int)uniMat4.GetType() << "  value 0,0: " << uniMat4.GetMat4()[0][0] << std::endl;
 // Result: Working
+
+
+
+// Test: Dynamic mesh class
+DynamicMesh dynamicMesh;
+std::vector<VertexPosNorm>* vertexRef = &dynamicMesh.GetVerticesPosNorm();
+
+// plane vertices:
+glm::vec3 lb = glm::vec3(0.0f);
+glm::vec3 rb = glm::vec3(1.0f, 0.0f, 0.0f);
+glm::vec3 rt = glm::vec3(1.0f, 1.0f, 0.0f);
+glm::vec3 lt = glm::vec3(0.0f, 1.0f, 0.0f);
+
+// plane normals:
+glm::vec3 n = glm::vec3(0.0f, 0.0f, 1.0f);
+
+VertexPosNorm vLb;
+vLb = { lb, n };
+
+VertexPosNorm vRb;
+vRb.pos = rb;
+vRb.norm = n;
+VertexPosNorm vRt;
+vRt.pos = rt;
+vRt.norm = n;
+VertexPosNorm vLt;
+vLt.pos = lt;
+vLt.norm = n;
+
+vertexRef->push_back(vLb);
+vertexRef->push_back(vRb);
+vertexRef->push_back(vRt);
+
+vertexRef->push_back(vLb);
+vertexRef->push_back(vRt);
+vertexRef->push_back(vLt);
+
+glm::vec3 move = glm::vec3(1.0f, 0.0f, -8.0f);
+for (VertexPosNorm& v : *vertexRef) {
+	v.pos += move;
+}
+
+dynamicMesh.SetGlMode(GL_TRIANGLES);
+dynamicMesh.Prepare();
+
+// + add rendercommand

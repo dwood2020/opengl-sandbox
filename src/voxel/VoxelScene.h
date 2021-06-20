@@ -12,6 +12,14 @@ using SectionsMap = std::map<std::array<int, 3>, std::unique_ptr<Section>>;
 
 
 class VoxelScene final {
+public:	
+	std::vector<VertexPosNorm> frontFaceTemplate;
+	std::vector<VertexPosNorm> rightFaceTemplate;
+	std::vector<VertexPosNorm> rearFaceTemplate;
+	std::vector<VertexPosNorm> leftFaceTemplate;
+	std::vector<VertexPosNorm> topFaceTemplate;
+	std::vector<VertexPosNorm> bottomFaceTemplate;
+
 private:
 	SectionsMap sections;
 	std::vector<DynamicMesh*> meshes;
@@ -40,6 +48,9 @@ public:
 	/// </summary>	
 	/// <returns>sections map</returns>
 	SectionsMap& GetSections(void);
+
+	//TODO: Make this private and event-triggerable!
+	void GenerateMeshes(void);
 
 private:		
 	std::array<int, 3> CalcSectionPosKey(const glm::ivec3& pos);	//TODO: use glm::ivec3 (needs custom serialization)

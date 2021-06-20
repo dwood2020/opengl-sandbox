@@ -1,7 +1,47 @@
 #include "VoxelScene.h"
 
 
-VoxelScene::VoxelScene() { }
+VoxelScene::VoxelScene() {
+	
+	// initialize block face templates
+	frontFaceTemplate.reserve(6);
+	rightFaceTemplate.reserve(6);
+	rearFaceTemplate.reserve(6);
+	leftFaceTemplate.reserve(6);
+	topFaceTemplate.reserve(6);
+	bottomFaceTemplate.reserve(6);
+
+	frontFaceTemplate = {
+		{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
+		{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
+		{glm::vec3(1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
+
+		{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
+		{glm::vec3(1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
+		{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)}
+	};
+
+	rightFaceTemplate = {
+		{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
+		{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
+		{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
+
+		{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
+		{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
+		{glm::vec3(1.0f), glm::vec3(1.0f, 0.0f, 0.0f)}
+	};
+
+	rearFaceTemplate = {
+		{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
+		{glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
+		{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
+
+		{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
+		{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
+		{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)}
+	};
+
+}
 
 
 VoxelScene::~VoxelScene() {
@@ -36,6 +76,15 @@ void VoxelScene::SetBlock(const glm::ivec3& pos, char block) {
 
 SectionsMap& VoxelScene::GetSections(void) {
 	return sections;
+}
+
+
+void VoxelScene::GenerateMeshes(void) {
+
+	for (auto it = sections.begin(); it != sections.end(); ++it) {
+
+	}
+
 }
 
 

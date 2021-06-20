@@ -128,48 +128,6 @@ int main(int argc, char* argv[]) {
 	StaticMesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
 	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
-	// Test: Dynamic mesh class
-	DynamicMesh dynamicMesh;
-	std::vector<VertexPosNorm>* vertexRef = &dynamicMesh.GetVerticesPosNorm();
-
-	// plane vertices:
-	glm::vec3 lb = glm::vec3(0.0f);
-	glm::vec3 rb = glm::vec3(1.0f, 0.0f, 0.0f);
-	glm::vec3 rt = glm::vec3(1.0f, 1.0f, 0.0f);
-	glm::vec3 lt = glm::vec3(0.0f, 1.0f, 0.0f);
-
-	// plane normals:
-	glm::vec3 n = glm::vec3(0.0f, 0.0f, 1.0f);
-
-	VertexPosNorm vLb;
-	vLb.pos = lb;
-	vLb.norm = n;
-	VertexPosNorm vRb;
-	vRb.pos = rb;
-	vRb.norm = n;
-	VertexPosNorm vRt;
-	vRt.pos = rt;
-	vRt.norm = n;
-	VertexPosNorm vLt;
-	vLt.pos = lt;
-	vLt.norm = n;
-
-	vertexRef->push_back(vLb);
-	vertexRef->push_back(vRb);
-	vertexRef->push_back(vRt);
-	
-	vertexRef->push_back(vLb);
-	vertexRef->push_back(vRt);
-	vertexRef->push_back(vLt);
-
-	glm::vec3 move = glm::vec3(1.0f, 0.0f, -8.0f);
-	for (VertexPosNorm& v : *vertexRef) {
-		v.pos += move;
-	}
-
-	dynamicMesh.SetGlMode(GL_TRIANGLES);
-	dynamicMesh.Prepare();
-
 	
 	// Testing voxel classes
 	VoxelScene voxelScene;
@@ -177,6 +135,18 @@ int main(int argc, char* argv[]) {
 	voxelScene.SetBlock({ 0,0,3 }, 1);
 
 	char b003 = voxelScene.GetBlock({ 0,0,3 });
+
+
+	// Test: block template faces in VoxelScene
+	glm::mat4 MfaceTemplate = glm::mat4(1.0f);
+	MfaceTemplate = glm::translate(MfaceTemplate, glm::vec3(3.0f, 0.0f, -6.0f));
+
+	DynamicMesh templateTestMesh;
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.frontFaceTemplate.begin(), voxelScene.frontFaceTemplate.end());
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.rightFaceTemplate.begin(), voxelScene.rightFaceTemplate.end());
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.rearFaceTemplate.begin(), voxelScene.rearFaceTemplate.end());
+	templateTestMesh.SetGlMode(GL_TRIANGLES);
+	templateTestMesh.Prepare();
 
 
 	// Textures
@@ -199,7 +169,7 @@ int main(int argc, char* argv[]) {
 	glm::mat4 Msphere = glm::mat4(1.0f);
 	Msphere = glm::translate(Msphere, glm::vec3(-2.0f, 0.0f, -3.0f));
 
-	glm::mat4 MsecondSphere = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 0.0f, -4.0f));
+	glm::mat4 MsecondSphere = glm::translate(glm::mat4(1.0f), glm::vec3(6.0f, 0.0f, 1.0f));
 
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
@@ -244,7 +214,9 @@ int main(int argc, char* argv[]) {
 	renderer.AddCommand(Mcone, &coneMesh, defaultMaterial);
 	renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);
 
-	renderer.AddCommand(Mid, &dynamicMesh, defaultMaterial);
+
+	renderer.AddCommand(MfaceTemplate, &templateTestMesh, defaultMaterial);
+
 	
 	renderer.Prepare();
 
