@@ -250,7 +250,9 @@ int main(int argc, char* argv[]) {
 
 	//TEST
 	std::cout << "sizeof(bool): " << sizeof(bool) << std::endl;
-	std::cout << "sizeof(unsigned char): " << sizeof(unsigned char) << std::endl;
+	std::cout << "sizeof(char): " << sizeof(char) << std::endl;
+	std::cout << "sizeof(char*): " << sizeof(char*) << std::endl;
+	std::cout << "sizeof(int*): " << sizeof(int*) << std::endl;
 
 
 
