@@ -12,7 +12,7 @@ using SectionsMap = std::map<std::array<int, 3>, std::unique_ptr<Section>>;
 
 
 class VoxelScene final {
-public:	
+public:	//This is public for testing only.
 	std::vector<VertexPosNorm> frontFaceTemplate;
 	std::vector<VertexPosNorm> rightFaceTemplate;
 	std::vector<VertexPosNorm> rearFaceTemplate;
