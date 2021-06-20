@@ -145,6 +145,9 @@ int main(int argc, char* argv[]) {
 	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.frontFaceTemplate.begin(), voxelScene.frontFaceTemplate.end());
 	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.rightFaceTemplate.begin(), voxelScene.rightFaceTemplate.end());
 	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.rearFaceTemplate.begin(), voxelScene.rearFaceTemplate.end());
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.leftFaceTemplate.begin(), voxelScene.leftFaceTemplate.end());
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.topFaceTemplate.begin(), voxelScene.topFaceTemplate.end());
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.bottomFaceTemplate.begin(), voxelScene.bottomFaceTemplate.end());
 	templateTestMesh.SetGlMode(GL_TRIANGLES);
 	templateTestMesh.Prepare();
 

@@ -41,6 +41,36 @@ VoxelScene::VoxelScene() {
 		{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)}
 	};
 
+	leftFaceTemplate = {
+		{glm::vec3(0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
+		{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
+		{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
+
+		{glm::vec3(0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
+		{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
+		{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)}
+	};
+
+	topFaceTemplate = {
+		{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
+		{glm::vec3(1.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
+		{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
+
+		{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
+		{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
+		{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)}
+	};
+
+	bottomFaceTemplate = {
+		{glm::vec3(0.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
+		{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
+		{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
+
+		{glm::vec3(0.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
+		{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
+		{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)}
+	};
+
 }
 
 
