@@ -132,12 +132,11 @@ int main(int argc, char* argv[]) {
 	VoxelScene voxelScene;
 	voxelScene.SetBlock({ 0,0,1 }, 1);
 	voxelScene.SetBlock({ 0,0,3 }, 1);
-
 	char b003 = voxelScene.GetBlock({ 0,0,3 });
 
 
 	// Test: block template faces in VoxelScene
-	glm::mat4 MfaceTemplate = glm::mat4(1.0f);
+	/*glm::mat4 MfaceTemplate = glm::mat4(1.0f);
 	MfaceTemplate = glm::translate(MfaceTemplate, glm::vec3(3.0f, 0.0f, -6.0f));
 
 	DynamicMesh templateTestMesh;
@@ -148,7 +147,15 @@ int main(int argc, char* argv[]) {
 	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::topFaceTemplate.begin(), Section::topFaceTemplate.end());
 	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::bottomFaceTemplate.begin(), Section::bottomFaceTemplate.end());
 	templateTestMesh.SetGlMode(GL_TRIANGLES);
-	templateTestMesh.Prepare();
+	templateTestMesh.Prepare();*/
+
+
+	// test mesh generation
+	Section section000(glm::ivec3(0));
+	section000.SetBlock(glm::ivec3(1, 1, 1), 1);
+	section000.SetBlock(glm::ivec3(2, 1, 1), 1);
+	section000.SetBlock(glm::ivec3(2, 1, 2), 1);
+	section000.GenerateMesh();
 
 
 	// Textures
@@ -207,6 +214,9 @@ int main(int argc, char* argv[]) {
 	FlatMaterial* coordSystemMaterial = materialLibrary.MakeFlatMaterial("coordSystemMaterial");
 	coordSystemMaterial->SetUseColorVertices(true);
 
+	PhongMaterial* yellowDebugMaterial = materialLibrary.MakePhongMaterial("yellowDebugMaterial");
+	yellowDebugMaterial->SetDiffuseColor(glm::vec3(0.8f, 0.8f, 0.0f));
+	yellowDebugMaterial->SetSpecularColor(glm::vec3(0.6f));
 
 
 	renderer.AddCommand(Mid, &gridMesh, gridMaterial);
@@ -214,11 +224,12 @@ int main(int argc, char* argv[]) {
 	renderer.AddCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
 	renderer.AddCommand(Msphere, &sphereMesh, defaultMaterial);
 	renderer.AddCommand(Mcone, &coneMesh, defaultMaterial);
-	renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);
+	//renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);
+
+	//renderer.AddCommand(MfaceTemplate, &templateTestMesh, defaultMaterial);
 
 
-	renderer.AddCommand(MfaceTemplate, &templateTestMesh, defaultMaterial);
-
+	renderer.AddCommand(Mid, &section000.GetMesh(), yellowDebugMaterial);
 	
 	renderer.Prepare();
 

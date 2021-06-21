@@ -5,7 +5,7 @@
 
 class Section final {
 public:
-	static constexpr unsigned int sectionSize = 16u;
+	static constexpr unsigned int sectionSize = 8u;
 
 	/// <summary>
 	/// Pointer type to raw block array.
@@ -79,6 +79,9 @@ public:
 	/// </summary>
 	/// <returns>Pointer to raw block array (see typedef)</returns>
 	ArrayPtr GetArray(void);
+
+
+	DynamicMesh& GetMesh(void);
 
 
 	void GenerateMesh(void);

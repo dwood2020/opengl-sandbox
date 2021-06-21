@@ -1,6 +1,8 @@
 #include "Section.h"
 #include <cmath>
 
+#include <iostream>
+
 
 // initialize static template faces
 std::vector<VertexPosNorm> Section::frontFaceTemplate = {
@@ -105,7 +107,188 @@ Section::ArrayPtr Section::GetArray(void) {
 
 
 void Section::GenerateMesh(void) {
+	
 
+	mesh.GetVerticesPosNorm().clear();
+
+
+
+	//// first approach:
+	//// "sweep through each row in each direction and react to rising and falling edges"
+	//char last = 0;
+
+	//// y direction	
+	//for (unsigned int i = 0; i < sectionSize; ++i) {
+	//	
+	//	// z direction
+	//	for (unsigned int j = 0; j < sectionSize; ++j) {
+	//		
+	//		// x direction
+	//		for (unsigned int k = 0; k < sectionSize; ++k) {
+
+	//			//rising edge
+	//			if (blocks[k][i][j] > last) {
+	//				mesh.GetVerticesPosNorm().insert(mesh.GetVerticesPosNorm().end(), leftFaceTemplate.begin(), leftFaceTemplate.end());
+	//				last = 1;					
+	//			}
+	//			//falling edge
+	//			else if (blocks[k][i][j] < last) {
+	//				mesh.GetVerticesPosNorm().insert(mesh.GetVerticesPosNorm().end(), rightFaceTemplate.begin(), rightFaceTemplate.end());
+	//				last = 0;
+	//			}
+	//			else {
+	//				// same, do not add a face
+	//			}
+
+	//		}
+	//	}
+	//}
+
+	//auto& meshVector = mesh.GetVerticesPosNorm();
+	//glm::vec3 pos = basePos;
+
+	//// z direction	
+	//for (unsigned int i = 1; i < sectionSize-1; ++i) {
+	//	
+	//	// y direction
+	//	for (unsigned int j = 1; j < sectionSize-1; ++j) {
+	//		
+	//		// x direction
+	//		for (unsigned int k = 1; k < sectionSize-1; ++k) {
+
+	//			pos.x += 1;
+
+	//			if (blocks[k][j][i] != 0) {
+	//				if (blocks[k - 1][j][i] != 0) {
+	//					auto face = leftFaceTemplate;
+	//					for (VertexPosNorm v : face) {
+	//						v.pos += pos;							
+	//					}
+	//					meshVector.insert(meshVector.end(), face.begin(), face.end());
+	//					std::cout << "inserted left face" << std::endl;
+	//				}
+
+	//				if (blocks[k + 1][j][i] != 0) {
+	//					auto face = rightFaceTemplate;
+	//					for (VertexPosNorm v : face) {
+	//						v.pos += pos;
+	//					}
+	//					meshVector.insert(meshVector.end(), face.begin(), face.end());
+	//					std::cout << "inserted right face" << std::endl;
+	//				}
+
+	//				if (blocks[k][j + 1][i] != 0) {
+	//					auto face = topFaceTemplate;
+	//					for (VertexPosNorm v : face) {
+	//						v.pos += pos;
+	//					}
+	//					meshVector.insert(meshVector.end(), face.begin(), face.end());
+	//					std::cout << "inserted top face" << std::endl;
+	//				}
+	//			}
+
+	//		}
+	//	}
+	//}
+
+	//mesh.SetGlMode(GL_TRIANGLES);
+	//mesh.Prepare();
+
+	// debug 
+	glm::vec3 blockPos = basePos;
+	auto& meshVector = mesh.GetVerticesPosNorm();
+
+	for (unsigned int i = 1; i < sectionSize-1; i++) {
+		blockPos.x += 1;
+
+		for (unsigned int j = 1; j < sectionSize-1; j++) {
+			blockPos.y += 1;
+
+			for (unsigned int k = 1; k < sectionSize-1; k++) {
+				/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: " << (int)blocks[i][j][k] << std::endl;*/
+				
+				blockPos.x = basePos.x + i;
+				blockPos.y = basePos.y + j;
+				blockPos.z = basePos.z + k;				
+
+				/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: pos: " << blockPos.x << " " << blockPos.y << " " << blockPos.z << std::endl;*/
+
+
+				if (blocks[i][j][k] != 0) {
+					/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: " << (int)blocks[i][j][k] << std::endl;*/
+					/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: pos: " << blockPos.x << " " << blockPos.y << " " << blockPos.z << std::endl;*/
+
+					// left face
+					if (blocks[i - 1][j][k] == 0) {
+						auto leftFace = leftFaceTemplate;
+						for (VertexPosNorm& v : leftFace) {
+							v.pos += blockPos;
+						}
+						meshVector.insert(meshVector.end(), leftFace.begin(), leftFace.end());
+						std::cout << "inserted left face" << std::endl;
+					}
+
+					// right face
+					if (blocks[i + 1][j][k] == 0) {
+						auto rightFace = rightFaceTemplate;
+						for (VertexPosNorm& v : rightFace) {
+							v.pos += blockPos;
+						}
+						meshVector.insert(meshVector.end(), rightFace.begin(), rightFace.end());
+						std::cout << "inserted right face" << std::endl;
+					}
+
+					// rear face
+					if (blocks[i][j][k - 1] == 0) {
+						auto rearFace = rearFaceTemplate;
+						for (VertexPosNorm& v : rearFace) {
+							v.pos += blockPos;
+						}
+						meshVector.insert(meshVector.end(), rearFace.begin(), rearFace.end());
+						std::cout << "inserted rear face" << std::endl;
+					}
+
+					// front face
+					if (blocks[i][j][k + 1] == 0) {
+						auto frontFace = frontFaceTemplate;
+						for (VertexPosNorm& v : frontFace) {
+							v.pos += blockPos;
+						}
+						meshVector.insert(meshVector.end(), frontFace.begin(), frontFace.end());
+					}
+
+					// bottom face
+					if (blocks[i][j - 1][k] == 0) {
+						auto face = bottomFaceTemplate;
+						for (VertexPosNorm& v : face) {
+							v.pos += blockPos;
+						}
+						meshVector.insert(meshVector.end(), face.begin(), face.end());
+					}
+
+					if (blocks[i][j + 1][k] == 0) {
+						auto face = topFaceTemplate;
+						for (VertexPosNorm& v : face) {
+							v.pos += blockPos;
+						}
+						meshVector.insert(meshVector.end(), face.begin(), face.end());
+					}
+				}
+
+			}
+		}
+	}
+
+	if (!meshVector.empty()) {
+		mesh.SetGlMode(GL_TRIANGLES);
+		mesh.Prepare();
+		std::cout << "prepared mesh!" << std::endl;
+	}	
+}
+
+
+DynamicMesh& Section::GetMesh(void) {
+	return mesh;
 }
 
 
