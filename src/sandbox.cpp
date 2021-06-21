@@ -142,7 +142,7 @@ int main(int argc, char* argv[]) {
 	section000.SetBlock(glm::ivec3(2, 1, 1), 1);
 	section000.SetBlock(glm::ivec3(2, 1, 2), 1);
 	section000.SetBlock(glm::ivec3(3, 1, 5), 1);
-	section000.SetBlock(glm::ivec3(2, 2, 2), 1);
+	section000.SetBlock(glm::ivec3(2, 2, 2), 1);	
 	section000.GenerateMesh();
 
 
@@ -203,7 +203,7 @@ int main(int argc, char* argv[]) {
 	coordSystemMaterial->SetUseColorVertices(true);
 
 	PhongMaterial* yellowDebugMaterial = materialLibrary.MakePhongMaterial("yellowDebugMaterial");
-	yellowDebugMaterial->SetDiffuseColor(glm::vec3(0.8f, 0.8f, 0.0f));
+	yellowDebugMaterial->SetDiffuseColor(glm::vec3(0.8f, 0.8f, 0.1f));
 	yellowDebugMaterial->SetSpecularColor(glm::vec3(0.6f));
 
 
