@@ -13,8 +13,7 @@ using SectionsMap = std::map<std::array<int, 3>, std::unique_ptr<Section>>;
 
 class VoxelScene final {
 private:
-	SectionsMap sections;
-	std::vector<DynamicMesh*> meshes;
+	SectionsMap sections;	
 
 public:
 	/// <summary>
