@@ -164,67 +164,68 @@ void Section::GenerateMesh(void) {
 
 				/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: pos: " << blockPos.x << " " << blockPos.y << " " << blockPos.z << std::endl;*/
 
+				if (blocks[i][j][k] == 0) {
+					continue;
+				}
 
-				if (blocks[i][j][k] != 0) {
-					/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: " << (int)blocks[i][j][k] << std::endl;*/
-					/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: pos: " << blockPos.x << " " << blockPos.y << " " << blockPos.z << std::endl;*/
+				/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: " << (int)blocks[i][j][k] << std::endl;*/
+				/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: pos: " << blockPos.x << " " << blockPos.y << " " << blockPos.z << std::endl;*/
 
-					// left face
-					if (blocks[i - 1][j][k] == 0) {
-						auto leftFace = leftFaceTemplate;
-						for (VertexPosNorm& v : leftFace) {
-							v.pos += blockPos;
-						}
-						meshVector.insert(meshVector.end(), leftFace.begin(), leftFace.end());
-						std::cout << "inserted left face" << std::endl;
+				// left face
+				if (blocks[i - 1][j][k] == 0) {
+					auto leftFace = leftFaceTemplate;
+					for (VertexPosNorm& v : leftFace) {
+						v.pos += blockPos;
 					}
+					meshVector.insert(meshVector.end(), leftFace.begin(), leftFace.end());
+					std::cout << "inserted left face" << std::endl;
+				}
 
-					// right face
-					if (blocks[i + 1][j][k] == 0) {
-						auto rightFace = rightFaceTemplate;
-						for (VertexPosNorm& v : rightFace) {
-							v.pos += blockPos;
-						}
-						meshVector.insert(meshVector.end(), rightFace.begin(), rightFace.end());
-						std::cout << "inserted right face" << std::endl;
+				// right face
+				if (blocks[i + 1][j][k] == 0) {
+					auto rightFace = rightFaceTemplate;
+					for (VertexPosNorm& v : rightFace) {
+						v.pos += blockPos;
 					}
+					meshVector.insert(meshVector.end(), rightFace.begin(), rightFace.end());
+					std::cout << "inserted right face" << std::endl;
+				}
 
-					// rear face
-					if (blocks[i][j][k - 1] == 0) {
-						auto rearFace = rearFaceTemplate;
-						for (VertexPosNorm& v : rearFace) {
-							v.pos += blockPos;
-						}
-						meshVector.insert(meshVector.end(), rearFace.begin(), rearFace.end());
-						std::cout << "inserted rear face" << std::endl;
+				// rear face
+				if (blocks[i][j][k - 1] == 0) {
+					auto rearFace = rearFaceTemplate;
+					for (VertexPosNorm& v : rearFace) {
+						v.pos += blockPos;
 					}
+					meshVector.insert(meshVector.end(), rearFace.begin(), rearFace.end());
+					std::cout << "inserted rear face" << std::endl;
+				}
 
-					// front face
-					if (blocks[i][j][k + 1] == 0) {
-						auto frontFace = frontFaceTemplate;
-						for (VertexPosNorm& v : frontFace) {
-							v.pos += blockPos;
-						}
-						meshVector.insert(meshVector.end(), frontFace.begin(), frontFace.end());
+				// front face
+				if (blocks[i][j][k + 1] == 0) {
+					auto frontFace = frontFaceTemplate;
+					for (VertexPosNorm& v : frontFace) {
+						v.pos += blockPos;
 					}
+					meshVector.insert(meshVector.end(), frontFace.begin(), frontFace.end());
+				}
 
-					// bottom face
-					if (blocks[i][j - 1][k] == 0) {
-						auto face = bottomFaceTemplate;
-						for (VertexPosNorm& v : face) {
-							v.pos += blockPos;
-						}
-						meshVector.insert(meshVector.end(), face.begin(), face.end());
+				// bottom face
+				if (blocks[i][j - 1][k] == 0) {
+					auto face = bottomFaceTemplate;
+					for (VertexPosNorm& v : face) {
+						v.pos += blockPos;
 					}
+					meshVector.insert(meshVector.end(), face.begin(), face.end());
+				}
 
-					// top face
-					if (blocks[i][j + 1][k] == 0) {
-						auto face = topFaceTemplate;
-						for (VertexPosNorm& v : face) {
-							v.pos += blockPos;
-						}
-						meshVector.insert(meshVector.end(), face.begin(), face.end());
+				// top face
+				if (blocks[i][j + 1][k] == 0) {
+					auto face = topFaceTemplate;
+					for (VertexPosNorm& v : face) {
+						v.pos += blockPos;
 					}
+					meshVector.insert(meshVector.end(), face.begin(), face.end());
 				}
 
 			}
