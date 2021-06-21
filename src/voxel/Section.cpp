@@ -2,6 +2,68 @@
 #include <cmath>
 
 
+// initialize static template faces
+std::vector<VertexPosNorm> Section::frontFaceTemplate = {
+	{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
+	{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
+	{glm::vec3(1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
+
+	{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
+	{glm::vec3(1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
+	{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)}
+};
+
+std::vector<VertexPosNorm> Section::rightFaceTemplate = {
+	{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
+	{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
+	{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
+
+	{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
+	{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
+	{glm::vec3(1.0f), glm::vec3(1.0f, 0.0f, 0.0f)}
+};
+
+std::vector<VertexPosNorm> Section::rearFaceTemplate = {
+	{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
+	{glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
+	{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
+
+	{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
+	{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
+	{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)}
+};
+
+std::vector<VertexPosNorm> Section::leftFaceTemplate = {
+	{glm::vec3(0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
+	{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
+	{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
+
+	{glm::vec3(0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
+	{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
+	{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)}
+};
+
+std::vector<VertexPosNorm> Section::topFaceTemplate = {
+	{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
+	{glm::vec3(1.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
+	{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
+
+	{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
+	{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
+	{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)}
+};
+
+std::vector<VertexPosNorm> Section::bottomFaceTemplate = {
+	{glm::vec3(0.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
+	{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
+	{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
+
+	{glm::vec3(0.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
+	{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
+	{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)}
+};
+
+
 Section::Section(const glm::ivec3& basePos) : blocks{0}, basePos(basePos) { }
 
 
@@ -41,6 +103,13 @@ Section::ArrayPtr Section::GetArray(void) {
 	return &blocks;
 }
 
+
+void Section::GenerateMesh(void) {
+
+}
+
+
+// private helper methods ----------------------------------------------
 
 bool Section::IsWithinBounds(const glm::ivec3& pos) const {
 	if (pos.x >= sectionSize || pos.y >= sectionSize || pos.z >= sectionSize) {

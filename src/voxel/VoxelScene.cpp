@@ -1,77 +1,7 @@
 #include "VoxelScene.h"
 
 
-VoxelScene::VoxelScene() {
-	
-	// initialize block face templates
-	frontFaceTemplate.reserve(6);
-	rightFaceTemplate.reserve(6);
-	rearFaceTemplate.reserve(6);
-	leftFaceTemplate.reserve(6);
-	topFaceTemplate.reserve(6);
-	bottomFaceTemplate.reserve(6);
-
-	frontFaceTemplate = {
-		{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
-		{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
-		{glm::vec3(1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
-
-		{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
-		{glm::vec3(1.0f), glm::vec3(0.0f, 0.0f, 1.0f)},
-		{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)}
-	};
-
-	rightFaceTemplate = {
-		{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
-		{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
-		{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
-
-		{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
-		{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)},
-		{glm::vec3(1.0f), glm::vec3(1.0f, 0.0f, 0.0f)}
-	};
-
-	rearFaceTemplate = {
-		{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
-		{glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
-		{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
-
-		{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
-		{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)},
-		{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)}
-	};
-
-	leftFaceTemplate = {
-		{glm::vec3(0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
-		{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
-		{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
-
-		{glm::vec3(0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
-		{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)},
-		{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)}
-	};
-
-	topFaceTemplate = {
-		{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
-		{glm::vec3(1.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
-		{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
-
-		{glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
-		{glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)},
-		{glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)}
-	};
-
-	bottomFaceTemplate = {
-		{glm::vec3(0.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
-		{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
-		{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
-
-		{glm::vec3(0.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
-		{glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)},
-		{glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)}
-	};
-
-}
+VoxelScene::VoxelScene() { }
 
 
 VoxelScene::~VoxelScene() {

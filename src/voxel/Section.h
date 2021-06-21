@@ -1,8 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
-
-
-
+#include "../mesh/DynamicMesh.h"
 
 
 class Section final {
@@ -14,10 +12,20 @@ public:
 	/// </summary>
 	typedef char(*ArrayPtr)[sectionSize][sectionSize][sectionSize];
 
+	static std::vector<VertexPosNorm> frontFaceTemplate;
+	static std::vector<VertexPosNorm> rightFaceTemplate;
+	static std::vector<VertexPosNorm> rearFaceTemplate;
+	static std::vector<VertexPosNorm> leftFaceTemplate;
+	static std::vector<VertexPosNorm> topFaceTemplate;
+	static std::vector<VertexPosNorm> bottomFaceTemplate;
+
+
 private:	
 	char blocks[sectionSize][sectionSize][sectionSize];
 
 	glm::ivec3 basePos;
+
+	DynamicMesh mesh;
 
 private:
 	Section() = default;
@@ -71,6 +79,9 @@ public:
 	/// </summary>
 	/// <returns>Pointer to raw block array (see typedef)</returns>
 	ArrayPtr GetArray(void);
+
+
+	void GenerateMesh(void);
 
 
 private:	

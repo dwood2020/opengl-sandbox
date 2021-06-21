@@ -12,14 +12,6 @@ using SectionsMap = std::map<std::array<int, 3>, std::unique_ptr<Section>>;
 
 
 class VoxelScene final {
-public:	//This is public for testing only.
-	std::vector<VertexPosNorm> frontFaceTemplate;
-	std::vector<VertexPosNorm> rightFaceTemplate;
-	std::vector<VertexPosNorm> rearFaceTemplate;
-	std::vector<VertexPosNorm> leftFaceTemplate;
-	std::vector<VertexPosNorm> topFaceTemplate;
-	std::vector<VertexPosNorm> bottomFaceTemplate;
-
 private:
 	SectionsMap sections;
 	std::vector<DynamicMesh*> meshes;

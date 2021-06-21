@@ -141,12 +141,12 @@ int main(int argc, char* argv[]) {
 	MfaceTemplate = glm::translate(MfaceTemplate, glm::vec3(3.0f, 0.0f, -6.0f));
 
 	DynamicMesh templateTestMesh;
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.frontFaceTemplate.begin(), voxelScene.frontFaceTemplate.end());
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.rightFaceTemplate.begin(), voxelScene.rightFaceTemplate.end());
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.rearFaceTemplate.begin(), voxelScene.rearFaceTemplate.end());
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.leftFaceTemplate.begin(), voxelScene.leftFaceTemplate.end());
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.topFaceTemplate.begin(), voxelScene.topFaceTemplate.end());
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), voxelScene.bottomFaceTemplate.begin(), voxelScene.bottomFaceTemplate.end());
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::frontFaceTemplate.begin(), Section::frontFaceTemplate.end());
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::rightFaceTemplate.begin(), Section::rightFaceTemplate.end());
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::rearFaceTemplate.begin(), Section::rearFaceTemplate.end());
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::leftFaceTemplate.begin(), Section::leftFaceTemplate.end());
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::topFaceTemplate.begin(), Section::topFaceTemplate.end());
+	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::bottomFaceTemplate.begin(), Section::bottomFaceTemplate.end());
 	templateTestMesh.SetGlMode(GL_TRIANGLES);
 	templateTestMesh.Prepare();
 
