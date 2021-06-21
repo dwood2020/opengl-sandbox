@@ -144,57 +144,8 @@ void Section::GenerateMesh(void) {
 	//	}
 	//}
 
-	//auto& meshVector = mesh.GetVerticesPosNorm();
-	//glm::vec3 pos = basePos;
 
-	//// z direction	
-	//for (unsigned int i = 1; i < sectionSize-1; ++i) {
-	//	
-	//	// y direction
-	//	for (unsigned int j = 1; j < sectionSize-1; ++j) {
-	//		
-	//		// x direction
-	//		for (unsigned int k = 1; k < sectionSize-1; ++k) {
-
-	//			pos.x += 1;
-
-	//			if (blocks[k][j][i] != 0) {
-	//				if (blocks[k - 1][j][i] != 0) {
-	//					auto face = leftFaceTemplate;
-	//					for (VertexPosNorm v : face) {
-	//						v.pos += pos;							
-	//					}
-	//					meshVector.insert(meshVector.end(), face.begin(), face.end());
-	//					std::cout << "inserted left face" << std::endl;
-	//				}
-
-	//				if (blocks[k + 1][j][i] != 0) {
-	//					auto face = rightFaceTemplate;
-	//					for (VertexPosNorm v : face) {
-	//						v.pos += pos;
-	//					}
-	//					meshVector.insert(meshVector.end(), face.begin(), face.end());
-	//					std::cout << "inserted right face" << std::endl;
-	//				}
-
-	//				if (blocks[k][j + 1][i] != 0) {
-	//					auto face = topFaceTemplate;
-	//					for (VertexPosNorm v : face) {
-	//						v.pos += pos;
-	//					}
-	//					meshVector.insert(meshVector.end(), face.begin(), face.end());
-	//					std::cout << "inserted top face" << std::endl;
-	//				}
-	//			}
-
-	//		}
-	//	}
-	//}
-
-	//mesh.SetGlMode(GL_TRIANGLES);
-	//mesh.Prepare();
-
-	// debug 
+	// simple, forward approach: iterate over each cell + check all 6 neighbours
 	glm::vec3 blockPos = basePos;
 	auto& meshVector = mesh.GetVerticesPosNorm();
 
@@ -266,6 +217,7 @@ void Section::GenerateMesh(void) {
 						meshVector.insert(meshVector.end(), face.begin(), face.end());
 					}
 
+					// top face
 					if (blocks[i][j + 1][k] == 0) {
 						auto face = topFaceTemplate;
 						for (VertexPosNorm& v : face) {
