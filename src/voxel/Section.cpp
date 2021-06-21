@@ -2,7 +2,7 @@
 #include <cmath>
 
 
-Section::Section() : blocks{0} { }
+Section::Section(const glm::ivec3& basePos) : blocks{0}, basePos(basePos) { }
 
 
 Section::~Section() { }

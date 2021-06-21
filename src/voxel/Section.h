@@ -17,11 +17,16 @@ public:
 private:	
 	char blocks[sectionSize][sectionSize][sectionSize];
 
+	glm::ivec3 basePos;
+
+private:
+	Section() = default;
+
 public:	
 	/// <summary>
 	/// Constructor. Initializes array.
 	/// </summary>
-	Section();
+	Section(const glm::ivec3& basePos);
 
 	/// <summary>
 	/// Destructor.

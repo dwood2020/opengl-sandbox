@@ -95,7 +95,7 @@ void VoxelScene::SetBlock(const glm::ivec3& pos, char block) {
 
 	auto key = CalcSectionPosKey(pos);
 	if (sections.find(key) == sections.end()) {
-		sections[key] = std::make_unique<Section>();
+		sections[key] = std::make_unique<Section>(glm::ivec3(key[0], key[1], key[2]));
 	}
 
 	sections[key]->SetBlock(ToSectionCoords(pos), block);
