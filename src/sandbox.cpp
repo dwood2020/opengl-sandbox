@@ -133,21 +133,7 @@ int main(int argc, char* argv[]) {
 	voxelScene.SetBlock({ 0,0,1 }, 1);
 	voxelScene.SetBlock({ 0,0,3 }, 1);
 	char b003 = voxelScene.GetBlock({ 0,0,3 });
-
-
-	// Test: block template faces in VoxelScene
-	/*glm::mat4 MfaceTemplate = glm::mat4(1.0f);
-	MfaceTemplate = glm::translate(MfaceTemplate, glm::vec3(3.0f, 0.0f, -6.0f));
-
-	DynamicMesh templateTestMesh;
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::frontFaceTemplate.begin(), Section::frontFaceTemplate.end());
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::rightFaceTemplate.begin(), Section::rightFaceTemplate.end());
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::rearFaceTemplate.begin(), Section::rearFaceTemplate.end());
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::leftFaceTemplate.begin(), Section::leftFaceTemplate.end());
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::topFaceTemplate.begin(), Section::topFaceTemplate.end());
-	templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::bottomFaceTemplate.begin(), Section::bottomFaceTemplate.end());
-	templateTestMesh.SetGlMode(GL_TRIANGLES);
-	templateTestMesh.Prepare();*/
+	
 
 
 	// test mesh generation

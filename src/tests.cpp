@@ -101,3 +101,19 @@ dynamicMesh.SetGlMode(GL_TRIANGLES);
 dynamicMesh.Prepare();
 
 // + add rendercommand
+
+
+
+// Test: block template faces in Section class
+glm::mat4 MfaceTemplate = glm::mat4(1.0f);
+MfaceTemplate = glm::translate(MfaceTemplate, glm::vec3(3.0f, 0.0f, -6.0f));
+
+DynamicMesh templateTestMesh;
+templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::frontFaceTemplate.begin(), Section::frontFaceTemplate.end());
+templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::rightFaceTemplate.begin(), Section::rightFaceTemplate.end());
+templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::rearFaceTemplate.begin(), Section::rearFaceTemplate.end());
+templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::leftFaceTemplate.begin(), Section::leftFaceTemplate.end());
+templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::topFaceTemplate.begin(), Section::topFaceTemplate.end());
+templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::bottomFaceTemplate.begin(), Section::bottomFaceTemplate.end());
+templateTestMesh.SetGlMode(GL_TRIANGLES);
+templateTestMesh.Prepare();
