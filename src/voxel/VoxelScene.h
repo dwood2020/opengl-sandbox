@@ -25,7 +25,11 @@ private:
 	std::vector<DynamicMesh*> meshes;
 
 public:
+	/// <summary>
+	/// Constructor. Initializes block face templates.
+	/// </summary>
 	VoxelScene();
+
 
 	~VoxelScene();
 

@@ -92,15 +92,13 @@ char VoxelScene::GetBlock(const glm::ivec3& pos) {
 
 
 void VoxelScene::SetBlock(const glm::ivec3& pos, char block) {
-	/*sections[{pos.x / 16, pos.y / 16, pos.z / 16}]->SetBlock({ pos.x % 16, pos.y % 16, pos.z % 16 }, block);*/
-	//sections[CalcSectionPos(pos)];
 
 	auto key = CalcSectionPosKey(pos);
 	if (sections.find(key) == sections.end()) {
 		sections[key] = std::make_unique<Section>();
 	}
 
-	sections[CalcSectionPosKey(pos)]->SetBlock(ToSectionCoords(pos), block);
+	sections[key]->SetBlock(ToSectionCoords(pos), block);
 }
 
 
@@ -111,7 +109,11 @@ SectionsMap& VoxelScene::GetSections(void) {
 
 void VoxelScene::GenerateMeshes(void) {
 
+	glm::vec3 blockPos = glm::vec3(0.0f);
+
 	for (auto it = sections.begin(); it != sections.end(); ++it) {
+		blockPos = { static_cast<float>(it->first[0]), static_cast<float>(it->first[1]), static_cast<float>(it->first[2]) };
+
 
 	}
 
