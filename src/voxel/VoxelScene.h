@@ -18,7 +18,7 @@ private:
 
 public:
 	/// <summary>
-	/// Constructor. Initializes block face templates.
+	/// Constructor.
 	/// </summary>
 	VoxelScene();
 
