@@ -2,7 +2,6 @@
 #include <array>
 #include <map>
 #include <memory>
-#include <vector>
 #include <glm/glm.hpp>
 #include "Section.h"
 #include "../mesh/DynamicMesh.h"
