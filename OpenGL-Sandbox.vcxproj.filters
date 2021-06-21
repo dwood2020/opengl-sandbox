@@ -90,9 +90,6 @@
     <ClCompile Include="src\voxel\Section.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\voxel\BlockManager.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\voxel\VoxelScene.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -183,9 +180,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\voxel\Section.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\voxel\BlockManager.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\events\WindowEvents.hpp">

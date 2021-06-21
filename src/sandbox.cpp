@@ -22,7 +22,6 @@
 #include "material/FlatMaterial.h"
 #include "material/MaterialLibrary.h"
 #include "renderer/SimpleRenderer.h"
-#include "voxel/BlockManager.h"
 #include "voxel/VoxelScene.h"
 
 #include <chrono>
