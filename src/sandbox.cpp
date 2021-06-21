@@ -212,9 +212,7 @@ int main(int argc, char* argv[]) {
 	renderer.AddCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
 	renderer.AddCommand(Msphere, &sphereMesh, defaultMaterial);
 	renderer.AddCommand(Mcone, &coneMesh, defaultMaterial);
-	//renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);
-
-	//renderer.AddCommand(MfaceTemplate, &templateTestMesh, defaultMaterial);
+	//renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);	
 
 
 	renderer.AddCommand(Mid, &section000.GetMesh(), yellowDebugMaterial);
