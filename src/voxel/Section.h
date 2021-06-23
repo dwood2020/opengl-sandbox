@@ -83,15 +83,21 @@ public:
 	ArrayPtr GetArray(void);
 
 
+	/// <summary>
+	/// Gets the mesh object.
+	/// </summary>	
 	DynamicMesh& GetMesh(void);
 
 
+	/// <summary>
+	/// Gets the MehsIsDirty flag.
+	/// </summary>
 	bool GetMeshIsDirty(void) const;
 
 
-	void SetMeshIsDirty(bool isDirty);
-
-
+	/// <summary>
+	/// (Re-)Generates the mesh vertex data from the flat 3D array.
+	/// </summary>
 	void GenerateMesh(void);
 
 

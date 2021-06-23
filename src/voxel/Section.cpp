@@ -250,11 +250,6 @@ bool Section::GetMeshIsDirty(void) const {
 }
 
 
-void Section::SetMeshIsDirty(bool isDirty) {
-	meshIsDirty = isDirty;
-}
-
-
 
 // private helper methods ----------------------------------------------
 
