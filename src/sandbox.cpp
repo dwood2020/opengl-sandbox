@@ -242,13 +242,6 @@ int main(int argc, char* argv[]) {
 	
 	renderer.Prepare();
 
-	//TEST
-	std::cout << "sizeof(bool): " << sizeof(bool) << std::endl;
-	std::cout << "sizeof(char): " << sizeof(char) << std::endl;
-	std::cout << "sizeof(char*): " << sizeof(char*) << std::endl;
-	std::cout << "sizeof(int*): " << sizeof(int*) << std::endl;
-
-
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	//glEnable(GL_DEPTH_TEST);
