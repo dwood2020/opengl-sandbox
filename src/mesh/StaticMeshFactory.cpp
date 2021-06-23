@@ -357,9 +357,9 @@ StaticMesh StaticMeshFactory::MakeSimpleGrid(float l) const {
 
 
 void StaticMeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const {
-	vertices.reserve(2 * points);
+	vertices.reserve(2 * (size_t)points);
 
-	const float deltaPhi = (2.0f * 3.1415926f) / (float)points;
+	const float deltaPhi = (2.0f * 3.1415926f) / static_cast<float>(points);
 
 	// bottom ring
 	for (int i = 0; i < points; i++) {
@@ -372,7 +372,7 @@ void StaticMeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vect
 	}
 
 	// indices
-	indices.reserve(6 * points);
+	indices.reserve(6u * static_cast<size_t>(points));
 	for (unsigned int i = 0; i < (unsigned int)points - 1; i++) {		
 		indices.push_back(i + 1);
 		indices.push_back(i + points + 1);
@@ -394,11 +394,11 @@ void StaticMeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vect
 }
 
 
-void StaticMeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<glm::vec3>& normals, std::vector<unsigned int>& indices, int points, float r, float h) const {	
+void StaticMeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<glm::vec3>& normals, std::vector<unsigned int>& indices, unsigned int points, float r, float h) const {	
 	
 	// vertices
 	// --------
-	vertices.reserve(points + 1);	
+	vertices.reserve(static_cast<size_t>(points) + 1);	
 	
 	const float deltaPhi = (2.0f * 3.1415926f) / (float)points;
 
@@ -406,24 +406,24 @@ void StaticMeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<g
 	vertices.push_back(glm::vec3(0.0f, h, 0.0f));
 
 	// cone ring
-	for (int i = 0; i < points; i++) {
+	for (unsigned int i = 0; i < points; i++) {
 		vertices.push_back(glm::vec3(r * std::cosf(i * deltaPhi), 0.0f, r * std::sinf(i * deltaPhi)));
 	}
 
 	// normals
 	// -------
-	normals.reserve(points + 1);
+	normals.reserve(static_cast<size_t>(points) + 1);
 
 	float x = (r * r) / h;	
 	
 	normals.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
-	for (int i = 0; i < points; i++) {
+	for (unsigned int i = 0; i < points; i++) {
 		normals.push_back(glm::normalize(glm::vec3(r * std::cosf(i * deltaPhi), x, r * std::sinf(i * deltaPhi))));
 	}
 
 	// indices
 	// -------	
-	indices.reserve(points * 3);
+	indices.reserve(static_cast<size_t>(points) * 3);
 
 	for (unsigned int i = 1; i < points; i++) {
 		indices.push_back(i);

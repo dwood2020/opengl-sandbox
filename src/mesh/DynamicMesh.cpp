@@ -51,7 +51,7 @@ void DynamicMesh::Prepare(void) {
 		glEnableVertexAttribArray(2);
 				
 
-		nrElements = verticesPosNormTex.size();
+		nrElements = static_cast<GLsizei>(verticesPosNormTex.size());
 	}
 	else {
 		// do the same for a vertex buffer without tex coords

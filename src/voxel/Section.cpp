@@ -158,9 +158,9 @@ void Section::GenerateMesh(void) {
 
 			for (unsigned int k = 0; k < sectionSize; k++) {				
 				
-				blockPos.x = basePos.x + i;
-				blockPos.y = basePos.y + j;
-				blockPos.z = basePos.z + k;				
+				blockPos.x = static_cast<float>(basePos.x + i);
+				blockPos.y = static_cast<float>(basePos.y + j);
+				blockPos.z = static_cast<float>(basePos.z + k);				
 				
 
 				if (blocks[i][j][k] == 0) {
