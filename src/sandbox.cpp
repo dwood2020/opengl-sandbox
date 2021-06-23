@@ -124,7 +124,7 @@ int main(int argc, char* argv[]) {
 	StaticMesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
 
 	StaticMesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f, 20);
-	StaticMesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, false);
+	StaticMesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, true);
 	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
 	
@@ -233,12 +233,12 @@ int main(int argc, char* argv[]) {
 	renderer.AddCommand(Mid, &gridMesh, gridMaterial);
 	renderer.AddCommand(Mid, &cs3dMesh, coordSystemMaterial);
 	renderer.AddCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
-	renderer.AddCommand(Msphere, &sphereMesh, defaultMaterial);
-	renderer.AddCommand(Mcone, &coneMesh, defaultMaterial);
+	renderer.AddCommand(Msphere, &sphereMesh, woodenBoxMaterial);
+	renderer.AddCommand(Mcone, &coneMesh, greenDebugMaterial);
 	//renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);	
 
 
-	renderer.AddCommand(Mid, &section000.GetMesh(), yellowDebugMaterial);
+	renderer.AddCommand(Mid, &section000.GetMesh(), defaultMaterial);
 	
 	renderer.Prepare();
 
