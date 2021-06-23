@@ -143,6 +143,7 @@ int main(int argc, char* argv[]) {
 	section000.SetBlock(glm::ivec3(2, 1, 2), 1);
 	section000.SetBlock(glm::ivec3(3, 1, 5), 1);
 	section000.SetBlock(glm::ivec3(2, 2, 2), 1);	
+	section000.SetBlock(glm::ivec3(0), 1);
 	section000.GenerateMesh();
 
 

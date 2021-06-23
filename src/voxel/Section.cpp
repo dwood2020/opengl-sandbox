@@ -149,15 +149,16 @@ void Section::GenerateMesh(void) {
 
 	// simple, forward approach: iterate over each cell + check all 6 neighbours
 	glm::vec3 blockPos = basePos;
-	auto& meshVector = mesh.GetVerticesPosNorm();
+	auto& meshVector = mesh.GetVerticesPosNorm();	
 
-	for (unsigned int i = 1; i < sectionSize-1; i++) {
+	// all inner blocks for which x,y,z > 0 && x,y,z < sectionSize
+	for (unsigned int i = 0; i < sectionSize; i++) {
 		blockPos.x += 1;
 
-		for (unsigned int j = 1; j < sectionSize-1; j++) {
+		for (unsigned int j = 0; j < sectionSize; j++) {
 			blockPos.y += 1;
 
-			for (unsigned int k = 1; k < sectionSize-1; k++) {
+			for (unsigned int k = 0; k < sectionSize; k++) {
 				/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: " << (int)blocks[i][j][k] << std::endl;*/
 				
 				blockPos.x = basePos.x + i;
@@ -174,7 +175,7 @@ void Section::GenerateMesh(void) {
 				/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: pos: " << blockPos.x << " " << blockPos.y << " " << blockPos.z << std::endl;*/
 
 				// left face
-				if (blocks[i - 1][j][k] == 0) {
+				if (i == 0 || blocks[i - 1][j][k] == 0) {
 					auto leftFace = leftFaceTemplate;
 					for (VertexPosNorm& v : leftFace) {
 						v.pos += blockPos;
@@ -184,7 +185,7 @@ void Section::GenerateMesh(void) {
 				}
 
 				// right face
-				if (blocks[i + 1][j][k] == 0) {
+				if (i == sectionSize-1 || blocks[i + 1][j][k] == 0) {
 					auto rightFace = rightFaceTemplate;
 					for (VertexPosNorm& v : rightFace) {
 						v.pos += blockPos;
@@ -194,7 +195,7 @@ void Section::GenerateMesh(void) {
 				}
 
 				// rear face
-				if (blocks[i][j][k - 1] == 0) {
+				if (k == 0 || blocks[i][j][k - 1] == 0) {
 					auto rearFace = rearFaceTemplate;
 					for (VertexPosNorm& v : rearFace) {
 						v.pos += blockPos;
@@ -204,7 +205,7 @@ void Section::GenerateMesh(void) {
 				}
 
 				// front face
-				if (blocks[i][j][k + 1] == 0) {
+				if (k == sectionSize - 1 || blocks[i][j][k + 1] == 0) {
 					auto frontFace = frontFaceTemplate;
 					for (VertexPosNorm& v : frontFace) {
 						v.pos += blockPos;
@@ -213,7 +214,7 @@ void Section::GenerateMesh(void) {
 				}
 
 				// bottom face
-				if (blocks[i][j - 1][k] == 0) {
+				if (j == 0 || blocks[i][j - 1][k] == 0) {
 					auto face = bottomFaceTemplate;
 					for (VertexPosNorm& v : face) {
 						v.pos += blockPos;
@@ -222,7 +223,7 @@ void Section::GenerateMesh(void) {
 				}
 
 				// top face
-				if (blocks[i][j + 1][k] == 0) {
+				if (j == sectionSize-1 || blocks[i][j + 1][k] == 0) {
 					auto face = topFaceTemplate;
 					for (VertexPosNorm& v : face) {
 						v.pos += blockPos;
@@ -232,7 +233,7 @@ void Section::GenerateMesh(void) {
 
 			}
 		}
-	}
+	}	
 
 	if (!meshVector.empty()) {
 		mesh.SetGlMode(GL_TRIANGLES);
