@@ -105,7 +105,7 @@ int main(int argc, char* argv[]) {
 	Lighting lighting;
 	lighting.SetDirection(glm::vec3(-0.8f, -1.2f, -1.0f));	//NOTE: Not exactly pointed towards corner to make sides of cube better visible
 	lighting.SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
-	lighting.SetAmbientFactor(0.4f);
+	lighting.SetAmbientFactor(0.5f);
 
 	// use renderer
 	SimpleRenderer renderer(eventBus, lighting, camera, window.GetWindowRect());
@@ -199,8 +199,8 @@ int main(int argc, char* argv[]) {
 	gridMaterial->SetFlatColor(glm::vec3(0.33f));
 
 	PhongMaterial* defaultMaterial = materialLibrary.MakePhongMaterial("defaultMaterial");
-	defaultMaterial->SetDiffuseColor(glm::vec3(0.1f, 0.9f, 0.2f));
-	defaultMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
+	defaultMaterial->SetDiffuseColor(glm::vec3(0.5f));
+	defaultMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.3f);
 	defaultMaterial->SetShininess(32.0f);
 
 	FlatMaterial* coordSystemMaterial = materialLibrary.MakeFlatMaterial("coordSystemMaterial");
@@ -209,6 +209,11 @@ int main(int argc, char* argv[]) {
 	PhongMaterial* yellowDebugMaterial = materialLibrary.MakePhongMaterial("yellowDebugMaterial");
 	yellowDebugMaterial->SetDiffuseColor(glm::vec3(0.8f, 0.8f, 0.1f));
 	yellowDebugMaterial->SetSpecularColor(glm::vec3(0.6f));
+
+	PhongMaterial* greenDebugMaterial = materialLibrary.MakePhongMaterial("greenDebugMaterial");
+	greenDebugMaterial->SetDiffuseColor(glm::vec3(0.1f, 0.9f, 0.2f));
+	greenDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
+	greenDebugMaterial->SetShininess(32.0f);
 
 
 	renderer.AddCommand(Mid, &gridMesh, gridMaterial);
@@ -219,7 +224,7 @@ int main(int argc, char* argv[]) {
 	//renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);	
 
 
-	renderer.AddCommand(Mid, &section000.GetMesh(), yellowDebugMaterial);
+	renderer.AddCommand(Mid, &section000.GetMesh(), defaultMaterial);
 	
 	renderer.Prepare();
 

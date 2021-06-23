@@ -173,8 +173,7 @@ void Section::GenerateMesh(void) {
 					for (VertexPosNorm& v : leftFace) {
 						v.pos += blockPos;
 					}
-					meshVector.insert(meshVector.end(), leftFace.begin(), leftFace.end());
-					std::cout << "inserted left face" << std::endl;
+					meshVector.insert(meshVector.end(), leftFace.begin(), leftFace.end());					
 				}
 
 				// right face
@@ -183,8 +182,7 @@ void Section::GenerateMesh(void) {
 					for (VertexPosNorm& v : rightFace) {
 						v.pos += blockPos;
 					}
-					meshVector.insert(meshVector.end(), rightFace.begin(), rightFace.end());
-					std::cout << "inserted right face" << std::endl;
+					meshVector.insert(meshVector.end(), rightFace.begin(), rightFace.end());					
 				}
 
 				// rear face
@@ -193,8 +191,7 @@ void Section::GenerateMesh(void) {
 					for (VertexPosNorm& v : rearFace) {
 						v.pos += blockPos;
 					}
-					meshVector.insert(meshVector.end(), rearFace.begin(), rearFace.end());
-					std::cout << "inserted rear face" << std::endl;
+					meshVector.insert(meshVector.end(), rearFace.begin(), rearFace.end());					
 				}
 
 				// front face
