@@ -27,6 +27,8 @@ private:
 
 	DynamicMesh mesh;
 
+	bool meshIsDirty;
+
 private:
 	Section() = default;
 
@@ -82,6 +84,12 @@ public:
 
 
 	DynamicMesh& GetMesh(void);
+
+
+	bool GetMeshIsDirty(void) const;
+
+
+	void SetMeshIsDirty(bool isDirty);
 
 
 	void GenerateMesh(void);

@@ -66,7 +66,7 @@ std::vector<VertexPosNorm> Section::bottomFaceTemplate = {
 };
 
 
-Section::Section(const glm::ivec3& basePos) : blocks{0}, basePos(basePos) { }
+Section::Section(const glm::ivec3& basePos) : blocks{0}, basePos(basePos), meshIsDirty(false) { }
 
 
 Section::~Section() { }
@@ -243,6 +243,17 @@ void Section::GenerateMesh(void) {
 DynamicMesh& Section::GetMesh(void) {
 	return mesh;
 }
+
+
+bool Section::GetMeshIsDirty(void) const {
+	return meshIsDirty;
+}
+
+
+void Section::SetMeshIsDirty(bool isDirty) {
+	meshIsDirty = isDirty;
+}
+
 
 
 // private helper methods ----------------------------------------------
