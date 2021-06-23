@@ -23,12 +23,6 @@ SimpleRenderer::SimpleRenderer(EventBus& eventBus, Lighting& lighting, CameraBas
 SimpleRenderer::~SimpleRenderer() { }
 
 
-void SimpleRenderer::SetClearColor(const glm::vec3& clearColor) {	
-	glClearColor(clearColor.x, clearColor.y, clearColor.z, 1.0f);
-}
-
-
-
 void SimpleRenderer::AddCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
 	if (mesh == nullptr || material == nullptr) {
 		//TODO ASSERT or check if passing arg by reference is better option

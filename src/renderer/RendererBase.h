@@ -22,6 +22,9 @@ public:
 	virtual void OnEvent(Event& e) override = 0;
 
 
+	void SetClearColor(const glm::vec3& clearColor);
+
+
 protected:
 	void CalculateViewport(const glm::vec2& rect);
 

@@ -23,10 +23,7 @@ public:
 
 	SimpleRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, const glm::vec2& windowRect);
 
-	~SimpleRenderer();
-
-
-	void SetClearColor(const glm::vec3& clearColor);
+	~SimpleRenderer();	
 
 
 	void AddCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
