@@ -33,15 +33,11 @@ SectionsMap& VoxelScene::GetSections(void) {
 
 
 void VoxelScene::GenerateMeshes(void) {
-
-	glm::vec3 blockPos = glm::vec3(0.0f);
-
 	for (auto it = sections.begin(); it != sections.end(); ++it) {
-		blockPos = { static_cast<float>(it->first[0]), static_cast<float>(it->first[1]), static_cast<float>(it->first[2]) };
-
-
+		if (it->second->GetMeshIsDirty() == true) {
+			it->second->GenerateMesh();
+		}
 	}
-
 }
 
 
