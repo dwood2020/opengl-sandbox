@@ -1,10 +1,17 @@
 #pragma once
 #include "RendererBase.h"
+#include "../events/EventBus.h"
+#include "../Lighting.h"
+#include "../camera/CameraBase.h"
 
 
 class VoxelRenderer final : public RendererBase {
+private:
+	Lighting* lighting;
+	CameraBase* camera;
+
 public:
-	VoxelRenderer();
+	VoxelRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera);
 
 	~VoxelRenderer();
 

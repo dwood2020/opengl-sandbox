@@ -1,7 +1,15 @@
 #include "VoxelRenderer.h"
 
 
-VoxelRenderer::VoxelRenderer() { }
+VoxelRenderer::VoxelRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera) {
+	
+	this->lighting = &lighting;
+	this->camera = &camera;
+
+	// register for events
+	eventBus.AddListener(EventType::WindowResize, this);
+
+}
 
 
 VoxelRenderer::~VoxelRenderer() { }
