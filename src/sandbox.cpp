@@ -141,12 +141,26 @@ int main(int argc, char* argv[]) {
 	section000.SetBlock(glm::ivec3(1, 1, 1), 1);
 	section000.SetBlock(glm::ivec3(2, 1, 1), 1);
 	section000.SetBlock(glm::ivec3(2, 1, 2), 1);
-	section000.SetBlock(glm::ivec3(3, 1, 5), 1);
-	section000.SetBlock(glm::ivec3(3, 0, 5), 1);
+	section000.SetBlock(glm::ivec3(4, 1, 5), 1);
+	section000.SetBlock(glm::ivec3(4, 0, 5), 1);
 	section000.SetBlock(glm::ivec3(2, 2, 2), 1);	
 	section000.SetBlock(glm::ivec3(0), 1);
 	section000.SetBlock(glm::ivec3(0, 0, 1), 1);
 	section000.SetBlock(glm::ivec3(0, 1, 1), 1);
+
+	section000.SetBlock(glm::ivec3(7, 7, 7), 1);
+	for (int i = 0; i < 8; i++) {
+		section000.SetBlock(glm::ivec3(7, 0, i), 1);
+	}
+
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			for (int k = 5; k < 8; k++) {
+				section000.SetBlock(glm::ivec3( i,j,k ), 1);
+			}
+		}
+	}
+
 	section000.GenerateMesh();
 
 
@@ -224,7 +238,7 @@ int main(int argc, char* argv[]) {
 	//renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);	
 
 
-	renderer.AddCommand(Mid, &section000.GetMesh(), defaultMaterial);
+	renderer.AddCommand(Mid, &section000.GetMesh(), yellowDebugMaterial);
 	
 	renderer.Prepare();
 
