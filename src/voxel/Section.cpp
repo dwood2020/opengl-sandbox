@@ -110,9 +110,7 @@ Section::ArrayPtr Section::GetArray(void) {
 
 void Section::GenerateMesh(void) {
 	
-
 	mesh.GetVerticesPosNorm().clear();
-
 
 
 	//// first approach:
@@ -151,29 +149,24 @@ void Section::GenerateMesh(void) {
 	glm::vec3 blockPos = basePos;
 	auto& meshVector = mesh.GetVerticesPosNorm();	
 
-	// all inner blocks for which x,y,z > 0 && x,y,z < sectionSize
+	// now loop over entire array, including edge cases
 	for (unsigned int i = 0; i < sectionSize; i++) {
 		blockPos.x += 1;
 
 		for (unsigned int j = 0; j < sectionSize; j++) {
 			blockPos.y += 1;
 
-			for (unsigned int k = 0; k < sectionSize; k++) {
-				/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: " << (int)blocks[i][j][k] << std::endl;*/
+			for (unsigned int k = 0; k < sectionSize; k++) {				
 				
 				blockPos.x = basePos.x + i;
 				blockPos.y = basePos.y + j;
 				blockPos.z = basePos.z + k;				
-
-				/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: pos: " << blockPos.x << " " << blockPos.y << " " << blockPos.z << std::endl;*/
+				
 
 				if (blocks[i][j][k] == 0) {
 					continue;
-				}
-
-				/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: " << (int)blocks[i][j][k] << std::endl;*/
-				/*std::cout << "blocks[" << i << "][" << j << "][" << k << "]: pos: " << blockPos.x << " " << blockPos.y << " " << blockPos.z << std::endl;*/
-
+				}				
+				
 				// left face
 				if (i == 0 || blocks[i - 1][j][k] == 0) {
 					auto leftFace = leftFaceTemplate;
