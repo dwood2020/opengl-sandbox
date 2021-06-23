@@ -19,7 +19,7 @@ FlatMaterial* MaterialLibrary::MakeFlatMaterial(const std::string& name) {
         delete materials[name];
     }
     materials[name] = new FlatMaterial(shaderFactory->MakeDefaultFlatShaderProgram());
-    return (FlatMaterial*)materials[name];
+    return dynamic_cast<FlatMaterial*>(materials[name]);
 
     //TODO: Examine reinterpret_cast vs. static_cast
     //TODO: Move to smart memory management
@@ -31,7 +31,7 @@ PhongMaterial* MaterialLibrary::MakePhongMaterial(const std::string& name) {
         delete materials[name];
     }
     materials[name] = new PhongMaterial(shaderFactory->MakeDefaultPhongShaderProgram());
-    return (PhongMaterial*)materials[name];
+    return dynamic_cast<PhongMaterial*>(materials[name]);
 }
 
 
