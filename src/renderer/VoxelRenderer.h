@@ -10,6 +10,8 @@ private:
 	Lighting* lighting;
 	CameraBase* camera;
 
+	VoxelRenderer() = default;
+
 public:
 	VoxelRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera);
 
