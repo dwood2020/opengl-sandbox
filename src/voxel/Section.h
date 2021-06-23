@@ -27,6 +27,8 @@ private:
 
 	DynamicMesh mesh;
 
+	bool meshIsDirty;
+
 private:
 	Section() = default;
 
@@ -81,9 +83,21 @@ public:
 	ArrayPtr GetArray(void);
 
 
+	/// <summary>
+	/// Gets the mesh object.
+	/// </summary>	
 	DynamicMesh& GetMesh(void);
 
 
+	/// <summary>
+	/// Gets the MehsIsDirty flag.
+	/// </summary>
+	bool GetMeshIsDirty(void) const;
+
+
+	/// <summary>
+	/// (Re-)Generates the mesh vertex data from the flat 3D array.
+	/// </summary>
 	void GenerateMesh(void);
 
 
