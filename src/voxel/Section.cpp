@@ -93,6 +93,8 @@ void Section::SetBlock(const glm::ivec3& pos, char block) {
 	}
 
 	blocks[pos.x][pos.y][pos.z] = block;
+
+	meshIsDirty = true;
 }
 
 
@@ -237,6 +239,7 @@ void Section::GenerateMesh(void) {
 		mesh.Prepare();
 		std::cout << "prepared mesh!" << std::endl;
 	}	
+	meshIsDirty = false;
 }
 
 
