@@ -5,6 +5,7 @@
 #include "../Lighting.h"
 #include "../camera/CameraBase.h"
 #include "../material/MaterialBase.h"
+#include "../voxel/VoxelScene.h"
 
 
 class VoxelRenderer final : public RendererBase {
@@ -12,13 +13,15 @@ private:
 	Lighting* lighting;
 	CameraBase* camera;
 
+	VoxelScene* voxelScene;
+
 	std::map<char, MaterialBase*> blockMaterials;
 
 
 	VoxelRenderer() = default;
 
 public:
-	VoxelRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, const glm::vec2& windowRect);
+	VoxelRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, const glm::vec2& windowRect, VoxelScene& voxelScene);
 
 	~VoxelRenderer();
 
