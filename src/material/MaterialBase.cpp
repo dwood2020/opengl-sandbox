@@ -5,8 +5,7 @@ MaterialBase::MaterialBase(ShaderProgram* shaderProgram) {
 	//TODO: Next step: Parse all uniforms from shader and add to map.
 
 	this->shaderProgram = shaderProgram;
-
-	maxTextures = Texture::GetMaxTextures();
+	
 	isAffectedByLight = false;
 }
 
@@ -27,17 +26,6 @@ const Uniform* MaterialBase::GetUniform(const std::string& name) const {
 		return &it->second;
 	}
 	return nullptr;
-}
-
-
-void MaterialBase::SetTexture(const Texture& texture) {
-	//TODO: Check this, if storing pointers is optimal or should be changed to store the entire object.
-	if ((int)textures.size() < maxTextures - 1) {
-		textures.push_back(&texture);
-	}
-	else {
-		//TODO: ASSERT
-	}
 }
 
 
