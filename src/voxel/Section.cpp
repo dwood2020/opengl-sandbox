@@ -66,7 +66,7 @@ std::vector<VertexPosNorm> Section::bottomFaceTemplate = {
 };
 
 
-Section::Section(const glm::ivec3& basePos) : blocks{0}, basePos(basePos), meshIsDirty(false) { }
+Section::Section(const glm::ivec3& basePos) : blocks{0}, basePos(basePos), meshesAreDirty(false) { }
 
 
 Section::~Section() { }
@@ -94,7 +94,7 @@ void Section::SetBlock(const glm::ivec3& pos, char block) {
 
 	blocks[pos.x][pos.y][pos.z] = block;
 
-	meshIsDirty = true;
+	meshesAreDirty = true;
 }
 
 
@@ -105,6 +105,16 @@ void Section::SetBlock(const glm::vec3& pos, char block) {
 
 Section::ArrayPtr Section::GetArray(void) {
 	return &blocks;
+}
+
+
+DynamicMesh& Section::GetMesh(void) {
+	return mesh;
+}
+
+
+bool Section::GetMeshesAreDirty(void) const {
+	return meshesAreDirty;
 }
 
 
@@ -230,18 +240,9 @@ void Section::GenerateMesh(void) {
 		mesh.Prepare();
 		std::cout << "prepared mesh!" << std::endl;
 	}	
-	meshIsDirty = false;
+	meshesAreDirty = false;
 }
 
-
-DynamicMesh& Section::GetMesh(void) {
-	return mesh;
-}
-
-
-bool Section::GetMeshIsDirty(void) const {
-	return meshIsDirty;
-}
 
 
 

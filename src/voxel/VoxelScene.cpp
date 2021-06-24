@@ -34,7 +34,7 @@ SectionsMap& VoxelScene::GetSections(void) {
 
 void VoxelScene::GenerateMeshes(void) {
 	for (auto it = sections.begin(); it != sections.end(); ++it) {
-		if (it->second->GetMeshIsDirty() == true) {
+		if (it->second->GetMeshesAreDirty() == true) {
 			it->second->GenerateMesh();
 		}
 	}

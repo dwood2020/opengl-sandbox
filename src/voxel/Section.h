@@ -1,5 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
+#include <map>
 #include "../mesh/DynamicMesh.h"
 
 
@@ -27,7 +28,14 @@ private:
 
 	DynamicMesh mesh;
 
-	bool meshIsDirty;
+	struct MeshRef {
+		DynamicMesh mesh;
+		bool isDirty = false;
+	};
+
+	std::map<char, MeshRef> meshes;
+
+	bool meshesAreDirty;
 
 private:
 	Section() = default;
@@ -90,9 +98,9 @@ public:
 
 
 	/// <summary>
-	/// Gets the MehsIsDirty flag.
+	/// Gets the (global) MeshesAreDirty flag.
 	/// </summary>
-	bool GetMeshIsDirty(void) const;
+	bool GetMeshesAreDirty(void) const;
 
 
 	/// <summary>
