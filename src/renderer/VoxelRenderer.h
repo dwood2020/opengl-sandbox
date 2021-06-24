@@ -13,7 +13,7 @@ private:
 	VoxelRenderer() = default;
 
 public:
-	VoxelRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera);
+	VoxelRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, const glm::vec2& windowRect);
 
 	~VoxelRenderer();
 

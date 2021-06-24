@@ -1,7 +1,7 @@
 #include "VoxelRenderer.h"
 
 
-VoxelRenderer::VoxelRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera) {
+VoxelRenderer::VoxelRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, const glm::vec2& windowRect) {
 	
 	this->lighting = &lighting;
 	this->camera = &camera;
@@ -9,6 +9,8 @@ VoxelRenderer::VoxelRenderer(EventBus& eventBus, Lighting& lighting, CameraBase&
 	// register for events
 	eventBus.AddListener(EventType::WindowResize, this);
 
+	// initialize rendering	
+	CalculateViewport(windowRect);
 }
 
 
