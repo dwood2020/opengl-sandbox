@@ -6,9 +6,7 @@ PhongMaterial::PhongMaterial(ShaderProgram* shaderProgram): MaterialBase(shaderP
 	hasDiffuseTexture = false;
 	hasSpecularTexture = false;
 
-	SetAffectedByLight(true);
-
-	maxTextures = Texture::GetMaxTextures();
+	SetAffectedByLight(true);	
 
 	// set the default values
 	SetUniform(diffuseName, Uniform(glm::vec3(0.0f)));
@@ -50,13 +48,3 @@ void PhongMaterial::SetShininess(float shininess) {
 	SetUniform(shininessName, Uniform(shininess));
 }
 
-
-void PhongMaterial::SetTexture(const Texture& texture) {
-	//TODO: Check this, if storing pointers is optimal or should be changed to store the entire object.
-	if ((int)textures.size() < maxTextures - 1) {
-		textures.push_back(&texture);
-	}
-	else {
-		//TODO: ASSERT
-	}
-}

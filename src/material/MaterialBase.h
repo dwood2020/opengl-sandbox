@@ -17,7 +17,11 @@ class MaterialBase {
 protected:
 	ShaderProgram* shaderProgram;
 
-	std::map<std::string, Uniform> uniforms;	
+	std::map<std::string, Uniform> uniforms;
+
+	std::vector<const Texture*> textures;
+
+	int maxTextures;
 
 	bool isAffectedByLight;
 
@@ -49,6 +53,13 @@ public:
 	/// <param name="name">Uniform name</param>
 	/// <returns>Uniform object</returns>
 	const Uniform* GetUniform(const std::string& name) const;	
+
+	/// <summary>
+	/// Adds a texture to the texture stack.
+	/// This is possible until the maxTextures is reached.
+	/// </summary>
+	/// <param name="texture">Texture</param>
+	void SetTexture(const Texture& texture);
 
 	/// <summary>
 	/// Sets this material to be affected by light. 
