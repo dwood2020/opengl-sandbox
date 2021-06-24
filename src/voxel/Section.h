@@ -28,12 +28,7 @@ private:
 
 	DynamicMesh mesh;
 
-	struct MeshRef {
-		DynamicMesh mesh;
-		bool isDirty = false;
-	};
-
-	std::map<char, MeshRef> meshes;
+	std::map<char, DynamicMesh> meshes;
 
 	bool meshesAreDirty;
 
@@ -94,7 +89,7 @@ public:
 	/// <summary>
 	/// Gets the mesh object.
 	/// </summary>	
-	DynamicMesh& GetMesh(void);
+	std::map<char, DynamicMesh>& GetMeshes(void);
 
 
 	/// <summary>
@@ -106,7 +101,7 @@ public:
 	/// <summary>
 	/// (Re-)Generates the mesh vertex data from the flat 3D array.
 	/// </summary>
-	void GenerateMesh(void);
+	void GenerateMeshes(void);
 
 
 private:	

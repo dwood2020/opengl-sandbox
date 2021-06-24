@@ -108,8 +108,8 @@ Section::ArrayPtr Section::GetArray(void) {
 }
 
 
-DynamicMesh& Section::GetMesh(void) {
-	return mesh;
+std::map<char, DynamicMesh>& Section::GetMeshes(void) {
+	return meshes;
 }
 
 
@@ -118,9 +118,14 @@ bool Section::GetMeshesAreDirty(void) const {
 }
 
 
-void Section::GenerateMesh(void) {
+void Section::GenerateMeshes(void) {
 	
-	mesh.GetVerticesPosNorm().clear();
+	/*mesh.GetVerticesPosNorm().clear();*/
+
+	for (auto it = meshes.begin(); it != meshes.end(); ++it) {
+		it->second.GetVerticesPosNorm().clear();
+	}
+
 
 
 	//// first approach:
@@ -157,7 +162,7 @@ void Section::GenerateMesh(void) {
 
 	// simple, forward approach: iterate over each cell + check all 6 neighbours
 	glm::vec3 blockPos = basePos;
-	auto& meshVector = mesh.GetVerticesPosNorm();	
+	//auto& meshVector = mesh.GetVerticesPosNorm();	
 
 	// now loop over entire array, including edge cases
 	for (unsigned int i = 0; i < sectionSize; i++) {
@@ -183,7 +188,9 @@ void Section::GenerateMesh(void) {
 					for (VertexPosNorm& v : leftFace) {
 						v.pos += blockPos;
 					}
-					meshVector.insert(meshVector.end(), leftFace.begin(), leftFace.end());					
+					
+					auto& meshVector = meshes[(blocks[i][j][k])].GetVerticesPosNorm();
+					meshVector.insert(meshVector.end(), leftFace.begin(), leftFace.end());
 				}
 
 				// right face
@@ -192,6 +199,7 @@ void Section::GenerateMesh(void) {
 					for (VertexPosNorm& v : rightFace) {
 						v.pos += blockPos;
 					}
+					auto& meshVector = meshes[(blocks[i][j][k])].GetVerticesPosNorm();
 					meshVector.insert(meshVector.end(), rightFace.begin(), rightFace.end());					
 				}
 
@@ -201,6 +209,7 @@ void Section::GenerateMesh(void) {
 					for (VertexPosNorm& v : rearFace) {
 						v.pos += blockPos;
 					}
+					auto& meshVector = meshes[(blocks[i][j][k])].GetVerticesPosNorm();
 					meshVector.insert(meshVector.end(), rearFace.begin(), rearFace.end());					
 				}
 
@@ -210,6 +219,7 @@ void Section::GenerateMesh(void) {
 					for (VertexPosNorm& v : frontFace) {
 						v.pos += blockPos;
 					}
+					auto& meshVector = meshes[(blocks[i][j][k])].GetVerticesPosNorm();
 					meshVector.insert(meshVector.end(), frontFace.begin(), frontFace.end());
 				}
 
@@ -219,6 +229,7 @@ void Section::GenerateMesh(void) {
 					for (VertexPosNorm& v : face) {
 						v.pos += blockPos;
 					}
+					auto& meshVector = meshes[(blocks[i][j][k])].GetVerticesPosNorm();
 					meshVector.insert(meshVector.end(), face.begin(), face.end());
 				}
 
@@ -228,6 +239,7 @@ void Section::GenerateMesh(void) {
 					for (VertexPosNorm& v : face) {
 						v.pos += blockPos;
 					}
+					auto& meshVector = meshes[(blocks[i][j][k])].GetVerticesPosNorm();
 					meshVector.insert(meshVector.end(), face.begin(), face.end());
 				}
 
@@ -235,11 +247,19 @@ void Section::GenerateMesh(void) {
 		}
 	}	
 
-	if (!meshVector.empty()) {
+	for (auto it = meshes.begin(); it != meshes.end(); ++it) {
+		if (!it->second.GetVerticesPosNorm().empty()) {
+			mesh.SetGlMode(GL_TRIANGLES);
+			mesh.Prepare();
+			std::cout << "prepared mesh!" << std::endl;
+		}
+	}
+
+	/*if (!meshVector.empty()) {
 		mesh.SetGlMode(GL_TRIANGLES);
 		mesh.Prepare();
 		std::cout << "prepared mesh!" << std::endl;
-	}	
+	}*/	
 	meshesAreDirty = false;
 }
 

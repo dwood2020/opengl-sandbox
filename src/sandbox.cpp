@@ -161,7 +161,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	section000.GenerateMesh();
+	section000.GenerateMeshes();
 
 
 	// Textures
@@ -238,7 +238,11 @@ int main(int argc, char* argv[]) {
 	//renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);	
 
 
-	renderer.AddCommand(Mid, &section000.GetMesh(), defaultMaterial);
+	//renderer.AddCommand(Mid, &section000.GetMesh(), defaultMaterial);
+	auto& section000meshes = section000.GetMeshes();
+	for (auto it = section000meshes.begin(); it != section000meshes.end(); ++it) {
+		renderer.AddCommand(Mid, &it->second, defaultMaterial);
+	}
 	
 	renderer.Prepare();
 
