@@ -181,12 +181,12 @@ int main(int argc, char* argv[]) {
 	glm::mat4 Mid = glm::mat4(1.0f);	
 
 	glm::mat4 Mcone = glm::mat4(1.0f);
-	Mcone = glm::translate(Mcone, glm::vec3(4.0f, 0.0f, 1.0f));
+	Mcone = glm::translate(Mcone, glm::vec3(0.0f, 0.0f, -3.0f));
 
 	glm::mat4 Msphere = glm::mat4(1.0f);
 	Msphere = glm::translate(Msphere, glm::vec3(-2.0f, 0.0f, -3.0f));
 
-	glm::mat4 MsecondSphere = glm::translate(glm::mat4(1.0f), glm::vec3(6.0f, 0.0f, 1.0f));
+	glm::mat4 MsecondSphere = glm::translate(glm::mat4(1.0f), glm::vec3(2.0f, 0.0f, -3.0f));
 
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
