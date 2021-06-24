@@ -227,7 +227,7 @@ int main(int argc, char* argv[]) {
 	PhongMaterial* greenDebugMaterial = materialLibrary.MakePhongMaterial("greenDebugMaterial");
 	greenDebugMaterial->SetDiffuseColor(glm::vec3(0.1f, 0.9f, 0.2f));
 	greenDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
-	greenDebugMaterial->SetShininess(32.0f);
+	greenDebugMaterial->SetShininess(32.0f);	
 
 
 	renderer.AddCommand(Mid, &gridMesh, gridMaterial);
