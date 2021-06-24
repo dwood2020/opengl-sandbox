@@ -26,7 +26,7 @@ private:
 
 	glm::ivec3 basePos;
 
-	DynamicMesh mesh;
+	//DynamicMesh mesh;
 
 	std::map<char, DynamicMesh> meshes;
 

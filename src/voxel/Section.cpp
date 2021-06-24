@@ -249,8 +249,10 @@ void Section::GenerateMeshes(void) {
 
 	for (auto it = meshes.begin(); it != meshes.end(); ++it) {
 		if (!it->second.GetVerticesPosNorm().empty()) {
-			mesh.SetGlMode(GL_TRIANGLES);
-			mesh.Prepare();
+			
+			it->second.SetGlMode(GL_TRIANGLES);
+			it->second.Prepare();
+
 			std::cout << "prepared mesh!" << std::endl;
 		}
 	}
