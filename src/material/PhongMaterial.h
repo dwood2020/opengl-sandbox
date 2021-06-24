@@ -17,6 +17,12 @@ private:
 	const std::string hasDiffuseTextureName = "material.hasDiffuseTexture";
 	const std::string useTexCoordsName = "useTexCoords";
 
+
+	std::vector<const Texture*> textures;
+
+	int maxTextures;
+
+
 	bool hasDiffuseTexture;		//NOTE: these booleans are actually unnecessary but are used to represent the same variables here as uniforms in the shader.
 	bool hasSpecularTexture;
 
@@ -68,6 +74,14 @@ public:
 	/// <param name="shininess">shininess parameter</param>
 	void SetShininess(float shininess);
 
+
+private:
+	/// <summary>
+	/// Adds a texture to the texture stack.
+	/// This is possible until the maxTextures is reached.
+	/// </summary>
+	/// <param name="texture">Texture</param>
+	void SetTexture(const Texture& texture);
 };
 
 
