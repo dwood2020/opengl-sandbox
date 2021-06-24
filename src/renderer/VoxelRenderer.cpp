@@ -31,6 +31,13 @@ void VoxelRenderer::OnEvent(Event& e) {
 
 void VoxelRenderer::Prepare(void) {
 
+	// prepare all materials
+	for (auto it = blockMaterials.begin(); it != blockMaterials.end(); ++it) {
+		it->second->Prepare();
+	}
+
+	//TODO: if is light affected: load viewpos + PV as Uniform into material
+
 }
 
 
