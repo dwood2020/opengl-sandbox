@@ -33,10 +33,17 @@ void VoxelRenderer::Prepare(void) {
 
 	// prepare all materials
 	for (auto it = blockMaterials.begin(); it != blockMaterials.end(); ++it) {
+		
+		if (it->second->GetAffectedByLight() == true) {
+			it->second->SetUniform("viewPos", Uniform(camera->GetPosition()));
+			it->second->SetUniform("PV", Uniform(camera->GetViewProjectionMatrix()));
+		}
+
 		it->second->Prepare();
 	}
 
 	//TODO: if is light affected: load viewpos + PV as Uniform into material
+
 
 }
 
