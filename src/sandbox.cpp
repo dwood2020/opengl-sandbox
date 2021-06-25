@@ -131,11 +131,11 @@ int main(int argc, char* argv[]) {
 	
 	// Testing voxel classes
 	VoxelScene voxelScene;
-	/*voxelScene.SetBlock({ 0,0,1 }, 1);
+	voxelScene.SetBlock({ 0,0,1 }, 1);
 	voxelScene.SetBlock({ 2,0,3 }, 1);
 	voxelScene.SetBlock({ 12,0,0 }, 2);
 	voxelScene.SetBlock({ 12,1,0 }, 3);
-	voxelScene.SetBlock({ -4,0,-4 }, 2);*/
+	voxelScene.SetBlock({ -4,-4,-4 }, 2);
 	voxelScene.SetBlock({ -1,0,0 }, 2);
 	char b003 = voxelScene.GetBlock({ 2,0,3 });
 	
@@ -152,38 +152,7 @@ int main(int argc, char* argv[]) {
 	auto k3 = voxelScene.CalcSectionPosKey({ 1,0,-12 });// should be 0,0,-2
 	auto k4 = voxelScene.CalcSectionPosKey({ 1,0,12 });	// should be 0,0,1
 
-
-
-
-	// test mesh generation
-	/*Section section000(glm::ivec3(0));
-	section000.SetBlock(glm::ivec3(1, 1, 1), 2);
-	section000.SetBlock(glm::ivec3(2, 1, 1), 2);
-	section000.SetBlock(glm::ivec3(2, 1, 2), 2);
-	section000.SetBlock(glm::ivec3(4, 1, 5), 3);
-	section000.SetBlock(glm::ivec3(4, 0, 5), 3);
-	section000.SetBlock(glm::ivec3(2, 2, 2), 1);	
-	section000.SetBlock(glm::ivec3(0), 1);
-	section000.SetBlock(glm::ivec3(0, 0, 1), 1);
-	section000.SetBlock(glm::ivec3(0, 1, 1), 1);
-
-	section000.SetBlock(glm::ivec3(7, 7, 7), 3);
-	for (int i = 0; i < 8; i++) {
-		section000.SetBlock(glm::ivec3(7, 0, i), 1);
-	}
-
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			for (int k = 5; k < 8; k++) {
-				section000.SetBlock(glm::ivec3( i,j,k ), 1);		
-			}
-		}
-	}
-
-	section000.SetBlock(glm::ivec3(2, 2, 7), 2);
-
-	section000.GenerateMeshes();*/
-
+	
 
 	// Textures
 	// --------
@@ -259,24 +228,16 @@ int main(int argc, char* argv[]) {
 	//renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);	
 
 
-	//renderer.AddCommand(Mid, &section000.GetMesh(), defaultMaterial);
-
 	std::map<char, MaterialBase*> dummyMaterials;
 	dummyMaterials.insert(std::pair<char, MaterialBase*>(1, defaultMaterial));
 	dummyMaterials.insert(std::pair<char, MaterialBase*>(2, yellowDebugMaterial));
 	dummyMaterials.insert(std::pair<char, MaterialBase*>(3, greenDebugMaterial));
-
-	/*auto& section000meshes = section000.GetMeshes();
-	for (auto it = section000meshes.begin(); it != section000meshes.end(); ++it) {
-		renderer.AddCommand(Mid, &it->second, dummyMaterials[it->first]);
-	}*/
+	
 	
 	for (auto sectionIt = voxelScene.GetSections().begin(); sectionIt != voxelScene.GetSections().end(); ++sectionIt) {
 
 		for (auto meshIt = sectionIt->second->GetMeshes().begin(); meshIt != sectionIt->second->GetMeshes().end(); ++meshIt) {
-
 			renderer.AddCommand(Mid, &meshIt->second, dummyMaterials[meshIt->first]);
-
 		}
 
 	}

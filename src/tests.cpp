@@ -117,3 +117,34 @@ templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm
 templateTestMesh.GetVerticesPosNorm().insert(templateTestMesh.GetVerticesPosNorm().end(), Section::bottomFaceTemplate.begin(), Section::bottomFaceTemplate.end());
 templateTestMesh.SetGlMode(GL_TRIANGLES);
 templateTestMesh.Prepare();
+
+
+
+// test mesh generation
+Section section000(glm::ivec3(0));
+section000.SetBlock(glm::ivec3(1, 1, 1), 2);
+section000.SetBlock(glm::ivec3(2, 1, 1), 2);
+section000.SetBlock(glm::ivec3(2, 1, 2), 2);
+section000.SetBlock(glm::ivec3(4, 1, 5), 3);
+section000.SetBlock(glm::ivec3(4, 0, 5), 3);
+section000.SetBlock(glm::ivec3(2, 2, 2), 1);
+section000.SetBlock(glm::ivec3(0), 1);
+section000.SetBlock(glm::ivec3(0, 0, 1), 1);
+section000.SetBlock(glm::ivec3(0, 1, 1), 1);
+
+section000.SetBlock(glm::ivec3(7, 7, 7), 3);
+for (int i = 0; i < 8; i++) {
+	section000.SetBlock(glm::ivec3(7, 0, i), 1);
+}
+
+for (int i = 0; i < 3; i++) {
+	for (int j = 0; j < 3; j++) {
+		for (int k = 5; k < 8; k++) {
+			section000.SetBlock(glm::ivec3(i, j, k), 1);
+		}
+	}
+}
+
+section000.SetBlock(glm::ivec3(2, 2, 7), 2);
+
+section000.GenerateMeshes();
