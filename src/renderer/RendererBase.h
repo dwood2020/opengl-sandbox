@@ -1,7 +1,5 @@
 #pragma once
 #include <glm/glm.hpp>
-#include "../events/Event.hpp"
-#include "../events/EventListener.hpp"
 
 
 class RendererBase {
