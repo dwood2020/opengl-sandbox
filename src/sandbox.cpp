@@ -23,7 +23,6 @@
 #include "material/MaterialLibrary.h"
 #include "renderer/SimpleRenderer.h"
 #include "voxel/VoxelScene.h"
-#include "renderer/VoxelRenderer.h"
 
 #include <chrono>
 
@@ -141,8 +140,7 @@ int main(int argc, char* argv[]) {
 	
 	voxelScene.GenerateMeshes();
 
-	// testing voxel renderer
-	//VoxelRenderer voxelRenderer(eventBus, lighting, camera, window.GetWindowRect(), voxelScene);
+	
 
 	
 	
@@ -235,11 +233,8 @@ int main(int argc, char* argv[]) {
 
 	}
 
-	renderer.Prepare();
 
-	/*voxelRenderer.AddMaterial(1, defaultMaterial);
-	voxelRenderer.AddMaterial(2, yellowDebugMaterial);
-	voxelRenderer.Prepare();*/
+	renderer.Prepare();
 
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -247,7 +242,6 @@ int main(int argc, char* argv[]) {
 
 	while (!g_exitProgram) {		
 
-		//voxelRenderer.DoFrame();
 		renderer.DoFrame();
 
 		window.SwapBuffers();
