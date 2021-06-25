@@ -1,6 +1,9 @@
 #version 430 core
 
 
+// NOTE: This shader is currently not used
+
+
 layout (location = 0) in vec3 aPos;
 
 uniform mat4 M;
