@@ -9,14 +9,8 @@ SimpleRenderer::SimpleRenderer(): lighting(nullptr), camera(nullptr) { }
 
 SimpleRenderer::SimpleRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, const glm::vec2& windowRect): lighting(&lighting), camera(&camera) {
 	
-	// register for events
 	eventBus.AddListener(EventType::WindowResize, this);
 
-	// initialize rendering
-	SetClearColor(glm::vec3(0.0f));
-	CalculateViewport(windowRect);
-
-	glEnable(GL_DEPTH_TEST);
 }
 
 
