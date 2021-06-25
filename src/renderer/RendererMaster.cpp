@@ -1,9 +1,7 @@
 #include "RendererMaster.h"
 
 
-RendererMaster::RendererMaster(EventBus& eventBus) {
-
-}
+RendererMaster::RendererMaster(EventBus& eventBus) { }
 
 
 RendererMaster::~RendererMaster() { }
