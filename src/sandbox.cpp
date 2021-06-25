@@ -145,12 +145,7 @@ int main(int argc, char* argv[]) {
 	//VoxelRenderer voxelRenderer(eventBus, lighting, camera, window.GetWindowRect(), voxelScene);
 
 	
-	// test voxelscene
-
-	auto k1 = voxelScene.CalcSectionPosKey({ 1,2,3 });	// should be 0,0,0
-	auto k2 = voxelScene.CalcSectionPosKey({ 1,0,-5 });	// should be 0,0,-1
-	auto k3 = voxelScene.CalcSectionPosKey({ 1,0,-12 });// should be 0,0,-2
-	auto k4 = voxelScene.CalcSectionPosKey({ 1,0,12 });	// should be 0,0,1
+	
 
 	
 

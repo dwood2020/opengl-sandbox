@@ -148,3 +148,12 @@ for (int i = 0; i < 3; i++) {
 section000.SetBlock(glm::ivec3(2, 2, 7), 2);
 
 section000.GenerateMeshes();
+
+
+
+// test voxelscene
+
+auto k1 = voxelScene.CalcSectionPosKey({ 1,2,3 });	// should be 0,0,0
+auto k2 = voxelScene.CalcSectionPosKey({ 1,0,-5 });	// should be 0,0,-1
+auto k3 = voxelScene.CalcSectionPosKey({ 1,0,-12 });// should be 0,0,-2
+auto k4 = voxelScene.CalcSectionPosKey({ 1,0,12 });	// should be 0,0,1
