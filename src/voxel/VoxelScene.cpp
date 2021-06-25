@@ -45,17 +45,17 @@ void VoxelScene::GenerateMeshes(void) {
 
 std::array<int, 3> VoxelScene::CalcSectionPosKey(const glm::ivec3& pos) {
 	std::array<int, 3> a = { 0 };
-	a[0] = pos.x / Section::sectionSize;
-	a[1] = pos.y / Section::sectionSize;
-	a[2] = pos.z / Section::sectionSize;
+	a[0] = pos.x / static_cast<int>(Section::sectionSize);
+	a[1] = pos.y / static_cast<int>(Section::sectionSize);
+	a[2] = pos.z / static_cast<int>(Section::sectionSize);
 	return a;
 }
 
 
 glm::ivec3 VoxelScene::ToSectionCoords(const glm::ivec3& pos) {
 	glm::ivec3 sp{ 0 };
-	sp.x = pos.x % Section::sectionSize;
-	sp.y = pos.y % Section::sectionSize;
-	sp.z = pos.z % Section::sectionSize;
+	sp.x = pos.x % static_cast<int>(Section::sectionSize);
+	sp.y = pos.y % static_cast<int>(Section::sectionSize);
+	sp.z = pos.z % static_cast<int>(Section::sectionSize);
 	return sp;
 }

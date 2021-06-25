@@ -8,11 +8,11 @@ VoxelRenderer::VoxelRenderer(EventBus& eventBus, Lighting& lighting, CameraBase&
 
 	this->voxelScene = &voxelScene;
 
-	// register for events
-	eventBus.AddListener(EventType::WindowResize, this);
+	//// register for events
+	//eventBus.AddListener(EventType::WindowResize, this);
 
-	// initialize rendering	
-	CalculateViewport(windowRect);
+	//// initialize rendering	
+	//CalculateViewport(windowRect);
 }
 
 
@@ -40,6 +40,10 @@ void VoxelRenderer::Prepare(void) {
 		
 		// add missing uniforms
 		it->second->SetUniform("PV", Uniform(camera->GetViewProjectionMatrix()));
+
+		// temp
+		it->second->SetUniform("M", Uniform(glm::mat4(1.0f)));
+
 		if (it->second->GetAffectedByLight() == true) {
 			it->second->SetUniform("viewPos", Uniform(camera->GetPosition()));			
 		}

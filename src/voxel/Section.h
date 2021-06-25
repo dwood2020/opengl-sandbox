@@ -87,7 +87,7 @@ public:
 
 
 	/// <summary>
-	/// Gets the mesh object.
+	/// Gets the meshes map.
 	/// </summary>	
 	std::map<char, DynamicMesh>& GetMeshes(void);
 
