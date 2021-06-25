@@ -93,6 +93,9 @@
     <ClCompile Include="src\voxel\VoxelScene.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\renderer\RendererMaster.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -186,6 +189,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\voxel\VoxelScene.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderer\RendererMaster.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
