@@ -23,6 +23,7 @@
 #include "material/MaterialLibrary.h"
 #include "renderer/SimpleRenderer.h"
 #include "voxel/VoxelScene.h"
+#include "renderer/VoxelRenderer.h"
 
 #include <chrono>
 
@@ -136,6 +137,13 @@ int main(int argc, char* argv[]) {
 	
 
 
+	// testing voxel renderer
+	VoxelRenderer voxelRenderer(eventBus, lighting, camera, window.GetWindowRect(), voxelScene);
+
+	
+
+
+
 	// test mesh generation
 	Section section000(glm::ivec3(0));
 	section000.SetBlock(glm::ivec3(1, 1, 1), 2);
@@ -242,7 +250,7 @@ int main(int argc, char* argv[]) {
 
 	//renderer.AddCommand(Mid, &section000.GetMesh(), defaultMaterial);
 
-	std::map<char, MaterialBase*> dummyMaterials;
+	/*std::map<char, MaterialBase*> dummyMaterials;
 	dummyMaterials.insert(std::pair<char, MaterialBase*>(1, defaultMaterial));
 	dummyMaterials.insert(std::pair<char, MaterialBase*>(2, yellowDebugMaterial));
 	dummyMaterials.insert(std::pair<char, MaterialBase*>(3, greenDebugMaterial));
@@ -250,9 +258,13 @@ int main(int argc, char* argv[]) {
 	auto& section000meshes = section000.GetMeshes();
 	for (auto it = section000meshes.begin(); it != section000meshes.end(); ++it) {
 		renderer.AddCommand(Mid, &it->second, dummyMaterials[it->first]);
-	}
+	}*/
 	
 	renderer.Prepare();
+
+	voxelRenderer.AddMaterial(1, defaultMaterial);
+	voxelRenderer.AddMaterial(2, yellowDebugMaterial);
+	voxelRenderer.Prepare();
 
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -260,6 +272,7 @@ int main(int argc, char* argv[]) {
 
 	while (!g_exitProgram) {		
 
+		voxelRenderer.DoFrame();
 		renderer.DoFrame();
 
 		window.SwapBuffers();

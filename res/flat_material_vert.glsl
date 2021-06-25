@@ -6,7 +6,7 @@ layout (location = 3) in vec3 aColor;
 
 out vec3 vertexColor;
 
-uniform mat4 M;
+uniform mat4 M = mat4(1.0f);
 uniform mat4 PV;
 uniform int useColorVertices;
 

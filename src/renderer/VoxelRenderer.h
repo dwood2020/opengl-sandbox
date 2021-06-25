@@ -26,7 +26,7 @@ public:
 	~VoxelRenderer();
 
 
-	void AddMaterial(char blocktype, MaterialBase& material);
+	void AddMaterial(char blocktype, MaterialBase* material);
 
 
 	void OnEvent(Event& e) override;

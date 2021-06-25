@@ -52,7 +52,7 @@ public:
 	/// </summary>
 	/// <param name="name">Uniform name</param>
 	/// <returns>Uniform object</returns>
-	const Uniform* GetUniform(const std::string& name) const;	
+	Uniform* GetUniform(const std::string& name);	
 
 	/// <summary>
 	/// Adds a texture to the texture stack.

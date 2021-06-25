@@ -22,7 +22,7 @@ void MaterialBase::SetUniform(const std::string& name, const Uniform& uniform) {
 }
 
 
-const Uniform* MaterialBase::GetUniform(const std::string& name) const {	
+Uniform* MaterialBase::GetUniform(const std::string& name) {	
 	auto it = uniforms.find(name);
 	if (it != uniforms.end()) {
 		return &it->second;

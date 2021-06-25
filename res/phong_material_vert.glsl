@@ -8,7 +8,7 @@ out vec3 normal;
 out vec3 fragPos;
 out vec2 texCoords;
 
-uniform mat4 M;
+uniform mat4 M = mat4(1.0f);
 uniform mat4 PV;
 
 uniform int useTexCoords = 0;
