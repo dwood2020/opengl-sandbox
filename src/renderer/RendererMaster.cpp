@@ -1,5 +1,4 @@
 #include "RendererMaster.h"
-#include "../glad/glad.h"
 
 
 RendererMaster::RendererMaster(EventBus& eventBus) {
@@ -23,9 +22,6 @@ void RendererMaster::SetClearColor(const glm::vec3& clearColor) {
 void RendererMaster::SetGlPolygonMode(GLenum mode) {
 	glPolygonMode(GL_FRONT_AND_BACK, mode);
 }
-
-
-
 
 
 void RendererMaster::InitRenderState(const glm::vec2& windowRect) {
