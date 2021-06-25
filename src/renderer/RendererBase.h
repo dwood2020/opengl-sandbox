@@ -4,7 +4,7 @@
 #include "../events/EventListener.hpp"
 
 
-class RendererBase : public EventListener {
+class RendererBase {
 public:
 	
 	RendererBase();
@@ -17,10 +17,7 @@ public:
 
 
 	virtual void DoFrame(void) = 0;
-
-
-	virtual void OnEvent(Event& e) override = 0;
-
+	
 
 public:
 	void CalculateViewport(const glm::vec2& rect);

@@ -11,7 +11,7 @@
 #include "RenderCommand.hpp"
 
 
-class SimpleRenderer final : public RendererBase {
+class SimpleRenderer final : public RendererBase, public EventListener {
 private:
 	Lighting* lighting;
 	CameraBase* camera;
@@ -21,7 +21,7 @@ private:
 public:
 	SimpleRenderer();
 
-	SimpleRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, const glm::vec2& windowRect);
+	SimpleRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera);
 
 	~SimpleRenderer();	
 

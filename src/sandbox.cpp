@@ -23,6 +23,7 @@
 #include "material/MaterialLibrary.h"
 #include "renderer/SimpleRenderer.h"
 #include "voxel/VoxelScene.h"
+#include "renderer/RendererMaster.h"
 
 #include <chrono>
 
@@ -80,17 +81,15 @@ int main(int argc, char* argv[]) {
 
 	IupWindow window(&eventBus, 800, 600, "OpenGL Sandbox - IUP Window");		
 	window.Init(argc, argv);
-
 	window.MakeContextCurrent();
 
 	//now load OpenGL
+	//TODO: Move this into RendererMaster
 	if (!gladLoadGL()) {		
 		std::cout << "gladLoadGL failed" << std::endl;
 		return -1;
 	}
 
-	/*glm::vec2 windowRect = window.GetWindowRect();
-	glViewport(0, 0, (GLsizei)windowRect.x, (GLsizei)windowRect.y);*/
 
 	glm::vec3 initialCameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
 	SimpleCamera camera(eventBus, window.GetWindowRect(), initialCameraPos);
@@ -108,8 +107,14 @@ int main(int argc, char* argv[]) {
 	lighting.SetAmbientFactor(0.5f);
 
 	// use renderer
-	SimpleRenderer renderer(eventBus, lighting, camera, window.GetWindowRect());
-	renderer.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));
+	SimpleRenderer renderer(eventBus, lighting, camera);
+	//renderer.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));
+
+	RendererMaster rendererMaster(eventBus);
+	rendererMaster.AddRenderer(renderer);
+	
+	rendererMaster.InitRenderState(window.GetWindowRect());
+	rendererMaster.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));
 
 	
 	std::string glVersionStr = (const char*)glGetString(GL_VERSION);
@@ -234,15 +239,16 @@ int main(int argc, char* argv[]) {
 	}
 
 
-	renderer.Prepare();
-
+	//renderer.Prepare();
+	rendererMaster.PrepareRenderers();
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	//glEnable(GL_DEPTH_TEST);
 
 	while (!g_exitProgram) {		
 
-		renderer.DoFrame();
+		//renderer.DoFrame();
+		rendererMaster.DoFrame();
 
 		window.SwapBuffers();
 		window.DoFrame();

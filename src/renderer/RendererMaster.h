@@ -26,7 +26,13 @@ public:
 	void SetClearColor(const glm::vec3& clearColor);
 
 
-	void InitRenderState(void);
+	void SetGlPolygonMode(GLenum mode);
+
+
+	void InitRenderState(const glm::vec2& windowRect);
+
+
+	void PrepareRenderers(void);
 
 
 	void DoFrame(void);

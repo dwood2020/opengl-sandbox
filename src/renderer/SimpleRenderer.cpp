@@ -7,7 +7,7 @@
 SimpleRenderer::SimpleRenderer(): lighting(nullptr), camera(nullptr) { }
 
 
-SimpleRenderer::SimpleRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, const glm::vec2& windowRect): lighting(&lighting), camera(&camera) {
+SimpleRenderer::SimpleRenderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera): lighting(&lighting), camera(&camera) {
 	
 	eventBus.AddListener(EventType::WindowResize, this);
 
@@ -61,9 +61,7 @@ void SimpleRenderer::Prepare(void) {
 }
 
 
-void SimpleRenderer::DoFrame(void) {
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void SimpleRenderer::DoFrame(void) {	
 
 	//if (camera->GetViewProjectionMatrixIsDirty() == true) {
 	//	for (RenderCommand command : renderCommands) {
@@ -104,7 +102,7 @@ void SimpleRenderer::OnEvent(Event& e) {
 	if (e.GetType() == EventType::WindowResize) {
 		auto& eResize = (WindowResizeEvent&)e;
 		glm::vec2 rect = glm::vec2(eResize.GetScreenWidth(), eResize.GetScreenHeight());
-		CalculateViewport(rect);
+		CalculateViewport(rect);		
 
 		std::cout << "Window resize event handled in SimpleRenderer" << std::endl;
 	}
