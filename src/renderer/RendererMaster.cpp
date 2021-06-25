@@ -1,7 +1,7 @@
 #include "RendererMaster.h"
 
 
-RendererMaster::RendererMaster(EventBus& eventBus) { }
+RendererMaster::RendererMaster(EventBus& eventBus, CameraBase& camera): camera(&camera) { }
 
 
 RendererMaster::~RendererMaster() { }
@@ -46,6 +46,10 @@ void RendererMaster::DoFrame(void) {
 
 	for (RendererBase* worker : workerRenderers) {
 		worker->DoFrame();
+	}
+
+	if (camera->GetViewProjectionMatrixIsDirty() == true) {
+		camera->ResetDirtyState();
 	}
 }
 

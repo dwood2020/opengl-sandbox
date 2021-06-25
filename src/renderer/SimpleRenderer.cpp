@@ -89,9 +89,9 @@ void SimpleRenderer::DoFrame(void) {
 		command.material->Unbind();
 	}
 
-	if (camera->GetViewProjectionMatrixIsDirty() == true) {
+	/*if (camera->GetViewProjectionMatrixIsDirty() == true) {
 		camera->ResetDirtyState();
-	}
+	}*/
 
 
 }

@@ -8,6 +8,15 @@ VoxelRenderer::VoxelRenderer(Lighting& lighting, CameraBase& camera, VoxelScene&
 VoxelRenderer::~VoxelRenderer() { }
 
 
+void VoxelRenderer::AddMaterial(char blocktype, MaterialBase* material) {
+	if (material == nullptr) {
+		return;
+	}
+
+	blockMaterials.insert(std::pair<char, MaterialBase*>(blocktype, material));
+}
+
+
 void VoxelRenderer::Prepare(void) {
 	
 }

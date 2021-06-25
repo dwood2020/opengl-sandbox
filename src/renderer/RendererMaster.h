@@ -6,17 +6,18 @@
 #include "../events/EventListener.hpp"
 #include "../events/EventBus.h"
 #include "../events/Event.hpp"
+#include "../camera/CameraBase.h"
 
 
 class RendererMaster : public EventListener {
 private:
 	std::vector<RendererBase*> workerRenderers;
-
+	CameraBase* camera;
 
 	RendererMaster() = default;
 
 public:
-	RendererMaster(EventBus& eventBus);
+	RendererMaster(EventBus& eventBus, CameraBase& camera);
 
 	virtual ~RendererMaster();
 
