@@ -46,7 +46,7 @@ public:
 	//TODO: Make this private and event-triggerable!
 	void GenerateMeshes(void);
 
-private:		
+public:		
 	std::array<int, 3> CalcSectionPosKey(const glm::ivec3& pos);	//TODO: use glm::ivec3 (needs custom serialization)
 
 	glm::ivec3 ToSectionCoords(const glm::ivec3& pos);

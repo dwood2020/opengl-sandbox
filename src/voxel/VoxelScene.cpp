@@ -1,4 +1,5 @@
 #include "VoxelScene.h"
+#include <cmath>
 
 
 VoxelScene::VoxelScene() { }
@@ -48,14 +49,39 @@ std::array<int, 3> VoxelScene::CalcSectionPosKey(const glm::ivec3& pos) {
 	a[0] = pos.x / static_cast<int>(Section::sectionSize);
 	a[1] = pos.y / static_cast<int>(Section::sectionSize);
 	a[2] = pos.z / static_cast<int>(Section::sectionSize);
+
+	if (pos.x < 0) a[0] -= 1;
+	if (pos.y < 0) a[1] -= 1;
+	if (pos.z < 0) a[2] -= 1;
+
 	return a;
 }
 
 
 glm::ivec3 VoxelScene::ToSectionCoords(const glm::ivec3& pos) {
 	glm::ivec3 sp{ 0 };
-	sp.x = pos.x % static_cast<int>(Section::sectionSize);
-	sp.y = pos.y % static_cast<int>(Section::sectionSize);
-	sp.z = pos.z % static_cast<int>(Section::sectionSize);
+
+	if (pos.x >= 0) {
+		sp.x = pos.x % static_cast<int>(Section::sectionSize);
+	}
+	else {
+		sp.x = Section::sectionSize - abs(pos.x % static_cast<int>(Section::sectionSize));
+	}
+
+	if (pos.y >= 0) {
+		sp.y = pos.y % static_cast<int>(Section::sectionSize);
+	}
+	else {
+		sp.y = Section::sectionSize - abs(pos.y % static_cast<int>(Section::sectionSize));
+	}
+	
+	if (pos.z >= 0) {
+		sp.z = pos.z % static_cast<int>(Section::sectionSize);
+	}
+	else {
+		sp.z = Section::sectionSize - abs(pos.z % static_cast<int>(Section::sectionSize));
+	}
+	
+	
 	return sp;
 }

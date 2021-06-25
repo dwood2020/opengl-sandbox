@@ -66,7 +66,10 @@ std::vector<VertexPosNorm> Section::bottomFaceTemplate = {
 };
 
 
-Section::Section(const glm::ivec3& basePos) : blocks{0}, basePos(basePos), meshesAreDirty(false) { }
+Section::Section(const glm::ivec3& basePos) : blocks{0}, meshesAreDirty(false) {
+	this->basePos = basePos;
+	this->basePos *= sectionSize;
+}
 
 
 Section::~Section() { }
@@ -166,16 +169,16 @@ void Section::GenerateMeshes(void) {
 
 	// now loop over entire array, including edge cases
 	for (unsigned int i = 0; i < sectionSize; i++) {
-		blockPos.x += 1;
+		//blockPos.x += 1;
 
 		for (unsigned int j = 0; j < sectionSize; j++) {
-			blockPos.y += 1;
+			//blockPos.y += 1;
 
 			for (unsigned int k = 0; k < sectionSize; k++) {				
 				
-				blockPos.x = static_cast<float>(basePos.x + i);
-				blockPos.y = static_cast<float>(basePos.y + j);
-				blockPos.z = static_cast<float>(basePos.z + k);				
+				blockPos.x = static_cast<float>(basePos.x + static_cast<int>(i));
+				blockPos.y = static_cast<float>(basePos.y + static_cast<int>(j));
+				blockPos.z = static_cast<float>(basePos.z + static_cast<int>(k));
 				
 
 				if (blocks[i][j][k] == 0) {

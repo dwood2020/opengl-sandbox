@@ -131,10 +131,12 @@ int main(int argc, char* argv[]) {
 	
 	// Testing voxel classes
 	VoxelScene voxelScene;
-	voxelScene.SetBlock({ 0,0,1 }, 1);
+	/*voxelScene.SetBlock({ 0,0,1 }, 1);
 	voxelScene.SetBlock({ 2,0,3 }, 1);
-	voxelScene.SetBlock({ 5,0,0 }, 2);
-	voxelScene.SetBlock({ 5,1,0 }, 3);
+	voxelScene.SetBlock({ 12,0,0 }, 2);
+	voxelScene.SetBlock({ 12,1,0 }, 3);
+	voxelScene.SetBlock({ -4,0,-4 }, 2);*/
+	voxelScene.SetBlock({ -1,0,0 }, 2);
 	char b003 = voxelScene.GetBlock({ 2,0,3 });
 	
 	voxelScene.GenerateMeshes();
@@ -143,6 +145,13 @@ int main(int argc, char* argv[]) {
 	//VoxelRenderer voxelRenderer(eventBus, lighting, camera, window.GetWindowRect(), voxelScene);
 
 	
+	// test voxelscene
+
+	auto k1 = voxelScene.CalcSectionPosKey({ 1,2,3 });	// should be 0,0,0
+	auto k2 = voxelScene.CalcSectionPosKey({ 1,0,-5 });	// should be 0,0,-1
+	auto k3 = voxelScene.CalcSectionPosKey({ 1,0,-12 });// should be 0,0,-2
+	auto k4 = voxelScene.CalcSectionPosKey({ 1,0,12 });	// should be 0,0,1
+
 
 
 
