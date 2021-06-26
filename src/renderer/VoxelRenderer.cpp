@@ -26,6 +26,7 @@ void VoxelRenderer::Prepare(void) {
 	for (auto it = blockMaterials.begin(); it != blockMaterials.end(); ++it) {
 		MaterialBase* material = it->second;
 
+		//TODO: Think about this
 		material->SetUniform("PV", Uniform(camera->GetViewProjectionMatrix()));
 
 		if (material->GetAffectedByLight()) {
