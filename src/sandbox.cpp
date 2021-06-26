@@ -160,7 +160,8 @@ int main(int argc, char* argv[]) {
 	// -------------
 	// transform local coordinates to world coordinates	
 	glm::mat4 Mcube = glm::mat4(1.0f);
-	Mcube = glm::translate(Mcube, glm::vec3(0.5f, 0.5f, 0.5f));
+	//Mcube = glm::translate(Mcube, glm::vec3(0.5f, 0.5f, 0.5f));
+	Mcube = glm::translate(Mcube, glm::vec3(-4.0f, 0.0f, -3.0f));
 
 	glm::mat4 Mid = glm::mat4(1.0f);	
 
@@ -219,9 +220,9 @@ int main(int argc, char* argv[]) {
 	renderer.AddCommand(Mid, &gridMesh, gridMaterial);
 	renderer.AddCommand(Mid, &cs3dMesh, coordSystemMaterial);
 	renderer.AddCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
-	renderer.AddCommand(Msphere, &sphereMesh, woodenBoxMaterial);
+	renderer.AddCommand(Msphere, &sphereMesh, defaultMaterial);
 	renderer.AddCommand(Mcone, &coneMesh, greenDebugMaterial);
-	//renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);	
+	renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);	
 
 
 	std::map<char, MaterialBase*> dummyMaterials;
