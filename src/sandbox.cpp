@@ -110,7 +110,7 @@ int main(int argc, char* argv[]) {
 	// use renderer
 	//SimpleRenderer renderer(eventBus, lighting, camera);
 
-	Renderer renderer(eventBus, lighting, camera);	
+	Renderer renderer(eventBus, lighting, camera, materialLibrary);	
 	renderer.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));
 	renderer.Init(window.GetWindowRect());
 

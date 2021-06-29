@@ -4,7 +4,8 @@
 #include <iostream>
 
 
-Renderer::Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera): lighting(&lighting), camera(&camera) {
+Renderer::Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, MaterialLibrary& materialLibrary): 
+	lighting(&lighting), camera(&camera), materialLibrary(&materialLibrary) {
 	
 	// register for events
 	eventBus.AddListener(EventType::WindowResize, this);

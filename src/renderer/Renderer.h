@@ -5,6 +5,7 @@
 #include "../events/EventListener.hpp"
 #include "../Lighting.h"
 #include "../camera/CameraBase.h"
+#include "../material/MaterialLibrary.h"
 #include "RenderCommand.hpp"
 #include "SimpleRenderCommand.hpp"
 
@@ -19,7 +20,7 @@
 /// TODO: DESIGN:
 /// Possible design is: RendererMaster as Factory, forces context init before SimpleRenderer, 
 /// VoxelRenderer etc can be instanciated.
-/// First step: Replicate SimpleRenderer
+/// First step: Replicate SimpleRenderer (done)
 /// Second step: Add material management (material lib composition)
 /// Third step: ...
 /// </summary>
@@ -27,6 +28,7 @@ class Renderer final : public EventListener {
 private:
 	Lighting* lighting;
 	CameraBase* camera;
+	MaterialLibrary* materialLibrary;
 
 	std::vector<RenderCommand> renderCommands;
 
@@ -36,7 +38,7 @@ private:
 	Renderer() = default;
 
 public:
-	Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera);
+	Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, MaterialLibrary& materialLibrary);
 
 	~Renderer();
 
