@@ -104,6 +104,7 @@ public:
 	/// <summary>
 	/// Sends ALL set uniforms to the shader program and retrieves + caches their uniform locations
 	/// on the first send.
+	/// NOTE: Common uniform locations are not used by this function.
 	/// NOTE: Call this outside of the render loop.
 	/// </summary>	
 	void Prepare(void);
