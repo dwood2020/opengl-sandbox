@@ -44,3 +44,8 @@ const MaterialBase* MaterialLibrary::GetMaterial(const std::string& name) const 
         return nullptr;
     }
 }
+
+
+MaterialsMap* MaterialLibrary::GetMaterialsMap(void) {
+    return &materials;
+}

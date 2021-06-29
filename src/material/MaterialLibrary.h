@@ -8,6 +8,9 @@
 #include "../shader/ShaderFactory.h"
 
 
+//TODO: Refactor this to use unique_ptrs, as library shall be the sole owner of all materials.
+using MaterialsMap = std::map<std::string, MaterialBase*>;
+
 /// <summary>
 /// This class holds (and owns) all materials.
 /// 
@@ -17,8 +20,8 @@ class MaterialLibrary final {
 private:
 	ShaderFactory* shaderFactory;
 
-	//TODO: Refactor this to use unique_ptrs, as library shall be the sole owner of all materials.
-	std::map<std::string, MaterialBase*> materials;
+	
+	MaterialsMap materials;
 
 
 	MaterialLibrary() = default;
@@ -56,6 +59,10 @@ public:
 
 
 	const MaterialBase* GetMaterial(const std::string& name) const;
+
+
+	MaterialsMap* GetMaterialsMap(void);
+
 };
 
 
