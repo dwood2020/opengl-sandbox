@@ -75,6 +75,8 @@ void Renderer::Prepare(void) {
 
 void Renderer::DoFrame(void) {
 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	// DoFrame code from SimpleRenderer
 	// --------------------------------
 
@@ -94,6 +96,10 @@ void Renderer::DoFrame(void) {
 	}
 
 	// --------------------------------
+
+	if (camera->GetViewProjectionMatrixIsDirty() == true) {
+		camera->ResetDirtyState();
+	}
 
 }
 

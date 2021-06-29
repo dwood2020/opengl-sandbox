@@ -21,9 +21,10 @@
 #include "material/PhongMaterial.h"
 #include "material/FlatMaterial.h"
 #include "material/MaterialLibrary.h"
-#include "renderer/SimpleRenderer.h"
+//#include "renderer/SimpleRenderer.h"
 #include "voxel/VoxelScene.h"
-#include "renderer/RendererMaster.h"
+//#include "renderer/RendererMaster.h"
+#include "renderer/Renderer.h"
 
 #include <chrono>
 
@@ -107,14 +108,17 @@ int main(int argc, char* argv[]) {
 	lighting.SetAmbientFactor(0.5f);
 
 	// use renderer
-	SimpleRenderer renderer(eventBus, lighting, camera);
-	//renderer.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));
+	//SimpleRenderer renderer(eventBus, lighting, camera);
 
-	RendererMaster rendererMaster(eventBus, camera);
+	Renderer renderer(eventBus, lighting, camera);	
+	renderer.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));
+	renderer.Init(window.GetWindowRect());
+
+	/*RendererMaster rendererMaster(eventBus, camera);
 	rendererMaster.AddRenderer(renderer);
 	
 	rendererMaster.InitRenderState(window.GetWindowRect());
-	rendererMaster.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));
+	rendererMaster.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));*/
 
 	
 	std::string glVersionStr = (const char*)glGetString(GL_VERSION);
@@ -240,16 +244,16 @@ int main(int argc, char* argv[]) {
 	}
 
 
-	//renderer.Prepare();
-	rendererMaster.PrepareRenderers();
+	renderer.Prepare();
+	//rendererMaster.PrepareRenderers();
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	//glEnable(GL_DEPTH_TEST);
 
 	while (!g_exitProgram) {		
 
-		//renderer.DoFrame();
-		rendererMaster.DoFrame();
+		renderer.DoFrame();
+		//rendererMaster.DoFrame();
 
 		window.SwapBuffers();
 		window.DoFrame();
