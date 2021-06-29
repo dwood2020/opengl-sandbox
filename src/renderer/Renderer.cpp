@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "../glad/glad.h"
+#include "../material/MaterialBase.h"
 
 #include <iostream>
 
@@ -72,6 +73,26 @@ void Renderer::Prepare(void) {
 
 
 	MaterialsMap* mats = materialLibrary->GetMaterialsMap();
+	
+	for (auto it = mats->begin(); it != mats->end(); ++it) {
+		MaterialBase* material = it->second;
+
+		// prepare the material
+		material->Prepare();	//TODO: Move common uniform loc into Prepare(), think about where to store names
+		material->SetCommonUniformLocation("M", material->GetShaderProgram()->GetUniformLocation("M"));
+		if (material->GetAffectedByLight()) {
+			material->SetCommonUniformLocation("PV", material->GetShaderProgram()->GetUniformLocation("PV"));
+			material->SetCommonUniformLocation("viewPos", material->GetShaderProgram()->GetUniformLocation("viewPos"));
+		}
+		
+		// do camera + lighting (initial set for each material)
+		material->GetShaderProgram()->SetUniformMat4(material->GetCommonUniformLocation("PV"), camera->GetViewProjectionMatrix());
+		if (material->GetAffectedByLight() == true) {
+			material->GetShaderProgram()->SetUniformVec3(material->GetCommonUniformLocation("viewPos"), camera->GetPosition());
+			lighting->SetUniforms(material->GetShaderProgram());
+		}
+
+	}
 
 }
 
@@ -99,6 +120,25 @@ void Renderer::DoFrame(void) {
 	}
 
 	// --------------------------------
+
+	// simple render commands first:
+
+	for (SimpleRenderCommand& command : simpleRenderCommands) {
+		command.material->Bind();
+
+		if (camera->GetViewProjectionMatrixIsDirty() == true) {
+			command.material->GetShaderProgram()->SetUniformMat4(command.material->GetCommonUniformLocation("PV"), camera->GetViewProjectionMatrix());
+			if (command.material->GetAffectedByLight() == true) {
+				command.material->GetShaderProgram()->SetUniformVec3(command.material->GetCommonUniformLocation("viewPos"), camera->GetPosition());
+			}
+		}
+
+		command.material->GetShaderProgram()->SetUniformMat4(command.material->GetCommonUniformLocation("M"), command.M);
+		command.mesh->Draw();
+		command.material->Unbind();
+	}
+
+
 
 	if (camera->GetViewProjectionMatrixIsDirty() == true) {
 		camera->ResetDirtyState();
