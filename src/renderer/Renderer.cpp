@@ -80,8 +80,8 @@ void Renderer::Prepare(void) {
 		// prepare the material
 		material->Prepare();	//TODO: Move common uniform loc into Prepare(), think about where to store names
 		material->SetCommonUniformLocation("M", material->GetShaderProgram()->GetUniformLocation("M"));
-		if (material->GetAffectedByLight()) {
-			material->SetCommonUniformLocation("PV", material->GetShaderProgram()->GetUniformLocation("PV"));
+		material->SetCommonUniformLocation("PV", material->GetShaderProgram()->GetUniformLocation("PV"));
+		if (material->GetAffectedByLight()) {			
 			material->SetCommonUniformLocation("viewPos", material->GetShaderProgram()->GetUniformLocation("viewPos"));
 		}
 		
