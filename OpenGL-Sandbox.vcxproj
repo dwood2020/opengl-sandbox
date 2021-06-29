@@ -167,6 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\renderer\Renderer.cpp" />
     <ClCompile Include="src\renderer\MasterRenderer.cpp" />
     <ClCompile Include="src\renderer\RendererMaster.cpp" />
     <ClCompile Include="src\voxel\Section.cpp" />
@@ -198,6 +199,7 @@
     <ClCompile Include="src\renderer\VoxelRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\renderer\Renderer.h" />
     <ClInclude Include="src\renderer\MasterRenderer.h" />
     <ClInclude Include="src\renderer\RendererMaster.h" />
     <ClInclude Include="src\events\WindowEvents.hpp" />
