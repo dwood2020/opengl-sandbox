@@ -212,5 +212,8 @@
     <ClInclude Include="src\renderer\Renderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\renderer\SimpleRenderCommand.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

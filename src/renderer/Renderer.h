@@ -6,6 +6,7 @@
 #include "../Lighting.h"
 #include "../camera/CameraBase.h"
 #include "RenderCommand.hpp"
+#include "SimpleRenderCommand.hpp"
 
 
 /// <summary>
@@ -29,6 +30,7 @@ private:
 
 	std::vector<RenderCommand> renderCommands;
 
+	std::vector<SimpleRenderCommand> simpleRenderCommands;
 
 	// eventbus, lighting, camera are mandatory.
 	Renderer() = default;
@@ -52,6 +54,9 @@ public:
 
 
 	void AddCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
+
+
+	void AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
 
 	
 	void SetClearColor(const glm::vec3& clearColor);

@@ -116,6 +116,17 @@ void Renderer::AddCommand(const glm::mat4& modelMatrix, MeshBase* mesh, Material
 }
 
 
+void Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
+	if (mesh == nullptr || material == nullptr) {
+		//TODO ASSERT or check if passing arg by reference is better option
+		return;
+	}
+
+	SimpleRenderCommand command(modelMatrix, mesh, material);
+	simpleRenderCommands.push_back(command);
+}
+
+
 void Renderer::SetClearColor(const glm::vec3& clearColor) {
 	glClearColor(clearColor.x, clearColor.y, clearColor.z, 1.0f);
 }
