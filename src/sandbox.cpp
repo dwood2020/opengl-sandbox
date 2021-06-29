@@ -221,12 +221,20 @@ int main(int argc, char* argv[]) {
 	greenDebugMaterial->SetShininess(32.0f);	
 
 
-	renderer.AddCommand(Mid, &gridMesh, gridMaterial);
+	/*renderer.AddCommand(Mid, &gridMesh, gridMaterial);
 	renderer.AddCommand(Mid, &cs3dMesh, coordSystemMaterial);
 	renderer.AddCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
 	renderer.AddCommand(Msphere, &sphereMesh, defaultMaterial);
 	renderer.AddCommand(Mcone, &coneMesh, greenDebugMaterial);
-	renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);	
+	renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);	*/
+
+	renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
+	renderer.AddSimpleCommand(Mid, &cs3dMesh, coordSystemMaterial);
+	renderer.AddSimpleCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
+	renderer.AddSimpleCommand(Msphere, &sphereMesh, defaultMaterial);
+	renderer.AddSimpleCommand(Mcone, &coneMesh, greenDebugMaterial);
+	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);
+
 
 
 	std::map<char, MaterialBase*> dummyMaterials;
@@ -238,7 +246,8 @@ int main(int argc, char* argv[]) {
 	for (auto sectionIt = voxelScene.GetSections().begin(); sectionIt != voxelScene.GetSections().end(); ++sectionIt) {
 
 		for (auto meshIt = sectionIt->second->GetMeshes().begin(); meshIt != sectionIt->second->GetMeshes().end(); ++meshIt) {
-			renderer.AddCommand(Mid, &meshIt->second, dummyMaterials[meshIt->first]);
+			//renderer.AddCommand(Mid, &meshIt->second, dummyMaterials[meshIt->first]);
+			renderer.AddSimpleCommand(Mid, &meshIt->second, dummyMaterials[meshIt->first]);
 		}
 
 	}

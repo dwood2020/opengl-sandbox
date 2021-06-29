@@ -40,34 +40,34 @@ void Renderer::Prepare(void) {
 	// --------------------------------
 
 
-	for (RenderCommand& command : renderCommands) {
-		// prepare material		
-		command.material->Prepare();
+	//for (RenderCommand& command : renderCommands) {
+	//	// prepare material		
+	//	command.material->Prepare();
 
-		// get uniform locations into command
-		command.pvUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("PV");
+	//	// get uniform locations into command
+	//	command.pvUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("PV");
 
-		command.mUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("M");
+	//	command.mUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("M");
 
-		// do camera + lighting
-		command.material->GetShaderProgram()->SetUniformMat4(command.pvUniformLocation, camera->GetViewProjectionMatrix());
-		if (command.material->GetAffectedByLight() == true) {
+	//	// do camera + lighting
+	//	command.material->GetShaderProgram()->SetUniformMat4(command.pvUniformLocation, camera->GetViewProjectionMatrix());
+	//	if (command.material->GetAffectedByLight() == true) {
 
-			command.viewPosUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("viewPos");
+	//		command.viewPosUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("viewPos");
 
 
-			lighting->SetUniforms(command.material->GetShaderProgram());
+	//		lighting->SetUniforms(command.material->GetShaderProgram());
 
-			// first possibility (see RenderCommand + viewPos uniform loc)
-			command.material->GetShaderProgram()->SetUniformVec3(command.viewPosUniformLocation, camera->GetPosition());
+	//		// first possibility (see RenderCommand + viewPos uniform loc)
+	//		command.material->GetShaderProgram()->SetUniformVec3(command.viewPosUniformLocation, camera->GetPosition());
 
-			//TODO: second possibility. Examine which is better
-			/*command.material->SetUniform("viewPos", camera->GetPosition());*/
-		}
+	//		//TODO: second possibility. Examine which is better
+	//		/*command.material->SetUniform("viewPos", camera->GetPosition());*/
+	//	}
 
-		// do model matrix
-		command.material->GetShaderProgram()->SetUniformMat4(command.mUniformLocation, command.M);
-	}
+	//	// do model matrix
+	//	command.material->GetShaderProgram()->SetUniformMat4(command.mUniformLocation, command.M);
+	//}
 
 	// --------------------------------
 
@@ -105,7 +105,7 @@ void Renderer::DoFrame(void) {
 	// --------------------------------
 
 	//TODO: apply sorting!	
-	for (RenderCommand& command : renderCommands) {
+	/*for (RenderCommand& command : renderCommands) {
 		command.material->Bind();
 		if (camera->GetViewProjectionMatrixIsDirty() == true) {
 			command.material->GetShaderProgram()->SetUniformMat4(command.pvUniformLocation, camera->GetViewProjectionMatrix());
@@ -117,7 +117,7 @@ void Renderer::DoFrame(void) {
 		command.material->GetShaderProgram()->SetUniformMat4(command.mUniformLocation, command.M);
 		command.mesh->Draw();
 		command.material->Unbind();
-	}
+	}*/
 
 	// --------------------------------
 
