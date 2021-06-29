@@ -228,10 +228,10 @@ int main(int argc, char* argv[]) {
 	renderer.AddCommand(Mcone, &coneMesh, greenDebugMaterial);
 	renderer.AddCommand(Mcube, &mesh, woodenBoxMaterial);	*/
 
-	renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
+	renderer.AddSimpleCommand(Mid, &gridMesh, defaultMaterial);	//TODO: Fix bug: flat materials are not rendered!
 	renderer.AddSimpleCommand(Mid, &cs3dMesh, coordSystemMaterial);
 	renderer.AddSimpleCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
-	renderer.AddSimpleCommand(Msphere, &sphereMesh, defaultMaterial);
+	renderer.AddSimpleCommand(Msphere, &sphereMesh, gridMaterial);
 	renderer.AddSimpleCommand(Mcone, &coneMesh, greenDebugMaterial);
 	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);
 
