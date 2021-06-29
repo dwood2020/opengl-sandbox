@@ -71,7 +71,7 @@ void Renderer::Prepare(void) {
 	// --------------------------------
 
 
-
+	MaterialsMap* mats = materialLibrary->GetMaterialsMap();
 
 }
 
