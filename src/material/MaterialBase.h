@@ -17,6 +17,14 @@ class MaterialBase {
 protected:
 	ShaderProgram* shaderProgram;
 
+	/// <summary>
+	/// Common uniforms.
+	/// These uniforms are shared between different materials - storing a copy of them in each
+	/// material instance makes no sense.
+	/// These commonly used uniforms are: model matrix, view projection matrix, view pos.
+	/// </summary>
+	std::map<std::string, int> commonUniformLocations;	//TODO: Think about using enum for types
+
 	std::map<std::string, Uniform> uniforms;
 
 	std::vector<const Texture*> textures;
@@ -39,6 +47,20 @@ public:
 	/// Destructor.
 	/// </summary>
 	virtual ~MaterialBase();
+
+	/// <summary>
+	/// Sets a common uniform location.
+	/// </summary>
+	/// <param name="name">Uniform name</param>
+	/// <param name="location">Uniform location</param>
+	void SetCommonUniformLocation(const std::string& name, int location);
+
+	/// <summary>
+	/// Gets a common uniform location.
+	/// </summary>
+	/// <param name="name">Uniform name</param>
+	/// <returns>Uniform location</returns>
+	int GetCommonUniformLocation(const std::string& name) const;
 
 	/// <summary>
 	/// Sets a uniform.
