@@ -25,6 +25,11 @@ protected:
 	/// </summary>
 	std::map<std::string, int> commonUniformLocations;	//TODO: Think about using enum for types
 
+	int mUniformLocation;
+	int pvUniformLocation;
+	int viewPosUniformLocation;
+
+
 	std::map<std::string, Uniform> uniforms;
 
 	std::vector<const Texture*> textures;
@@ -61,6 +66,12 @@ public:
 	/// <param name="name">Uniform name</param>
 	/// <returns>Uniform location</returns>
 	int GetCommonUniformLocation(const std::string& name) const;
+
+	int GetMUniformLocation(void) const;
+	
+	int GetPVUniformLocation(void) const;
+
+	int GetViewPosUniformLocation(void) const;
 
 	/// <summary>
 	/// Sets a uniform.

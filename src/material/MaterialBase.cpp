@@ -1,14 +1,12 @@
 #include "MaterialBase.h"
 #include <iostream>
 
-MaterialBase::MaterialBase(ShaderProgram* shaderProgram) {
-	//TODO: Next step: Parse all uniforms from shader and add to map.
+MaterialBase::MaterialBase(ShaderProgram* shaderProgram): 
+	shaderProgram(shaderProgram), isAffectedByLight(false), 
+	mUniformLocation(-1), pvUniformLocation(-1), viewPosUniformLocation(-1) {
+	//TODO: Next step: Parse all uniforms from shader and add to map.	
 
-	this->shaderProgram = shaderProgram;
-
-	maxTextures = Texture::GetMaxTextures();
-	
-	isAffectedByLight = false;
+	maxTextures = Texture::GetMaxTextures();	
 }
 
 
@@ -30,6 +28,20 @@ int MaterialBase::GetCommonUniformLocation(const std::string& name) const {
 	else {
 		return -1;
 	}
+}
+
+
+int MaterialBase::GetMUniformLocation(void) const {
+	return mUniformLocation;
+}
+
+int MaterialBase::GetPVUniformLocation(void) const {
+	return pvUniformLocation;
+}
+
+
+int MaterialBase::GetViewPosUniformLocation(void) const {
+	return viewPosUniformLocation;
 }
 
 
@@ -78,6 +90,19 @@ ShaderProgram* MaterialBase::GetShaderProgram(void) {
 void MaterialBase::Prepare(void) {
 	shaderProgram->Use();
 
+	// set all default common uniform locations
+	//TODO: Save common uniform names globally/differently than hard coded
+	if (mUniformLocation == -1) {
+		mUniformLocation = shaderProgram->GetUniformLocation("M");
+	}
+	if (pvUniformLocation == -1) {
+		pvUniformLocation = shaderProgram->GetUniformLocation("PV");
+	}
+	if (isAffectedByLight && viewPosUniformLocation == -1) {
+		viewPosUniformLocation = shaderProgram->GetUniformLocation("viewPos");
+	}
+
+	// set all fixed uniforms
 	for (auto it = uniforms.begin(); it != uniforms.end(); ++it) {
 		if (it->second.GetLocation() == -1) {
 			it->second.SetLocation(shaderProgram->GetUniformLocation(it->first));

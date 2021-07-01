@@ -79,12 +79,12 @@ void Renderer::Prepare(void) {
 
 		// prepare the material
 		material->Prepare();	//TODO: Move common uniform loc into Prepare(), think about where to store names
-		material->SetCommonUniformLocation("M", material->GetShaderProgram()->GetUniformLocation("M"));
+		/*material->SetCommonUniformLocation("M", material->GetShaderProgram()->GetUniformLocation("M"));
 		material->SetCommonUniformLocation("PV", material->GetShaderProgram()->GetUniformLocation("PV"));
 		if (material->GetAffectedByLight()) {			
 			material->SetCommonUniformLocation("viewPos", material->GetShaderProgram()->GetUniformLocation("viewPos"));
 		}
-		
+		*/
 		// do camera + lighting (initial set for each material)
 		material->GetShaderProgram()->SetUniformMat4(material->GetCommonUniformLocation("PV"), camera->GetViewProjectionMatrix());
 		if (material->GetAffectedByLight() == true) {
@@ -127,16 +127,21 @@ void Renderer::DoFrame(void) {
 		command.material->Bind();
 
 		if (camera->GetViewProjectionMatrixIsDirty() == true) {
-			command.material->GetShaderProgram()->SetUniformMat4(command.material->GetCommonUniformLocation("PV"), camera->GetViewProjectionMatrix());
+			//command.material->GetShaderProgram()->SetUniformMat4(command.material->GetCommonUniformLocation("PV"), camera->GetViewProjectionMatrix());
+			command.material->GetShaderProgram()->SetUniformMat4(command.material->GetPVUniformLocation(), camera->GetViewProjectionMatrix());
 			if (command.material->GetAffectedByLight() == true) {
-				command.material->GetShaderProgram()->SetUniformVec3(command.material->GetCommonUniformLocation("viewPos"), camera->GetPosition());
+				//command.material->GetShaderProgram()->SetUniformVec3(command.material->GetCommonUniformLocation("viewPos"), camera->GetPosition());
+				command.material->GetShaderProgram()->SetUniformVec3(command.material->GetViewPosUniformLocation(), camera->GetPosition());
 			}
 		}
 
-		command.material->GetShaderProgram()->SetUniformMat4(command.material->GetCommonUniformLocation("M"), command.M);
+		//command.material->GetShaderProgram()->SetUniformMat4(command.material->GetCommonUniformLocation("M"), command.M);
+		command.material->GetShaderProgram()->SetUniformMat4(command.material->GetMUniformLocation(), command.M);
 		command.mesh->Draw();
 		command.material->Unbind();
 	}
+
+	// voxelscene render commands second:
 
 
 
