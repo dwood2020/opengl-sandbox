@@ -139,6 +139,8 @@ void Renderer::DoFrame(void) {
 		command.material->GetShaderProgram()->SetUniformMat4(command.material->GetMUniformLocation(), command.M);
 		command.mesh->Draw();
 		command.material->Unbind();
+
+		//TODO: Think about: Direct setters for common uniforms, like: material->SetCommonUniformPV(camera->GetViewPositionMatrix())
 	}
 
 	// voxelscene render commands second:
