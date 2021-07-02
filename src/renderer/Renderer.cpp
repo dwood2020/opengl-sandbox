@@ -86,9 +86,9 @@ void Renderer::Prepare(void) {
 		}
 		*/
 		// do camera + lighting (initial set for each material)
-		material->GetShaderProgram()->SetUniformMat4(material->GetCommonUniformLocation("PV"), camera->GetViewProjectionMatrix());
+		material->GetShaderProgram()->SetUniformMat4(material->GetPVUniformLocation(), camera->GetViewProjectionMatrix());
 		if (material->GetAffectedByLight() == true) {
-			material->GetShaderProgram()->SetUniformVec3(material->GetCommonUniformLocation("viewPos"), camera->GetPosition());
+			material->GetShaderProgram()->SetUniformVec3(material->GetViewPosUniformLocation(), camera->GetPosition());
 			lighting->SetUniforms(material->GetShaderProgram());
 		}
 
