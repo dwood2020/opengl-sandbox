@@ -208,7 +208,6 @@
     <ClInclude Include="src\mesh\DynamicMesh.h" />
     <ClInclude Include="src\mesh\MeshBase.h" />
     <ClInclude Include="src\renderer\RendererBase.h" />
-    <ClInclude Include="src\renderer\RenderCommand.hpp" />
     <ClInclude Include="src\renderer\SimpleRenderer.h" />
     <ClInclude Include="src\material\MaterialLibrary.h" />
     <ClInclude Include="src\material\FlatMaterial.h" />

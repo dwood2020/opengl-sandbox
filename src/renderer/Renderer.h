@@ -6,7 +6,6 @@
 #include "../Lighting.h"
 #include "../camera/CameraBase.h"
 #include "../material/MaterialLibrary.h"
-#include "RenderCommand.hpp"
 #include "SimpleRenderCommand.hpp"
 
 
@@ -26,8 +25,6 @@ private:
 	Lighting* lighting;
 	CameraBase* camera;
 	MaterialLibrary* materialLibrary;
-
-	std::vector<RenderCommand> renderCommands;
 
 	std::vector<SimpleRenderCommand> simpleRenderCommands;
 
@@ -50,9 +47,6 @@ public:
 
 
 	void DoFrame(void);
-
-
-	void AddCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
 
 
 	void AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);

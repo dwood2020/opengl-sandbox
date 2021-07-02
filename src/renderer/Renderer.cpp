@@ -90,18 +90,6 @@ void Renderer::DoFrame(void) {
 }
 
 
-
-void Renderer::AddCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
-	if (mesh == nullptr || material == nullptr) {
-		//TODO ASSERT or check if passing arg by reference is better option
-		return;
-	}
-
-	RenderCommand command(modelMatrix, mesh, material);
-	renderCommands.push_back(command);
-}
-
-
 void Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
 	if (mesh == nullptr || material == nullptr) {
 		//TODO ASSERT or check if passing arg by reference is better option
