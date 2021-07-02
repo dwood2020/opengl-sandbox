@@ -57,10 +57,17 @@ public:
 	/// <returns>Phong material</returns>
 	PhongMaterial* MakePhongMaterial(const std::string& name);
 
-
+	/// <summary>
+	/// Gets a material by its defined name.
+	/// </summary>
+	/// <param name="name">Defined name of material</param>
+	/// <returns>Material</returns>
 	MaterialBase* GetMaterial(const std::string& name);
 
-
+	/// <summary>
+	/// Gets the entire map of materials.
+	/// </summary>	
+	/// <returns>Materials map</returns>
 	MaterialsMap* GetMaterialsMap(void);
 
 };
