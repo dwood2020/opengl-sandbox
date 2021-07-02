@@ -53,19 +53,6 @@ public:
 	/// </summary>
 	virtual ~MaterialBase();
 
-	/// <summary>
-	/// Sets a common uniform location.
-	/// </summary>
-	/// <param name="name">Uniform name</param>
-	/// <param name="location">Uniform location</param>
-	void SetCommonUniformLocation(const std::string& name, int location);
-
-	/// <summary>
-	/// Gets a common uniform location.
-	/// </summary>
-	/// <param name="name">Uniform name</param>
-	/// <returns>Uniform location</returns>
-	int GetCommonUniformLocation(const std::string& name) const;
 
 	int GetMUniformLocation(void) const;
 	

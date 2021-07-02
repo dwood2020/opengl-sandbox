@@ -15,22 +15,6 @@ MaterialBase::~MaterialBase() {
 }
 
 
-void MaterialBase::SetCommonUniformLocation(const std::string& name, int location) {
-	commonUniformLocations[name] = location;
-}
-
-
-int MaterialBase::GetCommonUniformLocation(const std::string& name) const {
-	auto it = commonUniformLocations.find(name);
-	if (it != commonUniformLocations.end()) {
-		return it->second;
-	}
-	else {
-		return -1;
-	}
-}
-
-
 int MaterialBase::GetMUniformLocation(void) const {
 	return mUniformLocation;
 }
