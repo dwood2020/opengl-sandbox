@@ -55,6 +55,17 @@ void Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, Ma
 }
 
 
+void Renderer::AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultMaterial) {
+	this->voxelScene = &voxelScene;
+	AddBlockMaterialMapping(1, defaultMaterial);
+}
+
+
+void Renderer::AddBlockMaterialMapping(char blockId, MaterialBase* material) {
+	blockMaterialMap.insert(std::pair<char, MaterialBase*>(blockId, material));
+}
+
+
 void Renderer::Prepare(void) {
 
 	MaterialsMap* mats = materialLibrary->GetMaterialsMap();
@@ -80,7 +91,6 @@ void Renderer::Prepare(void) {
 void Renderer::DoFrame(void) {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 
 	// simple render commands first:
 	DoSimpleCommands();
@@ -121,7 +131,38 @@ void Renderer::DoSimpleCommands(void) {
 // assuming that voxelscene is no nullptr here
 void Renderer::DoVoxelScene(void) {
 
+	// iterate over all sections
+	for (auto itSection = voxelScene->GetSections().begin(); itSection != voxelScene->GetSections().end(); ++itSection) {
 
+		// iterate over each mesh per section
+		for (auto itMesh = itSection->second->GetMeshes().begin(); itMesh != itSection->second->GetMeshes().end(); ++itMesh) {
+			MaterialBase* material = nullptr;
+			/*if (blockMaterialMap.find(itMesh->first) != blockMaterialMap.end()) {
+				material = blockMaterialMap[itMesh->first];				
+			}
+			else {
+				material = blockMaterialMap[1];
+			}*/
+
+			material = materialLibrary->GetMaterial("defaultMaterial");
+
+			//TEMP
+			material->SetModelMatrixUniform(glm::mat4(1.0f));
+
+			//TODO: This is redundant! Think about different solution
+			if (camera->GetViewProjectionMatrixIsDirty()) {
+				material->SetViewProjectionMatrixUniform(camera->GetViewProjectionMatrix());
+				if (material->GetAffectedByLight()) {
+					material->SetViewPosUniform(camera->GetPosition());
+				}
+			}
+
+			material->Bind();
+			itMesh->second.Draw();
+			material->Unbind();
+		}
+
+	}
 
 }
 

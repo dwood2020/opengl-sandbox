@@ -35,7 +35,7 @@ PhongMaterial* MaterialLibrary::MakePhongMaterial(const std::string& name) {
 }
 
 
-const MaterialBase* MaterialLibrary::GetMaterial(const std::string& name) const {
+MaterialBase* MaterialLibrary::GetMaterial(const std::string& name) {
     auto it = materials.find(name);
     if (it != materials.end()) {
         return it->second;

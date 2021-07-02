@@ -58,7 +58,7 @@ public:
 	PhongMaterial* MakePhongMaterial(const std::string& name);
 
 
-	const MaterialBase* GetMaterial(const std::string& name) const;
+	MaterialBase* GetMaterial(const std::string& name);
 
 
 	MaterialsMap* GetMaterialsMap(void);

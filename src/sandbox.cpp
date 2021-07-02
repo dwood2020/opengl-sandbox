@@ -144,14 +144,12 @@ int main(int argc, char* argv[]) {
 	voxelScene.SetBlock({ 12,0,0 }, 2);
 	voxelScene.SetBlock({ 12,1,0 }, 3);
 	voxelScene.SetBlock({ -4,-4,-4 }, 2);
-	voxelScene.SetBlock({ -1,0,0 }, 2);
+	voxelScene.SetBlock({ -1,0,0 }, 4);
 	char b003 = voxelScene.GetBlock({ 2,0,3 });
 	
 	voxelScene.GenerateMeshes();
 
-	
 
-	
 	
 
 	// Textures
@@ -220,6 +218,11 @@ int main(int argc, char* argv[]) {
 	greenDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 	greenDebugMaterial->SetShininess(32.0f);	
 
+	PhongMaterial* pinkDebugMaterial = materialLibrary.MakePhongMaterial("pinkDebugMaterial");
+	pinkDebugMaterial->SetDiffuseColor(glm::vec3(1.0f, 0.0f, 1.0f));
+	pinkDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
+
+
 
 	renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
 	renderer.AddSimpleCommand(Mid, &cs3dMesh, coordSystemMaterial);
@@ -230,7 +233,13 @@ int main(int argc, char* argv[]) {
 
 
 
-	std::map<char, MaterialBase*> dummyMaterials;
+	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);
+	renderer.AddBlockMaterialMapping(1, defaultMaterial);
+	renderer.AddBlockMaterialMapping(2, yellowDebugMaterial);
+	renderer.AddBlockMaterialMapping(3, greenDebugMaterial);
+
+
+	/*std::map<char, MaterialBase*> dummyMaterials;
 	dummyMaterials.insert(std::pair<char, MaterialBase*>(1, defaultMaterial));
 	dummyMaterials.insert(std::pair<char, MaterialBase*>(2, yellowDebugMaterial));
 	dummyMaterials.insert(std::pair<char, MaterialBase*>(3, greenDebugMaterial));
@@ -242,7 +251,7 @@ int main(int argc, char* argv[]) {
 			renderer.AddSimpleCommand(Mid, &meshIt->second, dummyMaterials[meshIt->first]);
 		}
 
-	}
+	}*/
 
 
 	renderer.Prepare();
