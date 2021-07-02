@@ -6,7 +6,7 @@
 
 
 Renderer::Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, MaterialLibrary& materialLibrary): 
-	lighting(&lighting), camera(&camera), materialLibrary(&materialLibrary) {
+	lighting(&lighting), camera(&camera), materialLibrary(&materialLibrary), voxelScene(nullptr) {
 	
 	// register for events
 	eventBus.AddListener(EventType::WindowResize, this);
@@ -31,6 +31,27 @@ void Renderer::Init(const glm::vec2& windowRect) {
 	CalculateViewport(windowRect);
 	
 	glEnable(GL_DEPTH_TEST);
+}
+
+
+void Renderer::SetClearColor(const glm::vec3& clearColor) {
+	glClearColor(clearColor.x, clearColor.y, clearColor.z, 1.0f);
+}
+
+
+void Renderer::SetGlPolygonMode(GLenum mode) {
+	glPolygonMode(GL_FRONT_AND_BACK, mode);
+}
+
+
+void Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
+	if (mesh == nullptr || material == nullptr) {
+		//TODO ASSERT or check if passing arg by reference is better option
+		return;
+	}
+
+	SimpleRenderCommand command(modelMatrix, mesh, material);
+	simpleRenderCommands.push_back(command);
 }
 
 
@@ -62,6 +83,22 @@ void Renderer::DoFrame(void) {
 
 
 	// simple render commands first:
+	DoSimpleCommands();
+	
+	// voxelscene render commands second:
+	if (voxelScene != nullptr) {
+		DoVoxelScene();
+	}
+
+
+	if (camera->GetViewProjectionMatrixIsDirty() == true) {
+		camera->ResetDirtyState();
+	}
+
+}
+
+
+void Renderer::DoSimpleCommands(void) {
 
 	for (SimpleRenderCommand& command : simpleRenderCommands) {
 		command.material->Bind();
@@ -76,44 +113,21 @@ void Renderer::DoFrame(void) {
 
 		command.material->SetModelMatrixUniform(command.M);
 		command.mesh->Draw();
-		command.material->Unbind();		
+		command.material->Unbind();
 	}
-
-	// voxelscene render commands second:
-
-
-
-	if (camera->GetViewProjectionMatrixIsDirty() == true) {
-		camera->ResetDirtyState();
-	}
-
 }
 
 
-void Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
-	if (mesh == nullptr || material == nullptr) {
-		//TODO ASSERT or check if passing arg by reference is better option
-		return;
-	}
+// assuming that voxelscene is no nullptr here
+void Renderer::DoVoxelScene(void) {
 
-	SimpleRenderCommand command(modelMatrix, mesh, material);
-	simpleRenderCommands.push_back(command);
+
+
 }
-
-
-void Renderer::SetClearColor(const glm::vec3& clearColor) {
-	glClearColor(clearColor.x, clearColor.y, clearColor.z, 1.0f);
-}
-
-
-void Renderer::SetGlPolygonMode(GLenum mode) {
-	glPolygonMode(GL_FRONT_AND_BACK, mode);
-}
-
 
 
 void Renderer::CalculateViewport(const glm::vec2& rect) {
-	glViewport(0, 0, (GLsizei)rect.x, (GLsizei)rect.y);
+	glViewport(0, 0, static_cast<GLsizei>(rect.x), static_cast<GLsizei>(rect.y));
 }
 
 

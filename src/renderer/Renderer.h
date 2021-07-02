@@ -7,6 +7,7 @@
 #include "../camera/CameraBase.h"
 #include "../material/MaterialLibrary.h"
 #include "SimpleRenderCommand.hpp"
+#include "../voxel/VoxelScene.h"
 
 
 /// <summary>
@@ -27,6 +28,7 @@ private:
 	MaterialLibrary* materialLibrary;
 
 	std::vector<SimpleRenderCommand> simpleRenderCommands;
+	VoxelScene* voxelScene;
 
 	// eventbus, lighting, camera are mandatory.
 	Renderer() = default;
@@ -42,15 +44,6 @@ public:
 
 	void Init(const glm::vec2& windowRect);
 
-
-	void Prepare(void);
-
-
-	void DoFrame(void);
-
-
-	void AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
-
 	
 	void SetClearColor(const glm::vec3& clearColor);
 
@@ -58,8 +51,19 @@ public:
 	void SetGlPolygonMode(GLenum mode);
 
 
+	void AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);	
+
+
+	void Prepare(void);
+
+
+	void DoFrame(void);
 
 private:
+	void DoSimpleCommands(void);
+
+	void DoVoxelScene(void);
+
 	void CalculateViewport(const glm::vec2& rect);
 
 };
