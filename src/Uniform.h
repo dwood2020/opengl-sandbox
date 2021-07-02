@@ -17,7 +17,8 @@ enum class UniformType {
 
 
 /// <summary>
-/// This class represents a uniform.
+/// This class represents a material uniform.
+/// (Material uniform: Is set once as a material property and not changed (unless the material changes)
 /// Approach:
 /// To compact memory a little, this union-like approach is applied.
 /// "Small" uniform values are part of the variant directly vs.
