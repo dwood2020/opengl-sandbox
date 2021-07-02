@@ -36,59 +36,18 @@ void Renderer::Init(const glm::vec2& windowRect) {
 
 void Renderer::Prepare(void) {
 
-	// Prepare code from SimpleRenderer
-	// --------------------------------
-
-
-	//for (RenderCommand& command : renderCommands) {
-	//	// prepare material		
-	//	command.material->Prepare();
-
-	//	// get uniform locations into command
-	//	command.pvUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("PV");
-
-	//	command.mUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("M");
-
-	//	// do camera + lighting
-	//	command.material->GetShaderProgram()->SetUniformMat4(command.pvUniformLocation, camera->GetViewProjectionMatrix());
-	//	if (command.material->GetAffectedByLight() == true) {
-
-	//		command.viewPosUniformLocation = command.material->GetShaderProgram()->GetUniformLocation("viewPos");
-
-
-	//		lighting->SetUniforms(command.material->GetShaderProgram());
-
-	//		// first possibility (see RenderCommand + viewPos uniform loc)
-	//		command.material->GetShaderProgram()->SetUniformVec3(command.viewPosUniformLocation, camera->GetPosition());
-
-	//		//TODO: second possibility. Examine which is better
-	//		/*command.material->SetUniform("viewPos", camera->GetPosition());*/
-	//	}
-
-	//	// do model matrix
-	//	command.material->GetShaderProgram()->SetUniformMat4(command.mUniformLocation, command.M);
-	//}
-
-	// --------------------------------
-
-
 	MaterialsMap* mats = materialLibrary->GetMaterialsMap();
 	
 	for (auto it = mats->begin(); it != mats->end(); ++it) {
 		MaterialBase* material = it->second;
 
 		// prepare the material
-		material->Prepare();	//TODO: Move common uniform loc into Prepare(), think about where to store names
-		/*material->SetCommonUniformLocation("M", material->GetShaderProgram()->GetUniformLocation("M"));
-		material->SetCommonUniformLocation("PV", material->GetShaderProgram()->GetUniformLocation("PV"));
-		if (material->GetAffectedByLight()) {			
-			material->SetCommonUniformLocation("viewPos", material->GetShaderProgram()->GetUniformLocation("viewPos"));
-		}
-		*/
-		// do camera + lighting (initial set for each material)
-		material->GetShaderProgram()->SetUniformMat4(material->GetPVUniformLocation(), camera->GetViewProjectionMatrix());
-		if (material->GetAffectedByLight() == true) {
-			material->GetShaderProgram()->SetUniformVec3(material->GetViewPosUniformLocation(), camera->GetPosition());
+		material->Prepare();
+
+		// do initial set
+		material->SetViewProjectionMatrixUniform(camera->GetViewProjectionMatrix());
+		if (material->GetAffectedByLight()) {
+			material->SetViewPosUniform(camera->GetPosition());
 			lighting->SetUniforms(material->GetShaderProgram());
 		}
 
@@ -101,25 +60,6 @@ void Renderer::DoFrame(void) {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// DoFrame code from SimpleRenderer
-	// --------------------------------
-
-	//TODO: apply sorting!	
-	/*for (RenderCommand& command : renderCommands) {
-		command.material->Bind();
-		if (camera->GetViewProjectionMatrixIsDirty() == true) {
-			command.material->GetShaderProgram()->SetUniformMat4(command.pvUniformLocation, camera->GetViewProjectionMatrix());
-			if (command.material->GetAffectedByLight() == true) {
-				command.material->GetShaderProgram()->SetUniformVec3(command.viewPosUniformLocation, camera->GetPosition());
-			}
-
-		}
-		command.material->GetShaderProgram()->SetUniformMat4(command.mUniformLocation, command.M);
-		command.mesh->Draw();
-		command.material->Unbind();
-	}*/
-
-	// --------------------------------
 
 	// simple render commands first:
 
@@ -127,20 +67,16 @@ void Renderer::DoFrame(void) {
 		command.material->Bind();
 
 		if (camera->GetViewProjectionMatrixIsDirty() == true) {
-			//command.material->GetShaderProgram()->SetUniformMat4(command.material->GetCommonUniformLocation("PV"), camera->GetViewProjectionMatrix());
-			command.material->GetShaderProgram()->SetUniformMat4(command.material->GetPVUniformLocation(), camera->GetViewProjectionMatrix());
+			command.material->SetViewProjectionMatrixUniform(camera->GetViewProjectionMatrix());
+
 			if (command.material->GetAffectedByLight() == true) {
-				//command.material->GetShaderProgram()->SetUniformVec3(command.material->GetCommonUniformLocation("viewPos"), camera->GetPosition());
-				command.material->GetShaderProgram()->SetUniformVec3(command.material->GetViewPosUniformLocation(), camera->GetPosition());
+				command.material->SetViewPosUniform(camera->GetPosition());
 			}
 		}
 
-		//command.material->GetShaderProgram()->SetUniformMat4(command.material->GetCommonUniformLocation("M"), command.M);
-		command.material->GetShaderProgram()->SetUniformMat4(command.material->GetMUniformLocation(), command.M);
+		command.material->SetModelMatrixUniform(command.M);
 		command.mesh->Draw();
-		command.material->Unbind();
-
-		//TODO: Think about: Direct setters for common uniforms, like: material->SetCommonUniformPV(camera->GetViewPositionMatrix())
+		command.material->Unbind();		
 	}
 
 	// voxelscene render commands second:

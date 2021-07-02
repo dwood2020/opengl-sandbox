@@ -15,17 +15,24 @@ MaterialBase::~MaterialBase() {
 }
 
 
-int MaterialBase::GetMUniformLocation(void) const {
-	return mUniformLocation;
+void MaterialBase::SetModelMatrixUniform(const glm::mat4& m) {
+	if (mUniformLocation != -1) {
+		shaderProgram->SetUniformMat4(mUniformLocation, m);
+	}	
 }
 
-int MaterialBase::GetPVUniformLocation(void) const {
-	return pvUniformLocation;
+
+void MaterialBase::SetViewProjectionMatrixUniform(const glm::mat4& pv) {
+	if (pvUniformLocation != -1) {
+		shaderProgram->SetUniformMat4(pvUniformLocation, pv);
+	}	
 }
 
 
-int MaterialBase::GetViewPosUniformLocation(void) const {
-	return viewPosUniformLocation;
+void MaterialBase::SetViewPosUniform(const glm::vec3& viewPos) {
+	if (viewPosUniformLocation != -1) {
+		shaderProgram->SetUniformVec3(viewPosUniformLocation, viewPos);
+	}	
 }
 
 

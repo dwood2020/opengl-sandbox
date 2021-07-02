@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <glm/glm.hpp>
 #include "../shader/ShaderProgram.h"
 #include "../Uniform.h"
 #include "../Texture.h"
@@ -22,13 +23,10 @@ protected:
 	/// These uniforms are shared between different materials - storing a copy of them in each
 	/// material instance makes no sense.
 	/// These commonly used uniforms are: model matrix, view projection matrix, view pos.
-	/// </summary>
-	std::map<std::string, int> commonUniformLocations;	//TODO: Think about using enum for types
-
+	/// </summary>	
 	int mUniformLocation;
 	int pvUniformLocation;
 	int viewPosUniformLocation;
-
 
 	std::map<std::string, Uniform> uniforms;
 
@@ -54,11 +52,24 @@ public:
 	virtual ~MaterialBase();
 
 
-	int GetMUniformLocation(void) const;
-	
-	int GetPVUniformLocation(void) const;
+	/// <summary>
+	/// Directly sets the Model matrix uniform, if available
+	/// </summary>
+	/// <param name="m">Model matrix M</param>
+	void SetModelMatrixUniform(const glm::mat4& m);
 
-	int GetViewPosUniformLocation(void) const;
+	/// <summary>
+	/// Directly sets the View Projection matrix uniform, if available
+	/// </summary>
+	/// <param name="pv">View Projection Matrix PV</param>
+	void SetViewProjectionMatrixUniform(const glm::mat4& pv);
+
+	/// <summary>
+	/// Directly sets the camera View Pos uniform, if available
+	/// </summary>
+	/// <param name="viewPos">View pos</param>
+	void SetViewPosUniform(const glm::vec3& viewPos);
+	
 
 	/// <summary>
 	/// Sets a uniform.

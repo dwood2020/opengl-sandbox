@@ -20,9 +20,6 @@
 /// TODO: DESIGN:
 /// Possible design is: RendererMaster as Factory, forces context init before SimpleRenderer, 
 /// VoxelRenderer etc can be instanciated.
-/// First step: Replicate SimpleRenderer (done)
-/// Second step: Add material management (material lib composition)
-/// Third step: ...
 /// </summary>
 class Renderer final : public EventListener {
 private:
