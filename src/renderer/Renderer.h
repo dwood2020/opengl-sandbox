@@ -32,6 +32,7 @@ private:
 	
 	VoxelScene* voxelScene;
 	std::map<char, MaterialBase*> blockMaterialMap;
+	MaterialBase* defaultBlockMaterial;
 
 	// eventbus, lighting, camera are mandatory.
 	Renderer() = default;
@@ -57,10 +58,10 @@ public:
 	void AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
 
 
-	void AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultMaterial);
+	void AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial);
 
 
-	void AddBlockMaterialMapping(char blockId, MaterialBase* material);
+	void AddBlockMaterialMapping(char blockTypeId, MaterialBase* material);
 
 
 	void Prepare(void);

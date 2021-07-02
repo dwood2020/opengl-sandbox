@@ -12,31 +12,31 @@ MaterialLibrary::~MaterialLibrary() {
 }
 
 
-FlatMaterial* MaterialLibrary::MakeFlatMaterial(const std::string& name) {    
+FlatMaterial* MaterialLibrary::MakeFlatMaterial(int id) {    
     /*materials[name] = std::make_unique<MaterialBase>(shaderFactory->MakeDefaultFlatShaderProgram());    
     return reinterpret_cast<FlatMaterial*>(materials[name].get());*/
-    if (materials.find(name) != materials.end()) {
-        delete materials[name];
+    if (materials.find(id) != materials.end()) {
+        delete materials[id];
     }
-    materials[name] = new FlatMaterial(shaderFactory->MakeDefaultFlatShaderProgram());
-    return dynamic_cast<FlatMaterial*>(materials[name]);
+    materials[id] = new FlatMaterial(shaderFactory->MakeDefaultFlatShaderProgram());
+    return dynamic_cast<FlatMaterial*>(materials[id]);
 
     //TODO: Examine reinterpret_cast vs. static_cast
     //TODO: Move to smart memory management
 }
 
 
-PhongMaterial* MaterialLibrary::MakePhongMaterial(const std::string& name) {
-    if (materials.find(name) != materials.end()) {
-        delete materials[name];
+PhongMaterial* MaterialLibrary::MakePhongMaterial(int id) {
+    if (materials.find(id) != materials.end()) {
+        delete materials[id];
     }
-    materials[name] = new PhongMaterial(shaderFactory->MakeDefaultPhongShaderProgram());
-    return dynamic_cast<PhongMaterial*>(materials[name]);
+    materials[id] = new PhongMaterial(shaderFactory->MakeDefaultPhongShaderProgram());
+    return dynamic_cast<PhongMaterial*>(materials[id]);
 }
 
 
-MaterialBase* MaterialLibrary::GetMaterial(const std::string& name) {
-    auto it = materials.find(name);
+MaterialBase* MaterialLibrary::GetMaterial(int id) {
+    auto it = materials.find(id);
     if (it != materials.end()) {
         return it->second;
     }

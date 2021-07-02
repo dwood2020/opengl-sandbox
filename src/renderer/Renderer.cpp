@@ -6,7 +6,7 @@
 
 
 Renderer::Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, MaterialLibrary& materialLibrary): 
-	lighting(&lighting), camera(&camera), materialLibrary(&materialLibrary), voxelScene(nullptr) {
+	lighting(&lighting), camera(&camera), materialLibrary(&materialLibrary), voxelScene(nullptr), defaultBlockMaterial(nullptr) {
 	
 	// register for events
 	eventBus.AddListener(EventType::WindowResize, this);
@@ -55,14 +55,14 @@ void Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, Ma
 }
 
 
-void Renderer::AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultMaterial) {
-	this->voxelScene = &voxelScene;
-	AddBlockMaterialMapping(1, defaultMaterial);
+void Renderer::AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial) {
+	this->voxelScene = &voxelScene;	
+	this->defaultBlockMaterial = defaultBlockMaterial;
 }
 
 
-void Renderer::AddBlockMaterialMapping(char blockId, MaterialBase* material) {
-	blockMaterialMap.insert(std::pair<char, MaterialBase*>(blockId, material));
+void Renderer::AddBlockMaterialMapping(char blockTypeId, MaterialBase* material) {
+	blockMaterialMap.insert(std::pair<char, MaterialBase*>(blockTypeId, material));
 }
 
 
@@ -137,14 +137,17 @@ void Renderer::DoVoxelScene(void) {
 		// iterate over each mesh per section
 		for (auto itMesh = itSection->second->GetMeshes().begin(); itMesh != itSection->second->GetMeshes().end(); ++itMesh) {
 			MaterialBase* material = nullptr;
-			/*if (blockMaterialMap.find(itMesh->first) != blockMaterialMap.end()) {
-				material = blockMaterialMap[itMesh->first];				
+
+			char blockTypeId = itMesh->first;
+			
+			/*auto itMat = blockMaterialMap.find(blockTypeId);
+			if (itMat != blockMaterialMap.end()) {
+				material = blockMaterialMap.at(blockTypeId);
 			}
 			else {
-				material = blockMaterialMap[1];
+				material = materialLibrary->GetMaterial(199);
 			}*/
-
-			material = materialLibrary->GetMaterial("defaultMaterial");
+			material = materialLibrary->GetMaterial(199);
 
 			//TEMP
 			material->SetModelMatrixUniform(glm::mat4(1.0f));

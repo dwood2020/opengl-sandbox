@@ -183,42 +183,42 @@ int main(int argc, char* argv[]) {
 
 	
 	// use new Materials from Material library
-	FlatMaterial* flatMaterial1 = materialLibrary.MakeFlatMaterial("flatMaterial1");
+	FlatMaterial* flatMaterial1 = materialLibrary.MakeFlatMaterial(100);
 	flatMaterial1->SetFlatColor(glm::vec3(1.0f, 0.0f, 0.5f));
 
 
-	PhongMaterial* phongMaterial1 = materialLibrary.MakePhongMaterial("phongMaterial1");
+	PhongMaterial* phongMaterial1 = materialLibrary.MakePhongMaterial(101);
 	phongMaterial1->SetDiffuseColor(glm::vec3(1.0f) * 0.5f);
 	phongMaterial1->SetDiffuseTexture(tex2);
 	phongMaterial1->SetSpecularColor(glm::vec3(1.0f));
 
 
-	PhongMaterial* woodenBoxMaterial = materialLibrary.MakePhongMaterial("woodenBoxMaterial");
+	PhongMaterial* woodenBoxMaterial = materialLibrary.MakePhongMaterial(102);
 	woodenBoxMaterial->SetDiffuseColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	woodenBoxMaterial->SetDiffuseTexture(tex1);
 	woodenBoxMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 
-	FlatMaterial* gridMaterial = materialLibrary.MakeFlatMaterial("gridMaterial");
+	FlatMaterial* gridMaterial = materialLibrary.MakeFlatMaterial(200);
 	gridMaterial->SetFlatColor(glm::vec3(0.33f));
 
-	PhongMaterial* defaultMaterial = materialLibrary.MakePhongMaterial("defaultMaterial");
+	PhongMaterial* defaultMaterial = materialLibrary.MakePhongMaterial(1);
 	defaultMaterial->SetDiffuseColor(glm::vec3(0.5f));
 	defaultMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.3f);
 	defaultMaterial->SetShininess(32.0f);
 
-	FlatMaterial* coordSystemMaterial = materialLibrary.MakeFlatMaterial("coordSystemMaterial");
+	FlatMaterial* coordSystemMaterial = materialLibrary.MakeFlatMaterial(201);
 	coordSystemMaterial->SetUseColorVertices(true);
 
-	PhongMaterial* yellowDebugMaterial = materialLibrary.MakePhongMaterial("yellowDebugMaterial");
+	PhongMaterial* yellowDebugMaterial = materialLibrary.MakePhongMaterial(2);
 	yellowDebugMaterial->SetDiffuseColor(glm::vec3(0.8f, 0.8f, 0.1f));
 	yellowDebugMaterial->SetSpecularColor(glm::vec3(0.6f));
 
-	PhongMaterial* greenDebugMaterial = materialLibrary.MakePhongMaterial("greenDebugMaterial");
+	PhongMaterial* greenDebugMaterial = materialLibrary.MakePhongMaterial(3);
 	greenDebugMaterial->SetDiffuseColor(glm::vec3(0.1f, 0.9f, 0.2f));
 	greenDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 	greenDebugMaterial->SetShininess(32.0f);	
 
-	PhongMaterial* pinkDebugMaterial = materialLibrary.MakePhongMaterial("pinkDebugMaterial");
+	PhongMaterial* pinkDebugMaterial = materialLibrary.MakePhongMaterial(4);
 	pinkDebugMaterial->SetDiffuseColor(glm::vec3(1.0f, 0.0f, 1.0f));
 	pinkDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 

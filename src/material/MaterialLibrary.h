@@ -9,7 +9,7 @@
 
 
 //TODO: Refactor this to use unique_ptrs, as library shall be the sole owner of all materials.
-using MaterialsMap = std::map<std::string, MaterialBase*>;
+using MaterialsMap = std::map<int, MaterialBase*>;
 
 /// <summary>
 /// This class holds (and owns) all materials.
@@ -46,23 +46,23 @@ public:
 	/// </summary>
 	/// <param name="name">Name tag</param>
 	/// <returns>Flat material</returns>
-	FlatMaterial* MakeFlatMaterial(const std::string& name);
+	FlatMaterial* MakeFlatMaterial(int id);
 
 	/// <summary>
 	/// Makes a new phong material, adds it to the library and returns a pointer to it.
-	/// It is tagged with the given name.
+	/// It is tagged with the given id.
 	/// NOTE: If the name already exists, the previously saved material is overwritten.
 	/// </summary>
-	/// <param name="name">Name tag</param>
+	/// <param name="name">Id</param>
 	/// <returns>Phong material</returns>
-	PhongMaterial* MakePhongMaterial(const std::string& name);
+	PhongMaterial* MakePhongMaterial(int id);
 
 	/// <summary>
-	/// Gets a material by its defined name.
+	/// Gets a material by its defined id.
 	/// </summary>
-	/// <param name="name">Defined name of material</param>
+	/// <param name="name">Material id</param>
 	/// <returns>Material</returns>
-	MaterialBase* GetMaterial(const std::string& name);
+	MaterialBase* GetMaterial(int id);
 
 	/// <summary>
 	/// Gets the entire map of materials.
