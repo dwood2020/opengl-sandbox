@@ -11,7 +11,7 @@ MaterialLibrary::~MaterialLibrary() {
     }
 }
 
-
+//TODO: Move id generation into library, add id field to MaterialBase, to take id definition away from the user
 FlatMaterial* MaterialLibrary::MakeFlatMaterial(int id) {    
     /*materials[name] = std::make_unique<MaterialBase>(shaderFactory->MakeDefaultFlatShaderProgram());    
     return reinterpret_cast<FlatMaterial*>(materials[name].get());*/
@@ -20,8 +20,7 @@ FlatMaterial* MaterialLibrary::MakeFlatMaterial(int id) {
     }
     materials[id] = new FlatMaterial(shaderFactory->MakeDefaultFlatShaderProgram());
     return dynamic_cast<FlatMaterial*>(materials[id]);
-
-    //TODO: Examine reinterpret_cast vs. static_cast
+    
     //TODO: Move to smart memory management
 }
 
