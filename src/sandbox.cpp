@@ -234,9 +234,10 @@ int main(int argc, char* argv[]) {
 
 
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);
-	renderer.AddBlockMaterialMapping(1, defaultMaterial);
+
+	/*renderer.AddBlockMaterialMapping(1, defaultMaterial);
 	renderer.AddBlockMaterialMapping(2, yellowDebugMaterial);
-	renderer.AddBlockMaterialMapping(3, greenDebugMaterial);
+	renderer.AddBlockMaterialMapping(3, greenDebugMaterial);*/
 
 
 	/*std::map<char, MaterialBase*> dummyMaterials;

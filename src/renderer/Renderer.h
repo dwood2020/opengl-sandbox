@@ -31,7 +31,7 @@ private:
 	std::vector<SimpleRenderCommand> simpleRenderCommands;
 	
 	VoxelScene* voxelScene;
-	std::map<char, MaterialBase*> blockMaterialMap;
+	//std::map<char, MaterialBase*> blockMaterialMap;
 	MaterialBase* defaultBlockMaterial;
 
 	// eventbus, lighting, camera are mandatory.
@@ -61,7 +61,7 @@ public:
 	void AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial);
 
 
-	void AddBlockMaterialMapping(char blockTypeId, MaterialBase* material);
+	//void AddBlockMaterialMapping(char blockTypeId, MaterialBase* material);
 
 
 	void Prepare(void);

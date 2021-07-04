@@ -6,7 +6,7 @@
 
 
 Renderer::Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, MaterialLibrary& materialLibrary): 
-	lighting(&lighting), camera(&camera), materialLibrary(&materialLibrary), voxelScene(nullptr), defaultBlockMaterial(nullptr) {
+	lighting(&lighting), camera(&camera), materialLibrary(&materialLibrary), voxelScene(nullptr) {
 	
 	// register for events
 	eventBus.AddListener(EventType::WindowResize, this);
@@ -61,9 +61,9 @@ void Renderer::AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockM
 }
 
 
-void Renderer::AddBlockMaterialMapping(char blockTypeId, MaterialBase* material) {
-	blockMaterialMap.insert(std::pair<char, MaterialBase*>(blockTypeId, material));
-}
+//void Renderer::AddBlockMaterialMapping(char blockTypeId, MaterialBase* material) {
+//	blockMaterialMap.insert(std::pair<char, MaterialBase*>(blockTypeId, material));
+//}
 
 
 void Renderer::Prepare(void) {
@@ -131,34 +131,23 @@ void Renderer::DoSimpleCommands(void) {
 // assuming that voxelscene is no nullptr here
 void Renderer::DoVoxelScene(void) {
 
-	for (auto itMat = materialLibrary->GetMaterialsMap()->begin(); itMat != materialLibrary->GetMaterialsMap()->end(); ++itMat) {
-		itMat->second->SetModelMatrixUniform(glm::mat4(1.0f));
-	}
-
 	// iterate over all sections
 	for (auto itSection = voxelScene->GetSections().begin(); itSection != voxelScene->GetSections().end(); ++itSection) {
 
 		// iterate over each mesh per section
 		for (auto itMesh = itSection->second->GetMeshes().begin(); itMesh != itSection->second->GetMeshes().end(); ++itMesh) {
-			MaterialBase* material = nullptr;
-
-			char blockTypeId = itMesh->first;
-			int matId = static_cast<int>(blockTypeId);
+						
+			int materialId = static_cast<int>(itMesh->first);
+			MaterialBase* material = materialLibrary->GetMaterial(materialId);
 			
-			
-			if (matId == 3) {
-				material = materialLibrary->GetMaterial(matId);
-			}
-			else {
-				material = materialLibrary->GetMaterial(1);
-			}
-			
+			if (material == nullptr) {
+				material = defaultBlockMaterial;
+			}			
 
-			/*material = materialLibrary->GetMaterial(1);*/
-
+			material->Bind();	// This is IMPORTANT 
 
 			//TEMP
-			//material->SetModelMatrixUniform(glm::mat4(1.0f));
+			material->SetModelMatrixUniform(glm::mat4(1.0f));
 
 			//TODO: This is redundant! Think about different solution
 			if (camera->GetViewProjectionMatrixIsDirty()) {
@@ -168,7 +157,7 @@ void Renderer::DoVoxelScene(void) {
 				}
 			}
 
-			material->Bind();
+			
 			itMesh->second.Draw();
 			material->Unbind();
 		}
