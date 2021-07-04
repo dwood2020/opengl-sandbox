@@ -131,6 +131,10 @@ void Renderer::DoSimpleCommands(void) {
 // assuming that voxelscene is no nullptr here
 void Renderer::DoVoxelScene(void) {
 
+	for (auto itMat = materialLibrary->GetMaterialsMap()->begin(); itMat != materialLibrary->GetMaterialsMap()->end(); ++itMat) {
+		itMat->second->SetModelMatrixUniform(glm::mat4(1.0f));
+	}
+
 	// iterate over all sections
 	for (auto itSection = voxelScene->GetSections().begin(); itSection != voxelScene->GetSections().end(); ++itSection) {
 
@@ -139,18 +143,22 @@ void Renderer::DoVoxelScene(void) {
 			MaterialBase* material = nullptr;
 
 			char blockTypeId = itMesh->first;
+			int matId = static_cast<int>(blockTypeId);
 			
-			/*auto itMat = blockMaterialMap.find(blockTypeId);
-			if (itMat != blockMaterialMap.end()) {
-				material = blockMaterialMap.at(blockTypeId);
+			
+			if (matId == 3) {
+				material = materialLibrary->GetMaterial(matId);
 			}
 			else {
-				material = materialLibrary->GetMaterial(199);
-			}*/
-			material = materialLibrary->GetMaterial(199);
+				material = materialLibrary->GetMaterial(1);
+			}
+			
+
+			/*material = materialLibrary->GetMaterial(1);*/
+
 
 			//TEMP
-			material->SetModelMatrixUniform(glm::mat4(1.0f));
+			//material->SetModelMatrixUniform(glm::mat4(1.0f));
 
 			//TODO: This is redundant! Think about different solution
 			if (camera->GetViewProjectionMatrixIsDirty()) {

@@ -99,9 +99,6 @@
     <ClCompile Include="src\renderer\VoxelRenderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\renderer\MasterRenderer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\renderer\Renderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -201,9 +198,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\renderer\VoxelRenderer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\MasterRenderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\renderer\Renderer.h">
