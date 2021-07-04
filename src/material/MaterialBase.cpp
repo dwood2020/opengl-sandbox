@@ -36,12 +36,12 @@ void MaterialBase::SetViewPosUniform(const glm::vec3& viewPos) {
 }
 
 
-void MaterialBase::SetUniform(const std::string& name, const Uniform& uniform) {
+void MaterialBase::SetUniform(const std::string& name, const MaterialUniform& uniform) {
 	uniforms[name] = uniform;
 }
 
 
-Uniform* MaterialBase::GetUniform(const std::string& name) {	
+MaterialUniform* MaterialBase::GetUniform(const std::string& name) {	
 	auto it = uniforms.find(name);
 	if (it != uniforms.end()) {
 		return &it->second;

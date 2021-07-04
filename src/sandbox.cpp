@@ -17,7 +17,7 @@
 #include "Texture.h"
 #include "camera/SimpleCamera.h"
 #include "Lighting.h"
-#include "Uniform.h"
+#include "material/MaterialUniform.h"
 #include "material/PhongMaterial.h"
 #include "material/FlatMaterial.h"
 #include "material/MaterialLibrary.h"

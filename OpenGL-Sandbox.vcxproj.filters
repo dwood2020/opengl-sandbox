@@ -60,7 +60,7 @@
     <ClCompile Include="src\shader\ShaderFactory.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\Uniform.cpp">
+    <ClCompile Include="src\material\MaterialUniform.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\material\MaterialBase.cpp">
@@ -146,7 +146,7 @@
     <ClInclude Include="src\shader\ShaderFactory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\Uniform.h">
+    <ClInclude Include="src\material\MaterialUniform.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\material\MaterialBase.h">

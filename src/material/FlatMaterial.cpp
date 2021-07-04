@@ -7,8 +7,8 @@ FlatMaterial::FlatMaterial(ShaderProgram* shaderProgram): MaterialBase(shaderPro
 
 	SetAffectedByLight(false);
 
-	SetUniform(colorName, Uniform(glm::vec3(1.0f)));
-	SetUniform(hasTextureVerticesName, Uniform((int)useColorVertices));
+	SetUniform(colorName, MaterialUniform(glm::vec3(1.0f)));
+	SetUniform(hasTextureVerticesName, MaterialUniform((int)useColorVertices));
 }
 
 
@@ -16,11 +16,11 @@ FlatMaterial::~FlatMaterial() { }
 
 
 void FlatMaterial::SetFlatColor(const glm::vec3& color) {
-	SetUniform(colorName, Uniform(color));
+	SetUniform(colorName, MaterialUniform(color));
 }
 
 
 void FlatMaterial::SetUseColorVertices(bool set) {
 	useColorVertices = true;
-	SetUniform(hasTextureVerticesName, Uniform((int)useColorVertices));
+	SetUniform(hasTextureVerticesName, MaterialUniform((int)useColorVertices));
 }

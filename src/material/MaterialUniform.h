@@ -26,7 +26,7 @@ enum class UniformType {
 /// 
 /// This is a trade-off between memory usage and fragmentation optimization.
 /// </summary>
-class Uniform final {	
+class MaterialUniform final {	
 private:	
 	std::variant<int, float, glm::vec3, std::shared_ptr<glm::mat4>> value;	
 	
@@ -36,34 +36,34 @@ public:
 	/// <summary>
 	/// Default constructor. Sets the location to unspecified: -1
 	/// </summary>
-	Uniform();
+	MaterialUniform();
 
 public:
 	/// <summary>
 	/// Constructor. Sets the location to unspecified: -1
 	/// </summary>
 	/// <param name="value">Uniform value (Integer)</param>
-	Uniform(int value);
+	MaterialUniform(int value);
 
 
 	/// <summary>
 	/// Constructor. Sets the location to unspecified: -1
 	/// </summary>
 	/// <param name="value">Uniform value (Float)</param>
-	Uniform(float value);
+	MaterialUniform(float value);
 
 
 	/// <summary>
 	/// Constructor. Sets the location to unspecified: -1
 	/// </summary>
 	/// <param name="value">Uniform value (Vec3)</param>
-	Uniform(const glm::vec3& value);
+	MaterialUniform(const glm::vec3& value);
 
 	/// <summary>
 	/// Constructor. Sets the location to unspecified: -1
 	/// </summary>
 	/// <param name="value">Uniform value (Mat4)</param>
-	Uniform(const glm::mat4& value);
+	MaterialUniform(const glm::mat4& value);
 
 	/// <summary>
 	/// Gets the uniform type as defined in the enum UniformType.

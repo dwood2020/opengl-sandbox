@@ -5,7 +5,7 @@
 #include <memory>
 #include <glm/glm.hpp>
 #include "../shader/ShaderProgram.h"
-#include "../Uniform.h"
+#include "MaterialUniform.h"
 #include "../Texture.h"
 
 
@@ -28,7 +28,7 @@ protected:
 	int pvUniformLocation;
 	int viewPosUniformLocation;
 
-	std::map<std::string, Uniform> uniforms;
+	std::map<std::string, MaterialUniform> uniforms;
 
 	std::vector<const Texture*> textures;
 
@@ -72,18 +72,18 @@ public:
 	
 
 	/// <summary>
-	/// Sets a uniform.
+	/// Sets a material uniform.
 	/// </summary>
 	/// <param name="name">Uniform name</param>
 	/// <param name="uniform">Uniform object</param>
-	void SetUniform(const std::string& name, const Uniform& uniform);
+	void SetUniform(const std::string& name, const MaterialUniform& uniform);
 
 	/// <summary>
-	/// Gets a uniform object by name.
+	/// Gets a material uniform object by name.
 	/// </summary>
 	/// <param name="name">Uniform name</param>
 	/// <returns>Uniform object</returns>
-	Uniform* GetUniform(const std::string& name);	
+	MaterialUniform* GetUniform(const std::string& name);	
 
 	/// <summary>
 	/// Adds a texture to the texture stack.

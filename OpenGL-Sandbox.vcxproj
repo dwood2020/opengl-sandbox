@@ -190,7 +190,7 @@
     <ClCompile Include="src\window\WindowBase.cpp" />
     <ClCompile Include="src\sandbox.cpp" />
     <ClCompile Include="src\Texture.cpp" />
-    <ClCompile Include="src\Uniform.cpp" />
+    <ClCompile Include="src\material\MaterialUniform.cpp" />
     <ClCompile Include="src\voxel\VoxelScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -222,7 +222,7 @@
     <ClInclude Include="src\glad\khrplatform.h" />
     <ClInclude Include="src\window\WindowBase.h" />
     <ClInclude Include="src\Texture.h" />
-    <ClInclude Include="src\Uniform.h" />
+    <ClInclude Include="src\material\MaterialUniform.h" />
     <ClInclude Include="src\voxel\VoxelScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
