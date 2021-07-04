@@ -21,9 +21,7 @@
 #include "material/PhongMaterial.h"
 #include "material/FlatMaterial.h"
 #include "material/MaterialLibrary.h"
-//#include "renderer/SimpleRenderer.h"
 #include "voxel/VoxelScene.h"
-//#include "renderer/RendererMaster.h"
 #include "renderer/Renderer.h"
 
 #include <chrono>
@@ -79,46 +77,32 @@ int main(int argc, char* argv[]) {
 	ShaderFactory shaderFactory;
 	MaterialLibrary materialLibrary(&shaderFactory);
 
-
+	// init window
 	IupWindow window(&eventBus, 800, 600, "OpenGL Sandbox - IUP Window");		
 	window.Init(argc, argv);
 	window.MakeContextCurrent();
-
-	//now load OpenGL
-	//TODO: Move this into RendererMaster
-	if (!gladLoadGL()) {		
-		std::cout << "gladLoadGL failed" << std::endl;
-		return -1;
-	}
-
-
-	glm::vec3 initialCameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
-	SimpleCamera camera(eventBus, window.GetWindowRect(), initialCameraPos);
-
-
 	eventBus.AddListener(EventType::WindowResize, &sandboxListener);
 	eventBus.AddListener(EventType::WindowClose, &sandboxListener);
 
+	//now load OpenGL	
+	if (!Renderer::LoadGL()) {
+		return -1;
+	}
 
-	//glClearColor(0.075f, 0.196f, 0.325f, 1.0f);	
-	// use lighting class
+	// init camera
+	glm::vec3 initialCameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
+	SimpleCamera camera(eventBus, window.GetWindowRect(), initialCameraPos);
+
+	// init basic global lighting
 	Lighting lighting;
 	lighting.SetDirection(glm::vec3(-0.8f, -1.2f, -1.0f));	//NOTE: Not exactly pointed towards corner to make sides of cube better visible
 	lighting.SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	lighting.SetAmbientFactor(0.5f);
-
-	// use renderer
-	//SimpleRenderer renderer(eventBus, lighting, camera);
-
+	
+	// use renderer	
 	Renderer renderer(eventBus, lighting, camera, materialLibrary);	
 	renderer.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));
 	renderer.Init(window.GetWindowRect());
-
-	/*RendererMaster rendererMaster(eventBus, camera);
-	rendererMaster.AddRenderer(renderer);
-	
-	rendererMaster.InitRenderState(window.GetWindowRect());
-	rendererMaster.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));*/
 
 	
 	std::string glVersionStr = (const char*)glGetString(GL_VERSION);
@@ -126,8 +110,7 @@ int main(int argc, char* argv[]) {
 	window.SetGLVersionLabel(glVersionStr);
 
 	
-
-	//StaticMesh mesh = meshFactory.MakeRectangle(1.0f, 1.0f);
+	
 	StaticMesh mesh = meshFactory.MakeCube(1.0f, true);	
 	StaticMesh gridMesh = meshFactory.MakeSimpleGrid(20.0f);
 	StaticMesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
@@ -201,13 +184,16 @@ int main(int argc, char* argv[]) {
 	FlatMaterial* gridMaterial = materialLibrary.MakeFlatMaterial(200);
 	gridMaterial->SetFlatColor(glm::vec3(0.33f));
 
+	FlatMaterial* coordSystemMaterial = materialLibrary.MakeFlatMaterial(201);
+	coordSystemMaterial->SetUseColorVertices(true);
+
+
 	PhongMaterial* defaultMaterial = materialLibrary.MakePhongMaterial(1);
 	defaultMaterial->SetDiffuseColor(glm::vec3(0.5f));
 	defaultMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.3f);
 	defaultMaterial->SetShininess(32.0f);
 
-	FlatMaterial* coordSystemMaterial = materialLibrary.MakeFlatMaterial(201);
-	coordSystemMaterial->SetUseColorVertices(true);
+	
 
 	PhongMaterial* yellowDebugMaterial = materialLibrary.MakePhongMaterial(2);
 	yellowDebugMaterial->SetDiffuseColor(glm::vec3(0.8f, 0.8f, 0.1f));
@@ -240,31 +226,14 @@ int main(int argc, char* argv[]) {
 	renderer.AddBlockMaterialMapping(3, greenDebugMaterial);*/
 
 
-	/*std::map<char, MaterialBase*> dummyMaterials;
-	dummyMaterials.insert(std::pair<char, MaterialBase*>(1, defaultMaterial));
-	dummyMaterials.insert(std::pair<char, MaterialBase*>(2, yellowDebugMaterial));
-	dummyMaterials.insert(std::pair<char, MaterialBase*>(3, greenDebugMaterial));
-	
-	
-	for (auto sectionIt = voxelScene.GetSections().begin(); sectionIt != voxelScene.GetSections().end(); ++sectionIt) {
-
-		for (auto meshIt = sectionIt->second->GetMeshes().begin(); meshIt != sectionIt->second->GetMeshes().end(); ++meshIt) {			
-			renderer.AddSimpleCommand(Mid, &meshIt->second, dummyMaterials[meshIt->first]);
-		}
-
-	}*/
-
-
-	renderer.Prepare();
-	//rendererMaster.PrepareRenderers();
+	renderer.Prepare();	
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	//glEnable(GL_DEPTH_TEST);
 
 	while (!g_exitProgram) {		
 
-		renderer.DoFrame();
-		//rendererMaster.DoFrame();
+		renderer.DoFrame();		
 
 		window.SwapBuffers();
 		window.DoFrame();

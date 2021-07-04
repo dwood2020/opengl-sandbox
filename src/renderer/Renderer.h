@@ -38,6 +38,9 @@ private:
 	Renderer() = default;
 
 public:
+	static bool LoadGL(void);
+
+
 	Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, MaterialLibrary& materialLibrary);
 
 	~Renderer();
@@ -68,6 +71,7 @@ public:
 
 
 	void DoFrame(void);
+	
 
 private:
 	void DoSimpleCommands(void);

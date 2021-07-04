@@ -5,8 +5,18 @@
 #include <iostream>
 
 
+
+bool Renderer::LoadGL(void) {
+	if (!gladLoadGL()) {
+		std::cout << "Renderer::LoadGL: gladLoadGL failed" << std::endl;
+		return false;
+	}
+	return true;
+}
+
+
 Renderer::Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, MaterialLibrary& materialLibrary): 
-	lighting(&lighting), camera(&camera), materialLibrary(&materialLibrary), voxelScene(nullptr) {
+	lighting(&lighting), camera(&camera), materialLibrary(&materialLibrary), voxelScene(nullptr), defaultBlockMaterial(nullptr) {
 	
 	// register for events
 	eventBus.AddListener(EventType::WindowResize, this);
