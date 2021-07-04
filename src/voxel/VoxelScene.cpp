@@ -46,14 +46,6 @@ void VoxelScene::GenerateMeshes(void) {
 
 std::array<int, 3> VoxelScene::CalcSectionPosKey(const glm::ivec3& pos) {
 	std::array<int, 3> a = { 0 };
-	/*a[0] = pos.x / static_cast<int>(Section::sectionSize);
-	a[1] = pos.y / static_cast<int>(Section::sectionSize);
-	a[2] = pos.z / static_cast<int>(Section::sectionSize);
-
-	if (pos.x < 0) a[0] -= 1;
-	if (pos.y < 0) a[1] -= 1;
-	if (pos.z < 0) a[2] -= 1;*/
-
 
 	float xf = static_cast<float>(pos.x);
 	float xq = xf / static_cast<float>(Section::sectionSize);
