@@ -100,16 +100,16 @@ void MaterialBase::Prepare(void) {
 		}
 
 		switch (it->second.GetType()) {
-		case UniformType::Int:
+		case MaterialUniformType::Int:
 			shaderProgram->SetUniformInt(it->second.GetLocation(), it->second.GetInt());
 			break;
-		case UniformType::Float:
+		case MaterialUniformType::Float:
 			shaderProgram->SetUniformFloat(it->second.GetLocation(), it->second.GetFloat());
 			break;
-		case UniformType::Vec3:
+		case MaterialUniformType::Vec3:
 			shaderProgram->SetUniformVec3(it->second.GetLocation(), it->second.GetVec3());
 			break;
-		case UniformType::Mat4:
+		case MaterialUniformType::Mat4:
 			shaderProgram->SetUniformMat4(it->second.GetLocation(), it->second.GetMat4());
 			break;
 		default:

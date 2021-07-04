@@ -8,7 +8,7 @@
 /// This enum represents all possible uniform data types.
 /// It is equivalent with the variant fields in the Uniform class.
 /// </summary>
-enum class UniformType {
+enum class MaterialUniformType {
 	Int = 0,
 	Float,
 	Vec3,
@@ -66,10 +66,10 @@ public:
 	MaterialUniform(const glm::mat4& value);
 
 	/// <summary>
-	/// Gets the uniform type as defined in the enum UniformType.
+	/// Gets the uniform type as defined in the enum MaterialUniformType.
 	/// </summary>	
 	/// <returns>Uniform type</returns>
-	UniformType GetType(void) const;
+	MaterialUniformType GetType(void) const;
 
 	/// <summary>
 	/// Gets the cached uniform location. Returns the initial value -1 if not cached/set yet.

@@ -16,8 +16,8 @@ MaterialUniform::MaterialUniform(const glm::vec3& value): value(value), location
 MaterialUniform::MaterialUniform(const glm::mat4& value): value(std::make_shared<glm::mat4>(value)), location(-1) { }
 
 
-UniformType MaterialUniform::GetType(void) const {
-	return (UniformType)value.index();
+MaterialUniformType MaterialUniform::GetType(void) const {
+	return (MaterialUniformType)value.index();
 }
 
 
@@ -33,7 +33,7 @@ void MaterialUniform::SetLocation(int location) {
 
 //TODO: Add type checks!
 int MaterialUniform::GetInt(void) const {
-	return std::get<(size_t)UniformType::Int>(value);
+	return std::get<(size_t)MaterialUniformType::Int>(value);
 }
 
 
@@ -43,38 +43,38 @@ float MaterialUniform::GetFloat(void) const {
 
 
 const glm::vec3& MaterialUniform::GetVec3(void) const {
-	return std::get<(size_t)UniformType::Vec3>(value);
+	return std::get<(size_t)MaterialUniformType::Vec3>(value);
 }
 
 
 const glm::mat4& MaterialUniform::GetMat4(void) const {
-	return *std::get<(size_t)UniformType::Mat4>(value);
+	return *std::get<(size_t)MaterialUniformType::Mat4>(value);
 }
 
 
 void MaterialUniform::UpdateValue(int value) {
-	if (((UniformType)this->value.index()) == UniformType::Int) {
+	if (((MaterialUniformType)this->value.index()) == MaterialUniformType::Int) {
 		this->value = value;
 	}
 }
 
 
 void MaterialUniform::UpdateValue(float value) {
-	if (((UniformType)this->value.index()) == UniformType::Float) {
+	if (((MaterialUniformType)this->value.index()) == MaterialUniformType::Float) {
 		this->value = value;
 	}
 }
 
 
 void MaterialUniform::UpdateValue(const glm::vec3& value) {
-	if (((UniformType)this->value.index()) == UniformType::Vec3) {
+	if (((MaterialUniformType)this->value.index()) == MaterialUniformType::Vec3) {
 		this->value = value;
 	}
 }
 
 
 void MaterialUniform::UpdateValue(const glm::mat4& value) {
-	if (((UniformType)this->value.index()) == UniformType::Mat4) {
-		*std::get<(size_t)UniformType::Mat4>(this->value) = value;
+	if (((MaterialUniformType)this->value.index()) == MaterialUniformType::Mat4) {
+		*std::get<(size_t)MaterialUniformType::Mat4>(this->value) = value;
 	}
 }
