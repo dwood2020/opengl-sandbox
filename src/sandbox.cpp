@@ -134,6 +134,23 @@ int main(int argc, char* argv[]) {
 	voxelScene.SetBlock({ -9,0,0 }, 2);
 	voxelScene.SetBlock({ -7,0,0 }, 3);
 	voxelScene.SetBlock({ -6,0,0 }, 4);
+
+	//a little arc
+	voxelScene.SetBlock({ 12,2,0 }, 1);
+	voxelScene.SetBlock({ 12,3,0 }, 1);
+	voxelScene.SetBlock({ 13,3,0 }, 1);
+	voxelScene.SetBlock({ 14,3,0 }, 1);
+	voxelScene.SetBlock({ 14,2,0 }, 1);
+	voxelScene.SetBlock({ 14,1,0 }, 1);
+	voxelScene.SetBlock({ 14,0,0 }, 1);
+
+	// a litle wall
+	voxelScene.SetBlock({ 14,0,1 }, 1);
+	voxelScene.SetBlock({ 14,1,1 }, 1);
+	voxelScene.SetBlock({ 14,0,2 }, 1);
+	voxelScene.SetBlock({ 14,1,2 }, 1);
+	voxelScene.SetBlock({ 14,0,3 }, 1);
+	voxelScene.SetBlock({ 14,1,3 }, 1);
 	
 	voxelScene.GenerateMeshes();
 
