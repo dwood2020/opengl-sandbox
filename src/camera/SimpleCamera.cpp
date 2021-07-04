@@ -125,7 +125,7 @@ void SimpleCamera::PerformRotation(float x, float y) {
 
 	theta = std::clamp(theta + delta.y, -90.0f, 90.0f);
 	phi = std::fmodf(phi + delta.x, 360.0f);
-	//NOTE rho is untouched (no zooming atm)
+	//NOTE: rho is untouched here
 
 	//std::cout << "rho: " << rho << "  phi: " << phi << "  theta: " << theta << std::endl;
 
@@ -156,12 +156,15 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 	const float upScale = 3.0f;
 	const glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f);	
 
+	const float acceleration = rho * 0.3f;
+
 	glm::vec3 dir = target - position;
 	
 	glm::vec3 right = glm::normalize(glm::cross(dir, worldUp));
 	glm::vec3 up = glm::normalize(glm::cross(dir, right));
 
 	glm::vec3 deltaPan = (right * delta.x * rightScale) + (up * delta.y * upScale);
+	deltaPan *= acceleration;
 
 	target = target + deltaPan;
 	position = position + deltaPan;
@@ -173,6 +176,7 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 void SimpleCamera::PerformZoom(MouseScrollDirection dir) {	
 	
 	const float rhoMin = 0.5f;
+	const float accelerator = rho * 0.2f;
 	float delta = 0.5f;
 
 	if (dir == MouseScrollDirection::Up) {
@@ -182,7 +186,7 @@ void SimpleCamera::PerformZoom(MouseScrollDirection dir) {
 		delta *= 1.0f;
 	}
 
-	rho += delta;
+	rho += delta * accelerator;
 	rho = std::max(rho, rhoMin);
 
 	UpdateViewProjectionMatrixAndPosition();

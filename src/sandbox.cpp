@@ -155,11 +155,6 @@ int main(int argc, char* argv[]) {
 	voxelScene.GenerateMeshes();
 
 
-	//TEST
-
-	std::cout << floor(-0.5f) << std::endl;
-
-
 	// Textures
 	// --------
 	Texture tex1 = Texture::GenerateFromFile("res/texture/box.png", GL_NEAREST);
