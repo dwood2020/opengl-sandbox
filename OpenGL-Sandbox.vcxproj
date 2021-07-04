@@ -168,12 +168,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\renderer\Renderer.cpp" />
-    <ClCompile Include="src\renderer\RendererMaster.cpp" />
     <ClCompile Include="src\voxel\Section.cpp" />
     <ClCompile Include="src\mesh\DynamicMesh.cpp" />
     <ClCompile Include="src\mesh\MeshBase.cpp" />
-    <ClCompile Include="src\renderer\RendererBase.cpp" />
-    <ClCompile Include="src\renderer\SimpleRenderer.cpp" />
     <ClCompile Include="src\material\MaterialLibrary.cpp" />
     <ClCompile Include="src\material\FlatMaterial.cpp" />
     <ClCompile Include="src\material\PhongMaterial.cpp" />
@@ -195,18 +192,14 @@
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Uniform.cpp" />
     <ClCompile Include="src\voxel\VoxelScene.cpp" />
-    <ClCompile Include="src\renderer\VoxelRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\renderer\Renderer.h" />
-    <ClInclude Include="src\renderer\RendererMaster.h" />
     <ClInclude Include="src\events\WindowEvents.hpp" />
     <ClInclude Include="src\renderer\SimpleRenderCommand.hpp" />
     <ClInclude Include="src\voxel\Section.h" />
     <ClInclude Include="src\mesh\DynamicMesh.h" />
     <ClInclude Include="src\mesh\MeshBase.h" />
-    <ClInclude Include="src\renderer\RendererBase.h" />
-    <ClInclude Include="src\renderer\SimpleRenderer.h" />
     <ClInclude Include="src\material\MaterialLibrary.h" />
     <ClInclude Include="src\material\FlatMaterial.h" />
     <ClInclude Include="src\material\PhongMaterial.h" />
@@ -231,7 +224,6 @@
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Uniform.h" />
     <ClInclude Include="src\voxel\VoxelScene.h" />
-    <ClInclude Include="src\renderer\VoxelRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

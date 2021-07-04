@@ -75,12 +75,6 @@
     <ClCompile Include="src\material\MaterialLibrary.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\renderer\SimpleRenderer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderer\RendererBase.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\mesh\MeshBase.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -91,12 +85,6 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\voxel\VoxelScene.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderer\RendererMaster.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderer\VoxelRenderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\renderer\Renderer.cpp">
@@ -173,12 +161,6 @@
     <ClInclude Include="src\material\MaterialLibrary.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\renderer\SimpleRenderer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\RendererBase.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\mesh\MeshBase.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -192,12 +174,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\voxel\VoxelScene.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\RendererMaster.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\VoxelRenderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\renderer\Renderer.h">
