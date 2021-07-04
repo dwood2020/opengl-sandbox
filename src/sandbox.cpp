@@ -25,7 +25,7 @@
 #include "renderer/Renderer.h"
 
 #include <chrono>
-
+#include <cmath>
 
 bool g_exitProgram = false;
 
@@ -130,10 +130,18 @@ int main(int argc, char* argv[]) {
 	voxelScene.SetBlock({ -1,0,0 }, 4);
 	char b003 = voxelScene.GetBlock({ 2,0,3 });
 	
+	voxelScene.SetBlock({ -8,0,0 }, 1);
+	voxelScene.SetBlock({ -9,0,0 }, 2);
+	voxelScene.SetBlock({ -7,0,0 }, 3);
+	voxelScene.SetBlock({ -6,0,0 }, 4);
+	
 	voxelScene.GenerateMeshes();
 
 
-	
+	//TEST
+
+	std::cout << floor(-0.5f) << std::endl;
+
 
 	// Textures
 	// --------
@@ -176,7 +184,7 @@ int main(int argc, char* argv[]) {
 	phongMaterial1->SetSpecularColor(glm::vec3(1.0f));
 
 
-	PhongMaterial* woodenBoxMaterial = materialLibrary.MakePhongMaterial(102);
+	PhongMaterial* woodenBoxMaterial = materialLibrary.MakePhongMaterial(10);
 	woodenBoxMaterial->SetDiffuseColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	woodenBoxMaterial->SetDiffuseTexture(tex1);
 	woodenBoxMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);

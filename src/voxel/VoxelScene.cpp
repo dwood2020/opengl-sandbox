@@ -46,13 +46,26 @@ void VoxelScene::GenerateMeshes(void) {
 
 std::array<int, 3> VoxelScene::CalcSectionPosKey(const glm::ivec3& pos) {
 	std::array<int, 3> a = { 0 };
-	a[0] = pos.x / static_cast<int>(Section::sectionSize);
+	/*a[0] = pos.x / static_cast<int>(Section::sectionSize);
 	a[1] = pos.y / static_cast<int>(Section::sectionSize);
 	a[2] = pos.z / static_cast<int>(Section::sectionSize);
 
 	if (pos.x < 0) a[0] -= 1;
 	if (pos.y < 0) a[1] -= 1;
-	if (pos.z < 0) a[2] -= 1;
+	if (pos.z < 0) a[2] -= 1;*/
+
+
+	float xf = static_cast<float>(pos.x);
+	float xq = xf / static_cast<float>(Section::sectionSize);
+	a[0] = static_cast<int>(floor(xq));
+
+	float yf = static_cast<float>(pos.y);
+	float yq = yf / static_cast<float>(Section::sectionSize);
+	a[1] = static_cast<int>(floor(yq));
+	
+	float zf = static_cast<float>(pos.z);
+	float zq = zf / static_cast<float>(Section::sectionSize);
+	a[2] = static_cast<int>(floor(zq));
 
 	return a;
 }
@@ -66,6 +79,10 @@ glm::ivec3 VoxelScene::ToSectionCoords(const glm::ivec3& pos) {
 	}
 	else {
 		sp.x = Section::sectionSize - abs(pos.x % static_cast<int>(Section::sectionSize));
+		//TODO: This bounds check is Ugly af. Rethink the mathematical way of how to calculate the intervals < 0 !!
+		if (sp.x == Section::sectionSize) {
+			sp.x = 0;
+		}
 	}
 
 	if (pos.y >= 0) {
@@ -73,6 +90,9 @@ glm::ivec3 VoxelScene::ToSectionCoords(const glm::ivec3& pos) {
 	}
 	else {
 		sp.y = Section::sectionSize - abs(pos.y % static_cast<int>(Section::sectionSize));
+		if (sp.y == Section::sectionSize) {
+			sp.y = 0;
+		}
 	}
 	
 	if (pos.z >= 0) {
@@ -80,6 +100,9 @@ glm::ivec3 VoxelScene::ToSectionCoords(const glm::ivec3& pos) {
 	}
 	else {
 		sp.z = Section::sectionSize - abs(pos.z % static_cast<int>(Section::sectionSize));
+		if (sp.z == Section::sectionSize) {
+			sp.z = 0;
+		}
 	}
 	
 	
