@@ -13,7 +13,7 @@ IupWindow::~IupWindow() {
 
 
 void IupWindow::Init(int argc, char** argv) {
-	IupOpen(&argc, &argv);
+	InitIup(argc, argv);
 	
 	InitCanvas();
 
@@ -43,9 +43,14 @@ void IupWindow::DoFrame(void) {
 }
 
 
-void IupWindow::InitCanvas(void) {
+void IupWindow::InitIup(int argc, char** argv) {
+	IupOpen(&argc, &argv);
 	IupGLCanvasOpen();
+}
 
+
+void IupWindow::InitCanvas(void) {
+	
 	canvas = IupGLCanvas(NULL);
 	IupSetAttribute(canvas, "BUFFER", "DOUBLE");	//NOTE: this makes the rendering MUCH faster
 	IupSetAttribute(canvas, "DIRTY", "NO");

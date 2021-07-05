@@ -30,6 +30,7 @@ public:
 	void SetGLVersionLabel(const std::string& glVersion);
 
 protected:
+	void InitIup(int argc, char** argv);
 	void InitCanvas(void);
 	void InitDlg(Ihandle* topLevelIupBox = nullptr);
 
