@@ -185,7 +185,7 @@
     <ClCompile Include="src\shader\ShaderProgram.cpp" />
     <ClCompile Include="src\shader\Shader.cpp" />
     <ClCompile Include="src\stb\stb_image.cpp" />
-    <ClCompile Include="src\window\IupWindow.cpp" />
+    <ClCompile Include="src\window\IupWindowBase.cpp" />
     <ClCompile Include="src\glad\glad.c" />
     <ClCompile Include="src\window\WindowBase.cpp" />
     <ClCompile Include="src\sandbox.cpp" />
@@ -217,7 +217,7 @@
     <ClInclude Include="src\mesh\StaticMesh.h" />
     <ClInclude Include="src\shader\ShaderProgram.h" />
     <ClInclude Include="src\shader\Shader.h" />
-    <ClInclude Include="src\window\IupWindow.h" />
+    <ClInclude Include="src\window\IupWindowBase.h" />
     <ClInclude Include="src\glad\glad.h" />
     <ClInclude Include="src\glad\khrplatform.h" />
     <ClInclude Include="src\window\WindowBase.h" />

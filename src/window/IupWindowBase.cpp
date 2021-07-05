@@ -1,18 +1,18 @@
-#include "IupWindow.h"
+#include "IupWindowBase.h"
 #include <string>
 #include <iup/iupkey.h>
 
 
-IupWindow::IupWindow(EventBus* eventBus, int width, int height, const std::string& title):
+IupWindowBase::IupWindowBase(EventBus* eventBus, int width, int height, const std::string& title):
 	WindowBase(eventBus, width, height, title), labelGlVersion(nullptr), canvas(nullptr), dlg(nullptr) { }
 
 
-IupWindow::~IupWindow() { 
+IupWindowBase::~IupWindowBase() { 
 	IupClose();
 }
 
 
-void IupWindow::Init(int argc, char** argv) {
+void IupWindowBase::Init(int argc, char** argv) {
 	InitIup(argc, argv);
 	
 	InitCanvas();
@@ -28,34 +28,34 @@ void IupWindow::Init(int argc, char** argv) {
 }
 
 
-void IupWindow::MakeContextCurrent(void) {
+void IupWindowBase::MakeContextCurrent(void) {
 	IupGLMakeCurrent(canvas);
 }
 
 
-void IupWindow::SwapBuffers(void) {
+void IupWindowBase::SwapBuffers(void) {
 	IupGLSwapBuffers(canvas);
 }
 
 
-void IupWindow::DoFrame(void) {
+void IupWindowBase::DoFrame(void) {
 	IupLoopStep();
 }
 
 
-void IupWindow::InitIup(int argc, char** argv) {
+void IupWindowBase::InitIup(int argc, char** argv) {
 	IupOpen(&argc, &argv);
 	IupGLCanvasOpen();
 }
 
 
-void IupWindow::InitCanvas(void) {
+void IupWindowBase::InitCanvas(void) {
 	
 	canvas = IupGLCanvas(NULL);
 	IupSetAttribute(canvas, "BUFFER", "DOUBLE");	//NOTE: this makes the rendering MUCH faster
 	IupSetAttribute(canvas, "DIRTY", "NO");
 
-	IUP_CLASS_INITCALLBACK(canvas, IupWindow);
+	IUP_CLASS_INITCALLBACK(canvas, IupWindowBase);
 	IUP_CLASS_SETCALLBACK(canvas, "RESIZE_CB", CanvasResizeCb);
 	IUP_CLASS_SETCALLBACK(canvas, "BUTTON_CB", CanvasButtonCb);
 	IUP_CLASS_SETCALLBACK(canvas, "KEYPRESS_CB", CanvasKeyCb);
@@ -64,7 +64,7 @@ void IupWindow::InitCanvas(void) {
 }
 
 
-void IupWindow::InitDlg(Ihandle* topLevelIupBox) {
+void IupWindowBase::InitDlg(Ihandle* topLevelIupBox) {
 
 	if (topLevelIupBox == nullptr) {
 		Ihandle* defaultBox = IupVbox(canvas, NULL);
@@ -79,17 +79,17 @@ void IupWindow::InitDlg(Ihandle* topLevelIupBox) {
 	IupSetAttribute(dlg, "RASTERSIZE", size.c_str());
 	IupSetAttribute(dlg, "TITLE", this->title.c_str());
 
-	IUP_CLASS_INITCALLBACK(dlg, IupWindow);
+	IUP_CLASS_INITCALLBACK(dlg, IupWindowBase);
 	IUP_CLASS_SETCALLBACK(dlg, "CLOSE_CB", DialogCloseCb);
 }
 
 
-void IupWindow::ShowDlg(void) {
+void IupWindowBase::ShowDlg(void) {
 	IupShowXY(dlg, IUP_CENTER, IUP_CENTER);
 }
 
 
-const glm::vec2 IupWindow::GetWindowRect(void) {
+const glm::vec2 IupWindowBase::GetWindowRect(void) {
 
 	int w, h;
 	IupGetIntInt(canvas, "DRAWSIZE", &w, &h);
@@ -105,7 +105,7 @@ const glm::vec2 IupWindow::GetWindowRect(void) {
 // IUP callbacks
 // -------------
 
-int IupWindow::CanvasResizeCb(Ihandle* self, int width, int height) {
+int IupWindowBase::CanvasResizeCb(Ihandle* self, int width, int height) {
 
 	WindowResizeEvent e(width, height);
 	OnEvent(e);
@@ -114,7 +114,7 @@ int IupWindow::CanvasResizeCb(Ihandle* self, int width, int height) {
 }
 
 
-int IupWindow::DialogCloseCb(Ihandle* self) {	
+int IupWindowBase::DialogCloseCb(Ihandle* self) {	
 
 	WindowCloseEvent e;
 	OnEvent(e);
@@ -123,7 +123,7 @@ int IupWindow::DialogCloseCb(Ihandle* self) {
 }
 
 
-int IupWindow::CanvasButtonCb(Ihandle* self, int button, int pressed, int x, int y, char* status) {
+int IupWindowBase::CanvasButtonCb(Ihandle* self, int button, int pressed, int x, int y, char* status) {
 
 	//TODO: Move this into a central lookup table/function (maybe namespace in keycodes?)
 	MouseButtonCode mbCode;
@@ -145,7 +145,7 @@ int IupWindow::CanvasButtonCb(Ihandle* self, int button, int pressed, int x, int
 }
 
 
-int IupWindow::CanvasKeyCb(Ihandle* self, int c, int press) {
+int IupWindowBase::CanvasKeyCb(Ihandle* self, int c, int press) {
 	KeyCode keycode;
 	
 	switch (c) {
@@ -176,7 +176,7 @@ int IupWindow::CanvasKeyCb(Ihandle* self, int c, int press) {
 }
 
 
-int IupWindow::CanvasMouseMoveCb(Ihandle* self, int x, int y, char* status) {
+int IupWindowBase::CanvasMouseMoveCb(Ihandle* self, int x, int y, char* status) {
 	
 	MouseMoveEvent e(x, y);
 	OnEvent(e);
@@ -185,7 +185,7 @@ int IupWindow::CanvasMouseMoveCb(Ihandle* self, int x, int y, char* status) {
 }
 
 
-int IupWindow::CanvasWheelCb(Ihandle* self, float delta, int x, int y, char* status) {
+int IupWindowBase::CanvasWheelCb(Ihandle* self, float delta, int x, int y, char* status) {
 	
 	MouseScrollDirection dir = MouseScrollDirection::None;
 	if (delta < -0.5f) {
@@ -204,6 +204,6 @@ int IupWindow::CanvasWheelCb(Ihandle* self, float delta, int x, int y, char* sta
 
 
 // custom function which will not be needed in IupWindowBase class
-void IupWindow::SetGLVersionLabel(const std::string& glVersion) {
+void IupWindowBase::SetGLVersionLabel(const std::string& glVersion) {
 	IupSetAttribute(labelGlVersion, "TITLE", glVersion.c_str());
 }

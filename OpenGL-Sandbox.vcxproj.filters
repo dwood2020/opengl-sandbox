@@ -18,7 +18,7 @@
     <ClCompile Include="src\glad\glad.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\window\IupWindow.cpp">
+    <ClCompile Include="src\window\IupWindowBase.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\window\WindowBase.cpp">
@@ -98,7 +98,7 @@
     <ClInclude Include="src\glad\khrplatform.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\window\IupWindow.h">
+    <ClInclude Include="src\window\IupWindowBase.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\window\WindowBase.h">

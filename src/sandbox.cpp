@@ -7,7 +7,7 @@
 #include "events/EventBus.h"
 #include "events/EventListener.hpp"
 #include "events/Keycodes.hpp"
-#include "window/IupWindow.h"
+#include "window/IupWindowBase.h"
 #include "shader/Shader.h"
 #include "shader/ShaderProgram.h"
 #include "shader/ShaderFactory.h"
@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 	MaterialLibrary materialLibrary(&shaderFactory);
 
 	// init window
-	IupWindow window(&eventBus, 800, 600, "OpenGL Sandbox - IUP Window");		
+	IupWindowBase window(&eventBus, 800, 600, "OpenGL Sandbox - IUP Window");		
 	window.Init(argc, argv);
 	window.MakeContextCurrent();
 	eventBus.AddListener(EventType::WindowResize, &sandboxListener);
