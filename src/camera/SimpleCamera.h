@@ -16,6 +16,8 @@ private:
 	bool isFirstFrame;
 	glm::vec2 lastMousePosNDC;
 
+	bool isOrthographic;
+
 	// these angles define camera orientation in world coordinates
 	// NOTE: the camera position is NOT calculated in sphere coordinates
 	float rho;
@@ -60,6 +62,12 @@ public:
 	/// </summary>
 	/// <returns>camera position [world]</returns>
 	const glm::vec3& GetPosition(void) const override;
+
+	/// <summary>
+	/// Sets the projection mode.
+	/// </summary>
+	/// <param name="orthographic">True if mode is orthographic</param>
+	void SetProjectionMode(bool orthographic);
 
 	/// <summary>
 	/// The event handler (see CameraBase)
@@ -109,9 +117,8 @@ private:
 	/// <summary>
 	/// Calculates the camera projection matrix as orthographic or perspective projection,
 	/// updates View projection matrix PV.
-	/// </summary>
-	/// <param name="asOrthographic">True for orthographic proj., False for perspective proj.</param>
-	void CalcProjection(bool asOrthographic = false);	
+	/// </summary>	
+	void CalcProjection(void);	
 
 	/// <summary>
 	/// Transforms screen coordinates into Normalized Device Coordinates (NDC)

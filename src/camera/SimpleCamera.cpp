@@ -10,7 +10,7 @@
 SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, const glm::vec3& pos):
 	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)), PV(glm::mat4(1.0f)), windowRect(windowRect),
 	lmbIsDown(false), mmbIsDown(false), isFirstFrame(true), lastMousePosNDC(glm::vec2(0.0f)),
-	target(glm::vec3(0.0f)) {
+	target(glm::vec3(0.0f)), isOrthographic(false) {
 	
 	rho = glm::length(target - pos);
 	phi = 0.0f;
@@ -54,6 +54,13 @@ const glm::vec3& SimpleCamera::GetPosition(void) const {
 }
 
 
+void SimpleCamera::SetProjectionMode(bool orthographic) {
+	isOrthographic = orthographic;
+	CalcProjection();
+	UpdateViewProjectionMatrixAndPosition();
+}
+
+
 void SimpleCamera::OnEvent(Event& e) {
 	if (e.GetType() == EventType::WindowResize) {
 		WindowResizeEvent& eResize = (WindowResizeEvent&)e;
@@ -74,7 +81,16 @@ void SimpleCamera::OnEvent(Event& e) {
 		PerformZoom(ems.GetScrollDirection());
 	}
 	else if (e.GetType() == EventType::ProjectionModeChanged) {
+		//DEBUG:
 		std::cout << "SimpleCamera received ProjectionModeChanged event" << std::endl;
+
+		ProjectionModeChangedEvent& epm = (ProjectionModeChangedEvent&)e;
+		if (epm.GetProjectionMode() == ProjectionMode::Orthographic) {
+			SetProjectionMode(true);
+		}
+		else {
+			SetProjectionMode(false);
+		}
 	}
 }
 
@@ -225,13 +241,14 @@ void SimpleCamera::UpdateViewProjectionMatrixAndPosition(void) {
 }
 
 
-void SimpleCamera::CalcProjection(bool asOrthographic) {
+void SimpleCamera::CalcProjection(void) {
 	
 	float w = windowRect.x;
 	float h = windowRect.y;	
 
-	if (asOrthographic) {
+	if (isOrthographic) {
 		// orthographic projection
+		std::cout << "HELLO!" << std::endl;
 		w = w / 100.0f;
 		h = h / 100.0f;
 		P = glm::ortho(-w / 2.0f, w / 2.0f, -h / 2.0f, h / 2.0f, 1.0f, 100.0f);
