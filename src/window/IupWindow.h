@@ -30,6 +30,9 @@ public:
 	void SetGLVersionLabel(const std::string& glVersion);
 
 protected:
+	void InitCanvas(void);
+	void InitDlg(Ihandle* topLevelIupBox);
+
 	// callbacks
 	IUP_CLASS_DECLARECALLBACK_IFnii(IupWindow, CanvasResizeCb);
 	IUP_CLASS_DECLARECALLBACK_IFn(IupWindow, DialogCloseCb);

@@ -14,21 +14,12 @@ IupWindow::~IupWindow() {
 
 void IupWindow::Init(int argc, char** argv) {
 	IupOpen(&argc, &argv);
-	IupGLCanvasOpen();
+	
+	InitCanvas();
 
 	Ihandle* label1 = IupLabel("This is a simple IUP Dialog. Running on OpenGL Version ");
 	labelGlVersion = IupLabel(" xx");
-
-	canvas = IupGLCanvas(NULL);
-	IupSetAttribute(canvas, "BUFFER", "DOUBLE");	//NOTE: this makes the rendering MUCH faster
-	IupSetAttribute(canvas, "DIRTY", "NO");
 	
-	IUP_CLASS_INITCALLBACK(canvas, IupWindow);
-	IUP_CLASS_SETCALLBACK(canvas, "RESIZE_CB", CanvasResizeCb);
-	IUP_CLASS_SETCALLBACK(canvas, "BUTTON_CB", CanvasButtonCb);
-	IUP_CLASS_SETCALLBACK(canvas, "KEYPRESS_CB", CanvasKeyCb);
-	IUP_CLASS_SETCALLBACK(canvas, "MOTION_CB", CanvasMouseMoveCb);
-	IUP_CLASS_SETCALLBACK(canvas, "WHEEL_CB", CanvasWheelCb);
 
 	Ihandle* dlg = IupDialog(IupVbox(IupHbox(label1, labelGlVersion, NULL), canvas, NULL));
 	std::string size = std::to_string(this->width) + 'X' + std::to_string(this->height);
@@ -55,6 +46,28 @@ void IupWindow::SwapBuffers(void) {
 void IupWindow::DoFrame(void) {
 	IupLoopStep();
 }
+
+
+void IupWindow::InitCanvas(void) {
+	IupGLCanvasOpen();
+
+	canvas = IupGLCanvas(NULL);
+	IupSetAttribute(canvas, "BUFFER", "DOUBLE");	//NOTE: this makes the rendering MUCH faster
+	IupSetAttribute(canvas, "DIRTY", "NO");
+
+	IUP_CLASS_INITCALLBACK(canvas, IupWindow);
+	IUP_CLASS_SETCALLBACK(canvas, "RESIZE_CB", CanvasResizeCb);
+	IUP_CLASS_SETCALLBACK(canvas, "BUTTON_CB", CanvasButtonCb);
+	IUP_CLASS_SETCALLBACK(canvas, "KEYPRESS_CB", CanvasKeyCb);
+	IUP_CLASS_SETCALLBACK(canvas, "MOTION_CB", CanvasMouseMoveCb);
+	IUP_CLASS_SETCALLBACK(canvas, "WHEEL_CB", CanvasWheelCb);
+}
+
+
+void IupWindow::InitDlg(Ihandle* topLevelIupBox) {
+
+}
+
 
 
 const glm::vec2 IupWindow::GetWindowRect(void) {
