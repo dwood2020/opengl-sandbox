@@ -55,9 +55,16 @@ void IupUiWindow::SetGLVersionLabel(const std::string& glVersion) {
 // -------------
 
 int IupUiWindow::ProjectionModeActionCb(Ihandle* ih, char* text, int item, int state) {
+	
+	if (state == 1) {
+		ProjectionMode mode = static_cast<ProjectionMode>(item);
+		ProjectionModeChangedEvent e(mode);
+		OnEvent(e);
+	}	
+	
 	//Debug:
-	std::string s = "ProjectionModeActionCb: Item:" + std::to_string(item) + "  State: " + std::to_string(state);
-	IupMessage("Debug", s.c_str());
+	/*std::string s = "ProjectionModeActionCb: Item:" + std::to_string(item) + "  State: " + std::to_string(state);
+	IupMessage("Debug", s.c_str());*/
 
 	return IUP_DEFAULT;
 }

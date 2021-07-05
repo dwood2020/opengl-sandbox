@@ -29,6 +29,6 @@ enum class MouseScrollDirection {
 
 //TODO: Relocate this!
 enum class ProjectionMode {
-	Perspective = 0,
-	Orthographic
+	Perspective = 1,
+	Orthographic = 2
 };

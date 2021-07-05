@@ -27,6 +27,7 @@ SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, cons
 	eventBus.AddListener(EventType::MouseButton, this);
 	eventBus.AddListener(EventType::MouseMove, this);
 	eventBus.AddListener(EventType::MouseScroll, this);
+	eventBus.AddListener(EventType::ProjectionModeChanged, this);
 }
 
 
@@ -71,6 +72,9 @@ void SimpleCamera::OnEvent(Event& e) {
 	else if (e.GetType() == EventType::MouseScroll) {
 		MouseScrollEvent& ems = (MouseScrollEvent&)e;
 		PerformZoom(ems.GetScrollDirection());
+	}
+	else if (e.GetType() == EventType::ProjectionModeChanged) {
+		std::cout << "SimpleCamera received ProjectionModeChanged event" << std::endl;
 	}
 }
 
