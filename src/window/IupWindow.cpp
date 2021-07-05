@@ -21,13 +21,8 @@ void IupWindow::Init(int argc, char** argv) {
 	labelGlVersion = IupLabel(" xx");
 	
 
-	Ihandle* dlg = IupDialog(IupVbox(IupHbox(label1, labelGlVersion, NULL), canvas, NULL));
-	std::string size = std::to_string(this->width) + 'X' + std::to_string(this->height);
-	IupSetAttribute(dlg, "RASTERSIZE", size.c_str());
-	IupSetAttribute(dlg, "TITLE", this->title.c_str());
-
-	IUP_CLASS_INITCALLBACK(dlg, IupWindow);
-	IUP_CLASS_SETCALLBACK(dlg, "CLOSE_CB", DialogCloseCb);
+	InitDlg(IupVbox(IupHbox(label1, labelGlVersion, NULL), canvas, NULL));
+	//InitDlg();
 
 	IupShowXY(dlg, IUP_CENTER, IUP_CENTER);
 }
@@ -66,6 +61,21 @@ void IupWindow::InitCanvas(void) {
 
 void IupWindow::InitDlg(Ihandle* topLevelIupBox) {
 
+	if (topLevelIupBox == nullptr) {
+		Ihandle* defaultBox = IupVbox(canvas, NULL);
+		dlg = IupDialog(defaultBox);
+	}
+	else {
+		dlg = IupDialog(topLevelIupBox);
+	}
+
+	
+	std::string size = std::to_string(this->width) + 'X' + std::to_string(this->height);
+	IupSetAttribute(dlg, "RASTERSIZE", size.c_str());
+	IupSetAttribute(dlg, "TITLE", this->title.c_str());
+
+	IUP_CLASS_INITCALLBACK(dlg, IupWindow);
+	IUP_CLASS_SETCALLBACK(dlg, "CLOSE_CB", DialogCloseCb);
 }
 
 

@@ -31,7 +31,7 @@ public:
 
 protected:
 	void InitCanvas(void);
-	void InitDlg(Ihandle* topLevelIupBox);
+	void InitDlg(Ihandle* topLevelIupBox = nullptr);
 
 	// callbacks
 	IUP_CLASS_DECLARECALLBACK_IFnii(IupWindow, CanvasResizeCb);
