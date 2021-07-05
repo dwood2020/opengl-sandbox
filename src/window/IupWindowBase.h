@@ -20,7 +20,7 @@ protected:
 	Ihandle* dlg;	
 
 	// custom attribute, not needed in IupWindow base class
-	Ihandle* labelGlVersion;	
+	Ihandle* labelGlVersion;
 
 public:
 	IupWindowBase(EventBus* eventBus, int width, int height, const std::string& title);
