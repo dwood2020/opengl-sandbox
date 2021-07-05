@@ -13,6 +13,8 @@ enum class EventType : EventType_t {
 	MouseMove,
 	MouseButton,
 	MouseScroll,
+
+	ProjectionModeChanged,	//TODO: Relocate this event type def!
 };
 
 
@@ -138,4 +140,20 @@ public:
 
 	MouseScrollDirection GetScrollDirection(void) const { return static_cast<MouseScrollDirection>(FloatInt.i); }
 	float GetDelta(void) const { return FloatInt.f; }
+};
+
+
+//TODO: Relocate this event
+class ProjectionModeChangedEvent final : public Event {
+public:
+	ProjectionModeChangedEvent(ProjectionMode projectionMode) :
+		Event(EventType::ProjectionModeChanged) {
+
+		BoolInt.i = static_cast<int>(projectionMode);
+		BoolInt.b = false;
+	}
+
+	ProjectionMode GetProjectionMode(void) {
+		return static_cast<ProjectionMode>(BoolInt.i);
+	}
 };

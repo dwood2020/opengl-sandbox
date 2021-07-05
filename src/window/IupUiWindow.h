@@ -14,5 +14,9 @@ public:
 	void Init(int argc, char** argv) override;
 
 	void SetGLVersionLabel(const std::string& glVersion);
+
+private:
+	// callbacks
+	IUP_CLASS_DECLARECALLBACK_IFnsii(IupUiWindow, ProjectionModeActionCb);
 };
 
