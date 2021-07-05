@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 	MaterialLibrary materialLibrary(&shaderFactory);
 
 	// init window
-	IupUiWindow window(&eventBus, 800, 600, "OpenGL Sandbox - IUP Window");		
+	IupUiWindow window(&eventBus, 800, 640, "OpenGL Sandbox - IUP Window");		
 	window.Init(argc, argv);
 	window.MakeContextCurrent();
 	eventBus.AddListener(EventType::WindowResize, &sandboxListener);
@@ -95,7 +95,7 @@ int main(int argc, char* argv[]) {
 	
 	// use renderer	
 	Renderer renderer(eventBus, lighting, camera, materialLibrary);	
-	renderer.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));
+	renderer.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));	
 	renderer.Init(window.GetWindowRect());
 
 	
