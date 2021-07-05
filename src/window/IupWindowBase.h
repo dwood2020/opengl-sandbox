@@ -10,9 +10,9 @@
 
 /// <summary>
 /// IUP window base class.
-/// This class contains the entire logic which is needed to use an OpenGL canvas
-/// in a IUP window.
-/// To add further UI elements, subclass this class and override Init(). (See thsi classes implementation of Init as example).
+/// This class contains the entire logic which is needed to use an OpenGL canvas in a IUP window.
+/// 
+/// To add further UI elements, subclass this class and override Init(). (See this classes implementation of Init() as example).
 /// </summary>
 class IupWindowBase : public WindowBase {
 protected:
