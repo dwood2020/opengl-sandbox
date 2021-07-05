@@ -58,6 +58,7 @@ void SimpleCamera::SetProjectionMode(bool orthographic) {
 	isOrthographic = orthographic;
 	CalcProjection();
 	UpdateViewProjectionMatrixAndPosition();
+	//TODO: Implement Orthographic Zoom!
 }
 
 
