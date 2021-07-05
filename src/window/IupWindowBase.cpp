@@ -4,7 +4,7 @@
 
 
 IupWindowBase::IupWindowBase(EventBus* eventBus, int width, int height, const std::string& title):
-	WindowBase(eventBus, width, height, title), labelGlVersion(nullptr), canvas(nullptr), dlg(nullptr) { }
+	WindowBase(eventBus, width, height, title), canvas(nullptr), dlg(nullptr) { }
 
 
 IupWindowBase::~IupWindowBase() { 
@@ -17,12 +17,7 @@ void IupWindowBase::Init(int argc, char** argv) {
 	
 	InitCanvas();
 
-	Ihandle* label1 = IupLabel("This is a simple IUP Dialog. Running on OpenGL Version ");
-	labelGlVersion = IupLabel(" xx");
-	
-
-	InitDlg(IupVbox(IupHbox(label1, labelGlVersion, NULL), canvas, NULL));
-	//InitDlg();
+	InitDlg();
 
 	ShowDlg();
 }
@@ -202,8 +197,3 @@ int IupWindowBase::CanvasWheelCb(Ihandle* self, float delta, int x, int y, char*
 }
 
 
-
-// custom function which will not be needed in IupWindowBase class
-void IupWindowBase::SetGLVersionLabel(const std::string& glVersion) {
-	IupSetAttribute(labelGlVersion, "TITLE", glVersion.c_str());
-}

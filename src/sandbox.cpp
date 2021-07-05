@@ -7,10 +7,10 @@
 #include "events/EventBus.h"
 #include "events/EventListener.hpp"
 #include "events/Keycodes.hpp"
-#include "window/IupWindowBase.h"
-#include "shader/Shader.h"
-#include "shader/ShaderProgram.h"
-#include "shader/ShaderFactory.h"
+#include "window/IupUiWindow.h"
+//#include "shader/Shader.h"
+//#include "shader/ShaderProgram.h"
+//#include "shader/ShaderFactory.h"
 #include "mesh/StaticMesh.h"
 #include "mesh/StaticMeshFactory.h"
 #include "mesh/DynamicMesh.h"
@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 	MaterialLibrary materialLibrary(&shaderFactory);
 
 	// init window
-	IupWindowBase window(&eventBus, 800, 600, "OpenGL Sandbox - IUP Window");		
+	IupUiWindow window(&eventBus, 800, 600, "OpenGL Sandbox - IUP Window");		
 	window.Init(argc, argv);
 	window.MakeContextCurrent();
 	eventBus.AddListener(EventType::WindowResize, &sandboxListener);

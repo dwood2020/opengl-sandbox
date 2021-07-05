@@ -18,10 +18,7 @@ class IupWindowBase : public WindowBase {
 protected:
 	Ihandle* canvas;
 	Ihandle* dlg;	
-
-	// custom attribute, not needed in IupWindow base class
-	Ihandle* labelGlVersion;
-
+	
 public:
 	IupWindowBase(EventBus* eventBus, int width, int height, const std::string& title);
 	virtual ~IupWindowBase();
@@ -31,9 +28,6 @@ public:
 	void SwapBuffers(void) override;
 	void DoFrame(void) override;
 	const glm::vec2 GetWindowRect(void) override;
-
-	//custom method, not needed in IupWindow base class
-	void SetGLVersionLabel(const std::string& glVersion);
 
 protected:
 	void InitIup(int argc, char** argv);
