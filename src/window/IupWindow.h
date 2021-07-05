@@ -33,6 +33,7 @@ protected:
 	void InitIup(int argc, char** argv);
 	void InitCanvas(void);
 	void InitDlg(Ihandle* topLevelIupBox = nullptr);
+	void ShowDlg(void);
 
 	// callbacks
 	IUP_CLASS_DECLARECALLBACK_IFnii(IupWindow, CanvasResizeCb);

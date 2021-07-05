@@ -24,7 +24,7 @@ void IupWindow::Init(int argc, char** argv) {
 	InitDlg(IupVbox(IupHbox(label1, labelGlVersion, NULL), canvas, NULL));
 	//InitDlg();
 
-	IupShowXY(dlg, IUP_CENTER, IUP_CENTER);
+	ShowDlg();
 }
 
 
@@ -83,6 +83,10 @@ void IupWindow::InitDlg(Ihandle* topLevelIupBox) {
 	IUP_CLASS_SETCALLBACK(dlg, "CLOSE_CB", DialogCloseCb);
 }
 
+
+void IupWindow::ShowDlg(void) {
+	IupShowXY(dlg, IUP_CENTER, IUP_CENTER);
+}
 
 
 const glm::vec2 IupWindow::GetWindowRect(void) {
