@@ -4,12 +4,18 @@
 
 
 class Texture final {
-public:
+private:
 	GLuint id;
 
 public:	
 	Texture();
 	~Texture();
+
+	/// <summary>
+	/// Gets the OpenGL texture ID.
+	/// </summary>	
+	/// <returns>ID</returns>
+	GLuint GetId(void) const;
 
 	/// <summary>
 	/// Generates an OpenGL texture.

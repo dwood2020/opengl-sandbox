@@ -10,6 +10,10 @@ Texture::Texture(): id(0) { }
 
 Texture::~Texture() { }
 
+GLuint Texture::GetId(void) const {
+	return id;
+}
+
 
 void Texture::Generate(GLsizei w, GLsizei h, GLenum format, unsigned char* data, GLint glTexFilterParam) {
 	if (data == nullptr) {
