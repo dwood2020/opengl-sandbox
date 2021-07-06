@@ -41,7 +41,7 @@ public:
 	/// Gets the sections (SectionsMap)
 	/// </summary>	
 	/// <returns>sections map</returns>
-	SectionsMap& GetSections(void);
+	SectionsMap& GetSectionsMap(void);
 
 	//TODO: Make this private and event-triggerable!
 	void GenerateMeshes(void);

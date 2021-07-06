@@ -142,7 +142,7 @@ void Renderer::DoSimpleCommands(void) {
 void Renderer::DoVoxelScene(void) {
 
 	// iterate over all sections
-	for (auto itSection = voxelScene->GetSections().begin(); itSection != voxelScene->GetSections().end(); ++itSection) {
+	for (auto itSection = voxelScene->GetSectionsMap().begin(); itSection != voxelScene->GetSectionsMap().end(); ++itSection) {
 
 		// iterate over each mesh per section
 		for (auto itMesh = itSection->second->GetMeshes().begin(); itMesh != itSection->second->GetMeshes().end(); ++itMesh) {

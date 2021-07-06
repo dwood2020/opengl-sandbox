@@ -28,7 +28,7 @@ void VoxelScene::SetBlock(const glm::ivec3& pos, char block) {
 }
 
 
-SectionsMap& VoxelScene::GetSections(void) {
+SectionsMap& VoxelScene::GetSectionsMap(void) {
 	return sections;
 }
 
