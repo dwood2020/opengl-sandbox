@@ -32,7 +32,7 @@ void IupUiWindow::Init(int argc, char** argv) {
 	IupSetAttribute(hboxProjectionMode, "GAP", "2");
 
 	IUP_CLASS_INITCALLBACK(listProjectionMode, IupUiWindow);
-	IUP_CLASS_SETCALLBACK(listProjectionMode, "ACTION", ProjectionModeActionCb);
+	IUP_CLASS_SETCALLBACK(listProjectionMode, "ACTION", ListProjectionModeActionCb);
 
 	// Top bar	
 	Ihandle* hboxTop = IupHbox(hboxOpenGlVersion, IupFill(), hboxProjectionMode, NULL);	
@@ -54,7 +54,7 @@ void IupUiWindow::SetGLVersionLabel(const std::string& glVersion) {
 // IUP callbacks
 // -------------
 
-int IupUiWindow::ProjectionModeActionCb(Ihandle* ih, char* text, int item, int state) {
+int IupUiWindow::ListProjectionModeActionCb(Ihandle* ih, char* text, int item, int state) {
 	
 	if (state == 1) {
 		ProjectionMode mode = static_cast<ProjectionMode>(item);

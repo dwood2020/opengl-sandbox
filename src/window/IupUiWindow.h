@@ -17,6 +17,6 @@ public:
 
 private:
 	// callbacks
-	IUP_CLASS_DECLARECALLBACK_IFnsii(IupUiWindow, ProjectionModeActionCb);
+	IUP_CLASS_DECLARECALLBACK_IFnsii(IupUiWindow, ListProjectionModeActionCb);
 };
 
