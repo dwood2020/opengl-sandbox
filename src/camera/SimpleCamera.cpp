@@ -206,12 +206,14 @@ void SimpleCamera::PerformZoom(MouseScrollDirection dir) {
 		delta *= 1.0f;
 	}
 
+	if (!isOrthographic) {
+		rho += delta * accelerator;
+		rho = std::max(rho, rhoMin);
+	}
 	
-	rho += delta * accelerator;
-	rho = std::max(rho, rhoMin);
-
 	if (isOrthographic) {
-		orthographicZoomFactor += delta * 0.1f * accelerator;	//TODO: Think about proper mathematical concept!
+		orthographicZoomFactor += (delta * 0.1f * accelerator);	//TODO: Think about proper mathematical concept!
+		std::cout << "orthographicZoomFactor: " << orthographicZoomFactor << std::endl;
 		CalcProjection();
 	}
 
