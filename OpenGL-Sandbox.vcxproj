@@ -193,6 +193,7 @@
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\material\MaterialUniform.cpp" />
     <ClCompile Include="src\voxel\VoxelScene.cpp" />
+    <ClCompile Include="src\TextureData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window\IupUiWindow.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\material\MaterialUniform.h" />
     <ClInclude Include="src\voxel\VoxelScene.h" />
+    <ClInclude Include="src\TextureData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
