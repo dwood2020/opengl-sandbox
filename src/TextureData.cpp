@@ -31,3 +31,8 @@ int TextureData::GetWidth(void) const {
 int TextureData::GetHeight(void) const {
 	return height;
 }
+
+
+int TextureData::GetNrChannels(void) const {
+	return nrChannels;
+}
