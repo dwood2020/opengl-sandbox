@@ -17,6 +17,7 @@ private:
 	glm::vec2 lastMousePosNDC;
 
 	bool isOrthographic;
+	float orthographicZoomFactor;
 
 	// these angles define camera orientation in world coordinates
 	// NOTE: the camera position is NOT calculated in sphere coordinates

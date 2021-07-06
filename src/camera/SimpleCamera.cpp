@@ -10,7 +10,7 @@
 SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, const glm::vec3& pos):
 	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)), PV(glm::mat4(1.0f)), windowRect(windowRect),
 	lmbIsDown(false), mmbIsDown(false), isFirstFrame(true), lastMousePosNDC(glm::vec2(0.0f)),
-	target(glm::vec3(0.0f)), isOrthographic(false) {
+	target(glm::vec3(0.0f)), isOrthographic(false), orthographicZoomFactor(1.0f) {
 	
 	rho = glm::length(target - pos);
 	phi = 0.0f;
@@ -57,8 +57,7 @@ const glm::vec3& SimpleCamera::GetPosition(void) const {
 void SimpleCamera::SetProjectionMode(bool orthographic) {
 	isOrthographic = orthographic;
 	CalcProjection();
-	UpdateViewProjectionMatrixAndPosition();
-	//TODO: Implement Orthographic Zoom!
+	UpdateViewProjectionMatrixAndPosition();	
 }
 
 
@@ -195,7 +194,7 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 
 
 void SimpleCamera::PerformZoom(MouseScrollDirection dir) {	
-	
+		
 	const float rhoMin = 0.5f;
 	const float accelerator = rho * 0.2f;
 	float delta = 0.5f;
@@ -207,8 +206,14 @@ void SimpleCamera::PerformZoom(MouseScrollDirection dir) {
 		delta *= 1.0f;
 	}
 
+	
 	rho += delta * accelerator;
 	rho = std::max(rho, rhoMin);
+
+	if (isOrthographic) {
+		orthographicZoomFactor += delta * 0.1f * accelerator;	//TODO: Think about proper mathematical concept!
+		CalcProjection();
+	}
 
 	UpdateViewProjectionMatrixAndPosition();
 }
@@ -248,10 +253,9 @@ void SimpleCamera::CalcProjection(void) {
 	float h = windowRect.y;	
 
 	if (isOrthographic) {
-		// orthographic projection
-		std::cout << "HELLO!" << std::endl;
-		w = w / 100.0f;
-		h = h / 100.0f;
+		// orthographic projection		
+		w = (w / 100.0f) * orthographicZoomFactor;
+		h = (h / 100.0f) * orthographicZoomFactor;
 		P = glm::ortho(-w / 2.0f, w / 2.0f, -h / 2.0f, h / 2.0f, 1.0f, 100.0f);
 	}
 	else {
