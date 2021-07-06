@@ -2,6 +2,7 @@
 #include <stb/stb_image.h>
 #include "glad/glad.h"
 #include <algorithm>
+#include "TextureData.h"
 
 #include <iostream>
 
@@ -59,16 +60,11 @@ void Texture::Unbind(void) {
 
 Texture Texture::GenerateFromFile(const std::string& filepath, GLint glTexFilterParam) {
 
-	int w;
-	int h;
-	int nrChannels;
-	const int desiredChannels = 0;
-
-	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load(filepath.c_str(), &w, &h, &nrChannels, desiredChannels);
+	TextureData texData;
+	texData.LoadFromFile(filepath);
 
 	GLenum imageFormat;
-	if(nrChannels == 4) {
+	if (texData.GetNrChannels() == 4) {
 		imageFormat = GL_RGBA;
 	}
 	else {
@@ -76,9 +72,7 @@ Texture Texture::GenerateFromFile(const std::string& filepath, GLint glTexFilter
 	}
 
 	Texture obj;
-	obj.Generate(w, h, imageFormat, data, glTexFilterParam);
-
-	stbi_image_free(data);
+	obj.Generate(texData.GetWidth(), texData.GetHeight(), imageFormat, const_cast<unsigned char*>(texData.GetRaw()), glTexFilterParam);
 
 	return obj;
 }

@@ -6,7 +6,7 @@ TextureData::TextureData(): data(nullptr), width(0), height(0), nrChannels(0) { 
 
 
 TextureData::~TextureData() {
-	stbi_image_free(data);
+	stbi_image_free(data);	
 }
 
 
