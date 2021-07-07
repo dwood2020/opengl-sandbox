@@ -69,8 +69,10 @@ void SimpleCamera::ResetPosition(void) {
 	rhoSaved = rhoInitial;
 	orthographicZoomFactor = 1.0f;
 
+	target = glm::vec3(0.0f);
+
 	CalcProjection();
-	UpdateViewProjectionMatrixAndPosition();
+	UpdateViewProjectionMatrixAndPosition();	//position is calculated and set here
 }
 
 
@@ -204,8 +206,14 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 	const float rightScale = -3.0f;
 	const float upScale = 3.0f;
 	const glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f);	
-
-	const float acceleration = rho * 0.3f;
+	
+	float acceleration;
+	if (isOrthographic) {
+		acceleration = 2.0f * orthographicZoomFactor;
+	}
+	else {
+		acceleration = rho * 0.3f;
+	}
 
 	glm::vec3 dir = target - position;
 	
