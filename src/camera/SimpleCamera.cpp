@@ -7,12 +7,16 @@
 #include <iostream>
 
 
-SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, const glm::vec3& pos):
+SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, float rhoInitial):
 	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)), PV(glm::mat4(1.0f)), windowRect(windowRect),
 	lmbIsDown(false), mmbIsDown(false), isFirstFrame(true), lastMousePosNDC(glm::vec2(0.0f)),
 	target(glm::vec3(0.0f)), isOrthographic(false), orthographicZoomFactor(1.0f) {
 	
-	rho = glm::length(target - pos);
+	//glm::vec3 initialPos = glm::vec3(0.0f, 0.0f, rhoInitial);
+	this->rhoInitial = rhoInitial;
+
+	//rho = glm::length(target - initialPos);
+	rho = rhoInitial;
 	phi = 0.0f;
 	theta = 0.0f;
 	rhoSaved = rho;
@@ -21,8 +25,7 @@ SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, cons
 	position = glm::column(V, 3);
 	V = glm::inverse(V);*/
 	
-	UpdateViewProjectionMatrixAndPosition();
-	//std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
+	UpdateViewProjectionMatrixAndPosition();	
 
 	eventBus.AddListener(EventType::WindowResize, this);
 	eventBus.AddListener(EventType::MouseButton, this);
@@ -52,6 +55,21 @@ const glm::mat4& SimpleCamera::GetViewProjectionMatrix(void) const {
 
 const glm::vec3& SimpleCamera::GetPosition(void) const {
 	return position;
+}
+
+
+void SimpleCamera::ResetPosition(void) {
+	if (!isOrthographic) {
+		rho = rhoInitial;
+	}	
+	phi = 0.0f;
+	theta = 0.0f;
+
+	rhoSaved = rhoInitial;
+	orthographicZoomFactor = 1.0f;
+
+	CalcProjection();
+	UpdateViewProjectionMatrixAndPosition();
 }
 
 

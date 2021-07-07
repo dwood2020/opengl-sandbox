@@ -83,9 +83,8 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	// init camera
-	glm::vec3 initialCameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
-	SimpleCamera camera(eventBus, window.GetWindowRect(), initialCameraPos);
+	// init camera	
+	SimpleCamera camera(eventBus, window.GetWindowRect(), 5.0f);
 
 	// init basic global lighting
 	Lighting lighting;

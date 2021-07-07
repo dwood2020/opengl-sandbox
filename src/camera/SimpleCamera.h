@@ -31,14 +31,18 @@ private:
 	glm::vec3 target;
 	glm::vec3 position;
 
+	//This is used to restore the initial camera position which is set in the ctor
+	float rhoInitial;	
+
 public:
 	/// <summary>
 	/// Constructor.
+	/// Sets the initial camera position on the z+ axis with specified rho.
 	/// </summary>
 	/// <param name="eventBus">Ref to global event bus instance</param>
 	/// <param name="windowRect">Initial window dimensions as vec2, x=width, y=height</param>
-	/// <param name="pos">Initial camera position. Should be on the z+ axis, other positions are untested.</param>
-	SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, const glm::vec3& pos);
+	/// <param name="pos">Initial rho value (distance target-position)</param>
+	SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, float rhoInitial);
 
 
 	~SimpleCamera();
@@ -66,6 +70,11 @@ public:
 	/// </summary>
 	/// <returns>camera position [world]</returns>
 	const glm::vec3& GetPosition(void) const override;
+
+	/// <summary>
+	/// Resets the initial camera position.
+	/// </summary>	
+	void ResetPosition(void);
 
 	/// <summary>
 	/// Sets the projection mode.
