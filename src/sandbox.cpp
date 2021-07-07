@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
 	window.SetGLVersionLabel(glVersionStr);
 
 	
-	MouseSelector mouseSelector(eventBus, camera);
+	MouseSelector mouseSelector(eventBus, camera, window);
 
 	
 	StaticMesh mesh = meshFactory.MakeCube(1.0f, true);	
