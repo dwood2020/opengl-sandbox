@@ -34,6 +34,10 @@ void IupUiWindow::Init(int argc, char** argv) {
 	IUP_CLASS_INITCALLBACK(listProjectionMode, IupUiWindow);
 	IUP_CLASS_SETCALLBACK(listProjectionMode, "ACTION", ListProjectionModeActionCb);
 
+	// Select mode toggle
+	Ihandle* toggleSelect = IupToggle("Select", NULL);
+
+
 	// Reset view button
 	Ihandle* btnResetView = IupButton("Reset View", NULL);
 	IUP_CLASS_INITCALLBACK(btnResetView, IupUiWindow);
