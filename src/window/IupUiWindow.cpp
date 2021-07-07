@@ -34,9 +34,14 @@ void IupUiWindow::Init(int argc, char** argv) {
 	IUP_CLASS_INITCALLBACK(listProjectionMode, IupUiWindow);
 	IUP_CLASS_SETCALLBACK(listProjectionMode, "ACTION", ListProjectionModeActionCb);
 
+	// Reset view button
+	Ihandle* btnResetView = IupButton("Reset View", NULL);
+	IUP_CLASS_INITCALLBACK(btnResetView, IupUiWindow);
+	IUP_CLASS_SETCALLBACK(btnResetView, "ACTION", BtnResetViewActionCb);
+
 	// Top bar	
-	Ihandle* hboxTop = IupHbox(hboxOpenGlVersion, IupFill(), hboxProjectionMode, NULL);	
-	//IupSetAttribute(hboxTop, "GAP", "50");
+	Ihandle* hboxTop = IupHbox(hboxOpenGlVersion, IupFill(), btnResetView, hboxProjectionMode, NULL);	
+	IupSetAttribute(hboxTop, "GAP", "10");
 	IupSetAttribute(hboxTop, "ALIGNMENT", "ACENTER");	
 	IupSetAttribute(hboxTop, "EXPAND", "YES");
 
@@ -66,5 +71,12 @@ int IupUiWindow::ListProjectionModeActionCb(Ihandle* ih, char* text, int item, i
 	/*std::string s = "ProjectionModeActionCb: Item:" + std::to_string(item) + "  State: " + std::to_string(state);
 	IupMessage("Debug", s.c_str());*/
 
+	return IUP_DEFAULT;
+}
+
+
+int IupUiWindow::BtnResetViewActionCb(Ihandle* ih) {
+	ResetViewEvent e;
+	OnEvent(e);
 	return IUP_DEFAULT;
 }

@@ -15,6 +15,7 @@ enum class EventType : EventType_t {
 	MouseScroll,
 
 	ProjectionModeChanged,	//TODO: Relocate this event type def!
+	ResetView,
 };
 
 
@@ -156,4 +157,10 @@ public:
 	ProjectionMode GetProjectionMode(void) {
 		return static_cast<ProjectionMode>(BoolInt.i);
 	}
+};
+
+
+class ResetViewEvent final : public Event {
+public:
+	ResetViewEvent() : Event(EventType::ResetView) { }
 };
