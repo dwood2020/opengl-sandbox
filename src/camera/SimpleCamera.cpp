@@ -221,9 +221,10 @@ void SimpleCamera::PerformZoom(MouseScrollDirection dir) {
 		rho = std::max(rho, rhoMin);
 	}
 	
-	if (isOrthographic) {		
-		orthographicZoomFactor = std::max(orthographicZoomFactor += (delta * 0.1f * accelerator), 0.1f);
-		//rho = 50.0f;		
+	if (isOrthographic) {
+		//NOTE: Ortho zoom factor is scaling of the ortho projection width & height.
+		// It is also used as zoom accelerator factor.
+		orthographicZoomFactor = std::max(orthographicZoomFactor += (delta * 0.3f * orthographicZoomFactor), 0.1f);		
 		CalcProjection();
 	}
 
@@ -248,8 +249,7 @@ void SimpleCamera::UpdateViewProjectionMatrixAndPosition(void) {
 
 	// update position before inverting the matrix, because
 	// position is the position in world coordinates
-	position = glm::column(V, 3);
-	//std::cout << "position: " << position.x << " " << position.y << " " << position.z << std::endl;
+	position = glm::column(V, 3);	
 
 	// V is actually V^-1, as the View matrix is defined to be the transformation world->camera
 	V = glm::inverse(V);
@@ -268,11 +268,11 @@ void SimpleCamera::CalcProjection(void) {
 		// orthographic projection		
 		w = (w / 100.0f) * orthographicZoomFactor;
 		h = (h / 100.0f) * orthographicZoomFactor;
-		P = glm::ortho(-w / 2.0f, w / 2.0f, -h / 2.0f, h / 2.0f, 1.0f, 100.0f);
+		P = glm::ortho(-w / 2.0f, w / 2.0f, -h / 2.0f, h / 2.0f, 1.0f, 200.0f);
 	}
 	else {
 		// perspective projection
-		P = glm::perspective(glm::radians(45.0f), w / h, 1.0f, 100.0f);
+		P = glm::perspective(glm::radians(45.0f), w / h, 1.0f, 200.0f);
 	}
 
 	PV = P * V;

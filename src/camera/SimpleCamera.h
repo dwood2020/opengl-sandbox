@@ -25,7 +25,7 @@ private:
 	float phi;
 	float theta;
 
-	const float rhoOrtho = 50.0f;
+	const float rhoOrtho = 100.0f;
 	float rhoSaved;
 
 	glm::vec3 target;
