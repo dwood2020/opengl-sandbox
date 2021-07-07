@@ -36,7 +36,8 @@ void IupUiWindow::Init(int argc, char** argv) {
 
 	// Select mode toggle
 	Ihandle* toggleSelect = IupToggle("Select", NULL);
-
+	IUP_CLASS_INITCALLBACK(toggleSelect, IupUiWindow);
+	IUP_CLASS_SETCALLBACK(toggleSelect, "ACTION", ToggleSelectActionCb);
 
 	// Reset view button
 	Ihandle* btnResetView = IupButton("Reset View", NULL);
@@ -44,7 +45,7 @@ void IupUiWindow::Init(int argc, char** argv) {
 	IUP_CLASS_SETCALLBACK(btnResetView, "ACTION", BtnResetViewActionCb);
 
 	// Top bar	
-	Ihandle* hboxTop = IupHbox(hboxOpenGlVersion, IupFill(), btnResetView, hboxProjectionMode, NULL);	
+	Ihandle* hboxTop = IupHbox(hboxOpenGlVersion, IupFill(), toggleSelect, btnResetView, hboxProjectionMode, NULL);
 	IupSetAttribute(hboxTop, "GAP", "10");
 	IupSetAttribute(hboxTop, "ALIGNMENT", "ACENTER");	
 	IupSetAttribute(hboxTop, "EXPAND", "YES");
@@ -82,5 +83,11 @@ int IupUiWindow::ListProjectionModeActionCb(Ihandle* ih, char* text, int item, i
 int IupUiWindow::BtnResetViewActionCb(Ihandle* ih) {
 	ResetViewEvent e;
 	OnEvent(e);
+	return IUP_DEFAULT;
+}
+
+
+int IupUiWindow::ToggleSelectActionCb(Ihandle* ih, int state) {
+
 	return IUP_DEFAULT;
 }

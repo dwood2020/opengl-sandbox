@@ -19,5 +19,6 @@ private:
 	// callbacks
 	IUP_CLASS_DECLARECALLBACK_IFnsii(IupUiWindow, ListProjectionModeActionCb);
 	IUP_CLASS_DECLARECALLBACK_IFn(IupUiWindow, BtnResetViewActionCb);
+	IUP_CLASS_DECLARECALLBACK_IFni(IupUiWindow, ToggleSelectActionCb);
 };
 
