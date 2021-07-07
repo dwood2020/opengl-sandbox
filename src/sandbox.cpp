@@ -17,6 +17,7 @@
 #include "material/MaterialLibrary.h"
 #include "voxel/VoxelScene.h"
 #include "renderer/Renderer.h"
+#include "MouseSelector.h"
 
 #include <chrono>
 #include <cmath>
@@ -103,6 +104,8 @@ int main(int argc, char* argv[]) {
 	window.SetGLVersionLabel(glVersionStr);
 
 	
+	MouseSelector mouseSelector(eventBus, camera);
+
 	
 	StaticMesh mesh = meshFactory.MakeCube(1.0f, true);	
 	StaticMesh gridMesh = meshFactory.MakeSimpleGrid(20.0f);
