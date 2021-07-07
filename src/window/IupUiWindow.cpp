@@ -69,7 +69,7 @@ int IupUiWindow::ListProjectionModeActionCb(Ihandle* ih, char* text, int item, i
 	if (state == 1) {
 		ProjectionMode mode = static_cast<ProjectionMode>(item);
 		ProjectionModeChangedEvent e(mode);
-		OnEvent(e);
+		EmitEvent(e);
 	}	
 	
 	//Debug:
@@ -82,12 +82,14 @@ int IupUiWindow::ListProjectionModeActionCb(Ihandle* ih, char* text, int item, i
 
 int IupUiWindow::BtnResetViewActionCb(Ihandle* ih) {
 	ResetViewEvent e;
-	OnEvent(e);
+	EmitEvent(e);
 	return IUP_DEFAULT;
 }
 
 
 int IupUiWindow::ToggleSelectActionCb(Ihandle* ih, int state) {
 
+	ToggleSelectModeEvent e(static_cast<bool>(state));
+	EmitEvent(e);
 	return IUP_DEFAULT;
 }

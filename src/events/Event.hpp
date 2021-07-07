@@ -16,6 +16,7 @@ enum class EventType : EventType_t {
 
 	ProjectionModeChanged,	//TODO: Relocate this event type def!
 	ResetView,
+	ToggleSelectMode,
 };
 
 
@@ -163,4 +164,16 @@ public:
 class ResetViewEvent final : public Event {
 public:
 	ResetViewEvent() : Event(EventType::ResetView) { }
+};
+
+
+class ToggleSelectModeEvent final : public Event {
+public:
+	ToggleSelectModeEvent(bool stateActive) : Event(EventType::ToggleSelectMode) {
+		BoolInt.b = stateActive;
+	}
+
+	bool GetSelectMode(void) const {
+		return BoolInt.b;
+	}
 };

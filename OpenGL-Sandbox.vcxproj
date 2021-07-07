@@ -167,6 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\MouseSelector.cpp" />
     <ClCompile Include="src\window\IupUiWindow.cpp" />
     <ClCompile Include="src\renderer\Renderer.cpp" />
     <ClCompile Include="src\voxel\Section.cpp" />
@@ -196,6 +197,7 @@
     <ClCompile Include="src\TextureData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\MouseSelector.h" />
     <ClInclude Include="src\window\IupUiWindow.h" />
     <ClInclude Include="src\renderer\Renderer.h" />
     <ClInclude Include="src\events\WindowEvents.hpp" />

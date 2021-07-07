@@ -11,7 +11,7 @@ public:
 
 	virtual ~EventEmitter() { }
 
-	void OnEvent(Event& e) {
+	void EmitEvent(Event& e) {
 		bus->SendEvent(e);
 	}
 };

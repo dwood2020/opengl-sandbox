@@ -103,7 +103,7 @@ const glm::vec2 IupWindowBase::GetWindowRect(void) {
 int IupWindowBase::CanvasResizeCb(Ihandle* self, int width, int height) {
 
 	WindowResizeEvent e(width, height);
-	OnEvent(e);
+	EmitEvent(e);
 
 	return IUP_DEFAULT;
 }
@@ -112,7 +112,7 @@ int IupWindowBase::CanvasResizeCb(Ihandle* self, int width, int height) {
 int IupWindowBase::DialogCloseCb(Ihandle* self) {	
 
 	WindowCloseEvent e;
-	OnEvent(e);
+	EmitEvent(e);
 
 	return IUP_DEFAULT;
 }
@@ -134,7 +134,7 @@ int IupWindowBase::CanvasButtonCb(Ihandle* self, int button, int pressed, int x,
 	}
 
 	MouseButtonEvent e(mbCode, (bool)pressed);
-	OnEvent(e);
+	EmitEvent(e);
 
 	return IUP_DEFAULT;
 }
@@ -165,7 +165,7 @@ int IupWindowBase::CanvasKeyCb(Ihandle* self, int c, int press) {
 	}
 
 	KeyEvent e(keycode, (bool)press);
-	OnEvent(e);
+	EmitEvent(e);
 
 	return IUP_DEFAULT;
 }
@@ -174,7 +174,7 @@ int IupWindowBase::CanvasKeyCb(Ihandle* self, int c, int press) {
 int IupWindowBase::CanvasMouseMoveCb(Ihandle* self, int x, int y, char* status) {
 	
 	MouseMoveEvent e(x, y);
-	OnEvent(e);
+	EmitEvent(e);
 
 	return IUP_DEFAULT;
 }
@@ -191,7 +191,7 @@ int IupWindowBase::CanvasWheelCb(Ihandle* self, float delta, int x, int y, char*
 	}
 
 	MouseScrollEvent e(dir, 1.0f);
-	OnEvent(e);
+	EmitEvent(e);
 
 	return IUP_DEFAULT;
 }
