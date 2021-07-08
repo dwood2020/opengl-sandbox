@@ -11,7 +11,7 @@ VoxelScene::~VoxelScene() { }
 char VoxelScene::GetBlock(const glm::ivec3& pos) {
 	auto key = CalcSectionPosKey(pos);
 	if (sections.find(key) == sections.end()) {
-		return -1;
+		return 0;
 	}
 	return sections[key]->GetBlock(ToSectionCoords(pos));
 }

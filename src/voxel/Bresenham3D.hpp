@@ -2,6 +2,7 @@
 #include <cmath>
 
 #include "VoxelScene.h"
+#include <iostream>
 
 // Bresenham Algorithm published by Will Navidson (yamamushi)
 // on https://gist.github.com/yamamushi/5823518
@@ -29,7 +30,7 @@
 //
 
 
-void Bresenham3D(int x1, int y1, int z1, const int x2, const int y2, const int z2, VoxelScene* output, int symbol) {
+void Bresenham3D(int x1, int y1, int z1, const int x2, const int y2, const int z2, VoxelScene* output, char symbol) {
 
     int i, dx, dy, dz, l, m, n, x_inc, y_inc, z_inc, err_1, err_2, dx2, dy2, dz2;
     int point[3];
@@ -55,6 +56,13 @@ void Bresenham3D(int x1, int y1, int z1, const int x2, const int y2, const int z
         err_2 = dz2 - l;
         for (i = 0; i < l; i++) {
             //output->getTileAt(point[0], point[1], point[2])->setSymbol(symbol);
+            //output->SetBlock({ point[0], point[1], point[2] }, symbol);
+
+            if (output->GetBlock({ point[0], point[1], point[2] }) != 0) {
+                std::cout << "found block: " << (int)(output->GetBlock({ point[0], point[1], point[2] })) << std::endl;
+                return;
+            }
+
             if (err_1 > 0) {
                 point[1] += y_inc;
                 err_1 -= dx2;
@@ -73,6 +81,13 @@ void Bresenham3D(int x1, int y1, int z1, const int x2, const int y2, const int z
         err_2 = dz2 - m;
         for (i = 0; i < m; i++) {
             //output->getTileAt(point[0], point[1], point[2])->setSymbol(symbol);
+            
+            if (output->GetBlock({ point[0], point[1], point[2] }) != 0) {
+                std::cout << "found block: " << (int)(output->GetBlock({ point[0], point[1], point[2] })) << std::endl;
+                return;
+            }
+
+
             if (err_1 > 0) {
                 point[0] += x_inc;
                 err_1 -= dy2;
@@ -91,6 +106,13 @@ void Bresenham3D(int x1, int y1, int z1, const int x2, const int y2, const int z
         err_2 = dx2 - n;
         for (i = 0; i < n; i++) {
             //output->getTileAt(point[0], point[1], point[2])->setSymbol(symbol);
+            
+            if (output->GetBlock({ point[0], point[1], point[2] }) != 0) {
+                std::cout << "found block: " << (int)(output->GetBlock({ point[0], point[1], point[2] })) << std::endl;
+                return;
+            }
+
+
             if (err_1 > 0) {
                 point[1] += y_inc;
                 err_1 -= dz2;
@@ -105,5 +127,12 @@ void Bresenham3D(int x1, int y1, int z1, const int x2, const int y2, const int z
         }
     }
     //output->getTileAt(point[0], point[1], point[2])->setSymbol(symbol);
+    
+    if (output->GetBlock({ point[0], point[1], point[2] }) != 0) {
+        std::cout << "found block: " << (int)(output->GetBlock({ point[0], point[1], point[2] })) << std::endl;        
+        return;
+    }
+
+
 }
 

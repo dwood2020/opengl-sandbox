@@ -104,9 +104,8 @@ public:
 	void GenerateMeshes(void);
 
 
+	static glm::ivec3 FloatToInt(const glm::vec3& fv);
+
 private:	
 	inline bool IsWithinBounds(const glm::ivec3& pos) const;
-
-	inline glm::ivec3 FloatToInt(const glm::vec3& fv) const;
-
 };

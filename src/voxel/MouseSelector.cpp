@@ -1,4 +1,6 @@
 #include "MouseSelector.h"
+#include "Bresenham3D.hpp"
+#include "Section.h"
 
 #include <iostream>
 
@@ -43,8 +45,8 @@ void MouseSelector::CalculateRay(int mouseX, int mouseY) {
 	rayOrigin = camera->GetPosition();
 
 	// build the parameterized ray:
-	auto eyePos = camera->GetPosition();
-	std::cout << "[" << rayOrigin.x << " " << rayOrigin.y << " " << rayOrigin.z << "] + t * [" << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << "]" << std::endl;
+	/*auto eyePos = camera->GetPosition();
+	std::cout << "[" << rayOrigin.x << " " << rayOrigin.y << " " << rayOrigin.z << "] + t * [" << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << "]" << std::endl;*/
 
 }
 
@@ -81,5 +83,19 @@ glm::vec2 MouseSelector::ScreenToNDC(const glm::vec2& posScreen) const {
 
 
 void MouseSelector::DoSelection(void) {
+
+	// destination point of ray
+	glm::vec3 rayDest = rayOrigin + 100.0f * rayDirection;
+	//std::cout << "rayDest: [" << rayDest.x << " " << rayDest.y << " " << rayDest.z << "]" << std::endl;
+
+	glm::ivec3 rayDestI = Section::FloatToInt(rayDest);
+
+	//std::cout << "rayDestI: [" << rayDestI.x << " " << rayDestI.y << " " << rayDestI.z << "]" << std::endl;
+
+	glm::ivec3 rayOriginI = Section::FloatToInt(rayOrigin);
+
+	//TODO: Write custom float to int conversion method! Section::... does not handle positions < 0 correctly!
+
+	Bresenham3D(rayOriginI.x, rayOriginI.y, rayOriginI.z, rayDestI.x, rayDestI.y, rayDestI.z, voxelScene, -1);
 
 }

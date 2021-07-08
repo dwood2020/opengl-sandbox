@@ -271,7 +271,16 @@ void Section::GenerateMeshes(void) {
 
 
 
-// private helper methods ----------------------------------------------
+// helper methods ----------------------------------------------
+
+glm::ivec3 Section::FloatToInt(const glm::vec3& fv) {
+	glm::ivec3 iv{ 0 };
+	iv.x = static_cast<int>(floor(fv.x));
+	iv.y = static_cast<int>(floor(fv.y));
+	iv.z = static_cast<int>(floor(fv.z));
+	return iv;
+}
+
 
 bool Section::IsWithinBounds(const glm::ivec3& pos) const {
 	if (pos.x >= sectionSize || pos.y >= sectionSize || pos.z >= sectionSize) {
@@ -283,10 +292,3 @@ bool Section::IsWithinBounds(const glm::ivec3& pos) const {
 }
 
 
-glm::ivec3 Section::FloatToInt(const glm::vec3& fv) const {
-	glm::ivec3 iv{ 0 };
-	iv.x = static_cast<int>(floor(fv.x));
-	iv.y = static_cast<int>(floor(fv.y));
-	iv.z = static_cast<int>(floor(fv.z));
-	return iv;
-}
