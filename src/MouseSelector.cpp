@@ -4,7 +4,7 @@
 
 
 MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window): 
-	camera(&camera), window(&window), isActive(false), ray(glm::vec3(0.0f)) {
+	camera(&camera), window(&window), isActive(false), rayOrigin(glm::vec3(0.0f)), rayDirection(glm::vec3(0.0f)) {
 
 	eventBus.AddListener(EventType::ToggleSelectMode, this);
 	eventBus.AddListener(EventType::MouseMove, this);
@@ -24,6 +24,7 @@ void MouseSelector::OnEvent(Event& e) {
 	if (isActive && e.GetType() == EventType::MouseMove) {
 		MouseMoveEvent& emm = (MouseMoveEvent&)e;
 		CalculateRay(emm.GetPositionX(), emm.GetPositionY());
+		DoSelection();
 	}
 }
 
@@ -34,14 +35,16 @@ void MouseSelector::CalculateRay(int mouseX, int mouseY) {
 
 	//std::cout << "mouseNDC.x: " << mouseNDC.x << "  mouseNDC.y: " << mouseNDC.y << std::endl;
 
-	glm::vec4 mouseWorld = NDCToWorld(mouseNDC);
+	//glm::vec4 mouseWorld = NDCToWorld(mouseNDC);
+	rayDirection = NDCToWorld(mouseNDC);
 
 	//std::cout << "mouseWorld.x: " << mouseWorld.x << "  mouseWorld.y: " << mouseWorld.y << "  mouseWorld.z: " << mouseWorld.z << std::endl;
 
+	rayOrigin = camera->GetPosition();
+
 	// build the parameterized ray:
 	auto eyePos = camera->GetPosition();
-	std::cout << "[" << eyePos.x << " " << eyePos.y << " " << eyePos.z << "] + t * [" << mouseWorld.x << " " << mouseWorld.y << " " << mouseWorld.z << "]" << std::endl;
-
+	std::cout << "[" << rayOrigin.x << " " << rayOrigin.y << " " << rayOrigin.z << "] + t * [" << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << "]" << std::endl;
 
 }
 
@@ -74,4 +77,9 @@ glm::vec2 MouseSelector::ScreenToNDC(const glm::vec2& posScreen) const {
 	};
 
 	return A * posScreen + b;
+}
+
+
+void MouseSelector::DoSelection(void) {
+
 }

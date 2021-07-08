@@ -11,7 +11,9 @@ private:
 	CameraBase* camera;
 	bool isActive;
 
-	glm::vec3 ray;
+	glm::vec3 rayOrigin;
+	glm::vec3 rayDirection;
+	
 
 	MouseSelector() = default;
 
@@ -28,5 +30,7 @@ private:
 	glm::vec4 NDCToWorld(const glm::vec2& ndc) const;
 
 	glm::vec2 ScreenToNDC(const glm::vec2& posScreen) const;
+
+	void DoSelection(void);
 };
 
