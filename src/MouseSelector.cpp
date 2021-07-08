@@ -36,7 +36,13 @@ void MouseSelector::CalculateRay(int mouseX, int mouseY) {
 
 	glm::vec4 mouseWorld = NDCToWorld(mouseNDC);
 
-	std::cout << "mouseWorld.x: " << mouseWorld.x << "  mouseWorld.y: " << mouseWorld.y << "  mouseWorld.z: " << mouseWorld.z << std::endl;
+	//std::cout << "mouseWorld.x: " << mouseWorld.x << "  mouseWorld.y: " << mouseWorld.y << "  mouseWorld.z: " << mouseWorld.z << std::endl;
+
+	// build the parameterized ray:
+	auto eyePos = camera->GetPosition();
+	std::cout << "[" << eyePos.x << " " << eyePos.y << " " << eyePos.z << "] + t * [" << mouseWorld.x << " " << mouseWorld.y << " " << mouseWorld.z << "]" << std::endl;
+
+
 }
 
 
