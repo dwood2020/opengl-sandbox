@@ -3,12 +3,14 @@
 #include "../events/EventListener.hpp"
 #include "../camera/CameraBase.h"
 #include "../window/WindowBase.h"
+#include "VoxelScene.h"
 
 
 class MouseSelector final : public EventListener {
 private: 
 	WindowBase* window;
 	CameraBase* camera;
+	VoxelScene* voxelScene;
 	bool isActive;
 
 	glm::vec3 rayOrigin;
@@ -18,7 +20,7 @@ private:
 	MouseSelector() = default;
 
 public:
-	MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window);
+	MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene);
 
 	~MouseSelector();
 

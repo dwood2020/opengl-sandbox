@@ -116,7 +116,7 @@ int main(int argc, char* argv[]) {
 	
 	// Testing voxel scene
 	VoxelScene voxelScene;
-	MouseSelector mouseSelector(eventBus, camera, window);
+	MouseSelector mouseSelector(eventBus, camera, window, voxelScene);
 
 	voxelScene.SetBlock({ 0,0,1 }, 1);
 	voxelScene.SetBlock({ 2,0,3 }, 1);
