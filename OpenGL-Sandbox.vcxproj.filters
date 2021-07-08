@@ -200,5 +200,8 @@
     <ClInclude Include="src\voxel\MouseSelector.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\voxel\Bresenham3D.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

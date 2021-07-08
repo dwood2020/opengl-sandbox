@@ -77,7 +77,7 @@ Section::~Section() { }
 
 char Section::GetBlock(const glm::ivec3& pos) {	
 	if (!IsWithinBounds(pos)) {
-		return -1;
+		return 0;
 	}
 	else {
 		return blocks[pos.x][pos.y][pos.z];
