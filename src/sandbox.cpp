@@ -224,6 +224,29 @@ int main(int argc, char* argv[]) {
 	pinkDebugMaterial->SetDiffuseColor(glm::vec3(1.0f, 0.0f, 1.0f));
 	pinkDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 
+	FlatMaterial* flatWhiteMaterial = materialLibrary.MakeFlatMaterial(255);
+	flatWhiteMaterial->SetFlatColor(glm::vec3(1.0f));
+
+
+	// draw some simple lines to test visibility
+	std::vector<glm::vec3> vertices = {
+		{0.0f, 0.0f, 2.0f},
+		{1.0f, 0.0f, 2.0f},		
+		{0.0f, 1.0f, 2.0f},	
+		{1.0f, 1.0f, 2.0f}
+	};
+
+	std::vector<unsigned int> indices = {
+		0, 1, 
+		0, 2,
+		2, 3,
+	};
+
+	StaticMesh lineTestMesh;
+	lineTestMesh.SetPositionVertices(vertices);
+	lineTestMesh.SetIndices(indices);
+	lineTestMesh.SetGlMode(GL_LINES);
+	lineTestMesh.Prepare();
 
 
 	renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
@@ -233,15 +256,11 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Mcone, &coneMesh, greenDebugMaterial);
 	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);
 
-
+	renderer.AddSimpleCommand(Mid, &lineTestMesh, flatWhiteMaterial);
 
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);
 
-	/*renderer.AddBlockMaterialMapping(1, defaultMaterial);
-	renderer.AddBlockMaterialMapping(2, yellowDebugMaterial);
-	renderer.AddBlockMaterialMapping(3, greenDebugMaterial);*/
-
-
+	
 	renderer.Prepare();	
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
