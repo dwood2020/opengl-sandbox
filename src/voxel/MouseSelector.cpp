@@ -90,9 +90,11 @@ void MouseSelector::DoSelection(void) {
 
 	glm::ivec3 rayDestI = Section::FloatToInt(rayDest);
 
-	//std::cout << "rayDestI: [" << rayDestI.x << " " << rayDestI.y << " " << rayDestI.z << "]" << std::endl;
+	std::cout << "rayDestI: [" << rayDestI.x << " " << rayDestI.y << " " << rayDestI.z << "]" << std::endl;
 
 	glm::ivec3 rayOriginI = Section::FloatToInt(rayOrigin);
+
+	std::cout << "rayOriginI: [" << rayOriginI.x << " " << rayOriginI.y << " " << rayOriginI.z << "]" << std::endl;
 
 	//TODO: Write custom float to int conversion method! Section::... does not handle positions < 0 correctly!
 
