@@ -1,8 +1,8 @@
 #pragma once
 #include <glm/glm.hpp>
-#include "events/EventListener.hpp"
-#include "camera/CameraBase.h"
-#include "window/WindowBase.h"
+#include "../events/EventListener.hpp"
+#include "../camera/CameraBase.h"
+#include "../window/WindowBase.h"
 
 
 class MouseSelector final : public EventListener {

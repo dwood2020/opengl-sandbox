@@ -17,7 +17,7 @@
 #include "material/MaterialLibrary.h"
 #include "voxel/VoxelScene.h"
 #include "renderer/Renderer.h"
-#include "MouseSelector.h"
+#include "voxel/MouseSelector.h"
 
 #include <chrono>
 #include <cmath>
@@ -102,9 +102,7 @@ int main(int argc, char* argv[]) {
 	std::string glVersionStr = (const char*)glGetString(GL_VERSION);
 	std::cout << "OpenGL Version: " << glVersionStr << std::endl;
 	window.SetGLVersionLabel(glVersionStr);
-
 	
-	MouseSelector mouseSelector(eventBus, camera, window);
 
 	
 	StaticMesh mesh = meshFactory.MakeCube(1.0f, true);	
@@ -116,8 +114,10 @@ int main(int argc, char* argv[]) {
 	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
 	
-	// Testing voxel classes
+	// Testing voxel scene
 	VoxelScene voxelScene;
+	MouseSelector mouseSelector(eventBus, camera, window);
+
 	voxelScene.SetBlock({ 0,0,1 }, 1);
 	voxelScene.SetBlock({ 2,0,3 }, 1);
 	voxelScene.SetBlock({ 12,0,0 }, 2);

@@ -96,7 +96,7 @@
     <ClCompile Include="src\TextureData.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\MouseSelector.cpp">
+    <ClCompile Include="src\voxel\MouseSelector.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -197,7 +197,7 @@
     <ClInclude Include="src\TextureData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\MouseSelector.h">
+    <ClInclude Include="src\voxel\MouseSelector.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
