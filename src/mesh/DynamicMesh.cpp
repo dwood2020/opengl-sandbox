@@ -1,5 +1,5 @@
 #include "DynamicMesh.h"
-
+#include <iostream>
 
 DynamicMesh::DynamicMesh(): vao(0), vbo(0), useTexCoords(false), nrElements(0) {
 	

@@ -151,13 +151,18 @@ int main(int argc, char* argv[]) {
 	voxelScene.SetBlock({ 14,1,0 }, 1);
 	voxelScene.SetBlock({ 14,0,0 }, 1);
 
-	// a litle wall
+	// a little wall
 	voxelScene.SetBlock({ 14,0,1 }, 1);
 	voxelScene.SetBlock({ 14,1,1 }, 1);
 	voxelScene.SetBlock({ 14,0,2 }, 1);
 	voxelScene.SetBlock({ 14,1,2 }, 1);
 	voxelScene.SetBlock({ 14,0,3 }, 1);
 	voxelScene.SetBlock({ 14,1,3 }, 1);
+
+	// test voxels on the far left
+	voxelScene.SetBlock({ -20,0,0 }, 1);
+	voxelScene.SetBlock({ -19,0,0 }, 2);
+	voxelScene.SetBlock({ -18,0,0 }, 3);
 	
 	voxelScene.GenerateMeshes();
 

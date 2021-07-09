@@ -13,6 +13,8 @@ MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase&
 
 	eventBus.AddListener(EventType::ToggleSelectMode, this);
 	eventBus.AddListener(EventType::MouseMove, this);
+
+	eventBus.AddListener(EventType::Key, this);
 }
 
 
@@ -31,6 +33,14 @@ void MouseSelector::OnEvent(Event& e) {
 		CalculateRay(emm.GetPositionX(), emm.GetPositionY());
 		DoSelection();
 	}
+
+	if (e.GetType() == EventType::Key) {
+		KeyEvent& ek = (KeyEvent&)e;
+		if (ek.GetKeyCode() == KeyCode::S && ek.GetIsKeydown() == true) {
+			isActive = !isActive;
+			std::cout << "KeyEvent received: MouseSelector::isActive: " << isActive << std::endl;
+		}
+	}
 }
 
 
@@ -38,8 +48,8 @@ void MouseSelector::CalculateRay(int mouseX, int mouseY) {
 
 	glm::vec2 mouseNDC = ScreenToNDC(glm::vec2(static_cast<float>(mouseX), static_cast<float>(mouseY)));
 	
-	glm::mat4 Vinv = glm::inverse(camera->GetViewMatrix());
-	glm::mat4 Pinv = glm::inverse(camera->GetProjectionMatrix());
+	/*glm::mat4 Vinv = glm::inverse(camera->GetViewMatrix());
+	glm::mat4 Pinv = glm::inverse(camera->GetProjectionMatrix());*/
 
 
 	// same procedure as in ThinMatrix tutorial
@@ -62,6 +72,7 @@ void MouseSelector::CalculateRay(int mouseX, int mouseY) {
 
 	glm::mat4 PVinv = glm::inverse(camera->GetViewProjectionMatrix());
 	glm::vec4 clipCoords = glm::vec4(mouseNDC.x, mouseNDC.y, 1.0f, 1.0f);
+	
 
 	rayDirection = glm::normalize(PVinv * clipCoords);
 	rayOrigin = camera->GetPosition();
@@ -119,7 +130,7 @@ glm::vec2 MouseSelector::ScreenToNDC(const glm::vec2& posScreen) const {
 void MouseSelector::DoSelection(void) {
 
 	// destination point of ray
-	glm::vec3 rayDest = rayOrigin + 150.0f * rayDirection;
+	glm::vec3 rayDest = rayOrigin + 100.0f * rayDirection;
 	//std::cout << "rayDest: [" << rayDest.x << " " << rayDest.y << " " << rayDest.z << "]" << std::endl;
 
 	glm::ivec3 rayDestI = Section::FloatToInt(rayDest);
@@ -134,15 +145,15 @@ void MouseSelector::DoSelection(void) {
 
 	// custom super simple, dumb ray traversion
 
-	rayOrigin = TruncPrecision(rayOrigin);
-	rayDirection = TruncPrecision(rayDirection);
+	//rayOrigin = TruncPrecision(rayOrigin);
+	//rayDirection = TruncPrecision(rayDirection);
 
 	glm::vec3 traversionPos = (rayOrigin);
 	glm::vec3 traversionPosI = Section::FloatToInt(traversionPos);
 
-	for (float dt = 0.f; dt < 200.f; dt += 0.1f) {
+	for (float dt = 0.f; dt < 100.f; dt += 0.1f) {
 		traversionPos = rayOrigin + dt * rayDirection;
-		traversionPos = TruncPrecision(traversionPos);
+		//traversionPos = TruncPrecision(traversionPos);
 		traversionPosI = Section::FloatToInt(traversionPos);
 
 		if (voxelScene->GetBlock(traversionPosI) != 0) {
