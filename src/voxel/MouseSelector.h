@@ -5,6 +5,8 @@
 #include "../window/WindowBase.h"
 #include "VoxelScene.h"
 
+#include "../mesh/DynamicMesh.h"
+
 
 class MouseSelector final : public EventListener {
 private: 
@@ -15,12 +17,14 @@ private:
 
 	glm::vec3 rayOrigin;
 	glm::vec3 rayDirection;
+
+	DynamicMesh* rayLineMesh;
 	
 
 	MouseSelector() = default;
 
 public:
-	MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene);
+	MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene, DynamicMesh& rayLineMesh);
 
 	~MouseSelector();
 

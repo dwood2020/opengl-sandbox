@@ -113,10 +113,21 @@ int main(int argc, char* argv[]) {
 	StaticMesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, true);
 	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
+
+	// ray line mesh for debugging MouseSelector
+	std::vector<VertexPosNorm> rayLineMeshVertices = {
+		{glm::vec3(-4.0f, 4.0f, -4.0f), glm::vec3(0.0f)},
+		{glm::vec3(0.0f), glm::vec3(0.0f)},
+	};
+	DynamicMesh rayLineMesh;
+	rayLineMesh.GetVerticesPosNorm() = rayLineMeshVertices;
+	rayLineMesh.SetGlMode(GL_LINES);
+	rayLineMesh.Prepare();
+
 	
 	// Testing voxel scene
 	VoxelScene voxelScene;
-	MouseSelector mouseSelector(eventBus, camera, window, voxelScene);
+	MouseSelector mouseSelector(eventBus, camera, window, voxelScene, rayLineMesh);
 
 	voxelScene.SetBlock({ 0,0,1 }, 1);
 	voxelScene.SetBlock({ 2,0,3 }, 1);
@@ -255,14 +266,14 @@ int main(int argc, char* argv[]) {
 		{glm::vec3(3.0f, 1.0f, 0.0f), glm::vec3(0.0f)},
 	};
 
-	DynamicMesh dynamicLine;
-	dynamicLine.GetVerticesPosNorm() = dynamicVertices;
-	dynamicLine.SetGlMode(GL_LINES);
-	dynamicLine.Prepare();
+	//DynamicMesh dynamicLine;
+	//dynamicLine.GetVerticesPosNorm() = dynamicVertices;
+	//dynamicLine.SetGlMode(GL_LINES);
+	//dynamicLine.Prepare();
 
-	// testing dynamic buffer updating
-	dynamicLine.GetVerticesPosNorm()[1].pos.x += 0.01f;
-	dynamicLine.Update();
+	//// testing dynamic buffer updating
+	//dynamicLine.GetVerticesPosNorm()[1].pos.x += 0.01f;
+	//dynamicLine.Update();
 
 
 	renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
@@ -273,7 +284,8 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);
 
 	renderer.AddSimpleCommand(Mid, &lineTestMesh, flatWhiteMaterial);
-	renderer.AddSimpleCommand(Mid, &dynamicLine, flatWhiteMaterial);
+	//renderer.AddSimpleCommand(Mid, &dynamicLine, flatWhiteMaterial);
+	renderer.AddSimpleCommand(Mid, &rayLineMesh, flatWhiteMaterial);
 
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);
 	
@@ -293,8 +305,8 @@ int main(int argc, char* argv[]) {
 	while (!g_exitProgram) {		
 
 		// testing dynamic buffer updating
-		dynamicLine.GetVerticesPosNorm()[1].pos.x += 0.01f;
-		dynamicLine.Update();
+		/*dynamicLine.GetVerticesPosNorm()[1].pos.x += 0.01f;
+		dynamicLine.Update();*/
 
 
 		renderer.DoFrame();		

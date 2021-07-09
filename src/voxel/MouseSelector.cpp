@@ -6,8 +6,10 @@
 #include <iostream>
 
 
-MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene): 
+MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene, DynamicMesh& rayLineMesh): 
 	camera(&camera), window(&window), voxelScene(&voxelScene), isActive(false), rayOrigin(glm::vec3(0.0f)), rayDirection(glm::vec3(0.0f)) {
+
+	this->rayLineMesh = &rayLineMesh;
 
 	eventBus.AddListener(EventType::ToggleSelectMode, this);
 	eventBus.AddListener(EventType::MouseMove, this);
@@ -63,6 +65,17 @@ void MouseSelector::CalculateRay(int mouseX, int mouseY) {
 
 	rayDirection = glm::normalize(PVinv * clipCoords);
 	rayOrigin = camera->GetPosition();
+
+
+
+	(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin;	
+	
+	//(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin + glm::vec3(0.1f, 0.1f, 0.1f);
+	
+	//std::cout << (rayLineMesh->GetVerticesPosNorm())[0].pos.x << " " << (rayLineMesh->GetVerticesPosNorm())[0].pos.y << " " << (rayLineMesh->GetVerticesPosNorm())[0].pos.z << std::endl;
+	rayLineMesh->GetVerticesPosNorm()[1].pos = rayOrigin + 100.0f * rayDirection;	
+	//(rayLineMesh->GetVerticesPosNorm())[0].pos = glm::vec3(0.0f);
+	rayLineMesh->Update();
 
 	//std::cout << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << std::endl;
 
