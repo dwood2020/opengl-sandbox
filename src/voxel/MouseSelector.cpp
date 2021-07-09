@@ -1,4 +1,5 @@
 #include "MouseSelector.h"
+#include <cmath>
 #include "Bresenham3D.hpp"
 #include "Section.h"
 
@@ -34,19 +35,39 @@ void MouseSelector::OnEvent(Event& e) {
 void MouseSelector::CalculateRay(int mouseX, int mouseY) {	
 
 	glm::vec2 mouseNDC = ScreenToNDC(glm::vec2(static_cast<float>(mouseX), static_cast<float>(mouseY)));
+	
+	glm::mat4 Vinv = glm::inverse(camera->GetViewMatrix());
+	glm::mat4 Pinv = glm::inverse(camera->GetProjectionMatrix());
 
-	//std::cout << "mouseNDC.x: " << mouseNDC.x << "  mouseNDC.y: " << mouseNDC.y << std::endl;
 
-	//glm::vec4 mouseWorld = NDCToWorld(mouseNDC);
-	rayDirection = NDCToWorld(mouseNDC);
+	// same procedure as in ThinMatrix tutorial
+	//glm::vec4 clipCoords = glm::vec4(mouseNDC.x, mouseNDC.y, 1.0f, 1.0f);
 
-	//std::cout << "mouseWorld.x: " << mouseWorld.x << "  mouseWorld.y: " << mouseWorld.y << "  mouseWorld.z: " << mouseWorld.z << std::endl;
+	////to eye coords
+	//glm::vec4 eyeCoords = Pinv * clipCoords;
+	//eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, 1.f, 1.f);
 
+	////to world coords
+	//glm::vec4 rayWorld = Vinv * eyeCoords;
+	//glm::vec3 mouseRay = glm::vec3(rayWorld.x, rayWorld.y, rayWorld.z);
+	//mouseRay = glm::normalize(mouseRay);
+
+	//rayDirection = mouseRay;
+	//rayDirection.z *= -1.f;
+	//rayOrigin = camera->GetPosition();
+
+	//std::cout << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << std::endl;
+
+	glm::mat4 PVinv = glm::inverse(camera->GetViewProjectionMatrix());
+	glm::vec4 clipCoords = glm::vec4(mouseNDC.x, mouseNDC.y, 1.0f, 1.0f);
+
+	rayDirection = glm::normalize(PVinv * clipCoords);
 	rayOrigin = camera->GetPosition();
 
-	// build the parameterized ray:
-	/*auto eyePos = camera->GetPosition();
-	std::cout << "[" << rayOrigin.x << " " << rayOrigin.y << " " << rayOrigin.z << "] + t * [" << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << "]" << std::endl;*/
+	//std::cout << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << std::endl;
+
+	/*rayDirection = NDCToWorld(mouseNDC);
+	rayOrigin = camera->GetPosition();*/
 
 }
 
@@ -85,19 +106,51 @@ glm::vec2 MouseSelector::ScreenToNDC(const glm::vec2& posScreen) const {
 void MouseSelector::DoSelection(void) {
 
 	// destination point of ray
-	glm::vec3 rayDest = rayOrigin + 100.0f * rayDirection;
+	glm::vec3 rayDest = rayOrigin + 150.0f * rayDirection;
 	//std::cout << "rayDest: [" << rayDest.x << " " << rayDest.y << " " << rayDest.z << "]" << std::endl;
 
 	glm::ivec3 rayDestI = Section::FloatToInt(rayDest);
-
-	std::cout << "rayDestI: [" << rayDestI.x << " " << rayDestI.y << " " << rayDestI.z << "]" << std::endl;
+	//std::cout << "rayDestI: [" << rayDestI.x << " " << rayDestI.y << " " << rayDestI.z << "]" << std::endl;
 
 	glm::ivec3 rayOriginI = Section::FloatToInt(rayOrigin);
-
-	std::cout << "rayOriginI: [" << rayOriginI.x << " " << rayOriginI.y << " " << rayOriginI.z << "]" << std::endl;
+	//std::cout << "rayOriginI: [" << rayOriginI.x << " " << rayOriginI.y << " " << rayOriginI.z << "]" << std::endl;
 
 	//TODO: Write custom float to int conversion method! Section::... does not handle positions < 0 correctly!
 
-	Bresenham3D(rayOriginI.x, rayOriginI.y, rayOriginI.z, rayDestI.x, rayDestI.y, rayDestI.z, voxelScene, -1);
+	//Bresenham3D(rayOriginI.x, rayOriginI.y, rayOriginI.z, rayDestI.x, rayDestI.y, rayDestI.z, voxelScene, -1);
+
+	// custom super simple, dumb ray traversion
+
+	rayOrigin = TruncPrecision(rayOrigin);
+	rayDirection = TruncPrecision(rayDirection);
+
+	glm::vec3 traversionPos = (rayOrigin);
+	glm::vec3 traversionPosI = Section::FloatToInt(traversionPos);
+
+	for (float dt = 0.f; dt < 200.f; dt += 0.1f) {
+		traversionPos = rayOrigin + dt * rayDirection;
+		traversionPos = TruncPrecision(traversionPos);
+		traversionPosI = Section::FloatToInt(traversionPos);
+
+		if (voxelScene->GetBlock(traversionPosI) != 0) {
+			std::cout << "Found block: Float value (" << traversionPos.x << " " << traversionPos.y << " " << traversionPos.z 
+				<< ") [" << traversionPosI.x << " " << traversionPosI.y << " " << traversionPosI.z << "]: " << (int)(voxelScene->GetBlock(traversionPosI)) << std::endl;
+			break;
+		}
+	}
+
 
 }
+
+
+glm::vec3 MouseSelector::TruncPrecision(const glm::vec3& v) {
+	
+	glm::vec3 vtrunc = v;
+
+	for (unsigned int i = 0; i < 3; i++) {
+		vtrunc[i] = trunc(v[i] * 100.0f) / 100.0f;
+	}
+	return vtrunc;
+}
+
+

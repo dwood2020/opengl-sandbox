@@ -34,5 +34,7 @@ private:
 	glm::vec2 ScreenToNDC(const glm::vec2& posScreen) const;
 
 	void DoSelection(void);
+
+	glm::vec3 TruncPrecision(const glm::vec3& v);
 };
 
