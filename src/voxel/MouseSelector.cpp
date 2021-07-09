@@ -74,7 +74,11 @@ void MouseSelector::CalculateRay(int mouseX, int mouseY) {
 	glm::vec4 clipCoords = glm::vec4(mouseNDC.x, mouseNDC.y, 1.0f, 1.0f);
 	
 
-	rayDirection = glm::normalize(PVinv * clipCoords);
+	glm::vec4 rayDirectionH = (PVinv * clipCoords);
+
+	rayDirection = glm::vec3(rayDirectionH.x / rayDirectionH.w, rayDirectionH.y / rayDirectionH.w, rayDirectionH.z / rayDirectionH.w);
+	rayDirection = glm::normalize(rayDirection);
+
 	rayOrigin = camera->GetPosition();
 
 
