@@ -149,13 +149,13 @@ void MouseSelector::DoSelection(void) {
 
 	// custom super simple, dumb ray traversion
 
-	//rayOrigin = TruncPrecision(rayOrigin);
-	//rayDirection = TruncPrecision(rayDirection);
+	rayOrigin = TruncPrecision(rayOrigin);
+	rayDirection = TruncPrecision(rayDirection);
 
 	glm::vec3 traversionPos = (rayOrigin);
 	glm::vec3 traversionPosI = Section::FloatToInt(traversionPos);
 
-	for (float dt = 0.f; dt < 100.f; dt += 0.1f) {
+	for (float dt = 0.f; dt < 100.f; dt += 0.2f) {
 		traversionPos = rayOrigin + dt * rayDirection;
 		//traversionPos = TruncPrecision(traversionPos);
 		traversionPosI = Section::FloatToInt(traversionPos);
