@@ -249,6 +249,22 @@ int main(int argc, char* argv[]) {
 	lineTestMesh.Prepare();
 
 
+	// DynamicMesh line drawing
+	std::vector<VertexPosNorm> dynamicVertices = {
+		{glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(0.0f)},
+		{glm::vec3(3.0f, 1.0f, 0.0f), glm::vec3(0.0f)},
+	};
+
+	DynamicMesh dynamicLine;
+	dynamicLine.GetVerticesPosNorm() = dynamicVertices;
+	dynamicLine.SetGlMode(GL_LINES);
+	dynamicLine.Prepare();
+
+	// testing dynamic buffer updating
+	dynamicLine.GetVerticesPosNorm()[1].pos.x += 0.01f;
+	dynamicLine.Update();
+
+
 	renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
 	renderer.AddSimpleCommand(Mid, &cs3dMesh, coordSystemMaterial);
 	renderer.AddSimpleCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
@@ -257,8 +273,10 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);
 
 	renderer.AddSimpleCommand(Mid, &lineTestMesh, flatWhiteMaterial);
+	renderer.AddSimpleCommand(Mid, &dynamicLine, flatWhiteMaterial);
 
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);
+	
 
 	
 	renderer.Prepare();	
@@ -273,6 +291,11 @@ int main(int argc, char* argv[]) {
 
 
 	while (!g_exitProgram) {		
+
+		// testing dynamic buffer updating
+		dynamicLine.GetVerticesPosNorm()[1].pos.x += 0.01f;
+		dynamicLine.Update();
+
 
 		renderer.DoFrame();		
 

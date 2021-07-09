@@ -78,3 +78,17 @@ void DynamicMesh::Draw(void) {
 }
 
 
+void DynamicMesh::Update(void) {
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	
+	if (useTexCoords) {
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPosNormTex) * verticesPosNormTex.size(), &verticesPosNormTex[0].pos.x);
+	}
+	else {
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPosNorm) * verticesPosNorm.size(), &verticesPosNorm[0].pos.x);
+	}
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+
