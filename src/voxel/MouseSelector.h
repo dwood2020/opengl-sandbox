@@ -18,6 +18,8 @@ private:
 	glm::vec3 rayOrigin;
 	glm::vec3 rayDirection;
 
+	bool isOrthoProjection;
+
 	DynamicMesh* rayLineMesh;
 	
 
@@ -31,9 +33,9 @@ public:
 	void OnEvent(Event& e) override;
 
 private:
-	void CalculateRay(int mouseX, int mouseY);
+	void CalculateRayPerspective(int mouseX, int mouseY);
 
-	glm::vec4 NDCToWorld(const glm::vec2& ndc) const;
+	void CalculateRayOrtho(int mouseX, int mouseY);
 
 	glm::vec2 ScreenToNDC(const glm::vec2& posScreen) const;
 

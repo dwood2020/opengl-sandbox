@@ -7,12 +7,13 @@
 
 
 MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene, DynamicMesh& rayLineMesh): 
-	camera(&camera), window(&window), voxelScene(&voxelScene), isActive(false), rayOrigin(glm::vec3(0.0f)), rayDirection(glm::vec3(0.0f)) {
+	camera(&camera), window(&window), voxelScene(&voxelScene), isActive(false), rayOrigin(glm::vec3(0.0f)), rayDirection(glm::vec3(0.0f)), isOrthoProjection(false) {
 
 	this->rayLineMesh = &rayLineMesh;
 
 	eventBus.AddListener(EventType::ToggleSelectMode, this);
 	eventBus.AddListener(EventType::MouseMove, this);
+	eventBus.AddListener(EventType::ProjectionModeChanged, this);
 
 	eventBus.AddListener(EventType::Key, this);
 }
@@ -30,8 +31,25 @@ void MouseSelector::OnEvent(Event& e) {
 
 	if (isActive && e.GetType() == EventType::MouseMove) {
 		MouseMoveEvent& emm = (MouseMoveEvent&)e;
-		CalculateRay(emm.GetPositionX(), emm.GetPositionY());
+
+		if (isOrthoProjection) {
+			CalculateRayOrtho(emm.GetPositionX(), emm.GetPositionY());
+		}
+		else {
+			CalculateRayPerspective(emm.GetPositionX(), emm.GetPositionY());
+		}
+		
 		DoSelection();
+	}
+
+	if (e.GetType() == EventType::ProjectionModeChanged) {
+		ProjectionModeChangedEvent& ep = (ProjectionModeChangedEvent&)e;
+		if (ep.GetProjectionMode() == ProjectionMode::Orthographic) {
+			isOrthoProjection = true;
+		}
+		else {
+			isOrthoProjection = false;
+		}
 	}
 
 	if (e.GetType() == EventType::Key) {
@@ -40,15 +58,14 @@ void MouseSelector::OnEvent(Event& e) {
 			isActive = !isActive;
 			std::cout << "KeyEvent received: MouseSelector::isActive: " << isActive << std::endl;
 		}
-	}
+	}	
 }
 
 
-void MouseSelector::CalculateRay(int mouseX, int mouseY) {	
+void MouseSelector::CalculateRayPerspective(int mouseX, int mouseY) {	
 
 	glm::vec2 mouseNDC = ScreenToNDC(glm::vec2(static_cast<float>(mouseX), static_cast<float>(mouseY)));
-	
-	
+		
 	// procedure from antongerledan tutorial
 	glm::mat4 Vinv = glm::inverse(camera->GetViewMatrix());
 	glm::mat4 Pinv = glm::inverse(camera->GetProjectionMatrix());
@@ -63,54 +80,26 @@ void MouseSelector::CalculateRay(int mouseX, int mouseY) {
 
 	// world coordinates
 	glm::vec4 rayWorldH = Vinv * rayEye;
-	glm::vec3 rayWorld = glm::vec3(rayWorldH.x, rayWorldH.y, rayWorldH.z);
+	glm::vec3 rayWorld = glm::vec3(rayWorldH.x, rayWorldH.y, rayWorldH.z);	// correct retransformation from homogenous coords is omitted due to following normalization
 	rayWorld = glm::normalize(rayWorld);
 
 	rayDirection = rayWorld;
-	rayOrigin = camera->GetPosition();
+	rayOrigin = camera->GetPosition();	
 
-	
-
-	/*glm::mat4 PVinv = glm::inverse(camera->GetViewProjectionMatrix());
-
-	for (unsigned int i = 0; i < 4; i++) {
-		for (unsigned int j = 0; j < 4; j++) {
-			PVinv[i][j] = PVinv[i][j] / PVinv[3][3];
-		}
-	}
-
-	glm::vec4 clipCoords = glm::vec4(mouseNDC.x, mouseNDC.y, 1.0f, 1.0f);
-	
-
-	glm::vec4 rayDirectionH = (PVinv * clipCoords);
-
-	rayDirection = glm::vec3(rayDirectionH.x / rayDirectionH.w, rayDirectionH.y / rayDirectionH.w, rayDirectionH.z / rayDirectionH.w);
-	rayDirection = glm::normalize(rayDirection);
-
-	rayOrigin = camera->GetPosition();*/
-
-
-
-	(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin;		
-		
+	// Debug ray line 
+	(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin;				
 	rayLineMesh->GetVerticesPosNorm()[1].pos = rayOrigin + 100.0f * rayDirection;	
-
-	//(rayLineMesh->GetVerticesPosNorm())[0].pos = glm::vec3(0.0f);
 	rayLineMesh->Update();	
-
-	/*rayDirection = NDCToWorld(mouseNDC);
-	rayOrigin = camera->GetPosition();*/
 
 }
 
 
-glm::vec4 MouseSelector::NDCToWorld(const glm::vec2& ndc) const {
-	
-	glm::mat4 PVinv = glm::inverse(camera->GetViewProjectionMatrix());
+void MouseSelector::CalculateRayOrtho(int mouseX, int mouseY) {
 
-	//NOTE: All directions are returned inverted. 
-	//TM tutorial said -1 for z in clip space
-	return glm::normalize(PVinv * glm::vec4(ndc.x, ndc.y, 1.0f, 1.0f));
+	glm::vec2 mouseNDC = ScreenToNDC(glm::vec2(static_cast<float>(mouseX), static_cast<float>(mouseY)));
+
+	
+
 }
 
 
@@ -139,15 +128,8 @@ void MouseSelector::DoSelection(void) {
 
 	// destination point of ray
 	glm::vec3 rayDest = rayOrigin + 100.0f * rayDirection;
-	//std::cout << "rayDest: [" << rayDest.x << " " << rayDest.y << " " << rayDest.z << "]" << std::endl;
-
 	glm::ivec3 rayDestI = Section::FloatToInt(rayDest);
-	//std::cout << "rayDestI: [" << rayDestI.x << " " << rayDestI.y << " " << rayDestI.z << "]" << std::endl;
-
 	glm::ivec3 rayOriginI = Section::FloatToInt(rayOrigin);
-	//std::cout << "rayOriginI: [" << rayOriginI.x << " " << rayOriginI.y << " " << rayOriginI.z << "]" << std::endl;
-
-	//TODO: Write custom float to int conversion method! Section::... does not handle positions < 0 correctly!
 
 	//Bresenham3D(rayOriginI.x, rayOriginI.y, rayOriginI.z, rayDestI.x, rayDestI.y, rayDestI.z, voxelScene, -1);
 
@@ -161,7 +143,6 @@ void MouseSelector::DoSelection(void) {
 
 	for (float dt = 0.f; dt < 100.f; dt += 0.2f) {
 		traversionPos = rayOrigin + dt * rayDirection;
-		//traversionPos = TruncPrecision(traversionPos);
 		traversionPosI = Section::FloatToInt(traversionPos);
 
 		if (voxelScene->GetBlock(traversionPosI) != 0) {
