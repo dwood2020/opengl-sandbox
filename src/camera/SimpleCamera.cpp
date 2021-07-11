@@ -59,6 +59,11 @@ const glm::vec3& SimpleCamera::GetPosition(void) const {
 }
 
 
+const glm::vec3& SimpleCamera::GetTarget(void) const {
+	return target;
+}
+
+
 void SimpleCamera::ResetPosition(void) {
 	if (!isOrthographic) {
 		rho = rhoInitial;

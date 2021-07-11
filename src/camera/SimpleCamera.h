@@ -72,6 +72,12 @@ public:
 	const glm::vec3& GetPosition(void) const override;
 
 	/// <summary>
+	/// Get the camera target in world coordinates
+	/// </summary>
+	/// <returns>camera target [world]</returns>
+	const glm::vec3& GetTarget(void) const override;
+
+	/// <summary>
 	/// Resets the initial camera position.
 	/// </summary>	
 	void ResetPosition(void);

@@ -98,7 +98,9 @@ void MouseSelector::CalculateRayOrtho(int mouseX, int mouseY) {
 
 	glm::vec2 mouseNDC = ScreenToNDC(glm::vec2(static_cast<float>(mouseX), static_cast<float>(mouseY)));
 
-	
+	rayDirection = glm::normalize(camera->GetTarget() - camera->GetPosition());
+	//std::cout << "rayDirection: [" << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << "]" << std::endl;
+
 
 }
 

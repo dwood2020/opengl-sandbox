@@ -26,28 +26,34 @@ public:
 	void ResetDirtyState(void);	//TODO: change this in 2 separates or change everything into VP-Matrix usage
 
 	/// <summary>
-	/// Get the View Matrix	
+	/// Gets the View Matrix	
 	/// </summary>
 	/// <returns>V</returns>
 	virtual const glm::mat4& GetViewMatrix(void) const = 0;
 
 	/// <summary>
-	/// Get the Projection Matrix
+	/// Gets the Projection Matrix
 	/// </summary>
 	/// <returns>V</returns>
 	virtual const glm::mat4& GetProjectionMatrix(void) const = 0;
 
 	/// <summary>
-	/// Get the View Projection matrix P * V
+	/// Gets the View Projection matrix P * V
 	/// </summary>	
 	/// <returns>PV</returns>
 	virtual const glm::mat4& GetViewProjectionMatrix(void) const = 0;
 
 	/// <summary>
-	/// Get the camera position (the "eye" position)
+	/// Gets the camera position (the "eye" position)
 	/// </summary>
 	/// <returns>eye position</returns>
 	virtual const glm::vec3& GetPosition(void) const = 0;
+
+	/// <summary>
+	/// Gets the camera target position.
+	/// </summary>	
+	/// <returns>Camera target</returns>
+	virtual const glm::vec3& GetTarget(void) const = 0;
 
 	/// <summary>
 	/// Every camera subclass needs to implement this event handler method.
