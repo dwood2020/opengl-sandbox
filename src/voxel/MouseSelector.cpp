@@ -48,29 +48,37 @@ void MouseSelector::CalculateRay(int mouseX, int mouseY) {
 
 	glm::vec2 mouseNDC = ScreenToNDC(glm::vec2(static_cast<float>(mouseX), static_cast<float>(mouseY)));
 	
-	/*glm::mat4 Vinv = glm::inverse(camera->GetViewMatrix());
-	glm::mat4 Pinv = glm::inverse(camera->GetProjectionMatrix());*/
+	
+	// procedure from antongerledan tutorial
+	glm::mat4 Vinv = glm::inverse(camera->GetViewMatrix());
+	glm::mat4 Pinv = glm::inverse(camera->GetProjectionMatrix());
 
 
-	// same procedure as in ThinMatrix tutorial
-	//glm::vec4 clipCoords = glm::vec4(mouseNDC.x, mouseNDC.y, 1.0f, 1.0f);
+	// homogenous clip coordinates
+	glm::vec4 rayClip = glm::vec4(mouseNDC, -1.0f, 1.0f);
 
-	////to eye coords
-	//glm::vec4 eyeCoords = Pinv * clipCoords;
-	//eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, 1.f, 1.f);
+	// eye coordinates
+	glm::vec4 rayEye = Pinv * rayClip;
+	rayEye = glm::vec4(rayEye.x, rayEye.y, -1.0f, 0.0f);
 
-	////to world coords
-	//glm::vec4 rayWorld = Vinv * eyeCoords;
-	//glm::vec3 mouseRay = glm::vec3(rayWorld.x, rayWorld.y, rayWorld.z);
-	//mouseRay = glm::normalize(mouseRay);
+	// world coordinates
+	glm::vec4 rayWorldH = Vinv * rayEye;
+	glm::vec3 rayWorld = glm::vec3(rayWorldH.x, rayWorldH.y, rayWorldH.z);
+	rayWorld = glm::normalize(rayWorld);
 
-	//rayDirection = mouseRay;
-	//rayDirection.z *= -1.f;
-	//rayOrigin = camera->GetPosition();
+	rayDirection = rayWorld;
+	rayOrigin = camera->GetPosition();
 
-	//std::cout << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << std::endl;
+	
 
-	glm::mat4 PVinv = glm::inverse(camera->GetViewProjectionMatrix());
+	/*glm::mat4 PVinv = glm::inverse(camera->GetViewProjectionMatrix());
+
+	for (unsigned int i = 0; i < 4; i++) {
+		for (unsigned int j = 0; j < 4; j++) {
+			PVinv[i][j] = PVinv[i][j] / PVinv[3][3];
+		}
+	}
+
 	glm::vec4 clipCoords = glm::vec4(mouseNDC.x, mouseNDC.y, 1.0f, 1.0f);
 	
 
@@ -79,20 +87,16 @@ void MouseSelector::CalculateRay(int mouseX, int mouseY) {
 	rayDirection = glm::vec3(rayDirectionH.x / rayDirectionH.w, rayDirectionH.y / rayDirectionH.w, rayDirectionH.z / rayDirectionH.w);
 	rayDirection = glm::normalize(rayDirection);
 
-	rayOrigin = camera->GetPosition();
+	rayOrigin = camera->GetPosition();*/
 
 
 
-	(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin;	
-	
-	//(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin + glm::vec3(0.1f, 0.1f, 0.1f);
-	
-	//std::cout << (rayLineMesh->GetVerticesPosNorm())[0].pos.x << " " << (rayLineMesh->GetVerticesPosNorm())[0].pos.y << " " << (rayLineMesh->GetVerticesPosNorm())[0].pos.z << std::endl;
+	(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin;		
+		
 	rayLineMesh->GetVerticesPosNorm()[1].pos = rayOrigin + 100.0f * rayDirection;	
-	//(rayLineMesh->GetVerticesPosNorm())[0].pos = glm::vec3(0.0f);
-	rayLineMesh->Update();
 
-	//std::cout << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << std::endl;
+	//(rayLineMesh->GetVerticesPosNorm())[0].pos = glm::vec3(0.0f);
+	rayLineMesh->Update();	
 
 	/*rayDirection = NDCToWorld(mouseNDC);
 	rayOrigin = camera->GetPosition();*/
