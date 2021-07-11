@@ -101,6 +101,10 @@ void MouseSelector::CalculateRayOrtho(int mouseX, int mouseY) {
 	rayDirection = glm::normalize(camera->GetTarget() - camera->GetPosition());
 	//std::cout << "rayDirection: [" << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << "]" << std::endl;
 
+	glm::mat4 Pinv = glm::inverse(camera->GetProjectionMatrix());
+	glm::vec4 mouse = Pinv * glm::vec4(mouseNDC, 0.0f, 1.0f);
+
+	std::cout << "mouse: [" << mouse.x << " " << mouse.y << " " << mouse.z << "]" << std::endl;
 
 }
 
