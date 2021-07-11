@@ -96,15 +96,26 @@ void MouseSelector::CalculateRayPerspective(int mouseX, int mouseY) {
 
 void MouseSelector::CalculateRayOrtho(int mouseX, int mouseY) {
 
+	glm::mat4 Pinv = glm::inverse(camera->GetProjectionMatrix());
+	glm::mat4 Vinv = glm::inverse(camera->GetViewMatrix());
+
 	glm::vec2 mouseNDC = ScreenToNDC(glm::vec2(static_cast<float>(mouseX), static_cast<float>(mouseY)));
 
 	rayDirection = glm::normalize(camera->GetTarget() - camera->GetPosition());
 	//std::cout << "rayDirection: [" << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << "]" << std::endl;
 
-	glm::mat4 Pinv = glm::inverse(camera->GetProjectionMatrix());
-	glm::vec4 mouse = Pinv * glm::vec4(mouseNDC, 0.0f, 1.0f);
+	glm::vec4 mouseClip = glm::vec4(mouseNDC, 0.0f, 1.0f);
 
-	std::cout << "mouse: [" << mouse.x << " " << mouse.y << " " << mouse.z << "]" << std::endl;
+	
+	//glm::vec4 mouseView = Pinv * glm::vec4(mouseNDC, 0.0f, 1.0f);
+	glm::vec4 mouseView = Pinv * mouseClip;
+	
+	
+	glm::vec4 mouseWorld = Vinv * mouseView;
+
+	std::cout << "mouseWorld: [" << mouseWorld.x << " " << mouseWorld.y << " " << mouseWorld.z << "]" << std::endl;
+
+	//TODO: Consider Camera Position!
 
 }
 
