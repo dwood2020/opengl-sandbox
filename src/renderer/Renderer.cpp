@@ -121,6 +121,11 @@ void Renderer::DoFrame(void) {
 void Renderer::DoSimpleCommands(void) {
 
 	for (SimpleRenderCommand& command : simpleRenderCommands) {
+
+		if (!command.isActive) {
+			continue;
+		}
+
 		command.material->Bind();
 
 		if (camera->GetViewProjectionMatrixIsDirty() == true) {
