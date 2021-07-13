@@ -114,13 +114,16 @@ void MouseSelector::CalculateRayOrtho(int mouseX, int mouseY) {
 	
 	
 	glm::vec4 mouseWorld = Vinv * mouseView;
-	mouseWorld += glm::vec4(camera->GetPosition(), 0.0f);
+	mouseWorld += glm::vec4(camera->GetPosition(), 0.0f);	//TODO: this addition must be incorrect
 
-	std::cout << "mouseWorld: [" << mouseWorld.x << " " << mouseWorld.y << " " << mouseWorld.z << "]" << std::endl;
-
-	//TODO: Consider Camera Position!
+	std::cout << "mouseWorld: [" << mouseWorld.x << " " << mouseWorld.y << " " << mouseWorld.z << "]" << std::endl;	
 
 	rayOrigin = mouseWorld;
+
+	// Debug ray line 
+	(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin + 50.0f * rayDirection;
+	rayLineMesh->GetVerticesPosNorm()[1].pos = rayOrigin + 200.0f * rayDirection;
+	rayLineMesh->Update();
 
 }
 
@@ -165,18 +168,22 @@ void MouseSelector::CheckCollisions(void) {
 	glm::vec3 traversionPos = (rayOrigin);
 	glm::vec3 traversionPosI = Section::FloatToInt(traversionPos);
 
+	float tStart;
 	float tEnd;
 	float dt;
 	if (isOrthoProjection) {
+		tStart = 50.0f;
 		tEnd = 200.0f;
-		dt = 0.5f;
+		//dt = 0.5f;	//NOTE: Sampling theorem can be applied to ortho ONLY for perpendicular view points
+		dt = 0.25f;
 	}
 	else {
+		tStart = 0.0f;
 		tEnd = 100.0f;
 		dt = 0.2f;
 	}
 
-	for (float tStep = 0.0f; tStep < tEnd; tStep += dt) {
+	for (float tStep = tStart; tStep < tEnd; tStep += dt) {
 		traversionPos = rayOrigin + tStep * rayDirection;
 		traversionPosI = Section::FloatToInt(traversionPos);
 
