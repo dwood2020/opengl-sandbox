@@ -58,7 +58,7 @@ public:
 	void SetGlPolygonMode(GLenum mode);
 
 
-	void AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
+	SimpleRenderCommand* AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
 
 
 	void AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial);
