@@ -46,6 +46,8 @@ void MouseSelector::Init(Renderer& renderer, MaterialBase* selectionMaterial) {
 	selectionMesh.Prepare();
 
 	//TODO: think about different way to access the simpleRenderCommands!
+	//ALTERNATIVE: Simply use a DynamicMesh, dont use model matrix
+	// (or think of how to store simpleRenderCommands differently!)
 
 	//selectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &selectionMesh, selectionMaterial);
 	//selectionRC->SetActiveState(false);
