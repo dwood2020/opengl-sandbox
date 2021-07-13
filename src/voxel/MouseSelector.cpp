@@ -108,17 +108,19 @@ void MouseSelector::CalculateRayOrtho(int mouseX, int mouseY) {
 	//std::cout << "rayDirection: [" << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << "]" << std::endl;
 
 	glm::vec4 mouseClip = glm::vec4(mouseNDC, 0.0f, 1.0f);
-
 	
 	//glm::vec4 mouseView = Pinv * glm::vec4(mouseNDC, 0.0f, 1.0f);
 	glm::vec4 mouseView = Pinv * mouseClip;
 	
 	
 	glm::vec4 mouseWorld = Vinv * mouseView;
+	mouseWorld += glm::vec4(camera->GetPosition(), 0.0f);
 
 	std::cout << "mouseWorld: [" << mouseWorld.x << " " << mouseWorld.y << " " << mouseWorld.z << "]" << std::endl;
 
 	//TODO: Consider Camera Position!
+
+	rayOrigin = mouseWorld;
 
 }
 
@@ -153,7 +155,9 @@ void MouseSelector::CheckCollisions(void) {
 
 	//Bresenham3D(rayOriginI.x, rayOriginI.y, rayOriginI.z, rayDestI.x, rayDestI.y, rayDestI.z, voxelScene, -1);
 
+
 	// custom super simple, dumb ray traversion
+	// ----------------------------------------
 
 	rayOrigin = TruncPrecision(rayOrigin);
 	rayDirection = TruncPrecision(rayDirection);
@@ -161,8 +165,19 @@ void MouseSelector::CheckCollisions(void) {
 	glm::vec3 traversionPos = (rayOrigin);
 	glm::vec3 traversionPosI = Section::FloatToInt(traversionPos);
 
-	for (float dt = 0.f; dt < 100.f; dt += 0.2f) {
-		traversionPos = rayOrigin + dt * rayDirection;
+	float tEnd;
+	float dt;
+	if (isOrthoProjection) {
+		tEnd = 200.0f;
+		dt = 0.5f;
+	}
+	else {
+		tEnd = 100.0f;
+		dt = 0.2f;
+	}
+
+	for (float tStep = 0.0f; tStep < tEnd; tStep += dt) {
+		traversionPos = rayOrigin + tStep * rayDirection;
 		traversionPosI = Section::FloatToInt(traversionPos);
 
 		if (voxelScene->GetBlock(traversionPosI) != 0) {
