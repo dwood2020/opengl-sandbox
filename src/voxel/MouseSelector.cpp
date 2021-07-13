@@ -11,6 +11,9 @@ MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase&
 
 	this->rayLineMesh = &rayLineMesh;
 
+	//TODO: mesh init
+	//selectionMesh.GetVerticesPosNorm()
+
 	eventBus.AddListener(EventType::ToggleSelectMode, this);
 	eventBus.AddListener(EventType::MouseMove, this);
 	eventBus.AddListener(EventType::ProjectionModeChanged, this);
@@ -39,7 +42,7 @@ void MouseSelector::OnEvent(Event& e) {
 			CalculateRayPerspective(emm.GetPositionX(), emm.GetPositionY());
 		}
 		
-		DoSelection();
+		CheckCollisions();
 	}
 
 	if (e.GetType() == EventType::ProjectionModeChanged) {
@@ -141,7 +144,7 @@ glm::vec2 MouseSelector::ScreenToNDC(const glm::vec2& posScreen) const {
 }
 
 
-void MouseSelector::DoSelection(void) {
+void MouseSelector::CheckCollisions(void) {
 
 	// destination point of ray
 	glm::vec3 rayDest = rayOrigin + 100.0f * rayDirection;
@@ -163,12 +166,25 @@ void MouseSelector::DoSelection(void) {
 		traversionPosI = Section::FloatToInt(traversionPos);
 
 		if (voxelScene->GetBlock(traversionPosI) != 0) {
+			//DEBUG:
 			std::cout << "Found block: Float value (" << traversionPos.x << " " << traversionPos.y << " " << traversionPos.z 
 				<< ") [" << traversionPosI.x << " " << traversionPosI.y << " " << traversionPosI.z << "]: " << (int)(voxelScene->GetBlock(traversionPosI)) << std::endl;
+			
+			DoSelection(traversionPosI);
 			break;
 		}
 	}
 
+	DoUnselection();
+}
+
+
+void MouseSelector::DoSelection(const glm::ivec3& blockPos) {
+
+}
+
+
+void MouseSelector::DoUnselection(void) {
 
 }
 

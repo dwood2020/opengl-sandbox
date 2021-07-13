@@ -21,6 +21,7 @@ private:
 	bool isOrthoProjection;
 
 	DynamicMesh* rayLineMesh;
+	DynamicMesh selectionMesh;
 	
 
 	MouseSelector() = default;
@@ -39,7 +40,11 @@ private:
 
 	glm::vec2 ScreenToNDC(const glm::vec2& posScreen) const;
 
-	void DoSelection(void);
+	void CheckCollisions(void);
+
+	void DoSelection(const glm::ivec3& blockPos);
+
+	void DoUnselection(void);
 
 	glm::vec3 TruncPrecision(const glm::vec3& v);
 };
