@@ -243,26 +243,11 @@ int main(int argc, char* argv[]) {
 	FlatMaterial* flatWhiteMaterial = materialLibrary.MakeFlatMaterial(255);
 	flatWhiteMaterial->SetFlatColor(glm::vec3(1.0f));
 
+	FlatMaterial* flatSelectionMaterial = materialLibrary.MakeFlatMaterial(254);
+	flatSelectionMaterial->SetFlatColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	// draw some simple lines to test visibility
-	std::vector<glm::vec3> vertices = {
-		{0.0f, 0.0f, 2.0f},
-		{1.0f, 0.0f, 2.0f},		
-		{0.0f, 1.0f, 2.0f},	
-		{1.0f, 1.0f, 2.0f}
-	};
 
-	std::vector<unsigned int> indices = {
-		0, 1, 
-		0, 2,
-		2, 3,
-	};
-
-	StaticMesh lineTestMesh;
-	lineTestMesh.SetPositionVertices(vertices);
-	lineTestMesh.SetIndices(indices);
-	lineTestMesh.SetGlMode(GL_LINES);
-	lineTestMesh.Prepare();
+	mouseSelector.Init(renderer, flatSelectionMaterial);
 
 
 	// DynamicMesh line drawing
@@ -287,8 +272,7 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Msphere, &sphereMesh, defaultMaterial);
 	renderer.AddSimpleCommand(Mcone, &coneMesh, greenDebugMaterial);
 	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);
-
-	renderer.AddSimpleCommand(Mid, &lineTestMesh, flatWhiteMaterial);
+	
 	//renderer.AddSimpleCommand(Mid, &dynamicLine, flatWhiteMaterial);
 	renderer.AddSimpleCommand(Mid, &rayLineMesh, flatWhiteMaterial);
 

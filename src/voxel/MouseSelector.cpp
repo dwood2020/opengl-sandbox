@@ -1,18 +1,21 @@
 #include "MouseSelector.h"
 #include <cmath>
+#include <vector>
+
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "Bresenham3D.hpp"
 #include "Section.h"
+
 
 #include <iostream>
 
 
 MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene, DynamicMesh& rayLineMesh): 
-	camera(&camera), window(&window), voxelScene(&voxelScene), isActive(false), rayOrigin(glm::vec3(0.0f)), rayDirection(glm::vec3(0.0f)), isOrthoProjection(false) {
+	camera(&camera), window(&window), voxelScene(&voxelScene), isActive(false), rayOrigin(glm::vec3(0.0f)), rayDirection(glm::vec3(0.0f)), 
+	isOrthoProjection(false), selectionRC(nullptr) {
 
 	this->rayLineMesh = &rayLineMesh;
-
-	//TODO: mesh init
-	//selectionMesh.GetVerticesPosNorm()
 
 	eventBus.AddListener(EventType::ToggleSelectMode, this);
 	eventBus.AddListener(EventType::MouseMove, this);
@@ -23,6 +26,31 @@ MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase&
 
 
 MouseSelector::~MouseSelector() { }
+
+
+void MouseSelector::Init(Renderer& renderer, MaterialBase* selectionMaterial) {
+
+	std::vector<VertexPosNorm> vertices = {
+		{glm::vec3(0.f, 0.f, 1.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 0.f, 1.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 0.f, 1.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f)},
+		{glm::vec3(0.f, 1.f, 1.f), glm::vec3(0.f)},
+		{glm::vec3(0.f, 1.f, 1.f), glm::vec3(0.f)},
+		{glm::vec3(0.f, 0.f, 1.f), glm::vec3(0.f)},
+	};
+
+	selectionMesh.GetVerticesPosNorm().insert(selectionMesh.GetVerticesPosNorm().end(), vertices.begin(), vertices.end());
+	selectionMesh.SetGlMode(GL_LINES);
+	selectionMesh.Prepare();
+
+	//TODO: think about different way to access the simpleRenderCommands!
+
+	//selectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &selectionMesh, selectionMaterial);
+	//selectionRC->SetActiveState(false);
+
+}
 
 
 void MouseSelector::OnEvent(Event& e) {
@@ -192,22 +220,26 @@ void MouseSelector::CheckCollisions(void) {
 			std::cout << "Found block: Float value (" << traversionPos.x << " " << traversionPos.y << " " << traversionPos.z 
 				<< ") [" << traversionPosI.x << " " << traversionPosI.y << " " << traversionPosI.z << "]: " << (int)(voxelScene->GetBlock(traversionPosI)) << std::endl;
 			
-			DoSelection(traversionPosI);
-			break;
+			//DoSelection(traversionPosI);
+			return;
 		}
 	}
 
-	DoUnselection();
+	//DoUnselection();
 }
 
 
 void MouseSelector::DoSelection(const glm::ivec3& blockPos) {
+	//selectionRC->GetModelMatrix() = glm::translate(glm::mat4(1.0f), glm::vec3(3.f));	
+	//selectionRC->M = glm::translate(glm::mat4(1.0f), glm::vec3(3.f, 3.f, 3.f));
+	selectionRC->M[3][0] = 2.0f;
 
+	selectionRC->SetActiveState(true);
 }
 
 
 void MouseSelector::DoUnselection(void) {
-
+	selectionRC->SetActiveState(false);
 }
 
 

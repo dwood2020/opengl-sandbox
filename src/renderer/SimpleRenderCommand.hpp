@@ -18,9 +18,10 @@ public:
 	SimpleRenderCommand(const glm::mat4& M, MeshBase* mesh, MaterialBase* material):
 		M(M), mesh(mesh), material(material), isActive(true) { }
 
-	const glm::mat4& GetModelMatrix(void) const { return M; }
+	glm::mat4& GetModelMatrix(void) { return M; }	
 
 	void SetActiveState(bool isActive) { this->isActive = isActive; }
 
 	friend class Renderer;
+	friend class MouseSelector;
 };

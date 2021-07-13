@@ -4,8 +4,9 @@
 #include "../camera/CameraBase.h"
 #include "../window/WindowBase.h"
 #include "VoxelScene.h"
-
 #include "../mesh/DynamicMesh.h"
+#include "../renderer/Renderer.h"
+#include "../renderer/SimpleRenderCommand.hpp"
 
 
 class MouseSelector final : public EventListener {
@@ -22,6 +23,7 @@ private:
 
 	DynamicMesh* rayLineMesh;
 	DynamicMesh selectionMesh;
+	SimpleRenderCommand* selectionRC;
 	
 
 	MouseSelector() = default;
@@ -30,6 +32,8 @@ public:
 	MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene, DynamicMesh& rayLineMesh);
 
 	~MouseSelector();
+
+	void Init(Renderer& renderer, MaterialBase* selectionMaterial);
 
 	void OnEvent(Event& e) override;
 

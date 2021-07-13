@@ -54,15 +54,14 @@ void Renderer::SetGlPolygonMode(GLenum mode) {
 }
 
 
-SimpleRenderCommand* Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
+void Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
 	if (mesh == nullptr || material == nullptr) {
 		//TODO ASSERT or check if passing arg by reference is better option
-		return nullptr;
+		return;
 	}
 
 	SimpleRenderCommand command(modelMatrix, mesh, material);
-	simpleRenderCommands.push_back(command);
-	return &simpleRenderCommands.back();
+	simpleRenderCommands.push_back(command);	
 }
 
 
