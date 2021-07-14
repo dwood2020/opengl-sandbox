@@ -10,8 +10,8 @@ TextureData::~TextureData() {
 }
 
 
-void TextureData::LoadFromFile(const std::string& filepath) {
-	stbi_set_flip_vertically_on_load(true);
+void TextureData::LoadFromFile(const std::string& filepath, bool flipVerticallyOnLoad) {
+	stbi_set_flip_vertically_on_load(flipVerticallyOnLoad);
 
 	const int desiredChannels = 0;
 	data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, desiredChannels);

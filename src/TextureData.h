@@ -17,7 +17,7 @@ public:
 
 	~TextureData();
 
-	void LoadFromFile(const std::string& filepath);
+	void LoadFromFile(const std::string& filepath, bool flipVerticallyOnLoad = true);
 
 	const unsigned char* GetRaw(void) const;
 
