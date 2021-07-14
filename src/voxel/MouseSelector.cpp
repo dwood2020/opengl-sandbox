@@ -45,10 +45,6 @@ void MouseSelector::Init(Renderer& renderer, MaterialBase* selectionMaterial) {
 	selectionMesh.SetGlMode(GL_LINES);
 	selectionMesh.Prepare();
 
-	//TODO: think about different way to access the simpleRenderCommands!
-	//ALTERNATIVE: Simply use a DynamicMesh, dont use model matrix
-	// (or think of how to store simpleRenderCommands differently!)
-
 	selectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &selectionMesh, selectionMaterial);
 	selectionRC->SetActiveState(false);
 
@@ -236,9 +232,7 @@ void MouseSelector::DoSelection(const glm::ivec3& blockPos) {
 	//NOTE: This could have easily been done with glm::translate() too, but here is a different way :)	
 	selectionRC->GetModelMatrix()[3][0] = static_cast<float>(blockPos.x);
 	selectionRC->GetModelMatrix()[3][1] = static_cast<float>(blockPos.y);
-	selectionRC->GetModelMatrix()[3][2] = static_cast<float>(blockPos.z);	
-
-	//selectionRC->GetModelMatrix() = glm::translate(glm::mat4(1.0f), glm::vec3(blockPos));
+	selectionRC->GetModelMatrix()[3][2] = static_cast<float>(blockPos.z);
 
 	selectionRC->SetActiveState(true);
 }
