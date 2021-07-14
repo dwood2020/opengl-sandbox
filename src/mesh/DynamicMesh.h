@@ -5,6 +5,8 @@
 #include "MeshBase.h"
 
 
+//TODO: Add VertexPos + useNormals option!
+
 struct VertexPosNorm {
 	glm::vec3 pos;
 	glm::vec3 norm;

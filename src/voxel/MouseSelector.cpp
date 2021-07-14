@@ -1,12 +1,8 @@
 #include "MouseSelector.h"
 #include <cmath>
 #include <vector>
-
-#include <glm/gtc/matrix_transform.hpp>
-
 #include "Bresenham3D.hpp"
 #include "Section.h"
-
 
 #include <iostream>
 
@@ -39,6 +35,25 @@ void MouseSelector::Init(Renderer& renderer, MaterialBase* selectionMaterial) {
 		{glm::vec3(0.f, 1.f, 1.f), glm::vec3(0.f)},
 		{glm::vec3(0.f, 1.f, 1.f), glm::vec3(0.f)},
 		{glm::vec3(0.f, 0.f, 1.f), glm::vec3(0.f)},
+
+		{glm::vec3(1.f, 0.f, 1.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 0.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 0.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 1.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 1.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f)},
+		
+		{glm::vec3(1.f, 1.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(0.f, 1.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(0.f, 1.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 0.f, 0.f), glm::vec3(0.f)},
+
+		{glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(0.f, 0.f, 1.f), glm::vec3(0.f)},
+		{glm::vec3(0.f, 1.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(0.f, 1.f, 1.f), glm::vec3(0.f)},
 	};
 
 	selectionMesh.GetVerticesPosNorm().insert(selectionMesh.GetVerticesPosNorm().end(), vertices.begin(), vertices.end());
@@ -98,7 +113,6 @@ void MouseSelector::CalculateRayPerspective(int mouseX, int mouseY) {
 	// procedure from antongerledan tutorial
 	glm::mat4 Vinv = glm::inverse(camera->GetViewMatrix());
 	glm::mat4 Pinv = glm::inverse(camera->GetProjectionMatrix());
-
 
 	// homogenous clip coordinates
 	glm::vec4 rayClip = glm::vec4(mouseNDC, -1.0f, 1.0f);
