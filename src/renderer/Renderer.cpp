@@ -114,8 +114,7 @@ void Renderer::DoFrame(void) {
 
 
 	if (camera->GetViewProjectionMatrixIsDirty() == true) {
-		camera->ResetDirtyState();
-		std::cout << "Renderer::DoFrame: Reset camera dirty state" << std::endl;
+		camera->ResetDirtyState();		
 	}
 
 }
