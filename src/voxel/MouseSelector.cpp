@@ -49,8 +49,8 @@ void MouseSelector::Init(Renderer& renderer, MaterialBase* selectionMaterial) {
 	//ALTERNATIVE: Simply use a DynamicMesh, dont use model matrix
 	// (or think of how to store simpleRenderCommands differently!)
 
-	//selectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &selectionMesh, selectionMaterial);
-	//selectionRC->SetActiveState(false);
+	selectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &selectionMesh, selectionMaterial);
+	selectionRC->SetActiveState(false);
 
 }
 
@@ -120,9 +120,9 @@ void MouseSelector::CalculateRayPerspective(int mouseX, int mouseY) {
 	rayOrigin = camera->GetPosition();	
 
 	// Debug ray line 
-	(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin;				
+	/*(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin;				
 	rayLineMesh->GetVerticesPosNorm()[1].pos = rayOrigin + 100.0f * rayDirection;	
-	rayLineMesh->Update();	
+	rayLineMesh->Update();	*/
 
 }
 
@@ -222,19 +222,23 @@ void MouseSelector::CheckCollisions(void) {
 			std::cout << "Found block: Float value (" << traversionPos.x << " " << traversionPos.y << " " << traversionPos.z 
 				<< ") [" << traversionPosI.x << " " << traversionPosI.y << " " << traversionPosI.z << "]: " << (int)(voxelScene->GetBlock(traversionPosI)) << std::endl;
 			
-			//DoSelection(traversionPosI);
+			DoSelection(traversionPosI);
 			return;
 		}
 	}
 
-	//DoUnselection();
+	DoUnselection();
 }
 
 
-void MouseSelector::DoSelection(const glm::ivec3& blockPos) {
-	//selectionRC->GetModelMatrix() = glm::translate(glm::mat4(1.0f), glm::vec3(3.f));	
-	//selectionRC->M = glm::translate(glm::mat4(1.0f), glm::vec3(3.f, 3.f, 3.f));
-	selectionRC->M[3][0] = 2.0f;
+void MouseSelector::DoSelection(const glm::ivec3& blockPos) {	
+
+	//NOTE: This could have easily been done with glm::translate() too, but here is a different way :)	
+	selectionRC->GetModelMatrix()[3][0] = static_cast<float>(blockPos.x);
+	selectionRC->GetModelMatrix()[3][1] = static_cast<float>(blockPos.y);
+	selectionRC->GetModelMatrix()[3][2] = static_cast<float>(blockPos.z);	
+
+	//selectionRC->GetModelMatrix() = glm::translate(glm::mat4(1.0f), glm::vec3(blockPos));
 
 	selectionRC->SetActiveState(true);
 }

@@ -54,14 +54,16 @@ void Renderer::SetGlPolygonMode(GLenum mode) {
 }
 
 
-void Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
+SimpleRenderCommand* Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
 	if (mesh == nullptr || material == nullptr) {
 		//TODO ASSERT or check if passing arg by reference is better option
-		return;
+		return nullptr;
 	}
 
-	SimpleRenderCommand command(modelMatrix, mesh, material);
-	simpleRenderCommands.push_back(command);	
+	//SimpleRenderCommand command(modelMatrix, mesh, material);
+	simpleRenderCommands.push_back(std::make_unique<SimpleRenderCommand>(modelMatrix, mesh, material));
+
+	return simpleRenderCommands.back().get();
 }
 
 
@@ -113,6 +115,7 @@ void Renderer::DoFrame(void) {
 
 	if (camera->GetViewProjectionMatrixIsDirty() == true) {
 		camera->ResetDirtyState();
+		std::cout << "Renderer::DoFrame: Reset camera dirty state" << std::endl;
 	}
 
 }
@@ -120,7 +123,7 @@ void Renderer::DoFrame(void) {
 
 void Renderer::DoSimpleCommands(void) {
 
-	for (SimpleRenderCommand& command : simpleRenderCommands) {
+	/*for (SimpleRenderCommand& command : simpleRenderCommands) {
 
 		if (!command.isActive) {
 			continue;
@@ -139,6 +142,30 @@ void Renderer::DoSimpleCommands(void) {
 		command.material->SetModelMatrixUniform(command.M);
 		command.mesh->Draw();
 		command.material->Unbind();
+	}*/
+
+	for (unsigned int i = 0; i < simpleRenderCommands.size(); ++i) {
+		SimpleRenderCommand* command = simpleRenderCommands[i].get();		
+
+		command->material->Bind();
+
+		if (camera->GetViewProjectionMatrixIsDirty() == true) {
+			command->material->SetViewProjectionMatrixUniform(camera->GetViewProjectionMatrix());
+
+			if (command->material->GetAffectedByLight() == true) {
+				command->material->SetViewPosUniform(camera->GetPosition());
+			}
+		}
+
+		//NOTE: PV uniform must be set also for inactive commands, so that it is correct once it is activated
+		if (!command->isActive) {
+			command->material->Unbind();
+			continue;
+		}
+
+		command->material->SetModelMatrixUniform(command->M);
+		command->mesh->Draw();
+		command->material->Unbind();
 	}
 }
 

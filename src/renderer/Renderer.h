@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
-#include <map>
+//#include <map>
+#include <memory>
 #include <glm/glm.hpp>
 #include "../events/EventBus.h"
 #include "../events/EventListener.hpp"
@@ -28,7 +29,8 @@ private:
 	CameraBase* camera;
 	MaterialLibrary* materialLibrary;
 
-	std::vector<SimpleRenderCommand> simpleRenderCommands;
+	//std::vector<SimpleRenderCommand> simpleRenderCommands;
+	std::vector<std::unique_ptr<SimpleRenderCommand>> simpleRenderCommands;
 	
 	VoxelScene* voxelScene;
 	//std::map<char, MaterialBase*> blockMaterialMap;
@@ -58,7 +60,7 @@ public:
 	void SetGlPolygonMode(GLenum mode);
 
 
-	void AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
+	SimpleRenderCommand* AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
 
 
 	void AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial);
