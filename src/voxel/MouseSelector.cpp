@@ -202,11 +202,12 @@ void MouseSelector::CheckCollisions(void) {
 	// custom super simple, dumb ray traversion
 	// ----------------------------------------
 
-	rayOrigin = TruncPrecision(rayOrigin);
-	rayDirection = TruncPrecision(rayDirection);
+	//rayOrigin = TruncPrecision(rayOrigin);
+	//rayDirection = TruncPrecision(rayDirection);
 
-	glm::vec3 traversionPos = (rayOrigin);
-	glm::vec3 traversionPosI = Section::FloatToInt(traversionPos);
+	glm::vec3 traversionPos = rayOrigin;
+	glm::ivec3 traversionPosI = Section::FloatToInt(traversionPos);	
+	glm::ivec3 lastTraversionPosI;
 
 	float tStart;
 	float tEnd;
@@ -223,7 +224,9 @@ void MouseSelector::CheckCollisions(void) {
 		dt = 0.2f;
 	}
 
-	for (float tStep = tStart; tStep < tEnd; tStep += dt) {
+	for (float tStep = tStart; tStep < tEnd; tStep += dt) {		
+		lastTraversionPosI = traversionPosI;
+
 		traversionPos = rayOrigin + tStep * rayDirection;
 		traversionPosI = Section::FloatToInt(traversionPos);
 
@@ -232,6 +235,8 @@ void MouseSelector::CheckCollisions(void) {
 			std::cout << "Found block: Float value (" << traversionPos.x << " " << traversionPos.y << " " << traversionPos.z 
 				<< ") [" << traversionPosI.x << " " << traversionPosI.y << " " << traversionPosI.z << "]: " << (int)(voxelScene->GetBlock(traversionPosI)) << std::endl;
 			
+			std::cout << "LAST TRAVERSIONPOSI: [" << lastTraversionPosI.x << " " << lastTraversionPosI.y << " " << lastTraversionPosI.z << "]" << std::endl;
+
 			DoSelection(traversionPosI);
 			return;
 		}
