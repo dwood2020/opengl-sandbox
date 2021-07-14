@@ -1,4 +1,5 @@
 #include "IupUiWindow.h"
+#include "../TextureData.h"
 
 
 IupUiWindow::IupUiWindow(EventBus* eventBus, int width, int height, const std::string& title):
@@ -11,7 +12,7 @@ IupUiWindow::~IupUiWindow() { }
 void IupUiWindow::Init(int argc, char** argv) {
 
 	InitIup(argc, argv);
-	InitCanvas();
+	InitCanvas();	
 
 	// OpenGL Version 
 	Ihandle* labelGlVersionExplanation = IupLabel("OpenGL Version: ");
@@ -35,7 +36,14 @@ void IupUiWindow::Init(int argc, char** argv) {
 	IUP_CLASS_SETCALLBACK(listProjectionMode, "ACTION", ListProjectionModeActionCb);
 
 	// Select mode toggle
+	TextureData cursorIconTexture;
+	cursorIconTexture.LoadFromFile("res/icon/cursorWhite.png", false);
+
+	Ihandle* cursorIconImage = IupImageRGBA(cursorIconTexture.GetWidth(), cursorIconTexture.GetHeight(), cursorIconTexture.GetRaw());
+	IupSetHandle("HANDLE_CURSOR_ICON_IMAGE", cursorIconImage);
+
 	Ihandle* toggleMouseSelection = IupToggle("Selection", NULL);
+	IupSetAttribute(toggleMouseSelection, "IMAGE", "HANDLE_CURSOR_ICON_IMAGE");
 	IUP_CLASS_INITCALLBACK(toggleMouseSelection, IupUiWindow);
 	IUP_CLASS_SETCALLBACK(toggleMouseSelection, "ACTION", ToggleMouseSelectionActionCb);
 
