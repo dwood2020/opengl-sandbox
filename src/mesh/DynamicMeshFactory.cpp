@@ -36,8 +36,21 @@ DynamicMeshFactory& DynamicMeshFactory::GetInstance(void) {
 DynamicMesh DynamicMeshFactory::MakeCylinder(float r, float h, int ptsOnCircle) const {
 
 	const float deltaPhi = (2.0f * pi) / static_cast<float>(ptsOnCircle);
+	
 
-	std::cout << "DynamicMeshFactory::MakeCylinder: Singleton is working :)" << std::endl;
+	DynamicMesh mesh;
 
-	return DynamicMesh();
+	// bottom ring
+	for (int i = 0; i < ptsOnCircle; i++) {
+		mesh.GetVerticesPos().push_back({ glm::vec3(r * std::cosf(i * deltaPhi), 0.0f, r * std::sinf(i * deltaPhi)) });
+	}
+
+	// top ring
+	for (int i = 0; i < ptsOnCircle; i++) {
+		mesh.GetVerticesPos().push_back({ glm::vec3(r * std::cosf(i * deltaPhi), h, r * std::sinf(i * deltaPhi)) });
+	}
+
+	//TODO: implement this
+
+	return mesh;
 }

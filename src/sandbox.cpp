@@ -114,8 +114,7 @@ int main(int argc, char* argv[]) {
 	StaticMesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, true);
 	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
-
-	auto dmf = DynamicMeshFactory::GetInstance().MakeCylinder(1.f, 1.f, 5);
+	
 
 	// Testing indexed drawing of dynamic mesh
 	std::vector<VertexPos> vert = {
