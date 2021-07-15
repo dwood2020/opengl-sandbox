@@ -143,10 +143,7 @@ void MouseSelector::CalculateRayOrtho(int mouseX, int mouseY) {
 	glm::vec4 mouseView = Pinv * mouseClip;
 		
 	glm::vec4 mouseWorld = Vinv * mouseView;	
-
-	std::cout << "mouseWorld: [" << mouseWorld.x << " " << mouseWorld.y << " " << mouseWorld.z << "]  camera pos: [" 
-		<< camera->GetPosition().x << " " << camera->GetPosition().y << " " << camera->GetPosition().z << "]" << std::endl;	
-
+	
 
 	rayOrigin = glm::vec4(camera->GetPosition() - camera->GetTarget(), 0.0f) + mouseWorld;
 
