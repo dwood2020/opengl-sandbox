@@ -99,6 +99,9 @@
     <ClCompile Include="src\voxel\MouseSelector.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\mesh\DynamicMeshFactory.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -201,6 +204,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\voxel\Bresenham3D.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mesh\DynamicMeshFactory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
