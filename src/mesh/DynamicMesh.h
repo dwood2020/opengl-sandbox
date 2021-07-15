@@ -29,8 +29,8 @@ private:
 	std::vector<VertexPosNorm> verticesPosNorm;
 	std::vector<VertexPosNormTex> verticesPosNormTex;
 
+	bool useNormals;
 	bool useTexCoords;
-
 
 public:
 	DynamicMesh();

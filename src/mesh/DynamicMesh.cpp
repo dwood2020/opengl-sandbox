@@ -1,7 +1,7 @@
 #include "DynamicMesh.h"
 #include <iostream>
 
-DynamicMesh::DynamicMesh(): vao(0), vbo(0), useTexCoords(false), nrElements(0) {
+DynamicMesh::DynamicMesh(): vao(0), vbo(0), useNormals(true), useTexCoords(false), nrElements(0) {
 	
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
@@ -27,8 +27,20 @@ void DynamicMesh::SetUseTexCoords(bool useTexCoords) {
 
 
 void DynamicMesh::Prepare(void) {
-	if (useTexCoords && verticesPosNormTex.size() == 0 || !useTexCoords && verticesPosNorm.size() == 0) {
+	if (useTexCoords && verticesPosNormTex.size() == 0 || !useTexCoords && verticesPosNorm.size() == 0 || useNormals && verticesPosNorm.size() == 0 && verticesPosNormTex.size() == 0) {
 		return;
+	}	
+
+
+
+	if (useNormals && useTexCoords) {
+
+	}
+	else if (useNormals) {
+
+	}
+	else {
+
 	}
 
 	glBindVertexArray(vao);
