@@ -144,21 +144,20 @@ void MouseSelector::CalculateRayOrtho(int mouseX, int mouseY) {
 
 	glm::vec2 mouseNDC = ScreenToNDC(glm::vec2(static_cast<float>(mouseX), static_cast<float>(mouseY)));
 
-	rayDirection = glm::normalize(camera->GetTarget() - camera->GetPosition());
-	//std::cout << "rayDirection: [" << rayDirection.x << " " << rayDirection.y << " " << rayDirection.z << "]" << std::endl;
-
 	glm::vec4 mouseClip = glm::vec4(mouseNDC, 0.0f, 1.0f);
 	
 	//glm::vec4 mouseView = Pinv * glm::vec4(mouseNDC, 0.0f, 1.0f);
 	glm::vec4 mouseView = Pinv * mouseClip;
-	
-	
-	glm::vec4 mouseWorld = Vinv * mouseView;
-	mouseWorld += glm::vec4(camera->GetPosition(), 0.0f);	//TODO: this addition must be incorrect
+		
+	glm::vec4 mouseWorld = Vinv * mouseView;	
 
-	std::cout << "mouseWorld: [" << mouseWorld.x << " " << mouseWorld.y << " " << mouseWorld.z << "]" << std::endl;	
+	std::cout << "mouseWorld: [" << mouseWorld.x << " " << mouseWorld.y << " " << mouseWorld.z << "]  camera pos: [" 
+		<< camera->GetPosition().x << " " << camera->GetPosition().y << " " << camera->GetPosition().z << "]" << std::endl;	
 
-	rayOrigin = mouseWorld;
+
+	rayOrigin = glm::vec4(camera->GetPosition() - camera->GetTarget(), 0.0f) + mouseWorld;
+
+	rayDirection = glm::normalize(camera->GetTarget() - camera->GetPosition());
 
 	// Debug ray line 
 	(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin + 50.0f * rayDirection;
