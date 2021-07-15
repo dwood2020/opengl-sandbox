@@ -117,6 +117,25 @@ int main(int argc, char* argv[]) {
 
 	auto dmf = DynamicMeshFactory::GetInstance().MakeCylinder(1.f, 1.f, 5);
 
+	// Testing indexed drawing of dynamic mesh
+	std::vector<VertexPos> vert = {
+		{glm::vec3(4.f, 0.f, 0.f)},
+		{glm::vec3(4.f, 1.f, 0.f)},
+		{glm::vec3(5.f, 1.f, 0.f)},
+	};
+
+	std::vector<GLuint> ind = {
+		0, 1, 
+		1, 2,		
+	};
+
+	DynamicMesh indexedDynMesh;
+	indexedDynMesh.GetVerticesPos() = vert;
+	indexedDynMesh.GetIndices() = ind;
+	indexedDynMesh.SetIsInstanced(true);
+	indexedDynMesh.SetGlMode(GL_LINES);
+	indexedDynMesh.Prepare();
+
 	
 	// Testing voxel scene
 	VoxelScene voxelScene;
@@ -253,6 +272,7 @@ int main(int argc, char* argv[]) {
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);
 	
 
+	renderer.AddSimpleCommand(Mid, &indexedDynMesh, flatWhiteMaterial);
 	
 	renderer.Prepare();	
 

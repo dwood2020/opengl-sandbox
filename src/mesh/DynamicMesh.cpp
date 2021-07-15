@@ -62,6 +62,7 @@ void DynamicMesh::Prepare(void) {
 
 	if (isInstanced) {		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices.front(), GL_STATIC_DRAW);
 	}
 
 	if (useNormals && useTexCoords) {
@@ -127,11 +128,13 @@ void DynamicMesh::Prepare(void) {
 
 
 void DynamicMesh::Draw(void) {
+
+	glBindVertexArray(vao);
+
 	if (isInstanced) {
 		glDrawElements(glMode, nrElements, GL_UNSIGNED_INT, 0);
 	}
-	else {
-		glBindVertexArray(vao);
+	else {		
 		glDrawArrays(glMode, 0, nrElements);
 	}	
 }
