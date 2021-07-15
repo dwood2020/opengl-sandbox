@@ -133,9 +133,7 @@ void DynamicMesh::Draw(void) {
 	else {
 		glBindVertexArray(vao);
 		glDrawArrays(glMode, 0, nrElements);
-	}
-	
-	//TODO: indexed rendering
+	}	
 }
 
 
