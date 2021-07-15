@@ -6,6 +6,10 @@
 
 
 //TODO: Add VertexPos + useNormals option!
+struct VertexPos {
+	glm::vec3 pos;
+};
+
 
 struct VertexPosNorm {
 	glm::vec3 pos;
@@ -26,6 +30,7 @@ private:
 	GLuint vbo;
 	GLsizei nrElements;
 
+	std::vector<VertexPos> verticesPos;
 	std::vector<VertexPosNorm> verticesPosNorm;
 	std::vector<VertexPosNormTex> verticesPosNormTex;
 
@@ -38,10 +43,16 @@ public:
 	~DynamicMesh();
 
 
+	std::vector<VertexPos>& GetVerticesPos(void);
+
+
 	std::vector<VertexPosNorm>& GetVerticesPosNorm(void);
 
 
 	std::vector<VertexPosNormTex>& GetVerticesPosNormTex(void);
+
+
+	void SetUseNormals(bool useNormals);
 
 
 	void SetUseTexCoords(bool useTexCoords);

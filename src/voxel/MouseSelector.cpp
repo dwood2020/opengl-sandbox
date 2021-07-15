@@ -25,37 +25,37 @@ MouseSelector::~MouseSelector() { }
 
 void MouseSelector::Init(Renderer& renderer, MaterialBase* selectionMaterial) {
 
-	std::vector<VertexPosNorm> vertices = {
-		{glm::vec3(0.f, 0.f, 1.f), glm::vec3(0.f)},
-		{glm::vec3(1.f, 0.f, 1.f), glm::vec3(0.f)},
-		{glm::vec3(1.f, 0.f, 1.f), glm::vec3(0.f)},
-		{glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f)},
-		{glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f)},
-		{glm::vec3(0.f, 1.f, 1.f), glm::vec3(0.f)},
-		{glm::vec3(0.f, 1.f, 1.f), glm::vec3(0.f)},
-		{glm::vec3(0.f, 0.f, 1.f), glm::vec3(0.f)},
+	std::vector<VertexPos> vertices = {
+		{glm::vec3(0.f, 0.f, 1.f)},
+		{glm::vec3(1.f, 0.f, 1.f)},
+		{glm::vec3(1.f, 0.f, 1.f)},
+		{glm::vec3(1.f, 1.f, 1.f)},
+		{glm::vec3(1.f, 1.f, 1.f)},
+		{glm::vec3(0.f, 1.f, 1.f)},
+		{glm::vec3(0.f, 1.f, 1.f)},
+		{glm::vec3(0.f, 0.f, 1.f)},
 
-		{glm::vec3(1.f, 0.f, 1.f), glm::vec3(0.f)},
-		{glm::vec3(1.f, 0.f, 0.f), glm::vec3(0.f)},
-		{glm::vec3(1.f, 0.f, 0.f), glm::vec3(0.f)},
-		{glm::vec3(1.f, 1.f, 0.f), glm::vec3(0.f)},
-		{glm::vec3(1.f, 1.f, 0.f), glm::vec3(0.f)},
-		{glm::vec3(1.f, 1.f, 1.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 0.f, 1.f)},
+		{glm::vec3(1.f, 0.f, 0.f)},
+		{glm::vec3(1.f, 0.f, 0.f)},
+		{glm::vec3(1.f, 1.f, 0.f)},
+		{glm::vec3(1.f, 1.f, 0.f)},
+		{glm::vec3(1.f, 1.f, 1.f)},
 		
-		{glm::vec3(1.f, 1.f, 0.f), glm::vec3(0.f)},
-		{glm::vec3(0.f, 1.f, 0.f), glm::vec3(0.f)},
-		{glm::vec3(0.f, 1.f, 0.f), glm::vec3(0.f)},
-		{glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f)},
-		{glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f)},
-		{glm::vec3(1.f, 0.f, 0.f), glm::vec3(0.f)},
+		{glm::vec3(1.f, 1.f, 0.f)},
+		{glm::vec3(0.f, 1.f, 0.f)},
+		{glm::vec3(0.f, 1.f, 0.f)},
+		{glm::vec3(0.f, 0.f, 0.f)},
+		{glm::vec3(0.f, 0.f, 0.f)},
+		{glm::vec3(1.f, 0.f, 0.f)},
 
-		{glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f)},
-		{glm::vec3(0.f, 0.f, 1.f), glm::vec3(0.f)},
-		{glm::vec3(0.f, 1.f, 0.f), glm::vec3(0.f)},
-		{glm::vec3(0.f, 1.f, 1.f), glm::vec3(0.f)},
+		{glm::vec3(0.f, 0.f, 0.f)},
+		{glm::vec3(0.f, 0.f, 1.f)},
+		{glm::vec3(0.f, 1.f, 0.f)},
+		{glm::vec3(0.f, 1.f, 1.f)},
 	};
 
-	selectionMesh.GetVerticesPosNorm().insert(selectionMesh.GetVerticesPosNorm().end(), vertices.begin(), vertices.end());
+	selectionMesh.GetVerticesPos().insert(selectionMesh.GetVerticesPos().end(), vertices.begin(), vertices.end());
 	selectionMesh.SetGlMode(GL_LINES);
 	selectionMesh.Prepare();
 

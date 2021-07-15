@@ -254,6 +254,7 @@ void Section::GenerateMeshes(void) {
 		if (!it->second.GetVerticesPosNorm().empty()) {
 			
 			it->second.SetGlMode(GL_TRIANGLES);
+			it->second.SetUseNormals(true);
 			it->second.Prepare();
 
 			std::cout << "prepared mesh!" << std::endl;
