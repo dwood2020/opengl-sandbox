@@ -20,8 +20,7 @@ private:
 	glm::vec3 rayDirection;
 
 	bool isOrthoProjection;
-
-	DynamicMesh* rayLineMesh;
+	
 	DynamicMesh selectionMesh;
 	SimpleRenderCommand* selectionRC;
 	
@@ -29,7 +28,7 @@ private:
 	MouseSelector() = default;
 
 public:
-	MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene, DynamicMesh& rayLineMesh);
+	MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene);
 
 	~MouseSelector();
 

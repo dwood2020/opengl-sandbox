@@ -114,20 +114,10 @@ int main(int argc, char* argv[]) {
 	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
 
-	// ray line mesh for debugging MouseSelector
-	std::vector<VertexPosNorm> rayLineMeshVertices = {
-		{glm::vec3(-4.0f, 4.0f, -4.0f), glm::vec3(0.0f)},
-		{glm::vec3(0.0f), glm::vec3(0.0f)},
-	};
-	DynamicMesh rayLineMesh;
-	rayLineMesh.GetVerticesPosNorm() = rayLineMeshVertices;
-	rayLineMesh.SetGlMode(GL_LINES);
-	rayLineMesh.Prepare();
-
 	
 	// Testing voxel scene
 	VoxelScene voxelScene;
-	MouseSelector mouseSelector(eventBus, camera, window, voxelScene, rayLineMesh);
+	MouseSelector mouseSelector(eventBus, camera, window, voxelScene);
 
 	voxelScene.SetBlock({ 0,0,1 }, 1);
 	voxelScene.SetBlock({ 2,0,3 }, 1);
@@ -273,8 +263,7 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Mcone, &coneMesh, greenDebugMaterial);
 	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);
 	
-	//renderer.AddSimpleCommand(Mid, &dynamicLine, flatWhiteMaterial);
-	renderer.AddSimpleCommand(Mid, &rayLineMesh, flatWhiteMaterial);
+	//renderer.AddSimpleCommand(Mid, &dynamicLine, flatWhiteMaterial);	
 
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);
 	

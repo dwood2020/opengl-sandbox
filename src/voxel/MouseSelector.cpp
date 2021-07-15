@@ -7,11 +7,10 @@
 #include <iostream>
 
 
-MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene, DynamicMesh& rayLineMesh): 
+MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene): 
 	camera(&camera), window(&window), voxelScene(&voxelScene), isActive(false), rayOrigin(glm::vec3(0.0f)), rayDirection(glm::vec3(0.0f)), 
 	isOrthoProjection(false), selectionRC(nullptr) {
 
-	this->rayLineMesh = &rayLineMesh;
 
 	eventBus.AddListener(EventType::ToggleSelectMode, this);
 	eventBus.AddListener(EventType::MouseMove, this);
@@ -128,12 +127,6 @@ void MouseSelector::CalculateRayPerspective(int mouseX, int mouseY) {
 
 	rayDirection = rayWorld;
 	rayOrigin = camera->GetPosition();	
-
-	// Debug ray line 
-	/*(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin;				
-	rayLineMesh->GetVerticesPosNorm()[1].pos = rayOrigin + 100.0f * rayDirection;	
-	rayLineMesh->Update();	*/
-
 }
 
 
@@ -158,12 +151,6 @@ void MouseSelector::CalculateRayOrtho(int mouseX, int mouseY) {
 	rayOrigin = glm::vec4(camera->GetPosition() - camera->GetTarget(), 0.0f) + mouseWorld;
 
 	rayDirection = glm::normalize(camera->GetTarget() - camera->GetPosition());
-
-	// Debug ray line 
-	(rayLineMesh->GetVerticesPosNorm())[0].pos = rayOrigin + 50.0f * rayDirection;
-	rayLineMesh->GetVerticesPosNorm()[1].pos = rayOrigin + 200.0f * rayDirection;
-	rayLineMesh->Update();
-
 }
 
 
