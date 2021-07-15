@@ -245,9 +245,7 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
 	renderer.AddSimpleCommand(Msphere, &sphereMesh, defaultMaterial);
 	renderer.AddSimpleCommand(Mcone, &coneMesh, greenDebugMaterial);
-	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);
-	
-	//renderer.AddSimpleCommand(Mid, &dynamicLine, flatWhiteMaterial);	
+	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);	
 
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);
 	
