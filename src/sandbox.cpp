@@ -238,23 +238,7 @@ int main(int argc, char* argv[]) {
 
 
 	mouseSelector.Init(renderer, flatSelectionMaterial);
-
-
-	// DynamicMesh line drawing
-	std::vector<VertexPosNorm> dynamicVertices = {
-		{glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(0.0f)},
-		{glm::vec3(3.0f, 1.0f, 0.0f), glm::vec3(0.0f)},
-	};
-
-	//DynamicMesh dynamicLine;
-	//dynamicLine.GetVerticesPosNorm() = dynamicVertices;
-	//dynamicLine.SetGlMode(GL_LINES);
-	//dynamicLine.Prepare();
-
-	//// testing dynamic buffer updating
-	//dynamicLine.GetVerticesPosNorm()[1].pos.x += 0.01f;
-	//dynamicLine.Update();
-
+	
 
 	renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
 	renderer.AddSimpleCommand(Mid, &cs3dMesh, coordSystemMaterial);
