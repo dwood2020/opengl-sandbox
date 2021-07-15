@@ -11,6 +11,7 @@
 #include "mesh/StaticMesh.h"
 #include "mesh/StaticMeshFactory.h"
 #include "mesh/DynamicMesh.h"
+#include "mesh/DynamicMeshFactory.h"
 #include "Texture.h"
 #include "camera/SimpleCamera.h"
 #include "Lighting.h"
@@ -113,6 +114,8 @@ int main(int argc, char* argv[]) {
 	StaticMesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, true);
 	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
+
+	auto dmf = DynamicMeshFactory::GetInstance().MakeCylinder(1.f, 1.f, 5);
 
 	
 	// Testing voxel scene

@@ -1,6 +1,8 @@
 #include "DynamicMeshFactory.h"
 #include <cmath>
 
+#include <iostream>
+
 
 DynamicMeshFactory::DynamicMeshFactory() {
 
@@ -35,7 +37,7 @@ DynamicMesh DynamicMeshFactory::MakeCylinder(float r, float h, int ptsOnCircle) 
 
 	const float deltaPhi = (2.0f * pi) / static_cast<float>(ptsOnCircle);
 
-
+	std::cout << "DynamicMeshFactory::MakeCylinder: Singleton is working :)" << std::endl;
 
 	return DynamicMesh();
 }
