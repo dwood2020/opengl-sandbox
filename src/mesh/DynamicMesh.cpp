@@ -1,5 +1,7 @@
 #include "DynamicMesh.h"
+#include <string>
 #include <iostream>
+
 
 DynamicMesh::DynamicMesh(): vao(0), vbo(0), useNormals(false), useTexCoords(false), nrElements(0) {
 	
@@ -37,10 +39,11 @@ void DynamicMesh::SetUseTexCoords(bool useTexCoords) {
 
 
 void DynamicMesh::Prepare(void) {
-	if (useTexCoords && verticesPosNormTex.size() == 0 || !useTexCoords && verticesPosNorm.size() == 0 || useNormals && verticesPosNorm.size() == 0 && verticesPosNormTex.size() == 0) {
-		return;
-	}	
-
+	
+	if (!CheckDataConsistency()) {
+		std::cout << "DynamicMesh::Prepare: Data discrepancy" << std::endl;
+	}
+	
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
@@ -110,6 +113,22 @@ void DynamicMesh::Update(void) {
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+
+bool DynamicMesh::CheckDataConsistency(void) {
+	// multiple if checks for enhanced code readability
+	if (useNormals && useTexCoords && verticesPosNormTex.size() == 0) {
+		return false;
+	}
+	else if (useNormals && !useTexCoords && verticesPosNorm.size() == 0) {
+		return false;
+	}
+	else if (!useNormals && !useTexCoords && verticesPos.size() == 0) {
+		return false;
+	}
+	
+	return true;
 }
 
 

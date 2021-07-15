@@ -65,4 +65,7 @@ public:
 
 
 	void Update(void);
+
+private:
+	bool CheckDataConsistency(void);
 };
