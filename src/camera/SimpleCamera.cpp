@@ -228,8 +228,7 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 	glm::vec3 deltaPan = (right * delta.x * rightScale) + (up * delta.y * upScale);
 	deltaPan *= acceleration;
 
-	target = target + deltaPan;
-	position = position + deltaPan;
+	target = target + deltaPan;	
 
 	UpdateViewProjectionMatrixAndPosition();
 }
