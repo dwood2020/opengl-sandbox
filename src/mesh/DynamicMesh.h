@@ -27,14 +27,17 @@ class DynamicMesh final : public MeshBase {
 private:
 	GLuint vao;
 	GLuint vbo;
+	GLuint ebo;
 	GLsizei nrElements;
 
 	std::vector<VertexPos> verticesPos;
 	std::vector<VertexPosNorm> verticesPosNorm;
 	std::vector<VertexPosNormTex> verticesPosNormTex;
+	std::vector<GLuint> indices;
 
 	bool useNormals;
 	bool useTexCoords;
+	bool isInstanced;
 
 public:
 	DynamicMesh();
@@ -51,10 +54,16 @@ public:
 	std::vector<VertexPosNormTex>& GetVerticesPosNormTex(void);
 
 
+	std::vector<GLuint>& GetIndices(void);
+
+
 	void SetUseNormals(bool useNormals);
 
 
 	void SetUseTexCoords(bool useTexCoords);
+
+
+	void SetIsInstanced(bool isInstanced);
 
 
 	void Prepare(void) override;

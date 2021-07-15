@@ -3,11 +3,7 @@
 #include <iostream>
 
 
-DynamicMesh::DynamicMesh(): vao(0), vbo(0), useNormals(false), useTexCoords(false), nrElements(0) {
-	
-	glGenVertexArrays(1, &vao);
-	glGenBuffers(1, &vbo);
-}
+DynamicMesh::DynamicMesh(): vao(0), vbo(0), ebo(0), useNormals(false), useTexCoords(false), isInstanced(false), nrElements(0) {	}
 
 
 DynamicMesh::~DynamicMesh() { }
@@ -28,6 +24,11 @@ std::vector<VertexPosNormTex>& DynamicMesh::GetVerticesPosNormTex(void) {
 }
 
 
+std::vector<GLuint>& DynamicMesh::GetIndices(void) {
+	return indices;
+}
+
+
 void DynamicMesh::SetUseNormals(bool useNormals) {
 	this->useNormals = useNormals;
 }
@@ -38,14 +39,30 @@ void DynamicMesh::SetUseTexCoords(bool useTexCoords) {
 }
 
 
+void DynamicMesh::SetIsInstanced(bool isInstanced) {
+	this->isInstanced = isInstanced;
+}
+
+
 void DynamicMesh::Prepare(void) {
 	
 	if (!CheckDataConsistency()) {
 		std::cout << "DynamicMesh::Prepare: Data discrepancy" << std::endl;
 	}
 	
+	glGenVertexArrays(1, &vao);
+	glGenBuffers(1, &vbo);
+	
+	if (isInstanced) {
+		glGenBuffers(1, &ebo);
+	}
+
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+	if (isInstanced) {		
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	}
 
 	if (useNormals && useTexCoords) {
 		// allocate the buffer data
@@ -63,8 +80,13 @@ void DynamicMesh::Prepare(void) {
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexPosNormTex), (void*)(sizeof(VertexPosNorm::pos) + sizeof(VertexPosNorm::norm)));
 		glEnableVertexAttribArray(2);
 
-
-		nrElements = static_cast<GLsizei>(verticesPosNormTex.size());
+		if (isInstanced) {
+			nrElements = (GLsizei)indices.size();
+		}
+		else {
+			nrElements = static_cast<GLsizei>(verticesPosNormTex.size());
+		}
+		
 	}
 	else if (useNormals) {
 		// do the same for a vertex buffer without tex coords
@@ -75,7 +97,13 @@ void DynamicMesh::Prepare(void) {
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPosNorm), (void*)sizeof(VertexPosNorm::pos));
 		glEnableVertexAttribArray(1);
 
-		nrElements = (GLsizei)verticesPosNorm.size();
+		if (isInstanced) {
+			nrElements = (GLsizei)indices.size();
+		}
+		else {
+			nrElements = (GLsizei)verticesPosNorm.size();
+		}
+		
 	}
 	else {
 		// do the same for vertex buffer without tex coords and normals
@@ -83,7 +111,13 @@ void DynamicMesh::Prepare(void) {
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPos), (void*)0);
 		glEnableVertexAttribArray(0);
 
-		nrElements = (GLsizei)verticesPos.size();
+		if (isInstanced) {
+			nrElements = (GLsizei)indices.size();
+		}
+		else {
+			nrElements = (GLsizei)verticesPos.size();
+		}
+		
 	}
 
 	// unbind all
@@ -93,8 +127,14 @@ void DynamicMesh::Prepare(void) {
 
 
 void DynamicMesh::Draw(void) {
-	glBindVertexArray(vao);
-	glDrawArrays(glMode, 0, nrElements);
+	if (isInstanced) {
+		glDrawElements(glMode, nrElements, GL_UNSIGNED_INT, 0);
+	}
+	else {
+		glBindVertexArray(vao);
+		glDrawArrays(glMode, 0, nrElements);
+	}
+	
 	//TODO: indexed rendering
 }
 
@@ -118,13 +158,16 @@ void DynamicMesh::Update(void) {
 
 bool DynamicMesh::CheckDataConsistency(void) {
 	// multiple if checks for enhanced code readability
-	if (useNormals && useTexCoords && verticesPosNormTex.size() == 0) {
+	if (useNormals && useTexCoords && verticesPosNormTex.empty()) {
 		return false;
 	}
-	else if (useNormals && !useTexCoords && verticesPosNorm.size() == 0) {
+	else if (useNormals && !useTexCoords && verticesPosNorm.empty()) {
 		return false;
 	}
-	else if (!useNormals && !useTexCoords && verticesPos.size() == 0) {
+	else if (!useNormals && !useTexCoords && verticesPos.empty()) {
+		return false;
+	}
+	else if (isInstanced && indices.empty()) {
 		return false;
 	}
 	
