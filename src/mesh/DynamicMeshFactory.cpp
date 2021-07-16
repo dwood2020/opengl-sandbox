@@ -39,6 +39,7 @@ DynamicMesh DynamicMeshFactory::MakeCylinder(float r, float h, int ptsOnCircle) 
 	
 
 	DynamicMesh mesh;
+	mesh.GetVerticesPos().reserve(2 * ptsOnCircle);
 
 	// bottom ring
 	for (int i = 0; i < ptsOnCircle; i++) {
@@ -49,8 +50,20 @@ DynamicMesh DynamicMeshFactory::MakeCylinder(float r, float h, int ptsOnCircle) 
 	for (int i = 0; i < ptsOnCircle; i++) {
 		mesh.GetVerticesPos().push_back({ glm::vec3(r * std::cosf(i * deltaPhi), h, r * std::sinf(i * deltaPhi)) });
 	}
+	
+	for (GLuint i = 1; i < static_cast<GLuint>(ptsOnCircle); i++) {
+		mesh.GetIndices().push_back(i);
+		mesh.GetIndices().push_back(i + 1);
+		mesh.GetIndices().push_back(0);
+	}
 
-	//TODO: implement this
+	mesh.GetIndices().push_back(ptsOnCircle);
+	mesh.GetIndices().push_back(1);
+	mesh.GetIndices().push_back(0);
+
+	mesh.SetGlMode(GL_TRIANGLES);
+	mesh.SetIsInstanced(true);
+	mesh.Prepare();
 
 	return mesh;
 }
