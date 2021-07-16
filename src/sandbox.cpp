@@ -114,7 +114,8 @@ int main(int argc, char* argv[]) {
 	StaticMesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, true);
 	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
-	
+
+	DynamicMesh cylinderMesh = DynamicMeshFactory::GetInstance().MakeCylinder(0.5f, 3.f, 5);
 
 	
 	// Testing voxel scene
@@ -181,6 +182,8 @@ int main(int argc, char* argv[]) {
 	Msphere = glm::translate(Msphere, glm::vec3(-2.0f, 0.0f, -3.0f));
 
 	glm::mat4 MsecondSphere = glm::translate(glm::mat4(1.0f), glm::vec3(2.0f, 0.0f, -3.0f));
+
+	glm::mat4 M333 = glm::translate(glm::mat4(1.f), glm::vec3(3.f));
 
 	// move slightly backwards (moving camera backwards = z+, but scene is moved in opposite direction to "move the camera")
 	//V = glm::translate(V, glm::vec3(0.0f, 0.0f, 5.0f) * -1.0f);
@@ -250,7 +253,9 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);	
 
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);
-		
+	
+	renderer.AddSimpleCommand(M333, &cylinderMesh, flatWhiteMaterial);
+
 	
 	renderer.Prepare();	
 

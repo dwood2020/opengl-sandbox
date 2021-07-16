@@ -51,14 +51,25 @@ DynamicMesh DynamicMeshFactory::MakeCylinder(float r, float h, int ptsOnCircle) 
 		mesh.GetVerticesPos().push_back({ glm::vec3(r * std::cosf(i * deltaPhi), h, r * std::sinf(i * deltaPhi)) });
 	}
 	
-	for (GLuint i = 1; i < static_cast<GLuint>(ptsOnCircle); i++) {
+	// indices
+	mesh.GetIndices().reserve(6u * static_cast<size_t>(ptsOnCircle));
+	for (GLuint i = 0; i < static_cast<GLuint>(ptsOnCircle - 1); i++) {
 		mesh.GetIndices().push_back(i);
+		mesh.GetIndices().push_back(i + ptsOnCircle);
+		mesh.GetIndices().push_back(i + ptsOnCircle + 1);
+
+		mesh.GetIndices().push_back(i);
+		mesh.GetIndices().push_back(i + ptsOnCircle + 1);
 		mesh.GetIndices().push_back(i + 1);
-		mesh.GetIndices().push_back(0);
 	}
 
+	// do the last piece
+	mesh.GetIndices().push_back(ptsOnCircle - 1);
+	mesh.GetIndices().push_back(2 * ptsOnCircle - 1);
+	mesh.GetIndices().push_back(0);
+
+	mesh.GetIndices().push_back(2 * ptsOnCircle - 1);
 	mesh.GetIndices().push_back(ptsOnCircle);
-	mesh.GetIndices().push_back(1);
 	mesh.GetIndices().push_back(0);
 
 	mesh.SetGlMode(GL_TRIANGLES);
