@@ -114,9 +114,6 @@ int main(int argc, char* argv[]) {
 	StaticMesh secondSphereMesh = StaticMeshFactory::GetInstance().MakeSphere(0.3f, 20, 20, true);
 
 
-	DynamicMesh cylinderMesh = DynamicMeshFactory::GetInstance().MakeCylinder(0.5f, 3.f, 5);	
-
-	StaticMesh markerMesh = StaticMeshFactory::GetInstance().MakeCubeMarker();
 	
 	// Testing voxel scene
 	VoxelScene voxelScene;
@@ -252,10 +249,7 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Mcone, &coneMesh, greenDebugMaterial);
 	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);	
 
-	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);
-	
-	renderer.AddSimpleCommand(M333, &cylinderMesh, flatWhiteMaterial);
-	renderer.AddSimpleCommand(Mid, &markerMesh, flatWhiteMaterial);
+	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);	
 
 	
 	renderer.Prepare();	
@@ -264,9 +258,9 @@ int main(int argc, char* argv[]) {
 	//glEnable(GL_DEPTH_TEST);
 
 
-	/*glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);*/
+	glFrontFace(GL_CCW);
 
 
 	while (!g_exitProgram) {

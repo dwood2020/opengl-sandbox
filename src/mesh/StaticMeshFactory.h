@@ -10,6 +10,7 @@ class StaticMeshFactory final {
 private:
 	const float pi = 3.1415926f;
 	glm::mat3 R90x;
+	glm::mat3 R270y;
 	glm::mat3 R270z;
 
 
@@ -88,8 +89,14 @@ public:
 	/// <returns>Grid mesh object</returns>
 	StaticMesh MakeSimpleGrid(float l = 10.0f) const;
 
-
+	/// <summary>
+	/// Generates a cube marker (a wireframe cube without normals or color vertices etc) which consists of multiple cylinders.
+	/// </summary>	
+	/// <returns>Cube marker mesh object</returns>
 	StaticMesh MakeCubeMarker(void) const;
+
+
+	StaticMesh MakeSimpleCubeMarker(void) const;
 
 
 private:
@@ -125,5 +132,6 @@ private:
 	/// <param name="nrLong">number of longitudes</param>
 	/// <param name="r">radius</param>
 	void MakeIndexedSphere(std::vector<glm::vec3>* vertices, std::vector<glm::vec3>* normals, std::vector<unsigned int>* indices, std::vector<glm::vec2>* texCoords, int nrLat, int nrLong, float r) const;
+	
 };
 

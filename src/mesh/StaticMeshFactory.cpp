@@ -7,7 +7,7 @@
 
 StaticMeshFactory::StaticMeshFactory() {
 
-	// rotation matrix: 270 degrees around z axis (for x axis)
+	// rotation matrix: 270 degrees around z axis
 	R270z = glm::mat3{
 		0.0f, 1.0f, 0.0f,
 		-1.0f, 0.0f, 0.0f,
@@ -15,7 +15,15 @@ StaticMeshFactory::StaticMeshFactory() {
 	};
 	R270z = glm::transpose(R270z);
 
-	// rotation matrix: 90 degrees around x axis (for z axis)
+	// rotation matrix: 90 degrees around y axis
+	R270y = glm::mat3{
+		0.f, 0.f, -1.f,
+		0.f, 1.f, 0.f,
+		1.f, 0.f, 0.f
+	};
+	R270y = glm::transpose(R270y);
+
+	// rotation matrix: 90 degrees around x axis
 	R90x = glm::mat3{
 		1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, -1.0f,
@@ -105,10 +113,15 @@ StaticMesh StaticMeshFactory::MakeCube(float l, bool isTextured) const {
 			{lh, lh, -lh},
 			{lh, lh, lh},	// right plane
 
-			{-lh, -lh, -lh},
+			//{-lh, -lh, -lh},
+			//{lh, -lh, -lh},
+			//{lh, lh, -lh},
+			//{-lh, lh, -lh},	// rear plane
+
 			{lh, -lh, -lh},
-			{lh, lh, -lh},
-			{-lh, lh, -lh},	// rear plane
+			{-lh, -lh, -lh},
+			{-lh, lh, -lh},
+			{lh, lh, -lh},		// rear plane
 
 			{-lh, -lh, -lh},
 			{-lh, -lh, lh},
@@ -380,21 +393,21 @@ StaticMesh StaticMeshFactory::MakeSimpleGrid(float l) const {
 
 
 StaticMesh StaticMeshFactory::MakeCubeMarker(void) const {
-	const float nrPoints = 6;
-	const float r = 0.1f;
+	const int nrPoints = 6;
+	const float r = 0.02f;
 	const float l = 1.0f;
 
 	std::vector<glm::vec3> vertices;
 	std::vector<unsigned int> indices;
 
 	std::vector<glm::vec3> verticesTemp;
-	std::vector<unsigned int> indicesTemp;
-	int sideCount = 0;
+	std::vector<unsigned int> indicesTemp;	
 
 	//back left vertical
 	MakeCylinder(verticesTemp, indicesTemp, nrPoints, r, l);
 	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
 	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+	
 	
 	//back right vertical
 	for (glm::vec3& v : verticesTemp) {
@@ -402,16 +415,161 @@ StaticMesh StaticMeshFactory::MakeCubeMarker(void) const {
 	}
 
 	for (unsigned int& i : indicesTemp) {
-		i += static_cast<unsigned int>(indicesTemp.size());
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+	
+	
+	//front right vertical
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(0.f, 0.f, 1.f);
+	}
+
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
 	}
 	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
 	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
 	
 
+	//front left vertical
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(-1.f, 0.f, 0.f);
+	}
+
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+	
+	//front bottom horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v = R270z * v;
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+	//front top horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(0.f, 1.f, 0.f);
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+	//back top horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(0.f, 0.f, -1.f);
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+	//back bottom horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(0.f, -1.f, 0.f);
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+
+	//left bottom horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v = R270y * v;
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+	//left top horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(0.f, 1.f, 0.f);
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+	//right top horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(1.f, 0.f, 0.f);
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+	//right bottom horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(0.f, -1.f, 0.f);
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+
 	StaticMesh mesh;
 	mesh.SetPositionVertices(vertices);
 	mesh.SetIndices(indices);
 	mesh.SetGlMode(GL_TRIANGLES);
+	mesh.Prepare();
+	return mesh;
+}
+
+
+StaticMesh StaticMeshFactory::MakeSimpleCubeMarker(void) const {
+	
+	std::vector<glm::vec3> vertices = {
+		glm::vec3(0.f, 0.f, 1.f),
+		glm::vec3(1.f, 0.f, 1.f),
+		glm::vec3(1.f, 0.f, 1.f),
+		glm::vec3(1.f, 1.f, 1.f),
+		glm::vec3(1.f, 1.f, 1.f),
+		glm::vec3(0.f, 1.f, 1.f),
+		glm::vec3(0.f, 1.f, 1.f),
+		glm::vec3(0.f, 0.f, 1.f),
+
+		glm::vec3(1.f, 0.f, 1.f),
+		glm::vec3(1.f, 0.f, 0.f),
+		glm::vec3(1.f, 0.f, 0.f),
+		glm::vec3(1.f, 1.f, 0.f),
+		glm::vec3(1.f, 1.f, 0.f),
+		glm::vec3(1.f, 1.f, 1.f),
+
+		glm::vec3(1.f, 1.f, 0.f),
+		glm::vec3(0.f, 1.f, 0.f),
+		glm::vec3(0.f, 1.f, 0.f),
+		glm::vec3(0.f, 0.f, 0.f),
+		glm::vec3(0.f, 0.f, 0.f),
+		glm::vec3(1.f, 0.f, 0.f),
+
+		glm::vec3(0.f, 0.f, 0.f),
+		glm::vec3(0.f, 0.f, 1.f),
+		glm::vec3(0.f, 1.f, 0.f),
+		glm::vec3(0.f, 1.f, 1.f),
+	};
+
+	StaticMesh mesh;
+	mesh.SetPositionVertices(vertices);
+	mesh.SetGlMode(GL_LINES);
 	mesh.Prepare();
 	return mesh;
 }

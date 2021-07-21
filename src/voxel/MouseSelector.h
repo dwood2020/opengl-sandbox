@@ -4,7 +4,7 @@
 #include "../camera/CameraBase.h"
 #include "../window/WindowBase.h"
 #include "VoxelScene.h"
-#include "../mesh/DynamicMesh.h"
+#include "../mesh/StaticMesh.h"
 #include "../renderer/Renderer.h"
 #include "../renderer/SimpleRenderCommand.hpp"
 
@@ -21,7 +21,7 @@ private:
 
 	bool isOrthoProjection;
 	
-	DynamicMesh selectionMesh;
+	StaticMesh selectionMesh;
 	SimpleRenderCommand* selectionRC;
 	
 

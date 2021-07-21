@@ -3,6 +3,7 @@
 #include <vector>
 #include "Bresenham3D.hpp"
 #include "Section.h"
+#include "../mesh/StaticMeshFactory.h"
 
 #include <iostream>
 
@@ -25,39 +26,9 @@ MouseSelector::~MouseSelector() { }
 
 void MouseSelector::Init(Renderer& renderer, MaterialBase* selectionMaterial) {
 
-	std::vector<VertexPos> vertices = {
-		{glm::vec3(0.f, 0.f, 1.f)},
-		{glm::vec3(1.f, 0.f, 1.f)},
-		{glm::vec3(1.f, 0.f, 1.f)},
-		{glm::vec3(1.f, 1.f, 1.f)},
-		{glm::vec3(1.f, 1.f, 1.f)},
-		{glm::vec3(0.f, 1.f, 1.f)},
-		{glm::vec3(0.f, 1.f, 1.f)},
-		{glm::vec3(0.f, 0.f, 1.f)},
+	selectionMesh = StaticMeshFactory::GetInstance().MakeCubeMarker();
 
-		{glm::vec3(1.f, 0.f, 1.f)},
-		{glm::vec3(1.f, 0.f, 0.f)},
-		{glm::vec3(1.f, 0.f, 0.f)},
-		{glm::vec3(1.f, 1.f, 0.f)},
-		{glm::vec3(1.f, 1.f, 0.f)},
-		{glm::vec3(1.f, 1.f, 1.f)},
-		
-		{glm::vec3(1.f, 1.f, 0.f)},
-		{glm::vec3(0.f, 1.f, 0.f)},
-		{glm::vec3(0.f, 1.f, 0.f)},
-		{glm::vec3(0.f, 0.f, 0.f)},
-		{glm::vec3(0.f, 0.f, 0.f)},
-		{glm::vec3(1.f, 0.f, 0.f)},
-
-		{glm::vec3(0.f, 0.f, 0.f)},
-		{glm::vec3(0.f, 0.f, 1.f)},
-		{glm::vec3(0.f, 1.f, 0.f)},
-		{glm::vec3(0.f, 1.f, 1.f)},
-	};
-
-	selectionMesh.GetVerticesPos().insert(selectionMesh.GetVerticesPos().end(), vertices.begin(), vertices.end());
-	selectionMesh.SetGlMode(GL_LINES);
-	selectionMesh.Prepare();
+	//selectionMesh = StaticMeshFactory::GetInstance().MakeSimpleCubeMarker();
 
 	selectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &selectionMesh, selectionMaterial);
 	selectionRC->SetActiveState(false);
