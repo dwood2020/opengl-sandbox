@@ -13,6 +13,9 @@ MaterialUniform::MaterialUniform(float value): value(value), location(-1) { }
 MaterialUniform::MaterialUniform(const glm::vec3& value): value(value), location(-1) { }
 
 
+MaterialUniform::MaterialUniform(const glm::vec4& value): value(value), location(-1) { }
+
+
 MaterialUniform::MaterialUniform(const glm::mat4& value): value(std::make_shared<glm::mat4>(value)), location(-1) { }
 
 
@@ -44,6 +47,11 @@ float MaterialUniform::GetFloat(void) const {
 
 const glm::vec3& MaterialUniform::GetVec3(void) const {
 	return std::get<(size_t)MaterialUniformType::Vec3>(value);
+}
+
+
+const glm::vec4& MaterialUniform::GetVec4(void) const {
+	return std::get<(size_t)MaterialUniformType::Vec4>(value);
 }
 
 

@@ -12,6 +12,7 @@ enum class MaterialUniformType {
 	Int = 0,
 	Float,
 	Vec3,
+	Vec4,
 	Mat4
 };
 
@@ -28,7 +29,7 @@ enum class MaterialUniformType {
 /// </summary>
 class MaterialUniform final {	
 private:	
-	std::variant<int, float, glm::vec3, std::shared_ptr<glm::mat4>> value;	
+	std::variant<int, float, glm::vec3, glm::vec4, std::shared_ptr<glm::mat4>> value;	
 	
 	int location;
 
@@ -58,6 +59,12 @@ public:
 	/// </summary>
 	/// <param name="value">Uniform value (Vec3)</param>
 	MaterialUniform(const glm::vec3& value);
+
+	/// <summary>
+	/// Constructor. Sets the location to unspecified: -1
+	/// </summary>
+	/// <param name="value">Uniform value (Vec4)</param>
+	MaterialUniform(const glm::vec4& value);
 
 	/// <summary>
 	/// Constructor. Sets the location to unspecified: -1
@@ -100,6 +107,12 @@ public:
 	/// </summary>	
 	/// <returns>Uniform value (Vec3)</returns>
 	const glm::vec3& GetVec3(void) const;
+
+	/// <summary>
+	/// Gets the uniform value.
+	/// </summary>	
+	/// <returns>Uniform value (Vec4)</returns>
+	const glm::vec4& GetVec4(void) const;
 
 	/// <summary>
 	/// Gets the uniform value.
