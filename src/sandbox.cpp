@@ -115,7 +115,7 @@ int main(int argc, char* argv[]) {
 	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
 
 
-	DynamicMesh cylinderMesh = DynamicMeshFactory::GetInstance().MakeCylinder(0.5f, 3.f, 5);
+	DynamicMesh cylinderMesh = DynamicMeshFactory::GetInstance().MakeCylinder(0.5f, 3.f, 5);	
 
 	
 	// Testing voxel scene

@@ -374,23 +374,40 @@ void StaticMeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vect
 	// indices
 	indices.reserve(6u * static_cast<size_t>(points));
 	for (unsigned int i = 0; i < (unsigned int)points - 1; i++) {		
-		indices.push_back(i + 1);
+		/*indices.push_back(i + 1);
 		indices.push_back(i + points + 1);
 		indices.push_back(i + points);
 
 		indices.push_back(i);
 		indices.push_back(i + 1);
+		indices.push_back(i + points);*/
+
+		indices.push_back(i);
 		indices.push_back(i + points);
+		indices.push_back(i + points + 1);
+		
+		indices.push_back(i);
+		indices.push_back(i + points + 1);
+		indices.push_back(i + 1);
 	}
 
 	// do the last piece
-	indices.push_back(0);
+	/*indices.push_back(0);
 	indices.push_back(points);
 	indices.push_back(2 * points - 1);
 
 	indices.push_back(points - 1);
 	indices.push_back(0);
+	indices.push_back(2 * points - 1);*/
+	
+
+	indices.push_back(points - 1);
 	indices.push_back(2 * points - 1);
+	indices.push_back(0);
+	
+	indices.push_back(2 * points - 1);
+	indices.push_back(points);
+	indices.push_back(0);
 }
 
 
