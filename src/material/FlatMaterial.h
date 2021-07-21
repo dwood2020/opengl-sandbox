@@ -31,8 +31,8 @@ public:
 	/// <summary>
 	/// Sets the flat color.
 	/// </summary>
-	/// <param name="color">Color (RGB)</param>
-	void SetFlatColor(const glm::vec3& color);
+	/// <param name="color">Color (RGBA)</param>
+	void SetFlatColor(const glm::vec4& color);
 
 	/// <summary>
 	/// Enables the usage of color vertices in the shader.

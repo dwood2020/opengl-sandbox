@@ -191,7 +191,7 @@ int main(int argc, char* argv[]) {
 	
 	// use new Materials from Material library
 	FlatMaterial* flatMaterial1 = materialLibrary.MakeFlatMaterial(100);
-	flatMaterial1->SetFlatColor(glm::vec3(1.0f, 0.0f, 0.5f));
+	flatMaterial1->SetFlatColor(glm::vec4(1.0f, 0.0f, 0.5f, 1.0f));
 
 
 	PhongMaterial* phongMaterial1 = materialLibrary.MakePhongMaterial(101);
@@ -206,7 +206,7 @@ int main(int argc, char* argv[]) {
 	woodenBoxMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 
 	FlatMaterial* gridMaterial = materialLibrary.MakeFlatMaterial(200);
-	gridMaterial->SetFlatColor(glm::vec3(0.33f));
+	gridMaterial->SetFlatColor(glm::vec4(0.33f, 0.33f, 0.33f, 1.0f));
 
 	FlatMaterial* coordSystemMaterial = materialLibrary.MakeFlatMaterial(201);
 	coordSystemMaterial->SetUseColorVertices(true);
@@ -233,10 +233,10 @@ int main(int argc, char* argv[]) {
 	pinkDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 
 	FlatMaterial* flatWhiteMaterial = materialLibrary.MakeFlatMaterial(255);
-	flatWhiteMaterial->SetFlatColor(glm::vec3(1.0f));
+	flatWhiteMaterial->SetFlatColor(glm::vec4(1.0f));
 
 	FlatMaterial* flatSelectionMaterial = materialLibrary.MakeFlatMaterial(254);
-	flatSelectionMaterial->SetFlatColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	flatSelectionMaterial->SetFlatColor(glm::vec4(1.0f));
 
 
 	mouseSelector.Init(renderer, flatSelectionMaterial);

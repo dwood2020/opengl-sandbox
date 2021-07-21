@@ -64,6 +64,11 @@ void ShaderProgram::SetUniformVec3(int location, const glm::vec3& value) const {
 }
 
 
+void ShaderProgram::SetUniformVec4(int location, const glm::vec4& value) const {
+	glUniform4fv(location, 1, &value[0]);
+}
+
+
 void ShaderProgram::SetUniformMat4(int location, const glm::mat4& value) const {	
 	glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
 }

@@ -109,6 +109,9 @@ void MaterialBase::Prepare(void) {
 		case MaterialUniformType::Vec3:
 			shaderProgram->SetUniformVec3(it->second.GetLocation(), it->second.GetVec3());
 			break;
+		case MaterialUniformType::Vec4:
+			shaderProgram->SetUniformVec4(it->second.GetLocation(), it->second.GetVec4());
+			break;
 		case MaterialUniformType::Mat4:
 			shaderProgram->SetUniformMat4(it->second.GetLocation(), it->second.GetMat4());
 			break;
