@@ -113,11 +113,6 @@ StaticMesh StaticMeshFactory::MakeCube(float l, bool isTextured) const {
 			{lh, lh, -lh},
 			{lh, lh, lh},	// right plane
 
-			//{-lh, -lh, -lh},
-			//{lh, -lh, -lh},
-			//{lh, lh, -lh},
-			//{-lh, lh, -lh},	// rear plane
-
 			{lh, -lh, -lh},
 			{-lh, -lh, -lh},
 			{-lh, lh, -lh},
