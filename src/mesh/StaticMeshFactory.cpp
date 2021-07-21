@@ -5,10 +5,33 @@
 #include <cmath>
 
 
-StaticMeshFactory::StaticMeshFactory() { }
+StaticMeshFactory::StaticMeshFactory() {
+
+	// rotation matrix: 270 degrees around z axis (for x axis)
+	R270z = glm::mat3{
+		0.0f, 1.0f, 0.0f,
+		-1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f
+	};
+	R270z = glm::transpose(R270z);
+
+	// rotation matrix: 90 degrees around x axis (for z axis)
+	R90x = glm::mat3{
+		1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, -1.0f,
+		0.0f, 1.0f, 0.0f
+	};
+	R90x = glm::transpose(R90x);
+}
 
 
 StaticMeshFactory::~StaticMeshFactory() { }
+
+
+StaticMeshFactory& StaticMeshFactory::GetInstance(void) {
+	static StaticMeshFactory instance;	//guaranteed to be destroyed
+	return instance;
+}
 
 
 StaticMesh StaticMeshFactory::MakeRectangle(float w, float h, float z) const {
@@ -288,12 +311,12 @@ StaticMesh StaticMeshFactory::MakeCoordinateSystem(float l) const {
 
 
 	// rotation matrix: 90 degrees around x axis (for z axis)
-	glm::mat3 R90x = glm::mat3 {
+	/*glm::mat3 R90x = glm::mat3 {
 		1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, -1.0f,
 		0.0f, 1.0f, 0.0f
 	};
-	R90x = glm::transpose(R90x);
+	R90x = glm::transpose(R90x);*/
 
 	for (glm::vec3 v : verticesX) {
 		vertices.push_back(R90x * v);
@@ -301,12 +324,12 @@ StaticMesh StaticMeshFactory::MakeCoordinateSystem(float l) const {
 	}
 
 	// rotation matrix: 270 degrees around z axis (for x axis)
-	glm::mat3 R270z = glm::mat3{
+	/*glm::mat3 R270z = glm::mat3{
 		0.0f, 1.0f, 0.0f,
 		-1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f
 	};
-	R270z = glm::transpose(R270z);
+	R270z = glm::transpose(R270z);*/
 
 	for (glm::vec3 v : verticesX) {
 		vertices.push_back(R270z * v);
@@ -359,7 +382,7 @@ StaticMesh StaticMeshFactory::MakeSimpleGrid(float l) const {
 void StaticMeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const {
 	vertices.reserve(2 * (size_t)points);
 
-	const float deltaPhi = (2.0f * 3.1415926f) / static_cast<float>(points);
+	const float deltaPhi = (2.0f * pi) / static_cast<float>(points);
 
 	// bottom ring
 	for (int i = 0; i < points; i++) {
@@ -373,14 +396,7 @@ void StaticMeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vect
 
 	// indices
 	indices.reserve(6u * static_cast<size_t>(points));
-	for (unsigned int i = 0; i < (unsigned int)points - 1; i++) {		
-		/*indices.push_back(i + 1);
-		indices.push_back(i + points + 1);
-		indices.push_back(i + points);
-
-		indices.push_back(i);
-		indices.push_back(i + 1);
-		indices.push_back(i + points);*/
+	for (unsigned int i = 0; i < (unsigned int)points - 1; i++) {				
 
 		indices.push_back(i);
 		indices.push_back(i + points);
@@ -391,16 +407,7 @@ void StaticMeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vect
 		indices.push_back(i + 1);
 	}
 
-	// do the last piece
-	/*indices.push_back(0);
-	indices.push_back(points);
-	indices.push_back(2 * points - 1);
-
-	indices.push_back(points - 1);
-	indices.push_back(0);
-	indices.push_back(2 * points - 1);*/
-	
-
+	// do the last piece	
 	indices.push_back(points - 1);
 	indices.push_back(2 * points - 1);
 	indices.push_back(0);

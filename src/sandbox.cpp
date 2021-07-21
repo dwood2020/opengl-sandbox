@@ -67,8 +67,7 @@ int main(int argc, char* argv[]) {
 	// utility listener for sandbox
 	SandboxListener sandboxListener;
 
-	EventBus eventBus;
-	StaticMeshFactory meshFactory;
+	EventBus eventBus;	
 
 	ShaderFactory shaderFactory;
 	MaterialLibrary materialLibrary(&shaderFactory);
@@ -106,13 +105,13 @@ int main(int argc, char* argv[]) {
 	
 
 	
-	StaticMesh mesh = meshFactory.MakeCube(1.0f, true);	
-	StaticMesh gridMesh = meshFactory.MakeSimpleGrid(20.0f);
-	StaticMesh cs3dMesh = meshFactory.MakeCoordinateSystem(2.0f);
+	StaticMesh mesh = StaticMeshFactory::GetInstance().MakeCube(1.0f, true);	
+	StaticMesh gridMesh = StaticMeshFactory::GetInstance().MakeSimpleGrid(20.0f);
+	StaticMesh cs3dMesh = StaticMeshFactory::GetInstance().MakeCoordinateSystem(2.0f);
 
-	StaticMesh coneMesh = meshFactory.MakeCone(0.5f, 2.0f, 20);
-	StaticMesh sphereMesh = meshFactory.MakeSphere(0.5f, 20, 40, true);
-	StaticMesh secondSphereMesh = meshFactory.MakeSphere(0.3f, 20, 20, true);
+	StaticMesh coneMesh = StaticMeshFactory::GetInstance().MakeCone(0.5f, 2.0f, 20);
+	StaticMesh sphereMesh = StaticMeshFactory::GetInstance().MakeSphere(0.5f, 20, 40, true);
+	StaticMesh secondSphereMesh = StaticMeshFactory::GetInstance().MakeSphere(0.3f, 20, 20, true);
 
 
 	DynamicMesh cylinderMesh = DynamicMeshFactory::GetInstance().MakeCylinder(0.5f, 3.f, 5);	
@@ -268,7 +267,7 @@ int main(int argc, char* argv[]) {
 	glFrontFace(GL_CCW);*/
 
 
-	while (!g_exitProgram) {		
+	while (!g_exitProgram) {
 
 		// testing dynamic buffer updating
 		/*dynamicLine.GetVerticesPosNorm()[1].pos.x += 0.01f;

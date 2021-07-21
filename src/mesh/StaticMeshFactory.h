@@ -2,10 +2,31 @@
 #include "StaticMesh.h"
 
 
+/// <summary>
+/// Factory for "Static" meshes.
+/// Implemented as Singleton to make instance publicly available and omitting the need of an Init() method.
+/// </summary>
 class StaticMeshFactory final {
-public:
+private:
+	const float pi = 3.1415926f;
+	glm::mat3 R90x;
+	glm::mat3 R270z;
+
+
 	StaticMeshFactory();
+
+public:	
 	~StaticMeshFactory();
+
+
+	/// <summary>
+	/// Gets the class instance.
+	/// </summary>	
+	/// <returns>Instance</returns>
+	static StaticMeshFactory& GetInstance(void);
+
+	StaticMeshFactory(const StaticMeshFactory&) = delete;
+	void operator=(const StaticMeshFactory&) = delete;
 
 	/// <summary>
 	/// Generates a rectangle mesh in the xy plane. 
