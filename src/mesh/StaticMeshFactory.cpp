@@ -379,6 +379,44 @@ StaticMesh StaticMeshFactory::MakeSimpleGrid(float l) const {
 }
 
 
+StaticMesh StaticMeshFactory::MakeCubeMarker(void) const {
+	const float nrPoints = 6;
+	const float r = 0.1f;
+	const float l = 1.0f;
+
+	std::vector<glm::vec3> vertices;
+	std::vector<unsigned int> indices;
+
+	std::vector<glm::vec3> verticesTemp;
+	std::vector<unsigned int> indicesTemp;
+	int sideCount = 0;
+
+	//back left vertical
+	MakeCylinder(verticesTemp, indicesTemp, nrPoints, r, l);
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+	
+	//back right vertical
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(1.f, 0.f, 0.f);
+	}
+
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(indicesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+	
+
+	StaticMesh mesh;
+	mesh.SetPositionVertices(vertices);
+	mesh.SetIndices(indices);
+	mesh.SetGlMode(GL_TRIANGLES);
+	mesh.Prepare();
+	return mesh;
+}
+
+
 void StaticMeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const {
 	vertices.reserve(2 * (size_t)points);
 
@@ -424,7 +462,7 @@ void StaticMeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<g
 	// --------
 	vertices.reserve(static_cast<size_t>(points) + 1);	
 	
-	const float deltaPhi = (2.0f * 3.1415926f) / (float)points;
+	const float deltaPhi = (2.0f * pi) / (float)points;
 
 	// cone point
 	vertices.push_back(glm::vec3(0.0f, h, 0.0f));

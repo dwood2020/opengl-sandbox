@@ -116,6 +116,7 @@ int main(int argc, char* argv[]) {
 
 	DynamicMesh cylinderMesh = DynamicMeshFactory::GetInstance().MakeCylinder(0.5f, 3.f, 5);	
 
+	StaticMesh markerMesh = StaticMeshFactory::GetInstance().MakeCubeMarker();
 	
 	// Testing voxel scene
 	VoxelScene voxelScene;
@@ -254,6 +255,7 @@ int main(int argc, char* argv[]) {
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);
 	
 	renderer.AddSimpleCommand(M333, &cylinderMesh, flatWhiteMaterial);
+	renderer.AddSimpleCommand(Mid, &markerMesh, flatWhiteMaterial);
 
 	
 	renderer.Prepare();	

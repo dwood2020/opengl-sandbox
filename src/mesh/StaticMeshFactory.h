@@ -89,6 +89,9 @@ public:
 	StaticMesh MakeSimpleGrid(float l = 10.0f) const;
 
 
+	StaticMesh MakeCubeMarker(void) const;
+
+
 private:
 	/// <summary>
 	/// Generates a cylinder vertex and index list.
