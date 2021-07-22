@@ -2,7 +2,7 @@
 #include <iostream>
 
 MaterialBase::MaterialBase(ShaderProgram* shaderProgram): 
-	shaderProgram(shaderProgram), isAffectedByLight(false), 
+	shaderProgram(shaderProgram), isAffectedByLight(false), isTransparent(false),
 	mUniformLocation(-1), pvUniformLocation(-1), viewPosUniformLocation(-1) {
 	//TODO: Next step: Parse all uniforms from shader and add to map.	
 
@@ -68,6 +68,16 @@ void MaterialBase::SetAffectedByLight(bool isAffected) {
 
 bool MaterialBase::GetAffectedByLight(void) const {
 	return isAffectedByLight;
+}
+
+
+void MaterialBase::SetTransparent(bool isTransparent) {
+	this->isTransparent = isTransparent;
+}
+
+
+bool MaterialBase::GetTransparent(void) const {
+	return isTransparent;
 }
 
 

@@ -36,6 +36,8 @@ protected:
 
 	bool isAffectedByLight;
 
+	bool isTransparent;
+
 
 	MaterialBase() = default;
 
@@ -103,6 +105,19 @@ public:
 	/// </summary>	
 	/// <returns>True if material is affected by light</returns>
 	bool GetAffectedByLight(void) const;
+
+	/// <summary>
+	/// Sets this material to be regarded as transparent
+	/// (The actual transparency value is handled in each material subclass)
+	/// </summary>
+	/// <param name="isTransparent">True if material is transparent</param>
+	void SetTransparent(bool isTransparent);
+
+	/// <summary>
+	/// Gets wheter this material is regarded as transparent
+	/// </summary>	
+	/// <returns>True if material is transparent</returns>
+	bool GetTransparent(void) const;
 
 	/// <summary>
 	/// Gets the associated Shader program.

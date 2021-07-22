@@ -52,5 +52,11 @@ void PhongMaterial::SetShininess(float shininess) {
 
 void PhongMaterial::SetOpacity(float opacity) {
 	SetUniform(opacityName, MaterialUniform(opacity));
+	if (opacity < 0.999f) {
+		SetTransparent(true);
+	}
+	else {
+		SetTransparent(false);
+	}
 }
 
