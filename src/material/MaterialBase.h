@@ -9,9 +9,6 @@
 #include "../Texture.h"
 
 
-//TODO: Add Opacity value in MaterialBase, handle later when setting the material?
-
-
 /// <summary>
 /// Material base class.
 /// This class covers all the interaction with the shader program regarding materials.
