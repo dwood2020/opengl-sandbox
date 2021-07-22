@@ -17,6 +17,12 @@ FlatMaterial::~FlatMaterial() { }
 
 void FlatMaterial::SetFlatColor(const glm::vec4& color) {
 	SetUniform(colorName, MaterialUniform(color));
+	if (color.w < 0.999f) {
+		SetTransparent(true);
+	}
+	else {
+		SetTransparent(false);
+	}
 }
 
 
