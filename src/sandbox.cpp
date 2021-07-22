@@ -231,7 +231,7 @@ int main(int argc, char* argv[]) {
 	PhongMaterial* pinkDebugMaterial = materialLibrary.MakePhongMaterial(4);
 	pinkDebugMaterial->SetDiffuseColor(glm::vec3(1.0f, 0.0f, 1.0f));
 	pinkDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
-	pinkDebugMaterial->SetOpacity(0.3f);
+	pinkDebugMaterial->SetOpacity(1.0f);
 
 	FlatMaterial* flatWhiteMaterial = materialLibrary.MakeFlatMaterial(255);
 	flatWhiteMaterial->SetFlatColor(glm::vec4(1.0f));
