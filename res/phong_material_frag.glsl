@@ -18,6 +18,7 @@ struct Material {
 	vec3 diffuseColor;
 	vec3 specularColor;
 	float shininess;
+	float opacity;
 	int hasDiffuseTexture;
 	sampler2D diffuseTexture;
 };
@@ -67,6 +68,6 @@ void main(void) {
 
 
 	vec3 result = ambient + diffuse + specular;
-	fragColor = vec4(result, 1.0f);		
+	fragColor = vec4(result, material.opacity);	
 }
 

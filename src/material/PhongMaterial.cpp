@@ -12,6 +12,7 @@ PhongMaterial::PhongMaterial(ShaderProgram* shaderProgram): MaterialBase(shaderP
 	SetUniform(diffuseName, MaterialUniform(glm::vec3(0.0f)));
 	SetUniform(specularName, MaterialUniform(glm::vec3(0.0f)));
 	SetUniform(shininessName, MaterialUniform(32.0f));
+	SetUniform(opacityName, MaterialUniform(1.0f));
 
 	SetUniform(hasDiffuseTextureName, MaterialUniform((int)hasDiffuseTexture));
 	SetUniform(useTexCoordsName, MaterialUniform((int)hasDiffuseTexture));
@@ -46,5 +47,10 @@ void PhongMaterial::SetSpecularTexture(const Texture& specular) {
 
 void PhongMaterial::SetShininess(float shininess) {
 	SetUniform(shininessName, MaterialUniform(shininess));
+}
+
+
+void PhongMaterial::SetOpacity(float opacity) {
+	SetUniform(opacityName, MaterialUniform(opacity));
 }
 

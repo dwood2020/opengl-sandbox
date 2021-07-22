@@ -206,7 +206,7 @@ int main(int argc, char* argv[]) {
 	woodenBoxMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 
 	FlatMaterial* gridMaterial = materialLibrary.MakeFlatMaterial(200);
-	gridMaterial->SetFlatColor(glm::vec4(0.33f, 0.33f, 0.33f, 1.0f));
+	gridMaterial->SetFlatColor(glm::vec4(0.33f, 0.33f, 0.33f, 0.6f));
 
 	FlatMaterial* coordSystemMaterial = materialLibrary.MakeFlatMaterial(201);
 	coordSystemMaterial->SetUseColorVertices(true);
@@ -231,6 +231,7 @@ int main(int argc, char* argv[]) {
 	PhongMaterial* pinkDebugMaterial = materialLibrary.MakePhongMaterial(4);
 	pinkDebugMaterial->SetDiffuseColor(glm::vec3(1.0f, 0.0f, 1.0f));
 	pinkDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
+	pinkDebugMaterial->SetOpacity(0.3f);
 
 	FlatMaterial* flatWhiteMaterial = materialLibrary.MakeFlatMaterial(255);
 	flatWhiteMaterial->SetFlatColor(glm::vec4(1.0f));
@@ -261,6 +262,10 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
+
+	// blending, for transparencies
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
 	while (!g_exitProgram) {

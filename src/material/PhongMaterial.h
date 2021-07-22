@@ -14,6 +14,7 @@ private:
 	const std::string diffuseName = "material.diffuseColor";
 	const std::string specularName = "material.specularColor";
 	const std::string shininessName = "material.shininess";
+	const std::string opacityName = "material.opacity";
 	const std::string hasDiffuseTextureName = "material.hasDiffuseTexture";
 	const std::string useTexCoordsName = "useTexCoords";
 
@@ -67,6 +68,13 @@ public:
 	/// </summary>
 	/// <param name="shininess">shininess parameter</param>
 	void SetShininess(float shininess);
+
+	/// <summary>
+	/// Sets the material's opacity.
+	/// (Ranges from 0.0 - 1.0, also called "alpha".)
+	/// </summary>
+	/// <param name="opacity">opacity</param>
+	void SetOpacity(float opacity);
 
 };
 
