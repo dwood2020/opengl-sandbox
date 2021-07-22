@@ -121,28 +121,7 @@ void Renderer::DoFrame(void) {
 
 
 void Renderer::DoSimpleCommands(void) {
-
-	/*for (SimpleRenderCommand& command : simpleRenderCommands) {
-
-		if (!command.isActive) {
-			continue;
-		}
-
-		command.material->Bind();
-
-		if (camera->GetViewProjectionMatrixIsDirty() == true) {
-			command.material->SetViewProjectionMatrixUniform(camera->GetViewProjectionMatrix());
-
-			if (command.material->GetAffectedByLight() == true) {
-				command.material->SetViewPosUniform(camera->GetPosition());
-			}
-		}
-
-		command.material->SetModelMatrixUniform(command.M);
-		command.mesh->Draw();
-		command.material->Unbind();
-	}*/
-
+	
 	for (unsigned int i = 0; i < simpleRenderCommands.size(); ++i) {
 		SimpleRenderCommand* command = simpleRenderCommands[i].get();		
 

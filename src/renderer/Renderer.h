@@ -28,8 +28,7 @@ private:
 	Lighting* lighting;
 	CameraBase* camera;
 	MaterialLibrary* materialLibrary;
-
-	//std::vector<SimpleRenderCommand> simpleRenderCommands;
+	
 	std::vector<std::unique_ptr<SimpleRenderCommand>> simpleRenderCommands;
 	
 	VoxelScene* voxelScene;
