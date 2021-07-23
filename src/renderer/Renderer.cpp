@@ -119,7 +119,7 @@ void Renderer::DoFrame(void) {
 
 }
 
-
+//TODO: Make Sorting a separate public method!
 void Renderer::SortSimpleCommands(void) {
 	
 	std::sort(simpleRenderCommands.begin(), simpleRenderCommands.end(),
