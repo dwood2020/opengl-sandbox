@@ -641,14 +641,14 @@ void StaticMeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<g
 	indices.reserve(static_cast<size_t>(points) * 3);
 
 	for (unsigned int i = 1; i < points; i++) {
-		indices.push_back(i);
-		indices.push_back(i + 1);
+		indices.push_back(i);		
 		indices.push_back(0);
+		indices.push_back(i + 1);
 	}
 
-	indices.push_back(points);
-	indices.push_back(1);
+	indices.push_back(points);	
 	indices.push_back(0);
+	indices.push_back(1);
 }
 
 
