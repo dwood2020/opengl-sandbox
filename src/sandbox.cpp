@@ -105,7 +105,7 @@ int main(int argc, char* argv[]) {
 	
 
 	
-	StaticMesh mesh = StaticMeshFactory::GetInstance().MakeCube(1.0f, true);	
+	StaticMesh cubeMesh = StaticMeshFactory::GetInstance().MakeCube(1.0f, true);	
 	StaticMesh gridMesh = StaticMeshFactory::GetInstance().MakeSimpleGrid(20.0f);
 	StaticMesh cs3dMesh = StaticMeshFactory::GetInstance().MakeCoordinateSystem(2.0f);
 
@@ -204,7 +204,7 @@ int main(int argc, char* argv[]) {
 	woodenBoxMaterial->SetDiffuseColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	woodenBoxMaterial->SetDiffuseTexture(tex1);
 	woodenBoxMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
-	woodenBoxMaterial->SetOpacity(0.5f);
+	woodenBoxMaterial->SetOpacity(1.0f);
 
 	FlatMaterial* gridMaterial = materialLibrary.MakeFlatMaterial(200);
 	gridMaterial->SetFlatColor(glm::vec4(0.33f, 0.33f, 0.33f, 0.6f));
@@ -240,6 +240,10 @@ int main(int argc, char* argv[]) {
 	FlatMaterial* flatSelectionMaterial = materialLibrary.MakeFlatMaterial(254);
 	flatSelectionMaterial->SetFlatColor(glm::vec4(1.0f));
 
+	PhongMaterial* whiteMaterial = materialLibrary.MakePhongMaterial(5);
+	whiteMaterial->SetDiffuseColor(glm::vec3(0.9f));
+	whiteMaterial->SetSpecularColor(glm::vec3(1.0f));
+	whiteMaterial->SetOpacity(0.5f);
 
 	mouseSelector.Init(renderer, flatSelectionMaterial);
 	
@@ -249,7 +253,8 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
 	renderer.AddSimpleCommand(Msphere, &sphereMesh, defaultMaterial);
 	renderer.AddSimpleCommand(Mcone, &coneMesh, greenDebugMaterial);
-	renderer.AddSimpleCommand(Mcube, &mesh, woodenBoxMaterial);	
+	renderer.AddSimpleCommand(Mcube, &cubeMesh, woodenBoxMaterial);	
+	renderer.AddSimpleCommand(M333, &cubeMesh, whiteMaterial);
 
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);	
 
