@@ -1,9 +1,9 @@
 #include "Renderer.h"
 #include "../glad/glad.h"
 #include "../material/MaterialBase.h"
+#include <algorithm>
 
 #include <iostream>
-
 
 
 bool Renderer::LoadGL(void) {
@@ -94,28 +94,40 @@ void Renderer::Prepare(void) {
 			material->SetViewPosUniform(camera->GetPosition());
 			lighting->SetUniforms(material->GetShaderProgram());
 		}
-
 	}
 
+	SortSimpleCommands();
 }
 
 
 void Renderer::DoFrame(void) {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// simple render commands first:
-	DoSimpleCommands();
 	
-	// voxelscene render commands second:
+	// voxelscene render commands first:
 	if (voxelScene != nullptr) {
 		DoVoxelScene();
 	}
+	
+	// simple render commands last, because they can contain transparent materials
+	DoSimpleCommands();
 
 
 	if (camera->GetViewProjectionMatrixIsDirty() == true) {
 		camera->ResetDirtyState();		
 	}
+
+}
+
+
+void Renderer::SortSimpleCommands(void) {
+	
+	std::sort(simpleRenderCommands.begin(), simpleRenderCommands.end(),
+		[](const std::unique_ptr<SimpleRenderCommand>& a, const std::unique_ptr<SimpleRenderCommand>& b) -> bool {
+			
+			//super simple sorting which puts transparent materials at the end
+			return a->GetMaterial()->GetTransparent() < b->GetMaterial()->GetTransparent();
+		});
 
 }
 

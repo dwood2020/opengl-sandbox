@@ -204,6 +204,7 @@ int main(int argc, char* argv[]) {
 	woodenBoxMaterial->SetDiffuseColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	woodenBoxMaterial->SetDiffuseTexture(tex1);
 	woodenBoxMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
+	woodenBoxMaterial->SetOpacity(0.5f);
 
 	FlatMaterial* gridMaterial = materialLibrary.MakeFlatMaterial(200);
 	gridMaterial->SetFlatColor(glm::vec4(0.33f, 0.33f, 0.33f, 0.6f));

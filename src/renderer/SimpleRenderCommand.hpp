@@ -23,7 +23,12 @@ public:
 		M(M), mesh(mesh), material(material), isActive(true) { }
 
 
-	glm::mat4& GetModelMatrix(void) { return M; }	
+	glm::mat4& GetModelMatrix(void) { return M; }
+
+
+	MaterialBase* GetMaterial(void) {
+		return material;
+	}
 
 
 	void SetActiveState(bool isActive) { this->isActive = isActive; }

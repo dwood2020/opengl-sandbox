@@ -75,9 +75,11 @@ public:
 	
 
 private:
+	void SortSimpleCommands(void);
+
 	void DoSimpleCommands(void);
 
-	void DoVoxelScene(void);
+	void DoVoxelScene(void);	
 
 	void CalculateViewport(const glm::vec2& rect);
 
