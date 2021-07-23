@@ -725,9 +725,10 @@ void StaticMeshFactory::MakeIndexedSphere(std::vector<glm::vec3>* vertices, std:
 				indices->push_back(j + (i + 1) * stride);
 				indices->push_back((j + 1) + (i + 1) * stride);
 
-				indices->push_back(j + i * stride);
-				indices->push_back((j + 1) + i * stride);
+				indices->push_back(j + i * stride);				
 				indices->push_back((j + 1) + (i + 1) * stride);
+				indices->push_back((j + 1) + i * stride);
+				
 			}
 		}
 	}
@@ -737,9 +738,9 @@ void StaticMeshFactory::MakeIndexedSphere(std::vector<glm::vec3>* vertices, std:
 	int x = s - (nrLong + 1);			//first index cap
 
 	for (int i = x; i <= s - 1; i++) {
-		indices->push_back(i);
-		indices->push_back(i + 1);
+		indices->push_back(i);		
 		indices->push_back(s);
+		indices->push_back(i + 1);
 	}
 
 
