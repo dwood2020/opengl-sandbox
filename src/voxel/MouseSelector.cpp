@@ -27,7 +27,6 @@ MouseSelector::~MouseSelector() { }
 void MouseSelector::Init(Renderer& renderer, MaterialBase* selectionMaterial) {
 
 	selectionMesh = StaticMeshFactory::GetInstance().MakeCubeMarker();
-
 	//selectionMesh = StaticMeshFactory::GetInstance().MakeSimpleCubeMarker();
 
 	selectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &selectionMesh, selectionMaterial);
