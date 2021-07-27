@@ -3,6 +3,7 @@
 //#include <map>
 #include <memory>
 #include <glm/glm.hpp>
+#include "GLStateHandler.h"
 #include "../events/EventBus.h"
 #include "../events/EventListener.hpp"
 #include "../Lighting.h"
@@ -34,6 +35,9 @@ private:
 	VoxelScene* voxelScene;
 	//std::map<char, MaterialBase*> blockMaterialMap;
 	MaterialBase* defaultBlockMaterial;
+
+	GLStateHandler stateHandler;
+
 
 	// eventbus, lighting, camera are mandatory.
 	Renderer() = default;

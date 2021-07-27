@@ -41,11 +41,9 @@ void Renderer::Init(const glm::vec2& windowRect) {
 	CalculateViewport(windowRect);
 	
 	glEnable(GL_DEPTH_TEST);
-
-	// blending is always enabled, for transparencies
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+	
+	stateHandler.SetBlending(true);
+	stateHandler.SetFaceCulling(true);
 }
 
 

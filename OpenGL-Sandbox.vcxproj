@@ -167,6 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\renderer\GLStateHandler.cpp" />
     <ClCompile Include="src\mesh\DynamicMeshFactory.cpp" />
     <ClCompile Include="src\voxel\MouseSelector.cpp" />
     <ClCompile Include="src\window\IupUiWindow.cpp" />
@@ -198,6 +199,7 @@
     <ClCompile Include="src\TextureData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\renderer\GLStateHandler.h" />
     <ClInclude Include="src\mesh\DynamicMeshFactory.h" />
     <ClInclude Include="src\voxel\Bresenham3D.hpp" />
     <ClInclude Include="src\voxel\MouseSelector.h" />
