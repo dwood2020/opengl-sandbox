@@ -268,11 +268,7 @@ int main(int argc, char* argv[]) {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
-
-	// blending, for transparencies
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+	
 
 	while (!g_exitProgram) {
 
