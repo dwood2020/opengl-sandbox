@@ -7,6 +7,7 @@
 /// </summary>
 class GLStateHandler final {
 private:
+	bool depthTestingEnabled;
 	bool blendingEnabled;
 	bool faceCullingEnabled;
 
@@ -15,6 +16,8 @@ public:
 
 	~GLStateHandler();
 
+
+	void SetDepthTesting(bool state);
 
 	void SetBlending(bool state);
 

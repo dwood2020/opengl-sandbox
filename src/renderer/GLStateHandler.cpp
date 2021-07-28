@@ -2,10 +2,21 @@
 #include "../glad/glad.h"
 
 
-GLStateHandler::GLStateHandler(): blendingEnabled(false), faceCullingEnabled(false) { }
+GLStateHandler::GLStateHandler(): 
+	depthTestingEnabled(false), blendingEnabled(false), faceCullingEnabled(false) { }
 
 
 GLStateHandler::~GLStateHandler() { }
+
+
+void GLStateHandler::SetDepthTesting(bool state) {
+	if (state && !depthTestingEnabled) {
+		glEnable(GL_DEPTH_TEST);
+	}
+	else if (!state && depthTestingEnabled) {
+		glDisable(GL_DEPTH_TEST);
+	}
+}
 
 
 void GLStateHandler::SetBlending(bool state) {

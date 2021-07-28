@@ -39,9 +39,8 @@ void Renderer::OnEvent(Event& e) {
 
 void Renderer::Init(const glm::vec2& windowRect) {
 	CalculateViewport(windowRect);
-	
-	glEnable(GL_DEPTH_TEST);
-	
+		
+	stateHandler.SetDepthTesting(true);
 	stateHandler.SetBlending(true);
 	stateHandler.SetFaceCulling(true);
 }
