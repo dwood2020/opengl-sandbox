@@ -153,6 +153,17 @@ int main(int argc, char* argv[]) {
 	voxelScene.SetBlock({ -20,0,0 }, 1);
 	voxelScene.SetBlock({ -19,0,0 }, 2);
 	voxelScene.SetBlock({ -18,0,0 }, 3);
+
+	// test voxel field 
+	voxelScene.SetBlock({ 5,0,-10 }, 1);
+	voxelScene.SetBlock({ 6,0,-10 }, 1);
+	voxelScene.SetBlock({ 7,0,-10 }, 1);
+	voxelScene.SetBlock({ 5,0,-11 }, 1);
+	voxelScene.SetBlock({ 6,0,-11 }, 5);
+	voxelScene.SetBlock({ 7,0,-11 }, 1);
+	voxelScene.SetBlock({ 5,0,-12 }, 1);
+	voxelScene.SetBlock({ 6,0,-12 }, 5);
+	voxelScene.SetBlock({ 7,0,-12 }, 1);
 	
 	voxelScene.GenerateMeshes();
 
