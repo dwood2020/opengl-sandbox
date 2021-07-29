@@ -228,6 +228,11 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 	glm::vec3 deltaPan = (right * delta.x * rightScale) + (up * delta.y * upScale);
 	deltaPan *= acceleration;
 
+	//simple workaround: invert deltaPan when theta = 90 degr
+	if (std::abs(theta) > 89.999f) {
+		deltaPan *= -1.0f;		
+	}
+
 	target = target + deltaPan;	
 
 	UpdateViewProjectionMatrixAndPosition();
