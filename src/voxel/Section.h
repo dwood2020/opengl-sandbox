@@ -108,4 +108,6 @@ public:
 
 private:	
 	inline bool IsWithinBounds(const glm::ivec3& pos) const;
+
+	inline bool IsSolidBlock(char block) const;
 };

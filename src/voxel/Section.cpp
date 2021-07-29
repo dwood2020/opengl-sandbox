@@ -1,4 +1,5 @@
 #include "Section.h"
+#include "../material/MaterialLibrary.h"
 #include <cmath>
 
 #include <iostream>
@@ -186,7 +187,7 @@ void Section::GenerateMeshes(void) {
 				}				
 				
 				// left face
-				if (i == 0 || blocks[i - 1][j][k] == 0) {
+				if (i == 0 || !IsSolidBlock(blocks[i - 1][j][k])) {
 					auto leftFace = leftFaceTemplate;
 					for (VertexPosNorm& v : leftFace) {
 						v.pos += blockPos;
@@ -197,7 +198,7 @@ void Section::GenerateMeshes(void) {
 				}
 
 				// right face
-				if (i == sectionSize-1 || blocks[i + 1][j][k] == 0) {
+				if (i == sectionSize-1 || !IsSolidBlock(blocks[i + 1][j][k])) {
 					auto rightFace = rightFaceTemplate;
 					for (VertexPosNorm& v : rightFace) {
 						v.pos += blockPos;
@@ -207,7 +208,7 @@ void Section::GenerateMeshes(void) {
 				}
 
 				// rear face
-				if (k == 0 || blocks[i][j][k - 1] == 0) {
+				if (k == 0 || !IsSolidBlock(blocks[i][j][k - 1])) {
 					auto rearFace = rearFaceTemplate;
 					for (VertexPosNorm& v : rearFace) {
 						v.pos += blockPos;
@@ -217,7 +218,7 @@ void Section::GenerateMeshes(void) {
 				}
 
 				// front face
-				if (k == sectionSize - 1 || blocks[i][j][k + 1] == 0) {
+				if (k == sectionSize - 1 || !IsSolidBlock(blocks[i][j][k + 1])) {
 					auto frontFace = frontFaceTemplate;
 					for (VertexPosNorm& v : frontFace) {
 						v.pos += blockPos;
@@ -227,7 +228,7 @@ void Section::GenerateMeshes(void) {
 				}
 
 				// bottom face
-				if (j == 0 || blocks[i][j - 1][k] == 0) {
+				if (j == 0 || !IsSolidBlock(blocks[i][j - 1][k])) {
 					auto face = bottomFaceTemplate;
 					for (VertexPosNorm& v : face) {
 						v.pos += blockPos;
@@ -237,7 +238,7 @@ void Section::GenerateMeshes(void) {
 				}
 
 				// top face
-				if (j == sectionSize-1 || blocks[i][j + 1][k] == 0) {
+				if (j == sectionSize-1 || !IsSolidBlock(blocks[i][j + 1][k])) {
 					auto face = topFaceTemplate;
 					for (VertexPosNorm& v : face) {
 						v.pos += blockPos;
@@ -260,12 +261,7 @@ void Section::GenerateMeshes(void) {
 			std::cout << "prepared mesh!" << std::endl;
 		}
 	}
-
-	/*if (!meshVector.empty()) {
-		mesh.SetGlMode(GL_TRIANGLES);
-		mesh.Prepare();
-		std::cout << "prepared mesh!" << std::endl;
-	}*/	
+	
 	meshesAreDirty = false;
 }
 
@@ -290,6 +286,23 @@ bool Section::IsWithinBounds(const glm::ivec3& pos) const {
 	else {
 		return true;
 	}
+}
+
+
+bool Section::IsSolidBlock(char block) const {
+	if (block == 0) {
+		return false;
+	}
+	
+	MaterialBase* material = MaterialLibrary::GetInstance().GetMaterial(static_cast<int>(block));
+	if (material != nullptr) {
+		return !material->GetTransparent();
+	}
+	else {
+		//TODO: Return defaultBlockMaterial.IsTransparent state
+		return false;
+	}
+	
 }
 
 
