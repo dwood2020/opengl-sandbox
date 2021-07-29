@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "../glad/glad.h"
+#include "../material/MaterialLibrary.h"
 #include "../material/MaterialBase.h"
 #include <algorithm>
 
@@ -15,8 +16,8 @@ bool Renderer::LoadGL(void) {
 }
 
 
-Renderer::Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, MaterialLibrary& materialLibrary): 
-	lighting(&lighting), camera(&camera), materialLibrary(&materialLibrary), voxelScene(nullptr), defaultBlockMaterial(nullptr) {
+Renderer::Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera): 
+	lighting(&lighting), camera(&camera), voxelScene(nullptr), defaultBlockMaterial(nullptr) {
 	
 	// register for events
 	eventBus.AddListener(EventType::WindowResize, this);
@@ -82,7 +83,7 @@ void Renderer::AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockM
 
 void Renderer::Prepare(void) {
 
-	MaterialsMap* mats = materialLibrary->GetMaterialsMap();
+	MaterialsMap* mats = MaterialLibrary::GetInstance().GetMaterialsMap();
 	
 	for (auto it = mats->begin(); it != mats->end(); ++it) {
 		MaterialBase* material = it->second;
@@ -172,7 +173,7 @@ void Renderer::DoVoxelScene(void) {
 		for (auto itMesh = itSection->second->GetMeshes().begin(); itMesh != itSection->second->GetMeshes().end(); ++itMesh) {
 						
 			int materialId = static_cast<int>(itMesh->first);
-			MaterialBase* material = materialLibrary->GetMaterial(materialId);
+			MaterialBase* material = MaterialLibrary::GetInstance().GetMaterial(materialId);
 			
 			if (material == nullptr) {
 				material = defaultBlockMaterial;

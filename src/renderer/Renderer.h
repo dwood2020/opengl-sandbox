@@ -8,7 +8,6 @@
 #include "../events/EventListener.hpp"
 #include "../Lighting.h"
 #include "../camera/CameraBase.h"
-#include "../material/MaterialLibrary.h"
 #include "SimpleRenderCommand.hpp"
 #include "../voxel/VoxelScene.h"
 
@@ -27,8 +26,7 @@
 class Renderer final : public EventListener {
 private:
 	Lighting* lighting;
-	CameraBase* camera;
-	MaterialLibrary* materialLibrary;
+	CameraBase* camera;	
 	
 	std::vector<std::unique_ptr<SimpleRenderCommand>> simpleRenderCommands;
 	
@@ -46,7 +44,7 @@ public:
 	static bool LoadGL(void);
 
 
-	Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera, MaterialLibrary& materialLibrary);
+	Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera);
 
 	~Renderer();
 

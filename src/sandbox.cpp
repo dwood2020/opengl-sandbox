@@ -67,10 +67,9 @@ int main(int argc, char* argv[]) {
 	// utility listener for sandbox
 	SandboxListener sandboxListener;
 
-	EventBus eventBus;	
 
-	ShaderFactory shaderFactory;
-	MaterialLibrary materialLibrary(&shaderFactory);
+	EventBus eventBus;	
+		
 
 	// init window
 	IupUiWindow window(&eventBus, 800, 640, "OpenGL Sandbox - IUP Window");		
@@ -94,7 +93,7 @@ int main(int argc, char* argv[]) {
 	lighting.SetAmbientFactor(0.5f);
 	
 	// use renderer	
-	Renderer renderer(eventBus, lighting, camera, materialLibrary);	
+	Renderer renderer(eventBus, lighting, camera);	
 	renderer.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));	
 	renderer.Init(window.GetWindowRect());
 
@@ -201,57 +200,57 @@ int main(int argc, char* argv[]) {
 
 	
 	// use new Materials from Material library
-	FlatMaterial* flatMaterial1 = materialLibrary.MakeFlatMaterial(100);
+	FlatMaterial* flatMaterial1 = MaterialLibrary::GetInstance().MakeFlatMaterial(100);
 	flatMaterial1->SetFlatColor(glm::vec4(1.0f, 0.0f, 0.5f, 1.0f));
 
 
-	PhongMaterial* phongMaterial1 = materialLibrary.MakePhongMaterial(101);
+	PhongMaterial* phongMaterial1 = MaterialLibrary::GetInstance().MakePhongMaterial(101);
 	phongMaterial1->SetDiffuseColor(glm::vec3(1.0f) * 0.5f);
 	phongMaterial1->SetDiffuseTexture(tex2);
 	phongMaterial1->SetSpecularColor(glm::vec3(1.0f));
 
 
-	PhongMaterial* woodenBoxMaterial = materialLibrary.MakePhongMaterial(10);
+	PhongMaterial* woodenBoxMaterial = MaterialLibrary::GetInstance().MakePhongMaterial(10);
 	woodenBoxMaterial->SetDiffuseColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	woodenBoxMaterial->SetDiffuseTexture(tex1);
 	woodenBoxMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 	woodenBoxMaterial->SetOpacity(1.0f);
 
-	FlatMaterial* gridMaterial = materialLibrary.MakeFlatMaterial(200);
+	FlatMaterial* gridMaterial = MaterialLibrary::GetInstance().MakeFlatMaterial(200);
 	gridMaterial->SetFlatColor(glm::vec4(0.33f, 0.33f, 0.33f, 0.6f));
 
-	FlatMaterial* coordSystemMaterial = materialLibrary.MakeFlatMaterial(201);
+	FlatMaterial* coordSystemMaterial = MaterialLibrary::GetInstance().MakeFlatMaterial(201);
 	coordSystemMaterial->SetUseColorVertices(true);
 
 
-	PhongMaterial* defaultMaterial = materialLibrary.MakePhongMaterial(1);
+	PhongMaterial* defaultMaterial = MaterialLibrary::GetInstance().MakePhongMaterial(1);
 	defaultMaterial->SetDiffuseColor(glm::vec3(0.5f));
 	defaultMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.3f);
 	defaultMaterial->SetShininess(32.0f);
 
 	
 
-	PhongMaterial* yellowDebugMaterial = materialLibrary.MakePhongMaterial(2);
+	PhongMaterial* yellowDebugMaterial = MaterialLibrary::GetInstance().MakePhongMaterial(2);
 	yellowDebugMaterial->SetDiffuseColor(glm::vec3(0.8f, 0.8f, 0.1f));
 	yellowDebugMaterial->SetSpecularColor(glm::vec3(0.6f));
 
-	PhongMaterial* greenDebugMaterial = materialLibrary.MakePhongMaterial(3);
+	PhongMaterial* greenDebugMaterial = MaterialLibrary::GetInstance().MakePhongMaterial(3);
 	greenDebugMaterial->SetDiffuseColor(glm::vec3(0.1f, 0.9f, 0.2f));
 	greenDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 	greenDebugMaterial->SetShininess(32.0f);	
 
-	PhongMaterial* pinkDebugMaterial = materialLibrary.MakePhongMaterial(4);
+	PhongMaterial* pinkDebugMaterial = MaterialLibrary::GetInstance().MakePhongMaterial(4);
 	pinkDebugMaterial->SetDiffuseColor(glm::vec3(1.0f, 0.0f, 1.0f));
 	pinkDebugMaterial->SetSpecularColor(glm::vec3(1.0f) * 0.4f);
 	pinkDebugMaterial->SetOpacity(1.0f);
 
-	FlatMaterial* flatWhiteMaterial = materialLibrary.MakeFlatMaterial(255);
+	FlatMaterial* flatWhiteMaterial = MaterialLibrary::GetInstance().MakeFlatMaterial(255);
 	flatWhiteMaterial->SetFlatColor(glm::vec4(1.0f));
 
-	FlatMaterial* flatSelectionMaterial = materialLibrary.MakeFlatMaterial(254);
+	FlatMaterial* flatSelectionMaterial = MaterialLibrary::GetInstance().MakeFlatMaterial(254);
 	flatSelectionMaterial->SetFlatColor(glm::vec4(1.0f));
 
-	PhongMaterial* whiteMaterial = materialLibrary.MakePhongMaterial(5);
+	PhongMaterial* whiteMaterial = MaterialLibrary::GetInstance().MakePhongMaterial(5);
 	whiteMaterial->SetDiffuseColor(glm::vec3(0.9f));
 	whiteMaterial->SetSpecularColor(glm::vec3(1.0f));
 	whiteMaterial->SetOpacity(0.5f);

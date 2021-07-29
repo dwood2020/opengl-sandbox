@@ -18,26 +18,31 @@ using MaterialsMap = std::map<int, MaterialBase*>;
 /// </summary>
 class MaterialLibrary final {
 private:
-	ShaderFactory* shaderFactory;
-
+	ShaderFactory shaderFactory;
 	
 	MaterialsMap materials;
 
 
-	MaterialLibrary() = default;
+	/// <summary>
+	/// Constructor.
+	/// Creates a set of default materials.
+	/// </summary>	
+	MaterialLibrary();
 
 public:
-	/// <summary>
-	/// Constructor. Shader factory reference is mandatory.
-	/// Creates a set of default materials.
-	/// </summary>
-	/// <param name="shaderFactory">Shader factory</param>
-	MaterialLibrary(ShaderFactory* shaderFactory);
-
 	/// <summary>
 	/// Destructor.
 	/// </summary>
 	~MaterialLibrary();
+
+	/// <summary>
+	/// Gets the singleton instance.
+	/// </summary>	
+	/// <returns>MaterialLibrary instance</returns>
+	static MaterialLibrary& GetInstance(void);
+	
+	MaterialLibrary(const MaterialLibrary&) = delete;
+	void operator=(const MaterialLibrary&) = delete;
 
 	/// <summary>
 	/// Makes a new flat material, adds it to the library and returns a pointer to it.

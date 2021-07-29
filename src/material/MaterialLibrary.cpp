@@ -1,7 +1,7 @@
 #include "MaterialLibrary.h"
 
 
-MaterialLibrary::MaterialLibrary(ShaderFactory* shaderFactory): shaderFactory(shaderFactory) { }
+MaterialLibrary::MaterialLibrary() { }
 
 
 MaterialLibrary::~MaterialLibrary() {
@@ -11,6 +11,13 @@ MaterialLibrary::~MaterialLibrary() {
     }
 }
 
+
+MaterialLibrary& MaterialLibrary::GetInstance(void) {
+    static MaterialLibrary instance;    // guaranteed to be destroyed. Inst'd on 1st use.
+    return instance;
+}
+
+
 //TODO: Move id generation into library, add id field to MaterialBase, to take id definition away from the user
 FlatMaterial* MaterialLibrary::MakeFlatMaterial(int id) {    
     /*materials[name] = std::make_unique<MaterialBase>(shaderFactory->MakeDefaultFlatShaderProgram());    
@@ -18,7 +25,7 @@ FlatMaterial* MaterialLibrary::MakeFlatMaterial(int id) {
     if (materials.find(id) != materials.end()) {
         delete materials[id];
     }
-    materials[id] = new FlatMaterial(shaderFactory->MakeDefaultFlatShaderProgram());
+    materials[id] = new FlatMaterial(shaderFactory.MakeDefaultFlatShaderProgram());
     return dynamic_cast<FlatMaterial*>(materials[id]);
     
     //TODO: Move to smart memory management
@@ -29,7 +36,7 @@ PhongMaterial* MaterialLibrary::MakePhongMaterial(int id) {
     if (materials.find(id) != materials.end()) {
         delete materials[id];
     }
-    materials[id] = new PhongMaterial(shaderFactory->MakeDefaultPhongShaderProgram());
+    materials[id] = new PhongMaterial(shaderFactory.MakeDefaultPhongShaderProgram());
     return dynamic_cast<PhongMaterial*>(materials[id]);
 }
 
