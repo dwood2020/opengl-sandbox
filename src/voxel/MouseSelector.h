@@ -6,7 +6,7 @@
 #include "VoxelScene.h"
 #include "../mesh/StaticMesh.h"
 #include "../renderer/Renderer.h"
-#include "../renderer/SimpleRenderCommand.hpp"
+#include "../renderer/RenderCommand.hpp"
 
 
 class MouseSelector final : public EventListener {
@@ -22,7 +22,7 @@ private:
 	bool isOrthoProjection;
 	
 	StaticMesh selectionMesh;
-	SimpleRenderCommand* selectionRC;
+	RenderCommand* selectionRC;
 	
 
 	MouseSelector() = default;

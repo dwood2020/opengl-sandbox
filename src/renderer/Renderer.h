@@ -8,7 +8,7 @@
 #include "../events/EventListener.hpp"
 #include "../Lighting.h"
 #include "../camera/CameraBase.h"
-#include "SimpleRenderCommand.hpp"
+#include "RenderCommand.hpp"
 #include "../voxel/VoxelScene.h"
 
 
@@ -28,7 +28,7 @@ private:
 	Lighting* lighting;
 	CameraBase* camera;	
 	
-	std::vector<std::unique_ptr<SimpleRenderCommand>> simpleRenderCommands;
+	std::vector<std::unique_ptr<RenderCommand>> renderCommands;
 	
 	VoxelScene* voxelScene;
 	//std::map<char, MaterialBase*> blockMaterialMap;
@@ -61,7 +61,7 @@ public:
 	void SetGlPolygonMode(GLenum mode);
 
 
-	SimpleRenderCommand* AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
+	RenderCommand* AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
 
 
 	void AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial);

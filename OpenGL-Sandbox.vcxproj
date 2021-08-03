@@ -206,7 +206,7 @@
     <ClInclude Include="src\window\IupUiWindow.h" />
     <ClInclude Include="src\renderer\Renderer.h" />
     <ClInclude Include="src\events\WindowEvents.hpp" />
-    <ClInclude Include="src\renderer\SimpleRenderCommand.hpp" />
+    <ClInclude Include="src\renderer\RenderCommand.hpp" />
     <ClInclude Include="src\voxel\Section.h" />
     <ClInclude Include="src\mesh\DynamicMesh.h" />
     <ClInclude Include="src\mesh\MeshBase.h" />

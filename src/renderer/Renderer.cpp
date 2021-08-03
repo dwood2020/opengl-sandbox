@@ -57,16 +57,16 @@ void Renderer::SetGlPolygonMode(GLenum mode) {
 }
 
 
-SimpleRenderCommand* Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
+RenderCommand* Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material) {
 	if (mesh == nullptr || material == nullptr) {
 		//TODO ASSERT or check if passing arg by reference is better option
 		return nullptr;
 	}
 
 	//SimpleRenderCommand command(modelMatrix, mesh, material);
-	simpleRenderCommands.push_back(std::make_unique<SimpleRenderCommand>(modelMatrix, mesh, material));
+	renderCommands.push_back(std::make_unique<RenderCommand>(modelMatrix, mesh, material));
 
-	return simpleRenderCommands.back().get();
+	return renderCommands.back().get();
 }
 
 
@@ -125,8 +125,8 @@ void Renderer::DoFrame(void) {
 //TODO: Make Sorting a separate public method!
 void Renderer::SortSimpleCommands(void) {
 	
-	std::sort(simpleRenderCommands.begin(), simpleRenderCommands.end(),
-		[](const std::unique_ptr<SimpleRenderCommand>& a, const std::unique_ptr<SimpleRenderCommand>& b) -> bool {
+	std::sort(renderCommands.begin(), renderCommands.end(),
+		[](const std::unique_ptr<RenderCommand>& a, const std::unique_ptr<RenderCommand>& b) -> bool {
 			
 			//super simple sorting which puts transparent materials at the end
 			return a->GetMaterial()->GetTransparent() < b->GetMaterial()->GetTransparent();
@@ -137,8 +137,8 @@ void Renderer::SortSimpleCommands(void) {
 
 void Renderer::DoSimpleCommands(void) {
 	
-	for (unsigned int i = 0; i < simpleRenderCommands.size(); ++i) {
-		SimpleRenderCommand* command = simpleRenderCommands[i].get();		
+	for (unsigned int i = 0; i < renderCommands.size(); ++i) {
+		RenderCommand* command = renderCommands[i].get();		
 
 		command->material->Bind();
 

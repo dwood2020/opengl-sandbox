@@ -5,7 +5,7 @@
 #include "Renderer.h"
 
 
-class SimpleRenderCommand final {
+class RenderCommand final {
 private:
 	glm::mat4 M;	
 	MeshBase* mesh;
@@ -13,13 +13,13 @@ private:
 	bool isActive;
 
 public:
-	SimpleRenderCommand(): M(glm::mat4(1.0f)), mesh(nullptr), material(nullptr), isActive(true) { }
+	RenderCommand(): M(glm::mat4(1.0f)), mesh(nullptr), material(nullptr), isActive(true) { }
 
 
-	SimpleRenderCommand(MeshBase* mesh, MaterialBase* material): M(glm::mat4(1.0f)), mesh(mesh), material(material), isActive(true) { }
+	RenderCommand(MeshBase* mesh, MaterialBase* material): M(glm::mat4(1.0f)), mesh(mesh), material(material), isActive(true) { }
 
 
-	SimpleRenderCommand(const glm::mat4& M, MeshBase* mesh, MaterialBase* material):
+	RenderCommand(const glm::mat4& M, MeshBase* mesh, MaterialBase* material):
 		M(M), mesh(mesh), material(material), isActive(true) { }
 
 

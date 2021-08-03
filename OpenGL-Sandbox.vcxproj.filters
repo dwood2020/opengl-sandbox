@@ -194,7 +194,7 @@
     <ClInclude Include="src\renderer\Renderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\renderer\SimpleRenderCommand.hpp">
+    <ClInclude Include="src\renderer\RenderCommand.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\window\IupUiWindow.h">
