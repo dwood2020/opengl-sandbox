@@ -76,11 +76,6 @@ void Renderer::AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockM
 }
 
 
-//void Renderer::AddBlockMaterialMapping(char blockTypeId, MaterialBase* material) {
-//	blockMaterialMap.insert(std::pair<char, MaterialBase*>(blockTypeId, material));
-//}
-
-
 void Renderer::Prepare(void) {
 
 	MaterialsMap* mats = MaterialLibrary::GetInstance().GetMaterialsMap();

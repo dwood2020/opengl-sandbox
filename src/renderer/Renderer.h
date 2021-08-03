@@ -31,7 +31,6 @@ private:
 	std::vector<std::unique_ptr<RenderCommand>> renderCommands;
 	
 	VoxelScene* voxelScene;
-	//std::map<char, MaterialBase*> blockMaterialMap;
 	MaterialBase* defaultBlockMaterial;
 
 	GLStateHandler stateHandler;
@@ -64,10 +63,7 @@ public:
 	RenderCommand* AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
 
 
-	void AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial);
-
-
-	//void AddBlockMaterialMapping(char blockTypeId, MaterialBase* material);
+	void AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial);	
 
 
 	void Prepare(void);
