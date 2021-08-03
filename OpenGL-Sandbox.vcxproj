@@ -201,6 +201,7 @@
   <ItemGroup>
     <ClInclude Include="src\renderer\GLStateHandler.h" />
     <ClInclude Include="src\mesh\DynamicMeshFactory.h" />
+    <ClInclude Include="src\renderer\IRenderable.hpp" />
     <ClInclude Include="src\voxel\Bresenham3D.hpp" />
     <ClInclude Include="src\voxel\MouseSelector.h" />
     <ClInclude Include="src\window\IupUiWindow.h" />
