@@ -4,6 +4,7 @@
 /// <summary>
 /// This class handles all OpenGL render states.
 /// It shall cache all states to minimize state changes during rendering.
+/// States are cached as member variables.
 /// </summary>
 class GLStateHandler final {
 private:
