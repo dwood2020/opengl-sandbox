@@ -105,6 +105,9 @@
     <ClCompile Include="src\renderer\GLStateHandler.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\voxel\VoxelPlane.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -216,6 +219,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\renderer\IRenderable.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\voxel\VoxelPlane.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
