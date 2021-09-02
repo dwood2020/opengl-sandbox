@@ -62,8 +62,7 @@ RenderCommand* Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase
 		//TODO ASSERT or check if passing arg by reference is better option
 		return nullptr;
 	}
-
-	//SimpleRenderCommand command(modelMatrix, mesh, material);
+	
 	renderCommands.push_back(std::make_unique<RenderCommand>(modelMatrix, mesh, material));
 
 	return renderCommands.back().get();
