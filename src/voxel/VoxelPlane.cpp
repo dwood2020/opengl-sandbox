@@ -45,6 +45,25 @@ std::array<DynamicMesh, 2>& VoxelPlane::GetMeshes(void) {
 void VoxelPlane::GenerateMeshes(void) {
 	// origin cross as first render try:
 
+	//pt left top of cross
+	glm::vec3 lt = origin;
+	lt[orientation.x] -= 0.2f;
+	lt[orientation.y] += 0.2f;
+
+	glm::vec3 rt = origin;
+	rt[orientation.x] += 0.2f;
+	rt[orientation.y] += 0.2f;
+
+	glm::vec3 rb = origin;
+	rb[orientation.x] += 0.2f;
+	rb[orientation.y] -= 0.2f;
+
+	glm::vec3 lb = origin;
+	lb[orientation.x] -= 0.2f;
+	lb[orientation.y] -= 0.2f;
+
+
+
 	auto& meshOriginVec = meshes[0].GetVerticesPos();
 	meshOriginVec.push_back({ glm::vec3() });
 	//TODO: implement this.
