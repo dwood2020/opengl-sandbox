@@ -105,7 +105,7 @@
     <ClCompile Include="src\renderer\GLStateHandler.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\voxel\VoxelFloor.cpp">
+    <ClCompile Include="src\voxel\VoxelGround.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -221,7 +221,7 @@
     <ClInclude Include="src\renderer\IRenderable.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\voxel\VoxelFloor.h">
+    <ClInclude Include="src\voxel\VoxelGround.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

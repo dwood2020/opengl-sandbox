@@ -197,7 +197,7 @@
     <ClCompile Include="src\material\MaterialUniform.cpp" />
     <ClCompile Include="src\voxel\VoxelScene.cpp" />
     <ClCompile Include="src\TextureData.cpp" />
-    <ClCompile Include="src\voxel\VoxelFloor.cpp" />
+    <ClCompile Include="src\voxel\VoxelGround.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\renderer\GLStateHandler.h" />
@@ -237,7 +237,7 @@
     <ClInclude Include="src\material\MaterialUniform.h" />
     <ClInclude Include="src\voxel\VoxelScene.h" />
     <ClInclude Include="src\TextureData.h" />
-    <ClInclude Include="src\voxel\VoxelFloor.h" />
+    <ClInclude Include="src\voxel\VoxelGround.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

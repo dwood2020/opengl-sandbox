@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include "Section.h"
 #include "../mesh/DynamicMesh.h"
+#include "VoxelGround.h"
 
 
 using SectionsMap = std::map<std::array<int, 3>, std::unique_ptr<Section>>;
@@ -16,7 +17,8 @@ using SectionsMap = std::map<std::array<int, 3>, std::unique_ptr<Section>>;
 /// </summary>
 class VoxelScene final {
 private:
-	SectionsMap sections;	
+	SectionsMap sections;
+	VoxelGround ground;
 
 public:
 	/// <summary>
