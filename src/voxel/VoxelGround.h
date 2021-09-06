@@ -3,8 +3,9 @@
 #include <vector>
 #include <glm/glm.hpp>
 
+#include "../mesh/DynamicMesh.h"
 
-class DynamicMesh;
+//class DynamicMesh;
 class RenderCommand;
 
 
