@@ -39,6 +39,8 @@ void VoxelScene::GenerateMeshes(void) {
 			it->second->GenerateMeshes();
 		}
 	}
+
+	ground.GenerateMesh();
 }
 
 

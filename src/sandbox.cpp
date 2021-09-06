@@ -163,6 +163,10 @@ int main(int argc, char* argv[]) {
 	voxelScene.SetBlock({ 5,0,-12 }, 1);
 	voxelScene.SetBlock({ 6,0,-12 }, 5);
 	voxelScene.SetBlock({ 7,0,-12 }, 1);
+
+
+	// ground mesh
+	voxelScene.ground.SetDimensions(glm::vec3(5.f, 0.f, 5.f));
 	
 	voxelScene.GenerateMeshes();
 
@@ -259,10 +263,8 @@ int main(int argc, char* argv[]) {
 	
 
 	// debug
-	voxelScene.ground.SetDimensions(glm::vec3(5.f, 0.f, 5.f));
-	voxelScene.ground.GenerateMesh();
-
 	renderer.AddSimpleCommand(Mid, dynamic_cast<MeshBase*>(&voxelScene.ground.GetMeshes()[0]), flatWhiteMaterial);
+
 
 	//renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
 	renderer.AddSimpleCommand(Mid, &cs3dMesh, coordSystemMaterial);

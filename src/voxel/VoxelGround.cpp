@@ -1,5 +1,4 @@
 #include "VoxelGround.h"
-
 #include "../renderer/RenderCommand.hpp"
 
 
