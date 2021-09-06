@@ -12,6 +12,16 @@ VoxelGround::VoxelGround() {
 VoxelGround::~VoxelGround() { }
 
 
+std::array<DynamicMesh, 2>& VoxelGround::GetMeshes(void) {
+	return meshes;
+}
+
+
+void VoxelGround::SetDimensions(const glm::vec3& dimensions) {
+	this->dimensions = dimensions;
+}
+
+
 void VoxelGround::GenerateMesh(void) {
 	
 	meshes[0].GetVerticesPos().clear();

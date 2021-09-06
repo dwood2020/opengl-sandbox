@@ -258,7 +258,13 @@ int main(int argc, char* argv[]) {
 	mouseSelector.Init(renderer, flatSelectionMaterial);
 	
 
-	renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
+	// debug
+	voxelScene.ground.SetDimensions(glm::vec3(5.f, 0.f, 5.f));
+	voxelScene.ground.GenerateMesh();
+
+	renderer.AddSimpleCommand(Mid, dynamic_cast<MeshBase*>(&voxelScene.ground.GetMeshes()[0]), flatWhiteMaterial);
+
+	//renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
 	renderer.AddSimpleCommand(Mid, &cs3dMesh, coordSystemMaterial);
 	renderer.AddSimpleCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
 	renderer.AddSimpleCommand(Msphere, &sphereMesh, defaultMaterial);

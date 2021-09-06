@@ -18,6 +18,8 @@ using SectionsMap = std::map<std::array<int, 3>, std::unique_ptr<Section>>;
 class VoxelScene final {
 private:
 	SectionsMap sections;
+
+public:
 	VoxelGround ground;
 
 public:

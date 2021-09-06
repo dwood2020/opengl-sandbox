@@ -22,5 +22,11 @@ public:
 	~VoxelGround();
 
 
+	std::array<DynamicMesh, 2>& GetMeshes(void);
+
+
+	void SetDimensions(const glm::vec3& dimensions);
+
+
 	void GenerateMesh(void);
 };
