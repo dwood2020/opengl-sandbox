@@ -32,6 +32,8 @@ private:
 	
 	VoxelScene* voxelScene;
 	MaterialBase* defaultBlockMaterial;
+	MaterialBase* groundGridMaterial;
+	MaterialBase* groundSurfaceMaterial;
 
 	GLStateHandler stateHandler;
 
@@ -63,7 +65,7 @@ public:
 	RenderCommand* AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase* mesh, MaterialBase* material);
 
 
-	void AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial);	
+	void AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial, MaterialBase* gndGridMaterial = nullptr, MaterialBase* gndSurfaceMaterial = nullptr);	
 
 
 	void Prepare(void);
@@ -77,7 +79,9 @@ private:
 
 	void DoSimpleCommands(void);
 
-	void DoVoxelScene(void);	
+	void DoVoxelScene(void);
+
+	void DoVoxelSceneGround(void);
 
 	void CalculateViewport(const glm::vec2& rect);
 
