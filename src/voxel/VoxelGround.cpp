@@ -1,5 +1,6 @@
 #include "VoxelGround.h"
 #include "../renderer/RenderCommand.hpp"
+#include <cmath>
 
 
 VoxelGround::VoxelGround() {
@@ -28,7 +29,7 @@ void VoxelGround::GenerateMesh(void) {
 	// z-direction grid lines
 	float z = static_cast<float>(dimensions.z);
 	
-	for (int i = -dimensions.x; i < dimensions.x; i += 1) {
+	for (int i = 0; i <= 2*dimensions.x; i += 1) {
 		float xi = static_cast<float>(-dimensions.x + i);
 
 		meshes[0].GetVerticesPos().push_back({ glm::vec3(xi, 0, -z) });
@@ -39,7 +40,7 @@ void VoxelGround::GenerateMesh(void) {
 	// x-direction grid lines
 	float x = static_cast<float>(dimensions.x);
 
-	for (int k = -dimensions.z; k < dimensions.z; k += 1) {
+	for (int k = 0; k <= 2*dimensions.z; k += 1) {
 		float zi = static_cast<float>(-dimensions.z + k);
 
 		meshes[0].GetVerticesPos().push_back({ glm::vec3(-x, 0, zi) });
