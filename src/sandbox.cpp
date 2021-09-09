@@ -249,7 +249,7 @@ int main(int argc, char* argv[]) {
 	pinkDebugMaterial->SetOpacity(1.0f);
 
 	FlatMaterial* flatWhiteMaterial = MaterialLibrary::GetInstance().MakeFlatMaterial(255);
-	flatWhiteMaterial->SetFlatColor(glm::vec4(1.0f));
+	flatWhiteMaterial->SetFlatColor(glm::vec4(1.0f));	
 
 	FlatMaterial* flatSelectionMaterial = MaterialLibrary::GetInstance().MakeFlatMaterial(254);
 	flatSelectionMaterial->SetFlatColor(glm::vec4(1.0f));
@@ -274,7 +274,7 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Mcube, &cubeMesh, woodenBoxMaterial);	
 	renderer.AddSimpleCommand(M333, &cubeMesh, whiteMaterial);
 
-	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial, flatWhiteMaterial);	
+	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial, flatWhiteMaterial, whiteMaterial);	
 
 	
 	renderer.Prepare();	

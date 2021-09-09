@@ -63,7 +63,7 @@ public:
 	void SetUseTexCoords(bool useTexCoords);
 
 
-	void SetIsInstanced(bool isInstanced);
+	void SetIsIndexed(bool isInstanced);
 
 
 	void Prepare(void) override;

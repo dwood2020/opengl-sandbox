@@ -206,7 +206,15 @@ void Renderer::DoVoxelScene(void) {
 
 void Renderer::DoVoxelSceneGround(void) {
 	if (groundSurfaceMaterial != nullptr) {
+		groundSurfaceMaterial->Bind();
+		groundSurfaceMaterial->SetModelMatrixUniform(glm::mat4(1.0f));
 
+		if (camera->GetViewProjectionMatrixIsDirty()) {
+			groundSurfaceMaterial->SetViewProjectionMatrixUniform(camera->GetViewProjectionMatrix());
+		}
+
+		voxelScene->GetGround().GetMeshes()[1].Draw();
+		groundSurfaceMaterial->Unbind();
 	}
 
 	if (groundGridMaterial != nullptr) {

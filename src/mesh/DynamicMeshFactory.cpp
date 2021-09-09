@@ -73,7 +73,7 @@ DynamicMesh DynamicMeshFactory::MakeCylinder(float r, float h, int ptsOnCircle) 
 	mesh.GetIndices().push_back(0);
 
 	mesh.SetGlMode(GL_TRIANGLES);
-	mesh.SetIsInstanced(true);
+	mesh.SetIsIndexed(true);
 	mesh.Prepare();
 
 	return mesh;

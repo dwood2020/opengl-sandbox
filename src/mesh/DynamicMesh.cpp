@@ -39,7 +39,7 @@ void DynamicMesh::SetUseTexCoords(bool useTexCoords) {
 }
 
 
-void DynamicMesh::SetIsInstanced(bool isInstanced) {
+void DynamicMesh::SetIsIndexed(bool isInstanced) {
 	this->isInstanced = isInstanced;
 }
 
