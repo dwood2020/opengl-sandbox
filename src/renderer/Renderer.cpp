@@ -109,8 +109,13 @@ void Renderer::DoFrame(void) {
 		DoVoxelScene();
 	}
 	
-	// simple render commands last, because they can contain transparent materials
+	// simple render commands second, because they can contain transparent materials
 	DoSimpleCommands();
+
+	// voxel ground, which is actually part of the voxel scene, last
+	if (voxelScene) {
+		DoVoxelSceneGround();
+	}
 
 
 	if (camera->GetViewProjectionMatrixIsDirty() == true) {
@@ -205,7 +210,18 @@ void Renderer::DoVoxelSceneGround(void) {
 	}
 
 	if (groundGridMaterial != nullptr) {
+		groundGridMaterial->Bind();
+		groundGridMaterial->SetModelMatrixUniform(glm::mat4(1.0f));
 
+		if (camera->GetViewProjectionMatrixIsDirty()) {
+			groundGridMaterial->SetViewProjectionMatrixUniform(camera->GetViewProjectionMatrix());
+			if (groundGridMaterial->GetAffectedByLight()) {
+				groundGridMaterial->SetViewPosUniform(camera->GetPosition());
+			}
+		}
+
+		voxelScene->GetGround().GetMeshes()[0].Draw();
+		groundGridMaterial->Unbind();
 	}
 }
 

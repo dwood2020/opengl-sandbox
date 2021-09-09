@@ -263,7 +263,7 @@ int main(int argc, char* argv[]) {
 	
 
 	// debug
-	renderer.AddSimpleCommand(Mid, dynamic_cast<MeshBase*>(&voxelScene.ground.GetMeshes()[0]), gridMaterial);
+	//renderer.AddSimpleCommand(Mid, dynamic_cast<MeshBase*>(&voxelScene.ground.GetMeshes()[0]), gridMaterial);
 
 
 	//renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
@@ -274,7 +274,7 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Mcube, &cubeMesh, woodenBoxMaterial);	
 	renderer.AddSimpleCommand(M333, &cubeMesh, whiteMaterial);
 
-	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial);	
+	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial, flatWhiteMaterial);	
 
 	
 	renderer.Prepare();	

@@ -46,10 +46,16 @@ public:
 	void SetBlock(const glm::ivec3& pos, char block);
 
 	/// <summary>
-	/// Gets the sections (SectionsMap)
+	/// Gets the sections (SectionsMap).
 	/// </summary>	
 	/// <returns>sections map</returns>
 	SectionsMap& GetSectionsMap(void);
+
+	/// <summary>
+	/// Gets the VoxelGround reference.
+	/// </summary>	
+	/// <returns>VoxelGround reference</returns>
+	VoxelGround& GetGround(void);
 
 	//TODO: Make this private and event-triggerable!
 	void GenerateMeshes(void);

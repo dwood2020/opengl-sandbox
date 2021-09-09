@@ -33,6 +33,12 @@ SectionsMap& VoxelScene::GetSectionsMap(void) {
 }
 
 
+
+VoxelGround& VoxelScene::GetGround(void) {
+	return ground;
+}
+
+
 void VoxelScene::GenerateMeshes(void) {
 	for (auto it = sections.begin(); it != sections.end(); ++it) {
 		if (it->second->GetMeshesAreDirty() == true) {
