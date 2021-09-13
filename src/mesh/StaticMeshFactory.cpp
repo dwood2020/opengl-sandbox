@@ -583,9 +583,16 @@ StaticMesh StaticMeshFactory::MakeSquareMarker(void) const {
 
 	MakeCylinder(verticesTemp, indicesTemp, nrPoints, r, l);
 
-	//front bottom horizontal
+	//back
 	for (glm::vec3& v : verticesTemp) {
 		v = R270z * v;
+	}	
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+	//front
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(0.f, 0.f, 1.f);
 	}
 	for (unsigned int& i : indicesTemp) {
 		i += static_cast<unsigned int>(verticesTemp.size());
@@ -593,15 +600,7 @@ StaticMesh StaticMeshFactory::MakeSquareMarker(void) const {
 	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
 	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
 
-	//back bottom horizontal
-	for (glm::vec3& v : verticesTemp) {
-		v += glm::vec3(0.f, -1.f, 0.f);
-	}
-	for (unsigned int& i : indicesTemp) {
-		i += static_cast<unsigned int>(verticesTemp.size());
-	}
-	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
-	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+	//TODO: Sort these transformations out!
 
 	//left bottom horizontal
 	for (glm::vec3& v : verticesTemp) {
