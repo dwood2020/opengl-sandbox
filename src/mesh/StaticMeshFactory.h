@@ -101,7 +101,10 @@ public:
 	/// <returns>Mesh object</returns>
 	StaticMesh MakeSimpleCubeMarker(void) const;
 
-
+	/// <summary>
+	/// Generates a square marker mesh consisting of multiple cylinders.
+	/// </summary>
+	/// <returns>Mesh object</returns>
 	StaticMesh MakeSquareMarker(void) const;
 
 private:
