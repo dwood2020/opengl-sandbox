@@ -262,9 +262,6 @@ int main(int argc, char* argv[]) {
 	mouseSelector.Init(renderer, flatSelectionMaterial);
 	
 
-	// debug
-	//renderer.AddSimpleCommand(Mid, dynamic_cast<MeshBase*>(&voxelScene.ground.GetMeshes()[0]), gridMaterial);
-
 
 	//renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
 	renderer.AddSimpleCommand(Mid, &cs3dMesh, coordSystemMaterial);
