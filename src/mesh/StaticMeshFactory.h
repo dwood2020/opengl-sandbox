@@ -95,9 +95,14 @@ public:
 	/// <returns>Cube marker mesh object</returns>
 	StaticMesh MakeCubeMarker(void) const;
 
-
+	/// <summary>
+	/// Generates a simple cube marker which consists of multiple lines.
+	/// </summary>
+	/// <returns>Mesh object</returns>
 	StaticMesh MakeSimpleCubeMarker(void) const;
 
+
+	StaticMesh MakeSquareMarker(void) const;
 
 private:
 	/// <summary>

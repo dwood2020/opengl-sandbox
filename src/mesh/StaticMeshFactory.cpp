@@ -570,6 +570,69 @@ StaticMesh StaticMeshFactory::MakeSimpleCubeMarker(void) const {
 }
 
 
+StaticMesh StaticMeshFactory::MakeSquareMarker(void) const {
+	const int nrPoints = 6;
+	const float r = 0.02f;
+	const float l = 1.0f;
+
+	std::vector<glm::vec3> vertices;
+	std::vector<unsigned int> indices;
+
+	std::vector<glm::vec3> verticesTemp;
+	std::vector<unsigned int> indicesTemp;
+
+	MakeCylinder(verticesTemp, indicesTemp, nrPoints, r, l);
+
+	//front bottom horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v = R270z * v;
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+	//back bottom horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(0.f, -1.f, 0.f);
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+	//left bottom horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v = R270y * v;
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+	//right bottom horizontal
+	for (glm::vec3& v : verticesTemp) {
+		v += glm::vec3(0.f, -1.f, 0.f);
+	}
+	for (unsigned int& i : indicesTemp) {
+		i += static_cast<unsigned int>(verticesTemp.size());
+	}
+	vertices.insert(vertices.end(), verticesTemp.begin(), verticesTemp.end());
+	indices.insert(indices.end(), indicesTemp.begin(), indicesTemp.end());
+
+
+	StaticMesh mesh;
+	mesh.SetPositionVertices(vertices);
+	mesh.SetIndices(indices);
+	mesh.SetGlMode(GL_TRIANGLES);
+	mesh.Prepare();
+	return mesh;
+}
+
+
 void StaticMeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, int points, float r, float h) const {
 	vertices.reserve(2 * (size_t)points);
 

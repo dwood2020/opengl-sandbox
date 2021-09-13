@@ -21,8 +21,10 @@ private:
 
 	bool isOrthoProjection;
 	
-	StaticMesh selectionMesh;
-	RenderCommand* selectionRC;
+	StaticMesh cubeSelectionMesh;
+	StaticMesh groundSelectionMesh;
+	RenderCommand* cubeSelectionRC;
+	RenderCommand* groundSelectionRC;
 	
 
 	MouseSelector() = default;

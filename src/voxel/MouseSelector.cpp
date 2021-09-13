@@ -10,7 +10,7 @@
 
 MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene): 
 	camera(&camera), window(&window), voxelScene(&voxelScene), isActive(false), rayOrigin(glm::vec3(0.0f)), rayDirection(glm::vec3(0.0f)), 
-	isOrthoProjection(false), selectionRC(nullptr) {
+	isOrthoProjection(false), cubeSelectionRC(nullptr) {
 
 
 	eventBus.AddListener(EventType::ToggleSelectMode, this);
@@ -26,11 +26,11 @@ MouseSelector::~MouseSelector() { }
 
 void MouseSelector::Init(Renderer& renderer, MaterialBase* selectionMaterial) {
 
-	selectionMesh = StaticMeshFactory::GetInstance().MakeCubeMarker();
+	cubeSelectionMesh = StaticMeshFactory::GetInstance().MakeCubeMarker();
 	//selectionMesh = StaticMeshFactory::GetInstance().MakeSimpleCubeMarker();
 
-	selectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &selectionMesh, selectionMaterial);
-	selectionRC->SetActiveState(false);
+	cubeSelectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &cubeSelectionMesh, selectionMaterial);
+	cubeSelectionRC->SetActiveState(false);
 
 }
 
@@ -202,16 +202,16 @@ void MouseSelector::CheckCollisions(void) {
 void MouseSelector::DoSelection(const glm::ivec3& blockPos) {	
 
 	//NOTE: This could have easily been done with glm::translate() too, but here is a different way :)	
-	selectionRC->GetModelMatrix()[3][0] = static_cast<float>(blockPos.x);
-	selectionRC->GetModelMatrix()[3][1] = static_cast<float>(blockPos.y);
-	selectionRC->GetModelMatrix()[3][2] = static_cast<float>(blockPos.z);
+	cubeSelectionRC->GetModelMatrix()[3][0] = static_cast<float>(blockPos.x);
+	cubeSelectionRC->GetModelMatrix()[3][1] = static_cast<float>(blockPos.y);
+	cubeSelectionRC->GetModelMatrix()[3][2] = static_cast<float>(blockPos.z);
 
-	selectionRC->SetActiveState(true);
+	cubeSelectionRC->SetActiveState(true);
 }
 
 
 void MouseSelector::DoUnselection(void) {
-	selectionRC->SetActiveState(false);
+	cubeSelectionRC->SetActiveState(false);
 }
 
 
