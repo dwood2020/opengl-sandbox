@@ -29,9 +29,13 @@ void MouseSelector::Init(Renderer& renderer, MaterialBase* selectionMaterial) {
 	cubeSelectionMesh = StaticMeshFactory::GetInstance().MakeCubeMarker();
 	//selectionMesh = StaticMeshFactory::GetInstance().MakeSimpleCubeMarker();
 
+	groundSelectionMesh = StaticMeshFactory::GetInstance().MakeSquareMarker();
+
 	cubeSelectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &cubeSelectionMesh, selectionMaterial);
 	cubeSelectionRC->SetActiveState(false);
 
+	groundSelectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &groundSelectionMesh, selectionMaterial);
+	//groundSelectionRC->SetActiveState(false);
 }
 
 
