@@ -233,3 +233,7 @@ glm::vec3 MouseSelector::TruncPrecision(const glm::vec3& v) {
 }
 
 
+template<typename T>
+inline int MouseSelector::Sign(T value) const {
+	return (T(0) < value) - (value < T(0));
+}

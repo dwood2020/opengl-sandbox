@@ -55,7 +55,10 @@ private:
 
 	glm::vec3 TruncPrecision(const glm::vec3& v);
 
+
 	template<typename T>
-	int Sign()
+	int Sign(T value) const;
 };
+
+
 
