@@ -10,7 +10,7 @@
 
 MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene): 
 	camera(&camera), window(&window), voxelScene(&voxelScene), isActive(false), rayOrigin(glm::vec3(0.0f)), rayDirection(glm::vec3(0.0f)), 
-	isOrthoProjection(false), cubeSelectionRC(nullptr) {
+	isOrthoProjection(false), cubeSelectionRC(nullptr), lastDistanceToFloor(0.0f) {
 
 
 	eventBus.AddListener(EventType::ToggleSelectMode, this);
@@ -35,7 +35,7 @@ void MouseSelector::Init(Renderer& renderer, MaterialBase* selectionMaterial) {
 	cubeSelectionRC->SetActiveState(false);
 
 	groundSelectionRC = renderer.AddSimpleCommand(glm::mat4(1.0f), &groundSelectionMesh, selectionMaterial);
-	//groundSelectionRC->SetActiveState(false);
+	groundSelectionRC->SetActiveState(false);
 }
 
 
@@ -197,6 +197,9 @@ void MouseSelector::CheckCollisions(void) {
 			DoSelection(traversionPosI);
 			return;
 		}
+
+		// do floor collision check here
+
 	}
 
 	DoUnselection();

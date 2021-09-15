@@ -25,6 +25,8 @@ private:
 	StaticMesh groundSelectionMesh;
 	RenderCommand* cubeSelectionRC;
 	RenderCommand* groundSelectionRC;
+
+	float lastDistanceToFloor;
 	
 
 	MouseSelector() = default;
@@ -52,5 +54,8 @@ private:
 	void DoUnselection(void);
 
 	glm::vec3 TruncPrecision(const glm::vec3& v);
+
+	template<typename T>
+	int Sign()
 };
 
