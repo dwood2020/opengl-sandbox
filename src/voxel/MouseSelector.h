@@ -51,6 +51,8 @@ private:
 
 	void DoSelection(const glm::ivec3& blockPos);
 
+	void DoGroundSelection(const glm::ivec3& pos);
+
 	void DoUnselection(void);
 
 	glm::vec3 TruncPrecision(const glm::vec3& v);

@@ -165,6 +165,7 @@ void MouseSelector::CheckCollisions(void) {
 	glm::vec3 traversionPos = rayOrigin;
 	glm::ivec3 traversionPosI = Section::FloatToInt(traversionPos);	
 	glm::ivec3 lastTraversionPosI;
+	glm::ivec3 lastTraversionPos;
 
 	float tStart;
 	float tEnd;
@@ -183,6 +184,7 @@ void MouseSelector::CheckCollisions(void) {
 
 	for (float tStep = tStart; tStep < tEnd; tStep += dt) {		
 		lastTraversionPosI = traversionPosI;
+		lastTraversionPos = traversionPos;
 
 		traversionPos = rayOrigin + tStep * rayDirection;
 		traversionPosI = Section::FloatToInt(traversionPos);
@@ -199,7 +201,12 @@ void MouseSelector::CheckCollisions(void) {
 		}
 
 		// do floor collision check here
-		//TODO: Here
+		//TODO: dimensions of ground + determine ground tile!
+		if ((lastTraversionPos.y < 0 && traversionPos.y >= 0) || (lastTraversionPos.y >= 0 && traversionPos.y < 0)) {
+			std::cout << "hit Ground at [" << traversionPos.x << " " << traversionPos.y << " " << traversionPos.z << "]" << std::endl;
+			DoGroundSelection(Section::FloatToInt(traversionPos));
+			return;
+		}
 	}
 
 	DoUnselection();
@@ -207,6 +214,8 @@ void MouseSelector::CheckCollisions(void) {
 
 
 void MouseSelector::DoSelection(const glm::ivec3& blockPos) {	
+
+	groundSelectionRC->SetActiveState(false);
 
 	//NOTE: This could have easily been done with glm::translate() too, but here is a different way :)	
 	cubeSelectionRC->GetModelMatrix()[3][0] = static_cast<float>(blockPos.x);
@@ -217,8 +226,18 @@ void MouseSelector::DoSelection(const glm::ivec3& blockPos) {
 }
 
 
+void MouseSelector::DoGroundSelection(const glm::ivec3& pos) {
+	cubeSelectionRC->SetActiveState(false);
+	groundSelectionRC->GetModelMatrix()[3][0] = static_cast<float>(pos.x);
+	groundSelectionRC->GetModelMatrix()[3][1] = static_cast<float>(pos.y);
+	groundSelectionRC->GetModelMatrix()[3][2] = static_cast<float>(pos.z);
+	groundSelectionRC->SetActiveState(true);
+}
+
+
 void MouseSelector::DoUnselection(void) {
 	cubeSelectionRC->SetActiveState(false);
+	groundSelectionRC->SetActiveState(false);
 }
 
 
