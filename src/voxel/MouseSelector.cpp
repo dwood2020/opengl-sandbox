@@ -201,10 +201,15 @@ void MouseSelector::CheckCollisions(void) {
 		}
 
 		// do floor collision check here
-		//TODO: dimensions of ground + determine ground tile!
-		if ((lastTraversionPos.y < 0 && traversionPos.y >= 0) || (lastTraversionPos.y >= 0 && traversionPos.y < 0)) {
-			std::cout << "hit Ground at [" << traversionPos.x << " " << traversionPos.y << " " << traversionPos.z << "]" << std::endl;
-			DoGroundSelection(Section::FloatToInt(traversionPos));
+		//TODO: dimensions of ground OR: new idea: infinite, toggle-able ground!!!
+		if ((lastTraversionPos.y < 0 && traversionPos.y >= 0) || (lastTraversionPos.y >= 0 && traversionPos.y < 0)) {			
+
+			glm::ivec3 hitGroundTile = glm::ivec3(static_cast<int>(floor(traversionPos.x)), 0, static_cast<int>(floor(traversionPos.z)));
+
+			//DEBUG:
+			std::cout << "hit Ground (tile) at [" << hitGroundTile.x << " " << hitGroundTile.y << " " << hitGroundTile.z << "]" << std::endl;
+
+			DoGroundSelection(hitGroundTile);
 			return;
 		}
 	}
