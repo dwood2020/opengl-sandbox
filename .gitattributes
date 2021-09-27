@@ -66,4 +66,5 @@
 # custom linguist ignores
 lib/* linguist-vendored
 lib/include/* linguist-vendored
+lib/include/iup/* linguist-vendored
 src/glad/* linguist-vendored
