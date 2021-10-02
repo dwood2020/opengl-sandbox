@@ -12,7 +12,7 @@ VoxelGround::VoxelGround() {
 VoxelGround::~VoxelGround() { }
 
 
-std::array<DynamicMesh, 2>& VoxelGround::GetMesh(void) {
+DynamicMesh& VoxelGround::GetMesh(void) {
 	return mesh;
 }
 
@@ -24,7 +24,7 @@ void VoxelGround::SetDimensions(const glm::vec3& dimensions) {
 
 void VoxelGround::GenerateMesh(void) {
 	
-	mesh[0].GetVerticesPos().clear();
+	mesh.GetVerticesPos().clear();
 
 	// z-direction grid lines
 	float z = static_cast<float>(dimensions.z);
@@ -32,8 +32,8 @@ void VoxelGround::GenerateMesh(void) {
 	for (int i = 0; i <= 2*dimensions.x; i += 1) {
 		float xi = static_cast<float>(-dimensions.x + i);
 
-		mesh[0].GetVerticesPos().push_back({ glm::vec3(xi, 0, -z) });
-		mesh[0].GetVerticesPos().push_back({ glm::vec3(xi, 0, z) });
+		mesh.GetVerticesPos().push_back({ glm::vec3(xi, 0, -z) });
+		mesh.GetVerticesPos().push_back({ glm::vec3(xi, 0, z) });
 	}
 		
 	// x-direction grid lines
@@ -42,30 +42,10 @@ void VoxelGround::GenerateMesh(void) {
 	for (int k = 0; k <= 2*dimensions.z; k += 1) {
 		float zi = static_cast<float>(-dimensions.z + k);
 
-		mesh[0].GetVerticesPos().push_back({ glm::vec3(-x, 0, zi) });
-		mesh[0].GetVerticesPos().push_back({ glm::vec3(x, 0, zi) });
+		mesh.GetVerticesPos().push_back({ glm::vec3(-x, 0, zi) });
+		mesh.GetVerticesPos().push_back({ glm::vec3(x, 0, zi) });
 	}
 
-	mesh[0].SetGlMode(GL_LINES);
-	mesh[0].Prepare();
-
-
-	/*meshes[1].GetVerticesPos().clear();
-	meshes[1].GetVerticesPos().push_back({ glm::vec3(-dimensions.x, 0.f, dimensions.z) });
-	meshes[1].GetVerticesPos().push_back({ glm::vec3(dimensions.x, 0.f, dimensions.z) });
-	meshes[1].GetVerticesPos().push_back({ glm::vec3(dimensions.x, 0.f, -dimensions.z) });
-	meshes[1].GetVerticesPos().push_back({ glm::vec3(-dimensions.x, 0.f, -dimensions.z) });
-
-	meshes[1].GetIndices().clear();
-	meshes[1].GetIndices().push_back(0);
-	meshes[1].GetIndices().push_back(1);
-	meshes[1].GetIndices().push_back(2);
-	meshes[1].GetIndices().push_back(0);
-	meshes[1].GetIndices().push_back(2);
-	meshes[1].GetIndices().push_back(3);
-
-	meshes[1].SetIsIndexed(true);
-	meshes[1].SetGlMode(GL_TRIANGLES);
-	meshes[1].Prepare();*/
-
+	mesh.SetGlMode(GL_LINES);
+	mesh.Prepare();	
 }

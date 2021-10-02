@@ -41,7 +41,7 @@ void Renderer::OnEvent(Event& e) {
 
 void Renderer::Init(const glm::vec2& windowRect) {
 	CalculateViewport(windowRect);
-		
+	
 	stateHandler.SetDepthTesting(true);
 	stateHandler.SetBlending(true);
 	stateHandler.SetFaceCulling(true);
@@ -74,7 +74,6 @@ void Renderer::AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockM
 	this->voxelScene = &voxelScene;	
 	this->defaultBlockMaterial = defaultBlockMaterial;
 	this->groundGridMaterial = gndGridMaterial;
-	/*this->groundSurfaceMaterial = gndSurfaceMaterial;*/
 }
 
 
@@ -205,18 +204,7 @@ void Renderer::DoVoxelScene(void) {
 
 
 void Renderer::DoVoxelSceneGround(void) {
-	/*if (groundSurfaceMaterial != nullptr) {
-		groundSurfaceMaterial->Bind();
-		groundSurfaceMaterial->SetModelMatrixUniform(glm::mat4(1.0f));
-
-		if (camera->GetViewProjectionMatrixIsDirty()) {
-			groundSurfaceMaterial->SetViewProjectionMatrixUniform(camera->GetViewProjectionMatrix());
-		}
-
-		voxelScene->GetGround().GetMeshes()[1].Draw();
-		groundSurfaceMaterial->Unbind();
-	}*/
-
+	
 	if (groundGridMaterial != nullptr) {
 		groundGridMaterial->Bind();
 		groundGridMaterial->SetModelMatrixUniform(glm::mat4(1.0f));
@@ -228,7 +216,7 @@ void Renderer::DoVoxelSceneGround(void) {
 			}
 		}
 
-		voxelScene->GetGround().GetMesh()[0].Draw();
+		voxelScene->GetGround().GetMesh().Draw();
 		groundGridMaterial->Unbind();
 	}
 }

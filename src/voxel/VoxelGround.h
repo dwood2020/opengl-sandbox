@@ -1,11 +1,9 @@
 #pragma once
-#include <array>
 #include <vector>
 #include <glm/glm.hpp>
-
 #include "../mesh/DynamicMesh.h"
 
-//class DynamicMesh;
+
 class RenderCommand;
 
 
@@ -15,7 +13,7 @@ class RenderCommand;
 /// </summary>
 class VoxelGround final {
 private:
-	std::array<DynamicMesh, 2> mesh;
+	DynamicMesh mesh;
 	std::vector<RenderCommand> renderCommands;
 
 	glm::vec3 dimensions;
@@ -26,14 +24,27 @@ public:
 	/// </summary>
 	VoxelGround();
 	
+
 	~VoxelGround();
 
 
-	std::array<DynamicMesh, 2>& GetMesh(void);
+	/// <summary>
+	/// Get the mesh
+	/// </summary>
+	/// <returns>Mesh reference</returns>
+	DynamicMesh& GetMesh(void);
 
 
+	/// <summary>
+	/// Set the ground's dimensions as vec3:
+	/// x and z are the half span of the ground mesh in x and z directions. y is ignored.
+	/// </summary>
+	/// <param name="dimensions">Dimensions vector (for x and z)</param>
 	void SetDimensions(const glm::vec3& dimensions);
 
 
+	/// <summary>
+	/// Generate the mesh
+	/// </summary>
 	void GenerateMesh(void);
 };
