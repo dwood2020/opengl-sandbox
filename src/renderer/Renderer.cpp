@@ -228,7 +228,7 @@ void Renderer::DoVoxelSceneGround(void) {
 			}
 		}
 
-		voxelScene->GetGround().GetMeshes()[0].Draw();
+		voxelScene->GetGround().GetMesh()[0].Draw();
 		groundGridMaterial->Unbind();
 	}
 }

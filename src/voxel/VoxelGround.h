@@ -15,7 +15,7 @@ class RenderCommand;
 /// </summary>
 class VoxelGround final {
 private:
-	std::array<DynamicMesh, 2> meshes;
+	std::array<DynamicMesh, 2> mesh;
 	std::vector<RenderCommand> renderCommands;
 
 	glm::vec3 dimensions;
@@ -29,7 +29,7 @@ public:
 	~VoxelGround();
 
 
-	std::array<DynamicMesh, 2>& GetMeshes(void);
+	std::array<DynamicMesh, 2>& GetMesh(void);
 
 
 	void SetDimensions(const glm::vec3& dimensions);

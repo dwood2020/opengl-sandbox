@@ -12,8 +12,8 @@ VoxelGround::VoxelGround() {
 VoxelGround::~VoxelGround() { }
 
 
-std::array<DynamicMesh, 2>& VoxelGround::GetMeshes(void) {
-	return meshes;
+std::array<DynamicMesh, 2>& VoxelGround::GetMesh(void) {
+	return mesh;
 }
 
 
@@ -24,7 +24,7 @@ void VoxelGround::SetDimensions(const glm::vec3& dimensions) {
 
 void VoxelGround::GenerateMesh(void) {
 	
-	meshes[0].GetVerticesPos().clear();
+	mesh[0].GetVerticesPos().clear();
 
 	// z-direction grid lines
 	float z = static_cast<float>(dimensions.z);
@@ -32,8 +32,8 @@ void VoxelGround::GenerateMesh(void) {
 	for (int i = 0; i <= 2*dimensions.x; i += 1) {
 		float xi = static_cast<float>(-dimensions.x + i);
 
-		meshes[0].GetVerticesPos().push_back({ glm::vec3(xi, 0, -z) });
-		meshes[0].GetVerticesPos().push_back({ glm::vec3(xi, 0, z) });
+		mesh[0].GetVerticesPos().push_back({ glm::vec3(xi, 0, -z) });
+		mesh[0].GetVerticesPos().push_back({ glm::vec3(xi, 0, z) });
 	}
 		
 	// x-direction grid lines
@@ -42,12 +42,12 @@ void VoxelGround::GenerateMesh(void) {
 	for (int k = 0; k <= 2*dimensions.z; k += 1) {
 		float zi = static_cast<float>(-dimensions.z + k);
 
-		meshes[0].GetVerticesPos().push_back({ glm::vec3(-x, 0, zi) });
-		meshes[0].GetVerticesPos().push_back({ glm::vec3(x, 0, zi) });
+		mesh[0].GetVerticesPos().push_back({ glm::vec3(-x, 0, zi) });
+		mesh[0].GetVerticesPos().push_back({ glm::vec3(x, 0, zi) });
 	}
 
-	meshes[0].SetGlMode(GL_LINES);
-	meshes[0].Prepare();
+	mesh[0].SetGlMode(GL_LINES);
+	mesh[0].Prepare();
 
 
 	/*meshes[1].GetVerticesPos().clear();
