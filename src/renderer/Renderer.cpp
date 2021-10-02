@@ -18,7 +18,7 @@ bool Renderer::LoadGL(void) {
 
 Renderer::Renderer(EventBus& eventBus, Lighting& lighting, CameraBase& camera): 
 	lighting(&lighting), camera(&camera), voxelScene(nullptr), defaultBlockMaterial(nullptr),
-	groundGridMaterial(nullptr), groundSurfaceMaterial(nullptr) {
+	groundGridMaterial(nullptr) {
 	
 	// register for events
 	eventBus.AddListener(EventType::WindowResize, this);
@@ -70,11 +70,11 @@ RenderCommand* Renderer::AddSimpleCommand(const glm::mat4& modelMatrix, MeshBase
 }
 
 
-void Renderer::AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial, MaterialBase* gndGridMaterial, MaterialBase* gndSurfaceMaterial) {
+void Renderer::AddVoxelScene(VoxelScene& voxelScene, MaterialBase* defaultBlockMaterial, MaterialBase* gndGridMaterial) {
 	this->voxelScene = &voxelScene;	
 	this->defaultBlockMaterial = defaultBlockMaterial;
 	this->groundGridMaterial = gndGridMaterial;
-	this->groundSurfaceMaterial = gndSurfaceMaterial;
+	/*this->groundSurfaceMaterial = gndSurfaceMaterial;*/
 }
 
 
@@ -205,7 +205,7 @@ void Renderer::DoVoxelScene(void) {
 
 
 void Renderer::DoVoxelSceneGround(void) {
-	if (groundSurfaceMaterial != nullptr) {
+	/*if (groundSurfaceMaterial != nullptr) {
 		groundSurfaceMaterial->Bind();
 		groundSurfaceMaterial->SetModelMatrixUniform(glm::mat4(1.0f));
 
@@ -215,7 +215,7 @@ void Renderer::DoVoxelSceneGround(void) {
 
 		voxelScene->GetGround().GetMeshes()[1].Draw();
 		groundSurfaceMaterial->Unbind();
-	}
+	}*/
 
 	if (groundGridMaterial != nullptr) {
 		groundGridMaterial->Bind();

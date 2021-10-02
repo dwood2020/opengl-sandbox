@@ -271,7 +271,7 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Mcube, &cubeMesh, woodenBoxMaterial);	
 	renderer.AddSimpleCommand(M333, &cubeMesh, whiteMaterial);
 
-	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial, flatWhiteMaterial, whiteMaterial);	
+	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial, flatWhiteMaterial);	
 
 	
 	renderer.Prepare();	

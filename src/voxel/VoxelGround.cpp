@@ -50,7 +50,7 @@ void VoxelGround::GenerateMesh(void) {
 	meshes[0].Prepare();
 
 
-	meshes[1].GetVerticesPos().clear();
+	/*meshes[1].GetVerticesPos().clear();
 	meshes[1].GetVerticesPos().push_back({ glm::vec3(-dimensions.x, 0.f, dimensions.z) });
 	meshes[1].GetVerticesPos().push_back({ glm::vec3(dimensions.x, 0.f, dimensions.z) });
 	meshes[1].GetVerticesPos().push_back({ glm::vec3(dimensions.x, 0.f, -dimensions.z) });
@@ -66,6 +66,6 @@ void VoxelGround::GenerateMesh(void) {
 
 	meshes[1].SetIsIndexed(true);
 	meshes[1].SetGlMode(GL_TRIANGLES);
-	meshes[1].Prepare();
+	meshes[1].Prepare();*/
 
 }

@@ -9,6 +9,10 @@
 class RenderCommand;
 
 
+/// <summary>
+/// This class represents the "ground" in the voxel scene
+/// (the grid which is rendered in the xy-plane)
+/// </summary>
 class VoxelGround final {
 private:
 	std::array<DynamicMesh, 2> meshes;
@@ -17,8 +21,11 @@ private:
 	glm::vec3 dimensions;
 
 public:
+	/// <summary>
+	/// Constructor
+	/// </summary>
 	VoxelGround();
-
+	
 	~VoxelGround();
 
 
