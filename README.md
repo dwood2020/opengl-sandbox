@@ -34,7 +34,7 @@ Uniforms which define a material are ownded by the material itself.
 A simple voxel grid is defined from which voxel meshes are generated. 
 Currently, The grid definition consists of 8x8x8 block sections which are simply held in a `std::map` and consist of flat `char` arrays.
 
-##### 3D object selection   
+#### 3D object selection   
 A simple object selection via a casted ray is implemented for blocks which are contained in the voxel grid. 
 The implementation makes a block selectable directly in the 3D rendering. It works by iterating through the grid along a ray.
 (The selection logic is encapsulated within `MouseSelector`).
