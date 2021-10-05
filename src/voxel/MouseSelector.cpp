@@ -10,7 +10,7 @@
 
 MouseSelector::MouseSelector(EventBus& eventBus, CameraBase& camera, WindowBase& window, VoxelScene& voxelScene): 
 	camera(&camera), window(&window), voxelScene(&voxelScene), isActive(false), rayOrigin(glm::vec3(0.0f)), rayDirection(glm::vec3(0.0f)), 
-	isOrthoProjection(false), cubeSelectionRC(nullptr), lastDistanceToFloor(0.0f) {
+	isOrthoProjection(false), cubeSelectionRC(nullptr), groundSelectionRC(nullptr), lastDistanceToFloor(0.0f) {
 
 
 	eventBus.AddListener(EventType::ToggleSelectMode, this);
