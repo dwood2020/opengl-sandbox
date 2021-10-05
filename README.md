@@ -24,7 +24,8 @@ callbacks is avoided.
 
 #### Camera system   
 A simple user input-controlled camera system is implemented. The camera rotates on a sphere around a target point while
-the target point itself can be shifted ("pan").
+the target point itself can be shifted ("pan").   
+The implementation contains perspective and orthogonal camera projection modes and their handling.
 
 #### Material system   
 A simple material system is implemented, following the general interpretation: *Material = Shader + Uniforms*.
