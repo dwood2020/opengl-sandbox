@@ -29,7 +29,23 @@ the target point itself can be shifted ("pan").
 A simple material system is implemented, following the general interpretation: *Material = Shader + Uniforms*.
 Uniforms which define a material are ownded by the material itself.
 
+####Simple Voxel World Grid
+A simple voxel grid is defined from which voxel meshes are generated. 
+Currently, The grid definition consists of 8x8x8 block sections which are simply held in a `std::map` and consist of flat `char` arrays.
 
+#####3D object selection
+A simple object selection via a casted ray is implemented for blocks which are contained in the voxel grid. 
+The implementation makes a block selectable directly in the 3D rendering. It works by iterating through the grid along a ray.
+(The selection logic is encapsulated within `MouseSelector`).
 ---
 
+## Third-party dependencies
+All dependant libraries are included within this repository, see `LICENSES.txt`.   
+
+- IUP: <https://www.tecgraf.puc-rio.br/iup/>
+- GLAD: <https://github.com/dav1dde/glad-web>
+- OpenGL Mathematics (GLM): <https://github.com/g-truc/glm>
+- stb_image.h: <https://github.com/nothings/stb>
+- Bresenham Algorithm by Will Navidson (currently not in use but part of the source files): <https://gist.github.com/yamamushi/5823518>
+---
 Readme is WIP
