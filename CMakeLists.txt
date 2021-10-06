@@ -15,8 +15,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # this is the name of the "main" target: the sandbox executable
 set(MAIN_TARGET_NAME ${CMAKE_PROJECT_NAME})
 
-
-# DEBUG:
 add_executable(${MAIN_TARGET_NAME})
 
 
