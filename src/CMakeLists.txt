@@ -10,3 +10,8 @@ target_sources(${MAIN_TARGET_NAME} PRIVATE
 
 
 add_subdirectory(camera)
+add_subdirectory(events)
+add_subdirectory(glad)
+add_subdirectory(material)
+add_subdirectory(mesh)
+add_subdirectory(renderer)
