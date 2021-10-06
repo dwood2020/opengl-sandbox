@@ -38,7 +38,8 @@ The implementation contains perspective and orthogonal camera projection modes a
 
 #### Material system   
 A simple material system is implemented, following the general interpretation: *Material = Shader + Uniforms*.
-Uniforms which define a material are ownded by the material itself.
+Uniforms which define a material are ownded by the material itself.    
+Currently, flat materials and [Phong](https://en.wikipedia.org/wiki/Phong_reflection_model) model materials are implemented (see `FlatMaterial` and `PhongMaterial` classes).
 
 #### Simple Voxel World Grid   
 A simple voxel grid is defined from which voxel meshes are generated. 
