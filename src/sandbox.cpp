@@ -166,7 +166,7 @@ int main(int argc, char* argv[]) {
 
 
 	// ground mesh
-	voxelScene.ground.SetDimensions(glm::vec3(10.f, 0.f, 10.f));
+	voxelScene.ground.SetDimensions(glm::vec3(20.f, 0.f, 20.f));
 	
 	voxelScene.GenerateMeshes();
 
@@ -275,7 +275,7 @@ int main(int argc, char* argv[]) {
 	
 	renderer.Prepare();	
 	
-	
+
 	while (!g_exitProgram) {
 
 		renderer.DoFrame();		
