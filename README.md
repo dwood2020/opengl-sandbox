@@ -72,10 +72,7 @@ cmake --build . --config Release -j
 
 **NOTE**: Currently the resource folder `res` needs to be manually copied to the executable directory before running.    
 This will be changed in the future.   
-Copying can be manually done by e.g.
-```
-scp -r ./res ./build/res
-```
+Copying can be manually done by e.g. `scp -r ./res ./build/res`
 
 ---
 
