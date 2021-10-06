@@ -19,7 +19,7 @@ These implementations are definitely no perfectly engineered code. This is a lea
 ## Implemented features:   
 #### Window abstraction    
 
-The GUI library IUP (<https://www.tecgraf.puc-rio.br/iup/>) is used for a rudimentary GUI and to provide an OpenGL context.
+The GUI library [IUP](https://www.tecgraf.puc-rio.br/iup/) is used for a rudimentary GUI and to provide an OpenGL context.
 The entire window logic is abstracted away in a "window class".
 
 #### OpenGL shader abstraction   
