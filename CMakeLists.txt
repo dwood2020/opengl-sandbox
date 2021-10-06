@@ -49,6 +49,10 @@ if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
 
         # set additional linker flag to avoid LNK4098
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:LIBCMT")
+
+    elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        # building on Windows using GCC
+        
     endif()
 endif()
 
