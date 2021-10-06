@@ -43,12 +43,12 @@ DynamicMesh DynamicMeshFactory::MakeCylinder(float r, float h, int ptsOnCircle) 
 
 	// bottom ring
 	for (int i = 0; i < ptsOnCircle; i++) {
-		mesh.GetVerticesPos().push_back({ glm::vec3(r * std::cosf(i * deltaPhi), 0.0f, r * std::sinf(i * deltaPhi)) });
+		mesh.GetVerticesPos().push_back({ glm::vec3(r * std::cos(i * deltaPhi), 0.0f, r * std::sin(i * deltaPhi)) });
 	}
 
 	// top ring
 	for (int i = 0; i < ptsOnCircle; i++) {
-		mesh.GetVerticesPos().push_back({ glm::vec3(r * std::cosf(i * deltaPhi), h, r * std::sinf(i * deltaPhi)) });
+		mesh.GetVerticesPos().push_back({ glm::vec3(r * std::cos(i * deltaPhi), h, r * std::sin(i * deltaPhi)) });
 	}
 	
 	// indices

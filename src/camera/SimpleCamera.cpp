@@ -180,7 +180,7 @@ void SimpleCamera::PerformRotation(float x, float y) {
 	delta *= factor;
 
 	theta = std::clamp(theta + delta.y, -90.0f, 90.0f);
-	phi = std::fmodf(phi + delta.x, 360.0f);
+	phi = std::fmod(phi + delta.x, 360.0f);
 	//NOTE: rho is untouched here
 
 	//std::cout << "rho: " << rho << "  phi: " << phi << "  theta: " << theta << std::endl;

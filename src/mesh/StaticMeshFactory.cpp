@@ -638,12 +638,12 @@ void StaticMeshFactory::MakeCylinder(std::vector<glm::vec3>& vertices, std::vect
 
 	// bottom ring
 	for (int i = 0; i < points; i++) {
-		vertices.push_back(glm::vec3(r * std::cosf(i * deltaPhi), 0.0f, r * std::sinf(i * deltaPhi)));
+		vertices.push_back(glm::vec3(r * std::cos(i * deltaPhi), 0.0f, r * std::sin(i * deltaPhi)));
 	}
 
 	// top ring
 	for (int i = 0; i < points; i++) {
-		vertices.push_back(glm::vec3(r * std::cosf(i * deltaPhi), h, r * std::sinf(i * deltaPhi)));
+		vertices.push_back(glm::vec3(r * std::cos(i * deltaPhi), h, r * std::sin(i * deltaPhi)));
 	}
 
 	// indices
@@ -683,7 +683,7 @@ void StaticMeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<g
 
 	// cone ring
 	for (unsigned int i = 0; i < points; i++) {
-		vertices.push_back(glm::vec3(r * std::cosf(i * deltaPhi), 0.0f, r * std::sinf(i * deltaPhi)));
+		vertices.push_back(glm::vec3(r * std::cos(i * deltaPhi), 0.0f, r * std::sin(i * deltaPhi)));
 	}
 
 	// normals
@@ -694,7 +694,7 @@ void StaticMeshFactory::MakeCone(std::vector<glm::vec3>& vertices, std::vector<g
 	
 	normals.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
 	for (unsigned int i = 0; i < points; i++) {
-		normals.push_back(glm::normalize(glm::vec3(r * std::cosf(i * deltaPhi), x, r * std::sinf(i * deltaPhi))));
+		normals.push_back(glm::normalize(glm::vec3(r * std::cos(i * deltaPhi), x, r * std::sin(i * deltaPhi))));
 	}
 
 	// indices
