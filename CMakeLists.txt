@@ -35,11 +35,20 @@ message("CMAKE_SOURCE_DIR: " ${CMAKE_SOURCE_DIR})
 
 # currently, only msvc build available:
 #TODO: Add MinGW + Linux/GCC build options
-set_target_properties(IUP_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/msvc-x64/iup.lib)
-set_target_properties(IUPGL_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/msvc-x64/iupgl.lib)
+if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+        # building on Windows using MSVC 
+        set_target_properties(IUP_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/msvc-x64/iup.lib)
+        set_target_properties(IUPGL_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/msvc-x64/iupgl.lib)
+        
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC IUP_LIBRARY)
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC IUPGL_LIBRARY)
+        
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC comctl32)
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC opengl32)
 
-target_link_libraries(${MAIN_TARGET_NAME} PUBLIC IUP_LIBRARY)
-target_link_libraries(${MAIN_TARGET_NAME} PUBLIC IUPGL_LIBRARY)
+        # set additional linker flag to avoid LNK4098
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:LIBCMT")
+    endif()
+endif()
 
-target_link_libraries(${MAIN_TARGET_NAME} PUBLIC comctl32)
-target_link_libraries(${MAIN_TARGET_NAME} PUBLIC opengl32)
