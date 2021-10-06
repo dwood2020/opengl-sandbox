@@ -59,7 +59,7 @@ cmake -G "Visual Studio 16 2019" -A x64 ..
 cmake --build . --config Release -j
 ```
 
-*NOTE*: Currently the resource folder `res` needs to be manually copied to the executable directory before running.    
+**NOTE**: Currently the resource folder `res` needs to be manually copied to the executable directory before running.    
 This will be changed in the future.
 
 ---
