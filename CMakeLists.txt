@@ -52,7 +52,19 @@ if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
 
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         # building on Windows using GCC
+        set_target_properties(IUP_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/mingw-x64/libiup.a)
+        set_target_properties(IUPGL_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/mingw-x64/libiupgl.a)
         
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC IUP_LIBRARY)
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC IUPGL_LIBRARY)
+
+        #target_link_libraries(${TARGET_NAME} PUBLIC gdi32)
+        #target_link_libraries(${TARGET_NAME} PUBLIC comdlg32)
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC comctl32)
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC opengl32)
+        #target_link_libraries(${TARGET_NAME} PUBLIC uuid)
+        #target_link_libraries(${TARGET_NAME} PUBLIC oleaut32)
+        #target_link_libraries(${TARGET_NAME} PUBLIC ole32)
     endif()
 endif()
 
