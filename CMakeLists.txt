@@ -35,8 +35,8 @@ message("CMAKE_SOURCE_DIR: " ${CMAKE_SOURCE_DIR})
 
 # currently, only msvc build available:
 #TODO: Add MinGW + Linux/GCC build options
-set_target_properties(IUP_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/iup.lib)
-set_target_properties(IUPGL_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/iupgl.lib)
+set_target_properties(IUP_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/msvc-x64/iup.lib)
+set_target_properties(IUPGL_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/msvc-x64/iupgl.lib)
 
 target_link_libraries(${MAIN_TARGET_NAME} PUBLIC IUP_LIBRARY)
 target_link_libraries(${MAIN_TARGET_NAME} PUBLIC IUPGL_LIBRARY)
