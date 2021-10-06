@@ -4,10 +4,10 @@ Currently only MSVC build is supported (either via CMake or provided Visual Stud
 For simplicity, required library files are contained within this repository.    
 
 ## Overview    
-- [Goal](## Goal)
-- [Implemented features](## Implemented features)
-- [Build instructions](## Build instructions)
-- [Third-party dependencies](## Third-party dependencies)
+- [Goal](##goal)
+- [Implemented features](##implemented-features)
+- [Build instructions](##build-instructions)
+- [Third-party dependencies](##third-party-dependencies)
 
 ---
 
