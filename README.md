@@ -1,6 +1,7 @@
 # opengl-sandbox    
 Personal OpenGL Sandbox.    
-Currently only MSVC build is supported (either via CMake or provided Visual Studio Solution file).    
+Currently, this project uses CMake as build system. The supported compilers are MinGW, MSVC on Windows and GCC on Linux (tested on Ubuntu).
+A Visual Studio solution file is also provided.    
 For simplicity, required library files are contained within this repository.    
 
 ## Overview    
@@ -66,10 +67,17 @@ cmake --build . --config Release -j
 ```
 mkdir build
 cd build
-cmake -G "MinGW Makefiles" -A x64 ..
+cmake -G "MinGW Makefiles" ..
 cmake --build . --config Release -j
 ```
 
+#### Linux - GCC
+```
+mkdir build
+cd build
+cmake -G "Unix Makefiles" ..
+cmake --build . --config Release -j
+```
 
 **NOTE**: Currently the resource folder `res` needs to be manually copied to the executable directory before running.    
 This will be changed in the future.   
