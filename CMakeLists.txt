@@ -22,3 +22,18 @@ include_directories(${PROJECT_SOURCE_DIR}/lib/include)
 
 # all sources are contained in the src folder
 add_subdirectory(${PROJECT_SOURCE_DIR}/src)
+
+
+# add the iup libraries
+add_library(IUP_LIBRARY STATIC IMPORTED)
+add_library(IUPGL_LIBRARY STATIC IMPORTED)
+
+# currently, only msvc build available:
+set_target_properties(IUP_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/iup.lib)
+set_target_properties(IUPGL_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/iupgl.lib)
+
+target_link_libraries(${TARGET_NAME} PUBLIC IUP_LIBRARY)
+target_link_libraries(${TARGET_NAME} PUBLIC IUPGL_LIBRARY)
+
+target_link_libraries(${TARGET_NAME} PUBLIC comctl32)
+target_link_libraries(${TARGET_NAME} PUBLIC opengl32)
