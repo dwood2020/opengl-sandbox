@@ -52,6 +52,10 @@ if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
 
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         # building on Windows using GCC
+        
+        # TEST: use libc++ ...STATE: libc++ not working effortlessly on MinGW/MSYS2
+        #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++") 
+
         set_target_properties(IUP_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/mingw-x64/libiup.a)
         set_target_properties(IUPGL_LIBRARY PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/mingw-x64/libiupgl.a)
         
