@@ -50,7 +50,9 @@ The implementation makes a block selectable directly in the 3D rendering. It wor
 (The selection logic is encapsulated within `MouseSelector`).
 
 ---
-## Build instructions
+## Build instructions   
+**NOTE**: All instructions here show how to build a Release build. Debug builds can be built by changing the according CMake parameters.   
+
 #### Windows - MSVC/Visual Studio
 ```
 mkdir build
@@ -58,6 +60,15 @@ cd build
 cmake -G "Visual Studio 16 2019" -A x64 ..
 cmake --build . --config Release -j
 ```
+
+#### Windows - MinGW
+```
+mkdir build
+cd build
+cmake -G "MinGW Makefiles" -A x64 ..
+cmake --build . --config Release -j
+```
+
 
 **NOTE**: Currently the resource folder `res` needs to be manually copied to the executable directory before running.    
 This will be changed in the future.
