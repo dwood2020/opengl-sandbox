@@ -218,9 +218,6 @@
     <ClInclude Include="src\renderer\GLStateHandler.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\renderer\IRenderable.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\voxel\VoxelGround.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
