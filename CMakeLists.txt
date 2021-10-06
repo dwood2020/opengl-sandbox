@@ -52,7 +52,7 @@ if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
 
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         # building on Windows using GCC
-        
+
         # TEST: use libc++ ...STATE: libc++ not working effortlessly on MinGW/MSYS2
         #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++") 
 
@@ -69,6 +69,19 @@ if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
         #target_link_libraries(${TARGET_NAME} PUBLIC uuid)
         #target_link_libraries(${TARGET_NAME} PUBLIC oleaut32)
         #target_link_libraries(${TARGET_NAME} PUBLIC ole32)
+    endif()
+
+elseif(CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux")
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        # building on Linux using GCC
+
+        #NOTE: THis is a new function (avail. since CMake 3.13) which "should be avoided"
+        target_link_directories(${MAIN_TARGET_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/lib/gcc-x64)
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC iup)
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC iupgl)
+
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC dl)
+
     endif()
 endif()
 
