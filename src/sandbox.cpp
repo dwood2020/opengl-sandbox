@@ -263,7 +263,6 @@ int main(int argc, char* argv[]) {
 	
 
 
-	//renderer.AddSimpleCommand(Mid, &gridMesh, gridMaterial);
 	renderer.AddSimpleCommand(Mid, &cs3dMesh, coordSystemMaterial);
 	renderer.AddSimpleCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
 	renderer.AddSimpleCommand(Msphere, &sphereMesh, defaultMaterial);
@@ -271,23 +270,13 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Mcube, &cubeMesh, woodenBoxMaterial);	
 	renderer.AddSimpleCommand(M333, &cubeMesh, whiteMaterial);
 
-	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial, flatWhiteMaterial);	
+	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial, gridMaterial);	
 
 	
 	renderer.Prepare();	
-
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	//glEnable(GL_DEPTH_TEST);
-
-
 	
-
+	
 	while (!g_exitProgram) {
-
-		// testing dynamic buffer updating
-		/*dynamicLine.GetVerticesPosNorm()[1].pos.x += 0.01f;
-		dynamicLine.Update();*/
-
 
 		renderer.DoFrame();		
 
