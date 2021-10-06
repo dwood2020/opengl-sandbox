@@ -1,6 +1,15 @@
 # opengl-sandbox    
-Personal OpenGL Sandbox.   
-Currently only as Visual Studio 2019 project, CMake support will be added in the future.   
+Personal OpenGL Sandbox.    
+Currently only MSVC build is supported (either via CMake or provided Visual Studio Solution file).    
+For simplicity, required library files are contained within this repository.    
+
+## Overview    
+- [Goal](## Goal)
+- [Implemented features](## Implemented features)
+- [Build instructions](## Build instructions)
+- [Third-party dependencies](## Third-party dependencies)
+
+---
 
 ## Goal   
 The aim of this project is to implement different techniques commonly used in rendering engines and to provide a "sandbox" 
@@ -33,12 +42,25 @@ Uniforms which define a material are ownded by the material itself.
 
 #### Simple Voxel World Grid   
 A simple voxel grid is defined from which voxel meshes are generated. 
-Currently, The grid definition consists of 8x8x8 block sections which are simply held in a `std::map` and consist of flat `char` arrays.
+Currently, the grid definition consists of 8x8x8 block sections which are simply held in a `std::map` and consist of flat `char` arrays.
 
 #### 3D object selection    
 A simple object selection via a casted ray is implemented for blocks which are contained in the voxel grid. 
 The implementation makes a block selectable directly in the 3D rendering. It works by iterating through the grid along a ray.
 (The selection logic is encapsulated within `MouseSelector`).
+
+---
+## Build instructions
+#### Windows - MSVC/Visual Studio
+```
+mkdir build
+cd build
+cmake -G "Visual Studio 16 2019" -A x64 ..
+cmake --build . --config Release -j
+```
+
+*NOTE*: Currently the resource folder `res` needs to be manually copied to the executable directory before running.    
+This will be changed in the future.
 
 ---
 
