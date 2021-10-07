@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
 	// utility listener for sandbox
 	SandboxListener sandboxListener;
 
-
+	// the global event bus
 	EventBus eventBus;	
 		
 
@@ -97,13 +97,13 @@ int main(int argc, char* argv[]) {
 	renderer.SetClearColor(glm::vec3(0.075f, 0.196f, 0.325f));	
 	renderer.Init(window.GetWindowRect());
 
-	
+	// print the OpenGL version 
 	std::string glVersionStr = (const char*)glGetString(GL_VERSION);
 	std::cout << "OpenGL Version: " << glVersionStr << std::endl;
 	window.SetGLVersionLabel(glVersionStr);
 	
 
-	
+	// make some static meshes (these will not be selectable)
 	StaticMesh cubeMesh = StaticMeshFactory::GetInstance().MakeCube(1.0f, true);	
 	StaticMesh gridMesh = StaticMeshFactory::GetInstance().MakeSimpleGrid(20.0f);
 	StaticMesh cs3dMesh = StaticMeshFactory::GetInstance().MakeCoordinateSystem(2.0f);
@@ -114,7 +114,7 @@ int main(int argc, char* argv[]) {
 
 
 	
-	// Testing voxel scene
+	// Init the voxel scene
 	VoxelScene voxelScene;
 	MouseSelector mouseSelector(eventBus, camera, window, voxelScene);
 
@@ -165,7 +165,7 @@ int main(int argc, char* argv[]) {
 	voxelScene.SetBlock({ 7,0,-12 }, 1);
 
 
-	// ground mesh
+	// "ground" (the grid)
 	voxelScene.ground.SetDimensions(glm::vec3(20.f, 0.f, 20.f));
 	
 	voxelScene.GenerateMeshes();
@@ -262,7 +262,7 @@ int main(int argc, char* argv[]) {
 	mouseSelector.Init(renderer, flatSelectionMaterial);
 	
 
-
+	// add "simple" direct render commands to the renderer
 	renderer.AddSimpleCommand(Mid, &cs3dMesh, coordSystemMaterial);
 	renderer.AddSimpleCommand(MsecondSphere, &secondSphereMesh, phongMaterial1);
 	renderer.AddSimpleCommand(Msphere, &sphereMesh, defaultMaterial);
@@ -270,12 +270,14 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Mcube, &cubeMesh, woodenBoxMaterial);	
 	renderer.AddSimpleCommand(M333, &cubeMesh, whiteMaterial);
 
+	// connect the voxel scene to the renderer
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial, gridMaterial);	
 
-	
+	// prepare render state (last step before entering the loop)
 	renderer.Prepare();	
 	
 
+	// the "game loop"
 	while (!g_exitProgram) {
 
 		renderer.DoFrame();		

@@ -5,6 +5,13 @@
 #include "../events/Event.hpp"
 
 
+/// <summary>
+/// This class implements a simple arcball-like (no actual arcball algorithm used) camera
+/// which is defined by a sphere on which it can be moved around (rotated).
+/// This camera supports both perspective and orthographic projection modes 
+/// (Note that perspective and orthographic projections require different user input processing for the same actions).
+/// Rotating, panning and zooming are implemented for both projection modes.
+/// </summary>
 class SimpleCamera final : public CameraBase {
 private:
 	glm::mat4 V;

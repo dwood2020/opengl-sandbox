@@ -2,9 +2,15 @@
 #include "Keycodes.hpp"
 
 
+/// <summary>
+/// The data type for the EventType-enumeration.
+/// </summary>
 using EventType_t = int;
 
 
+/// <summary>
+/// All event types are defined here.
+/// </summary>
 enum class EventType : EventType_t {
 	None = 0,
 	WindowClose,
@@ -20,6 +26,13 @@ enum class EventType : EventType_t {
 };
 
 
+/// <summary>
+/// This class represents a generic event.
+/// It holds a type enum and a union of event parameters.
+/// The parameters are accessed via getters/setters defined in event subclasses.
+/// Instanciation of an event subclass also sets the EventType enum.
+/// (This makes easy processing possible by preventing object slicing)
+/// </summary>
 class Event {
 protected:
 	EventType type;
@@ -38,7 +51,7 @@ public:
 
 protected:
 	// payload data
-	// this is really the easiest (but not the best) way possible: no subclass members which can be sliced away.
+	// this is really the easiest (but not the best) way possible: no subclass members which could be sliced away.
 	// & there is no need to allocate event instances on the heap (to avoid obj slicing in the queue) this way - event base types can be directly used.
 	union {
 		struct {

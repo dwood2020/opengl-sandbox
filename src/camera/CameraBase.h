@@ -5,6 +5,10 @@
 #include "../events/Event.hpp"
 
 
+/// <summary>
+/// This is the abstract base class for for all actually implemented camera classes.
+/// It defines the interface needed by the renderer.
+/// </summary>
 class CameraBase : public EventListener {
 protected:	
 	bool PVIsDirty;
