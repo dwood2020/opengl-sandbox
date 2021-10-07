@@ -38,13 +38,23 @@ protected:
 	EventType type;
 
 public:
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="type">Event type</param>
 	Event(EventType type): type(type) {
 		IntInt.i1 = 0;
 		IntInt.i2 = 0;
 	}
 
+
 	virtual ~Event() { }
 
+
+	/// <summary>
+	/// Gets the Event type.
+	/// </summary>
+	/// <returns>Event type</returns>
 	EventType GetType(void) const {
 		return type;
 	}
@@ -85,6 +95,7 @@ protected:
 
 
 // subclassed events
+// -----------------
 
 class WindowCloseEvent : public Event {
 public:
