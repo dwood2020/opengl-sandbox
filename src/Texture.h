@@ -3,6 +3,9 @@
 #include <string>
 
 
+/// <summary>
+/// This class represents an OpenGL texture.
+/// </summary>
 class Texture final {
 private:
 	GLuint id;

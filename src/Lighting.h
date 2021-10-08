@@ -14,9 +14,13 @@ private:
 	float ambient;
 
 public:
+	/// <summary>
+	/// Constructor.
+	/// </summary>
 	Lighting();
 
 	~Lighting();
+
 
 	/// <summary>
 	/// Sets the (directional) lights direction
@@ -24,11 +28,13 @@ public:
 	/// <param name="direction">light direction</param>
 	void SetDirection(const glm::vec3& direction);
 
+
 	/// <summary>
 	/// Sets the light color.
 	/// </summary>
 	/// <param name="color">light color</param>
 	void SetColor(const glm::vec3& color);
+
 
 	/// <summary>
 	/// Sets the ambient factor, e.g. the "strength" of the ambient light.
@@ -44,8 +50,6 @@ public:
 	/// </summary>
 	/// <param name="shaderProg">Shader program to set the uniforms in</param>
 	void SetUniforms(ShaderProgram* shaderProg) const;
-
-
 };
 
 
