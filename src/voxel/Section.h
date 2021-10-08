@@ -4,6 +4,10 @@
 #include "../mesh/DynamicMesh.h"
 
 
+/// <summary>
+/// This class represents a single "section" within the voxel scene.
+/// A section is a flat sectionSize^3 (currently 8x8x8) block array.
+/// </summary>
 class Section final {
 public:
 	static constexpr unsigned int sectionSize = 8u;
@@ -46,6 +50,7 @@ public:
 	/// </summary>
 	~Section();
 
+
 	/// <summary>
 	/// Gets a block information at the specified location within the section
 	/// NOTE: Location is in section coordinates.
@@ -53,6 +58,7 @@ public:
 	/// <param name="pos">location</param>
 	/// <returns>Block information at that location</returns>
 	char GetBlock(const glm::ivec3& pos);
+
 
 	/// <summary>
 	/// Gets a block information at the specified location within the section
@@ -63,6 +69,7 @@ public:
 	/// <returns>Block information at that location</returns>
 	char GetBlock(const glm::vec3& pos);
 
+
 	/// <summary>
 	/// Sets a block at the specified location within the section.
 	/// NOTE: Location is in section coordinates.
@@ -71,6 +78,7 @@ public:
 	/// <param name="block">Block information</param>	
 	void SetBlock(const glm::ivec3& pos, char block);
 
+
 	/// <summary>
 	/// Sets a block at the specified location within the section.
 	/// NOTE: Location is in section coordinates.
@@ -78,6 +86,7 @@ public:
 	/// <param name="pos"> block location</param>	
 	/// <param name="block">Block information</param>
 	void SetBlock(const glm::vec3& pos, char block);
+
 
 	/// <summary>
 	/// Gets a pointer to the raw array.

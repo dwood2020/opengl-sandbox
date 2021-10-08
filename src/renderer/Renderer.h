@@ -33,7 +33,6 @@ private:
 	VoxelScene* voxelScene;
 	MaterialBase* defaultBlockMaterial;
 	MaterialBase* groundGridMaterial;
-	/*MaterialBase* groundSurfaceMaterial;*/
 
 	GLStateHandler stateHandler;
 
