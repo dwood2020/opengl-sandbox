@@ -5,6 +5,12 @@
 #include "MeshBase.h"
 
 
+/// <summary>
+/// This class encapsulates a "static" mesh: 
+/// Mesh vertices which cannot be altered after they have been sent to the GPU (after calling Prepare).
+/// NOTE: This mesh class was adopted from an earlier project and shall be replaced by a new implementation
+/// in the future. At present, having a non-alterable vertex array saves some memory on CPU side.
+/// </summary>
 class StaticMesh : public MeshBase {
 protected:
 	unsigned int vao;	
