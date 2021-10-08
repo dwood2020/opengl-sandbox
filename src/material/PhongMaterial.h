@@ -8,6 +8,8 @@
 
 /// <summary>
 /// This class represents a Phong-model material.
+/// A phong material consists of a diffuse color and/or texture, a specular color and/or texture (reflection map),
+/// a shininess and and opacity parameter.
 /// </summary>
 class PhongMaterial final : public MaterialBase {
 private:

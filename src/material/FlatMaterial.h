@@ -6,6 +6,11 @@
 #include "../shader/ShaderProgram.h"
 
 
+/// <summary>
+/// This class represents a flat material.
+/// Flat materials consist of a single "flat" color (RGBA).
+/// It is also possible to use color vertices instead.
+/// </summary>
 class FlatMaterial final : public MaterialBase {
 private:
 	const std::string colorName = "color";
