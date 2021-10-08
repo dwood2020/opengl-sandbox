@@ -1,6 +1,6 @@
 # opengl-sandbox    
 Personal OpenGL Sandbox.    
-This project uses CMake as build system. The supported compilers are MinGW, MSVC on Windows and GCC on Linux (tested on Ubuntu).
+This project uses CMake as build system. The supported compilers are MinGW, MSVC on Windows and GCC on Linux (tested on Lubuntu).
 A Visual Studio solution file is also provided.    
 For simplicity, required library files are contained within this repository.    
 
