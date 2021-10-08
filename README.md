@@ -81,7 +81,7 @@ cmake --build . --config Release -j
 
 **NOTE**: Currently the resource folder `res` needs to be manually copied to the executable directory before running.    
 This will be changed in the future.   
-Copying can be manually done by e.g. `scp -r ./res ./build/res`
+Copying can be manually done with e.g. `scp -r ./res ./build/res`
 
 ---
 
@@ -94,4 +94,3 @@ All dependant libraries are included within this repository, see `LICENSES.txt`.
 - stb_image.h: <https://github.com/nothings/stb>
 - Bresenham Algorithm by Will Navidson (currently not in use but part of the source files): <https://gist.github.com/yamamushi/5823518>
 ---
-Readme is WIP
