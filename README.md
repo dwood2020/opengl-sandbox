@@ -8,6 +8,7 @@ For simplicity, required library files are contained within this repository.
 - [Goal](##goal)
 - [Implemented features](##implemented-features)
 - [Build instructions](##build-instructions)
+- [Code documentation](##code-documentation)
 - [Third-party dependencies](##third-party-dependencies)
 
 ---
@@ -82,6 +83,14 @@ cmake --build . --config Release -j
 **NOTE**: Currently the resource folder `res` needs to be manually copied to the executable directory before running.    
 This will be changed in the future.   
 Copying can be manually done with e.g. `scp -r ./res ./build/res`
+
+---
+
+## Code documentation
+Doxygen HTML code documentation can be generated with the included Doxyfile:
+```
+doxygen Doxyfile
+```
 
 ---
 
