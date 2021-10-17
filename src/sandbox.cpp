@@ -123,7 +123,7 @@ int main(int argc, char* argv[]) {
 	voxelScene.SetBlock({ 12,0,0 }, 2);
 	voxelScene.SetBlock({ 12,1,0 }, 3);
 	voxelScene.SetBlock({ -4,-4,-4 }, 2);
-	voxelScene.SetBlock({ -1,0,0 }, 4);
+	voxelScene.SetBlock({ 3,0,1 }, 4);
 	char b003 = voxelScene.GetBlock({ 2,0,3 });
 	
 	voxelScene.SetBlock({ -8,0,0 }, 1);
@@ -268,7 +268,7 @@ int main(int argc, char* argv[]) {
 	renderer.AddSimpleCommand(Msphere, &sphereMesh, defaultMaterial);
 	renderer.AddSimpleCommand(Mcone, &coneMesh, greenDebugMaterial);
 	renderer.AddSimpleCommand(Mcube, &cubeMesh, woodenBoxMaterial);	
-	renderer.AddSimpleCommand(M333, &cubeMesh, whiteMaterial);
+	//renderer.AddSimpleCommand(M333, &cubeMesh, whiteMaterial);
 
 	// connect the voxel scene to the renderer
 	renderer.AddVoxelScene(voxelScene, pinkDebugMaterial, gridMaterial);	
