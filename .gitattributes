@@ -66,3 +66,4 @@
 # custom linguist ignores
 lib/** linguist-vendored
 src/glad/* linguist-vendored
+doc/** linguist-vendored

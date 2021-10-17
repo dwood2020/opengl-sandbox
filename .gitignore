@@ -370,3 +370,6 @@ res/texture/mc/*
 
 # ignore all cmake build output
 build/*
+
+# ignore all doxygen output
+doc/*
