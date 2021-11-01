@@ -14,7 +14,6 @@ void main(void) {
 		fragColor = vec4(vertexColor, 1.0f);
 	}
 	else {
-		//fragColor = vec4(color, 1.0f);	
 		fragColor = color;
 	}
 
