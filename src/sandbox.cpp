@@ -13,7 +13,7 @@
 #include "mesh/DynamicMesh.h"
 #include "mesh/DynamicMeshFactory.h"
 #include "Texture.h"
-#include "camera/SimpleCamera.h"
+#include "camera/OrbitCamera.h"
 #include "Lighting.h"
 #include "material/MaterialLibrary.h"
 #include "voxel/VoxelScene.h"

@@ -1,4 +1,4 @@
-#include "SimpleCamera.h"
+#include "OrbitCamera.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/matrix_access.hpp>
 #include <cmath>

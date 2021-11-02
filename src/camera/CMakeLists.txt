@@ -3,4 +3,4 @@
 
 target_sources(${MAIN_TARGET_NAME} PRIVATE
     CameraBase.cpp
-    SimpleCamera.cpp)
+    OrbitCamera.cpp)
