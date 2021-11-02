@@ -12,7 +12,7 @@
 /// (Note that perspective and orthographic projections require different user input processing for the same actions).
 /// Rotating, panning and zooming are implemented for both projection modes.
 /// </summary>
-class SimpleCamera final : public CameraBase {
+class OrbitCamera final : public CameraBase {
 private:
 	glm::mat4 V;
 	glm::mat4 P;
@@ -49,10 +49,10 @@ public:
 	/// <param name="eventBus">Ref to global event bus instance</param>
 	/// <param name="windowRect">Initial window dimensions as vec2, x=width, y=height</param>
 	/// <param name="pos">Initial rho value (distance target-position)</param>
-	SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, float rhoInitial);
+	OrbitCamera(EventBus& eventBus, const glm::vec2& windowRect, float rhoInitial);
 
 
-	~SimpleCamera();
+	~OrbitCamera();
 
 	/// <summary>
 	/// Get the view matrix

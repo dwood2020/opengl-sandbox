@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	// init camera	
-	SimpleCamera camera(eventBus, window.GetWindowRect(), 5.0f);
+	OrbitCamera camera(eventBus, window.GetWindowRect(), 5.0f);
 
 	// init basic global lighting
 	Lighting lighting;

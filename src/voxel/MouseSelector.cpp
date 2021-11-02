@@ -125,7 +125,7 @@ void MouseSelector::CalculateRayOrtho(int mouseX, int mouseY) {
 }
 
 
-//NOTE: This code is copied from SimpleCamera, maybe re-architecture later
+//NOTE: This code is copied from OrbitCamera, maybe re-architecture later
 glm::vec2 MouseSelector::ScreenToNDC(const glm::vec2& posScreen) const {
 	// this could be done in homogenous coordinates or with a 
 	// matrix/vector transformation, or simply in the linearised form	

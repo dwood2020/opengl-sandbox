@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, float rhoInitial):
+OrbitCamera::OrbitCamera(EventBus& eventBus, const glm::vec2& windowRect, float rhoInitial):
 	V(glm::mat4(1.0f)), P(glm::mat4(1.0f)), PV(glm::mat4(1.0f)), windowRect(windowRect),
 	lmbIsDown(false), mmbIsDown(false), isFirstFrame(true), lastMousePosNDC(glm::vec2(0.0f)),
 	target(glm::vec3(0.0f)), isOrthographic(false), orthographicZoomFactor(1.0f) {
@@ -36,35 +36,35 @@ SimpleCamera::SimpleCamera(EventBus& eventBus, const glm::vec2& windowRect, floa
 }
 
 
-SimpleCamera::~SimpleCamera() { }
+OrbitCamera::~OrbitCamera() { }
 
 
-const glm::mat4& SimpleCamera::GetViewMatrix(void) const {
+const glm::mat4& OrbitCamera::GetViewMatrix(void) const {
 	return V;
 }
 
 
-const glm::mat4& SimpleCamera::GetProjectionMatrix(void) const {
+const glm::mat4& OrbitCamera::GetProjectionMatrix(void) const {
 	return P;
 }
 
 
-const glm::mat4& SimpleCamera::GetViewProjectionMatrix(void) const {
+const glm::mat4& OrbitCamera::GetViewProjectionMatrix(void) const {
 	return PV;
 }
 
 
-const glm::vec3& SimpleCamera::GetPosition(void) const {
+const glm::vec3& OrbitCamera::GetPosition(void) const {
 	return position;
 }
 
 
-const glm::vec3& SimpleCamera::GetTarget(void) const {
+const glm::vec3& OrbitCamera::GetTarget(void) const {
 	return target;
 }
 
 
-void SimpleCamera::ResetPosition(void) {
+void OrbitCamera::ResetPosition(void) {
 	if (!isOrthographic) {
 		rho = rhoInitial;
 	}	
@@ -81,7 +81,7 @@ void SimpleCamera::ResetPosition(void) {
 }
 
 
-void SimpleCamera::SetProjectionMode(bool orthographic) {
+void OrbitCamera::SetProjectionMode(bool orthographic) {
 	isOrthographic = orthographic;
 
 	if (orthographic) {
@@ -97,7 +97,7 @@ void SimpleCamera::SetProjectionMode(bool orthographic) {
 }
 
 
-void SimpleCamera::OnEvent(Event& e) {
+void OrbitCamera::OnEvent(Event& e) {
 	if (e.GetType() == EventType::WindowResize) {
 		WindowResizeEvent& eResize = (WindowResizeEvent&)e;
 		windowRect.x = (float)eResize.GetScreenWidth();
@@ -131,7 +131,7 @@ void SimpleCamera::OnEvent(Event& e) {
 }
 
 
-void SimpleCamera::ProcessMouseButtonInput(MouseButtonCode mbCode, bool isPressed) {
+void OrbitCamera::ProcessMouseButtonInput(MouseButtonCode mbCode, bool isPressed) {
 	if (mbCode == MouseButtonCode::Left) {
 		if (isPressed) {
 			lmbIsDown = true;
@@ -153,7 +153,7 @@ void SimpleCamera::ProcessMouseButtonInput(MouseButtonCode mbCode, bool isPresse
 }
 
 
-void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
+void OrbitCamera::ProcessMouseMoveInput(int x, int y) {
 	if (lmbIsDown) {
 		PerformRotation((float)x, (float)y);		
 	}
@@ -164,7 +164,7 @@ void SimpleCamera::ProcessMouseMoveInput(int x, int y) {
 }
 
 
-void SimpleCamera::PerformRotation(float x, float y) {
+void OrbitCamera::PerformRotation(float x, float y) {
 
 	glm::vec2 posMouse = ScreenToNDC(glm::vec2(x, y));
 	glm::vec2 delta = DeltaNDC(posMouse);
@@ -193,7 +193,7 @@ void SimpleCamera::PerformRotation(float x, float y) {
 }
 
 
-void SimpleCamera::PerformTranslation(float x, float y) {
+void OrbitCamera::PerformTranslation(float x, float y) {
 	
 	glm::vec2 posMouse = ScreenToNDC(glm::vec2(x, y));
 	glm::vec2 delta = DeltaNDC(posMouse);
@@ -239,7 +239,7 @@ void SimpleCamera::PerformTranslation(float x, float y) {
 }
 
 
-void SimpleCamera::PerformZoom(MouseScrollDirection dir) {	
+void OrbitCamera::PerformZoom(MouseScrollDirection dir) {	
 		
 	const float rhoMin = 0.5f;
 	const float accelerator = rho * 0.2f;
@@ -268,7 +268,7 @@ void SimpleCamera::PerformZoom(MouseScrollDirection dir) {
 }
 
 
-void SimpleCamera::UpdateViewProjectionMatrixAndPosition(void) {
+void OrbitCamera::UpdateViewProjectionMatrixAndPosition(void) {
 
 	const float xInputInv = -1.0f;
 	const float yInputInv = 1.0f;
@@ -295,7 +295,7 @@ void SimpleCamera::UpdateViewProjectionMatrixAndPosition(void) {
 }
 
 
-void SimpleCamera::CalcProjection(void) {
+void OrbitCamera::CalcProjection(void) {
 	
 	float w = windowRect.x;
 	float h = windowRect.y;	
@@ -316,7 +316,7 @@ void SimpleCamera::CalcProjection(void) {
 }
 
 
-glm::vec2 SimpleCamera::ScreenToNDC(const glm::vec2& posScreen) const {
+glm::vec2 OrbitCamera::ScreenToNDC(const glm::vec2& posScreen) const {
 	
 	// this could be done in homogenous coordinates or with a 
 	// matrix/vector transformation, or simply in the linearised form	
@@ -335,7 +335,7 @@ glm::vec2 SimpleCamera::ScreenToNDC(const glm::vec2& posScreen) const {
 }
 
 
-glm::vec2 SimpleCamera::DeltaNDC(const glm::vec2& posNDC) const {
+glm::vec2 OrbitCamera::DeltaNDC(const glm::vec2& posNDC) const {
 	
 	// zero crossing problems are avoided by a simple transformation (pure translation)
 
