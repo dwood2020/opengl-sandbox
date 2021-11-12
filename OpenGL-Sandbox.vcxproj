@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -181,7 +181,7 @@
     <ClCompile Include="src\material\MaterialBase.cpp" />
     <ClCompile Include="src\shader\ShaderFactory.cpp" />
     <ClCompile Include="src\Lighting.cpp" />
-    <ClCompile Include="src\camera\SimpleCamera.cpp" />
+    <ClCompile Include="src\camera\OrbitCamera.cpp" />
     <ClCompile Include="src\camera\CameraBase.cpp" />
     <ClCompile Include="src\mesh\StaticMeshFactory.cpp" />
     <ClCompile Include="src\events\EventBus.cpp" />
@@ -217,7 +217,7 @@
     <ClInclude Include="src\material\MaterialBase.h" />
     <ClInclude Include="src\shader\ShaderFactory.h" />
     <ClInclude Include="src\Lighting.h" />
-    <ClInclude Include="src\camera\SimpleCamera.h" />
+    <ClInclude Include="src\camera\OrbitCamera.h" />
     <ClInclude Include="src\camera\CameraBase.h" />
     <ClInclude Include="src\events\EventListener.hpp" />
     <ClInclude Include="src\mesh\StaticMeshFactory.h" />
