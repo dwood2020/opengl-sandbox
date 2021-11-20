@@ -95,7 +95,7 @@ doxygen Doxyfile
 ---
 
 ## Third-party dependencies   
-All dependant libraries are included within this repository, see `LICENSES.txt`.   
+All dependent libraries are included within this repository, see `LICENSES.txt`.   
 
 - IUP: <https://www.tecgraf.puc-rio.br/iup/>
 - GLAD: <https://github.com/dav1dde/glad-web>
