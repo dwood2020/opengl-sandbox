@@ -69,11 +69,13 @@ if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
 elseif(CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux")
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         # building on Linux using GCC
-        #NOTE: THis is a new function (avail. since CMake 3.13) which "should be avoided"
+        # NOTE: THis is a new function (avail. since CMake 3.13) which "should be avoided"
         target_link_directories(${MAIN_TARGET_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/lib/gcc-x64)
         target_link_libraries(${MAIN_TARGET_NAME} PUBLIC iup)
         target_link_libraries(${MAIN_TARGET_NAME} PUBLIC iupgl)
 
+        # NOTE: It may be necessary to install OpenGL libs, e.g. Mesa (apt install mesa-common-dev)
+        target_link_libraries(${MAIN_TARGET_NAME} PUBLIC GL)
         target_link_libraries(${MAIN_TARGET_NAME} PUBLIC dl)
     endif()
 endif()
