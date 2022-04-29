@@ -110,6 +110,10 @@ void StaticMesh::Prepare(void) {
 
 	GLsizei offset = 0;	
 
+	// NOTE on the int to void* cast: OpenGL requires a C / C++ implementation that preserves int-to-pointer-to-int conversions
+	// see here: https://stackoverflow.com/questions/58932938/is-cast-to-void-in-a-glvertexattribpointer-call-a-legal-c
+	// This may be improved in the future by using a different API function, 
+	// see here: https://stackoverflow.com/questions/37972229/glvertexattribpointer-and-glvertexattribformat-whats-the-difference
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)offset);
 	glEnableVertexAttribArray(0);
 	offset += 3 * sizeof(float);
