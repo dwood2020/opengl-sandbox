@@ -4,6 +4,8 @@ This project uses CMake as build system. The supported compilers are MinGW, MSVC
 A Visual Studio solution file is also provided.    
 For simplicity, required library files are contained within this repository.    
 
+![Screenshot](/img/screenshot.png "Project screenshot")
+
 ## Overview    
 - [Goal](##goal)
 - [Implemented features](##implemented-features)
